@@ -1,0 +1,480 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Mirror UI</title>
+  <style>
+    /* Global reset and basic settings */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background: #000; /* 修改为黑色背景 */
+      color: #333;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      /* Adjusted grid template areas, removing the bottom-right for absolute positioning */
+      grid-template-areas:
+        "top-left . top-right"
+        "center-area center-area center-area"
+        "bottom-left . .";
+    }
+    /* Responsive layout for smaller screens */
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+          "top-left"
+          "top-right"
+          "center-area"
+          "bottom-left";
+      }
+      /* For mobile, place the bottom-right panel in a fixed position too (if desired). */
+      .bottom-right {
+        bottom: 0.5rem;
+        right: 0.5rem;
+      }
+    }
+
+    /* Water-ink style background simulation */
+    .card {
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      backdrop-filter: blur(4px);
+      background-color: #ffffff;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 30%),
+        radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0) 50%),
+        radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0) 60%);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Top-left: Task list */
+    .top-left {
+      grid-area: top-left;
+      padding: 1rem;
+    }
+    .task-list {
+      max-width: 300px;
+    }
+    .task-list h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .task-list ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+    }
+    .task-list li {
+      margin: 0.25rem 0;
+    }
+    .add-task {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+      gap: 0.4rem;
+    }
+    .add-task button {
+      font-size: 1.2rem;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+    }
+    .add-task button:hover {
+      background: #005bbf;
+    }
+    .add-task input {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Top-right: Date/Time + Weather */
+    .top-right {
+      grid-area: top-right;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+    .time-date {
+      min-width: 240px;
+      text-align: right;
+    }
+    .time-date .time {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .time-date .date {
+      margin-top: 0.25rem;
+      font-style: italic;
+    }
+    .weather-info {
+      min-width: 240px;
+      text-align: right;
+    }
+    .weather-info p {
+      margin: 0.3rem 0;
+    }
+
+    /* Center area */
+    .center-area {
+      grid-area: center-area;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Bottom-left: Music player + ChatGPT */
+    .bottom-left {
+      grid-area: bottom-left;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .music-player {
+      width: 280px;
+    }
+    .music-player h2 {
+      margin-bottom: 0.5rem;
+    }
+    .music-name {
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+    }
+    .music-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background-color: #ddd;
+      border-radius: 3px;
+      position: relative;
+    }
+    .progress-filled {
+      width: 30%;
+      height: 100%;
+      background: #af4261;
+      border-radius: 3px;
+    }
+    .music-controls {
+      display: flex;
+      justify-content: space-between;
+    }
+    .music-controls button {
+      background: #efefef;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    .music-controls button:hover {
+      background: #ddd;
+    }
+    .lyrics {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ChatGPT panel */
+    .chatgpt-panel {
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .chatgpt-panel h3 {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .chat-box {
+      flex: 1;
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.5rem;
+      overflow-y: auto;
+      min-height: 100px;
+      max-height: 150px;
+    }
+    .chat-input {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .chat-input button {
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .chat-input button[type="submit"] {
+      padding: 0.5rem 1rem;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+    .chat-input button[type="submit"]:hover {
+      background: #005bbf;
+    }
+    .voice-btn {
+      background: #f0ad4e;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .voice-btn:hover {
+      background: #ec971f;
+    }
+
+    /* Bottom-right: Bathroom control panel */
+    /* Position absolutely at the bottom-right corner of the screen */
+    .bottom-right {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      z-index: 10; /* Bring it above other elements if needed */
+      padding: 1rem;
+    }
+    .control-panel {
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .control-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    /* Simplified button style */
+    .control-button {
+      flex: 1 0 30%;
+      background: #e0e0e0;
+      color: #333;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .control-button.active {
+      background: #4caf50;
+      color: #fff;
+    }
+    .control-button:hover {
+      background: #ccc;
+    }
+    .mirror-defog {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+    .mirror-button {
+      width: 100%;
+      background: #e0e0e0;
+      color: #333;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .mirror-button.active {
+      background: #4caf50;
+      color: #fff;
+    }
+    .mirror-button:hover {
+      background: #ccc;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* Toggle .active on control/mirror buttons */
+      const toggleButtons = document.querySelectorAll('.control-button, .mirror-button');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('active');
+        });
+      });
+
+      /* Update current time and date */
+      function updateTime() {
+        const now = new Date();
+        const timeElement = document.querySelector('.time');
+        const dateElement = document.querySelector('.date');
+
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+
+        if(timeElement) {
+          timeElement.textContent = `${hours}:${minutes}`;
+        }
+        if(dateElement) {
+          dateElement.textContent = `${year}-${month}-${day}`;
+        }
+      }
+      updateTime();
+      setInterval(updateTime, 60000); // update every minute
+
+      /* Add new task functionality */
+      const addButton = document.querySelector('.add-task button');
+      const addInput = document.querySelector('.add-task input');
+      const taskUl = document.querySelector('.task-list ul');
+
+      addButton.addEventListener('click', () => {
+        const newTask = addInput.value.trim();
+        if(newTask) {
+          const newLi = document.createElement('li');
+          newLi.textContent = newTask;
+          taskUl.appendChild(newLi);
+          addInput.value = '';
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- Top-left: Task List -->
+  <div class="top-left">
+    <div class="card task-list">
+      <h2>Today's Tasks</h2>
+      <ul>
+        <li>10:00 - 12:00 🏫 ELEC5304 Lecture</li>
+        <li>14:00 - 16:00 📝 ENGG3112 Discussion</li>
+        <li>17:00 - 18:00 📢 Academic Meeting</li>
+      </ul>
+      <div class="add-task">
+        <button>+</button>
+        <input type="text" placeholder="Add new task...">
+      </div>
+    </div>
+  </div>
+
+  <!-- Top-right: Date/Time + Weather -->
+  <div class="top-right">
+    <div class="card time-date">
+      <div class="time">--:--</div>
+      <div class="date">Loading date...</div>
+    </div>
+    <div class="card weather-info">
+      <p>Outdoor Weather: ☀ Sunny, 25°C</p>
+      <p>Indoor Temperature: 🌡 22°C</p>
+      <p>Indoor Humidity: 💧 60%</p>
+    </div>
+  </div>
+
+  <!-- Center area -->
+  <div class="center-area">
+    <!-- Main content goes here -->
+  </div>
+
+  <!-- Bottom-left: Music Player + ChatGPT -->
+  <div class="bottom-left">
+    <!-- Music Player -->
+    <div class="card music-player">
+      <h2>🎵 Music Player</h2>
+      <div class="music-name">Current Song: My Favorite Song</div>
+      <div class="music-progress">
+        <span>01:23</span>
+        <div class="progress-bar">
+          <div class="progress-filled"></div>
+        </div>
+        <span>03:45</span>
+      </div>
+      <div class="music-controls">
+        <button title="Previous">⏮</button>
+        <button title="Play/Pause">⏯</button>
+        <button title="Next">⏭</button>
+        <button title="Like">❤</button>
+      </div>
+      <div class="lyrics">
+        <div>[00:01] First line of the lyrics...</div>
+        <div>[00:10] Second line of the lyrics...</div>
+      </div>
+    </div>
+
+    <!-- ChatGPT Panel -->
+    <div class="card chatgpt-panel">
+      <h3>ChatGPT AI</h3>
+      <div class="chat-box">
+        <p><strong>AI:</strong> Hello! How can I help you?</p>
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Type your question...">
+        <button type="submit">Send</button>
+        <button class="voice-btn" title="Voice Input">🎤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom-right: Bathroom Control Panel (absolutely placed) -->
+  <div class="bottom-right">
+    <div class="card control-panel">
+      <!-- Top set (Quick Functions) -->
+      <div class="control-section">
+        <button class="control-button" title="Quick Heat">🔥 Quick Heat</button>
+        <button class="control-button" title="Dry">💨 Dry</button>
+        <button class="control-button" title="Wind Direction">🌬 Wind Direction</button>
+      </div>
+      <!-- Middle set (Air Functions) -->
+      <div class="control-section">
+        <button class="control-button" title="Warm Air">🌡 Warm Air</button>
+        <button class="control-button" title="Blow Air">🌬 Blow Air</button>
+        <button class="control-button" title="Ventilate">🌪 Ventilate</button>
+      </div>
+      <!-- Bottom set (Aux Functions) -->
+      <div class="control-section">
+        <button class="control-button" title="Light">💡 Light</button>
+        <button class="control-button" title="Stop All Functions">🛑 Stop</button>
+      </div>
+      <!-- Mirror Defog -->
+      <div class="mirror-defog">
+        <button class="mirror-button" title="Quick Defog">⚡ Quick Defog</button>
+        <button class="mirror-button" title="Constant Temperature Defog">♨ Constant Temperature Defog</button>
+      </div>
+    </div>
+  </div>
+
+
+</body></html>
