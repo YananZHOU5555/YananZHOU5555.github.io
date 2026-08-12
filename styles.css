@@ -244,9 +244,46 @@ h4 {
   margin-top: 26px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  gap: 8px 10px;
   font-size: 0.94rem;
   font-weight: 600;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 8px 5px 6px;
+  border-radius: 7px;
+  line-height: 1.25;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.profile-link:hover,
+.profile-link:focus-visible {
+  color: #244d84;
+  background: rgba(49, 95, 155, 0.07);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.profile-icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  opacity: 0.84;
+}
+
+.icon-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-fill {
+  fill: currentColor;
 }
 
 .section {
