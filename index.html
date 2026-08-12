@@ -1,480 +1,273 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Mirror UI</title>
-  <style>
-    /* Global reset and basic settings */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: sans-serif;
-      background: #000; /* 修改为黑色背景 */
-      color: #333;
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto 1fr auto;
-      /* Adjusted grid template areas, removing the bottom-right for absolute positioning */
-      grid-template-areas:
-        "top-left . top-right"
-        "center-area center-area center-area"
-        "bottom-left . .";
-    }
-    /* Responsive layout for smaller screens */
-    @media (max-width: 768px) {
-      body {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        grid-template-areas:
-          "top-left"
-          "top-right"
-          "center-area"
-          "bottom-left";
-      }
-      /* For mobile, place the bottom-right panel in a fixed position too (if desired). */
-      .bottom-right {
-        bottom: 0.5rem;
-        right: 0.5rem;
-      }
-    }
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Yanan Zhou is a PhD student at the University of Sydney working on robot perception, robot manipulation, multi-robot collaboration, and trustworthy AI."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content="Yanan Zhou" />
+    <meta
+      property="og:description"
+      content="Research in robot perception, manipulation, collaboration, and trustworthy AI."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Yanan Zhou</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    /* Water-ink style background simulation */
-    .card {
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      backdrop-filter: blur(4px);
-      background-color: #ffffff;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 30%),
-        radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0) 50%),
-        radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0) 60%);
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    /* Top-left: Task list */
-    .top-left {
-      grid-area: top-left;
-      padding: 1rem;
-    }
-    .task-list {
-      max-width: 300px;
-    }
-    .task-list h2 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .task-list ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
-    }
-    .task-list li {
-      margin: 0.25rem 0;
-    }
-    .add-task {
-      display: flex;
-      align-items: center;
-      margin-top: 0.5rem;
-      gap: 0.4rem;
-    }
-    .add-task button {
-      font-size: 1.2rem;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      width: 2rem;
-      height: 2rem;
-      cursor: pointer;
-    }
-    .add-task button:hover {
-      background: #005bbf;
-    }
-    .add-task input {
-      flex: 1;
-      padding: 0.4rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    /* Top-right: Date/Time + Weather */
-    .top-right {
-      grid-area: top-right;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 1rem;
-    }
-    .time-date {
-      min-width: 240px;
-      text-align: right;
-    }
-    .time-date .time {
-      font-size: 1.6rem;
-      font-weight: bold;
-    }
-    .time-date .date {
-      margin-top: 0.25rem;
-      font-style: italic;
-    }
-    .weather-info {
-      min-width: 240px;
-      text-align: right;
-    }
-    .weather-info p {
-      margin: 0.3rem 0;
-    }
-
-    /* Center area */
-    .center-area {
-      grid-area: center-area;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Bottom-left: Music player + ChatGPT */
-    .bottom-left {
-      grid-area: bottom-left;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .music-player {
-      width: 280px;
-    }
-    .music-player h2 {
-      margin-bottom: 0.5rem;
-    }
-    .music-name {
-      font-size: 0.9rem;
-      margin: 0.5rem 0;
-    }
-    .music-progress {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 0.5rem 0;
-      font-size: 0.9rem;
-    }
-    .progress-bar {
-      flex: 1;
-      height: 6px;
-      background-color: #ddd;
-      border-radius: 3px;
-      position: relative;
-    }
-    .progress-filled {
-      width: 30%;
-      height: 100%;
-      background: #af4261;
-      border-radius: 3px;
-    }
-    .music-controls {
-      display: flex;
-      justify-content: space-between;
-    }
-    .music-controls button {
-      background: #efefef;
-      border: none;
-      border-radius: 4px;
-      padding: 0.5rem;
-      cursor: pointer;
-    }
-    .music-controls button:hover {
-      background: #ddd;
-    }
-    .lyrics {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* ChatGPT panel */
-    .chatgpt-panel {
-      width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .chatgpt-panel h3 {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .chat-box {
-      flex: 1;
-      background: #fafafa;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 0.5rem;
-      overflow-y: auto;
-      min-height: 100px;
-      max-height: 150px;
-    }
-    .chat-input {
-      margin-top: 0.5rem;
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .chat-input button {
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .chat-input button[type="submit"] {
-      padding: 0.5rem 1rem;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-    }
-    .chat-input button[type="submit"]:hover {
-      background: #005bbf;
-    }
-    .voice-btn {
-      background: #f0ad4e;
-      border: none;
-      border-radius: 4px;
-      padding: 0.5rem 0.75rem;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .voice-btn:hover {
-      background: #ec971f;
-    }
-
-    /* Bottom-right: Bathroom control panel */
-    /* Position absolutely at the bottom-right corner of the screen */
-    .bottom-right {
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      z-index: 10; /* Bring it above other elements if needed */
-      padding: 1rem;
-    }
-    .control-panel {
-      width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .control-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    /* Simplified button style */
-    .control-button {
-      flex: 1 0 30%;
-      background: #e0e0e0;
-      color: #333;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 0.75rem;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-    .control-button.active {
-      background: #4caf50;
-      color: #fff;
-    }
-    .control-button:hover {
-      background: #ccc;
-    }
-    .mirror-defog {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-    .mirror-button {
-      width: 100%;
-      background: #e0e0e0;
-      color: #333;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 0.75rem;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-    .mirror-button.active {
-      background: #4caf50;
-      color: #fff;
-    }
-    .mirror-button:hover {
-      background: #ccc;
-    }
-  </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      /* Toggle .active on control/mirror buttons */
-      const toggleButtons = document.querySelectorAll('.control-button, .mirror-button');
-      toggleButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          btn.classList.toggle('active');
-        });
-      });
-
-      /* Update current time and date */
-      function updateTime() {
-        const now = new Date();
-        const timeElement = document.querySelector('.time');
-        const dateElement = document.querySelector('.date');
-
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = (now.getMonth() + 1).toString().padStart(2, '0');
-        const day = now.getDate().toString().padStart(2, '0');
-
-        if(timeElement) {
-          timeElement.textContent = `${hours}:${minutes}`;
-        }
-        if(dateElement) {
-          dateElement.textContent = `${year}-${month}-${day}`;
-        }
-      }
-      updateTime();
-      setInterval(updateTime, 60000); // update every minute
-
-      /* Add new task functionality */
-      const addButton = document.querySelector('.add-task button');
-      const addInput = document.querySelector('.add-task input');
-      const taskUl = document.querySelector('.task-list ul');
-
-      addButton.addEventListener('click', () => {
-        const newTask = addInput.value.trim();
-        if(newTask) {
-          const newLi = document.createElement('li');
-          newLi.textContent = newTask;
-          taskUl.appendChild(newLi);
-          addInput.value = '';
-        }
-      });
-    });
-  </script>
-</head>
-<body>
-  <!-- Top-left: Task List -->
-  <div class="top-left">
-    <div class="card task-list">
-      <h2>Today's Tasks</h2>
-      <ul>
-        <li>10:00 - 12:00 🏫 ELEC5304 Lecture</li>
-        <li>14:00 - 16:00 📝 ENGG3112 Discussion</li>
-        <li>17:00 - 18:00 📢 Academic Meeting</li>
-      </ul>
-      <div class="add-task">
-        <button>+</button>
-        <input type="text" placeholder="Add new task...">
-      </div>
-    </div>
-  </div>
-
-  <!-- Top-right: Date/Time + Weather -->
-  <div class="top-right">
-    <div class="card time-date">
-      <div class="time">--:--</div>
-      <div class="date">Loading date...</div>
-    </div>
-    <div class="card weather-info">
-      <p>Outdoor Weather: ☀ Sunny, 25°C</p>
-      <p>Indoor Temperature: 🌡 22°C</p>
-      <p>Indoor Humidity: 💧 60%</p>
-    </div>
-  </div>
-
-  <!-- Center area -->
-  <div class="center-area">
-    <!-- Main content goes here -->
-  </div>
-
-  <!-- Bottom-left: Music Player + ChatGPT -->
-  <div class="bottom-left">
-    <!-- Music Player -->
-    <div class="card music-player">
-      <h2>🎵 Music Player</h2>
-      <div class="music-name">Current Song: My Favorite Song</div>
-      <div class="music-progress">
-        <span>01:23</span>
-        <div class="progress-bar">
-          <div class="progress-filled"></div>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Primary navigation">
+        <a class="wordmark" href="#top">Yanan Zhou</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Open navigation</span>
+          <span></span><span></span>
+        </button>
+        <div id="site-nav" class="site-nav">
+          <a href="#research">Research</a>
+          <a href="#news">News</a>
+          <a href="#publications">Publications</a>
+          <a href="mailto:yananzhou1035@gmail.com">Email</a>
         </div>
-        <span>03:45</span>
-      </div>
-      <div class="music-controls">
-        <button title="Previous">⏮</button>
-        <button title="Play/Pause">⏯</button>
-        <button title="Next">⏭</button>
-        <button title="Like">❤</button>
-      </div>
-      <div class="lyrics">
-        <div>[00:01] First line of the lyrics...</div>
-        <div>[00:10] Second line of the lyrics...</div>
-      </div>
-    </div>
+      </nav>
+    </header>
 
-    <!-- ChatGPT Panel -->
-    <div class="card chatgpt-panel">
-      <h3>ChatGPT AI</h3>
-      <div class="chat-box">
-        <p><strong>AI:</strong> Hello! How can I help you?</p>
-      </div>
-      <div class="chat-input">
-        <input type="text" placeholder="Type your question...">
-        <button type="submit">Send</button>
-        <button class="voice-btn" title="Voice Input">🎤</button>
-      </div>
-    </div>
-  </div>
+    <main id="main" class="page-shell">
+      <section id="top" class="hero">
+        <div id="signal-field" class="signal-field" aria-hidden="true"></div>
+        <div class="portrait-wrap">
+          <img
+            class="portrait"
+            src="assets/yanan-zhou-soft.jpg"
+            alt="Portrait of Yanan Zhou"
+            width="795"
+            height="1113"
+          />
+        </div>
 
-  <!-- Bottom-right: Bathroom Control Panel (absolutely placed) -->
-  <div class="bottom-right">
-    <div class="card control-panel">
-      <!-- Top set (Quick Functions) -->
-      <div class="control-section">
-        <button class="control-button" title="Quick Heat">🔥 Quick Heat</button>
-        <button class="control-button" title="Dry">💨 Dry</button>
-        <button class="control-button" title="Wind Direction">🌬 Wind Direction</button>
-      </div>
-      <!-- Middle set (Air Functions) -->
-      <div class="control-section">
-        <button class="control-button" title="Warm Air">🌡 Warm Air</button>
-        <button class="control-button" title="Blow Air">🌬 Blow Air</button>
-        <button class="control-button" title="Ventilate">🌪 Ventilate</button>
-      </div>
-      <!-- Bottom set (Aux Functions) -->
-      <div class="control-section">
-        <button class="control-button" title="Light">💡 Light</button>
-        <button class="control-button" title="Stop All Functions">🛑 Stop</button>
-      </div>
-      <!-- Mirror Defog -->
-      <div class="mirror-defog">
-        <button class="mirror-button" title="Quick Defog">⚡ Quick Defog</button>
-        <button class="mirror-button" title="Constant Temperature Defog">♨ Constant Temperature Defog</button>
-      </div>
-    </div>
-  </div>
+        <div class="hero-copy">
+          <h1>Yanan Zhou <span class="cn-name">「周亚楠」</span></h1>
+          <p class="role">PhD student at the University of Sydney</p>
+          <p>
+            I am a PhD student at the
+            <a href="https://www.sydney.edu.au/" target="_blank" rel="noreferrer">University of Sydney</a>,
+            supervised by
+            <a href="https://robotics.sydney.edu.au/our-people/" target="_blank" rel="noreferrer">Dr Weiming (William) Zhi</a>.
+            I completed my B.E. (Honours) in Electrical Engineering at the University of Sydney
+            (2022–2026).
+          </p>
+          <p>
+            I study how perception enables robots to manipulate their surroundings and collaborate
+            with other robots. My broader goal is to make these systems reliable in the real world
+            and able to learn from distributed experience without exposing private data.
+          </p>
 
+          <div class="profile-links" aria-label="Profile links">
+            <a href="mailto:yananzhou1035@gmail.com">Email</a>
+            <a href="https://scholar.google.com/citations?user=5LHIpm4AAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
+            <a href="https://github.com/YananZHOU5555" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://au.linkedin.com/in/yanan-zhou-6420a0288" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </section>
 
-</body></html>
+      <section id="research" class="section">
+        <h2>Research</h2>
+        <p class="research-summary">
+          I study the loop from <span class="keyword">perception</span> to
+          <span class="keyword">action</span> to <span class="keyword">learning</span>:
+          how robots understand a scene, act within it, and improve after deployment.
+        </p>
+        <dl class="research-lines">
+          <div>
+            <dt>Research interests</dt>
+            <dd>
+              <span class="marked-term">Robot perception</span>,
+              <span class="marked-term">robot manipulation</span>,
+              <span class="marked-term">multi-robot collaboration</span>, and
+              <span class="marked-term">trustworthy AI</span>.
+            </dd>
+          </div>
+          <div>
+            <dt>Research question</dt>
+            <dd>
+              How can robots continually improve their perception, manipulation, and collaboration
+              in the real world while remaining reliable and privacy-preserving?
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="news" class="section">
+        <h2>News</h2>
+        <ul class="news-list">
+          <li>
+            <time datetime="2026-07">Jul 2026</time>
+            <p>Started my PhD at the University of Sydney under the supervision of Dr Weiming (William) Zhi.</p>
+          </li>
+          <li>
+            <time datetime="2026-07">Jul 2026</time>
+            <p>Graduated with a Bachelor of Engineering Honours in Electrical Engineering from the University of Sydney.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="publications" class="section">
+        <h2>Publications</h2>
+
+        <section class="publication-group" aria-labelledby="robotics-title">
+          <div class="group-heading">
+            <p>Research area 01</p>
+            <h3 id="robotics-title">Robotics &amp; Embodied Intelligence</h3>
+          </div>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for PATCH">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>PATCH: Action-Chunk-Conditioned Latent Patch Innovation Monitoring for Robot Manipulation</h4>
+              <p class="authors"><strong>Yanan Zhou</strong>, Ranpeng Qiu, Yincong Chen, Jiajie Cui, and Weiming Zhi</p>
+              <p class="paper-status">arXiv, 2026 · First author</p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2606.16690" target="_blank" rel="noreferrer">Paper</a>
+                <a href="https://yananzhou5555.github.io/PATCH/" target="_blank" rel="noreferrer">Project Page</a>
+                <a href="https://github.com/YananZHOU5555/PATCH" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for PoseCompass">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>PoseCompass: Intelligent Synthetic Pose Selection for Visual Localization</h4>
+              <p class="authors"><strong>Yanan Zhou</strong>, Zhaoyan Qian, Yanli Li, Nan Yang, Zhongliang Guo, and Dong Yuan</p>
+              <p class="paper-status">IEEE ICME, 2026 · First author</p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2605.12144" target="_blank" rel="noreferrer">Paper</a>
+                <span class="reserved-link">Project Page <small>soon</small></span>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for Robots that Collaborate">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>Robots that Collaborate: Sequential Asymmetric Imitation for Learning Coupled Robot Policies</h4>
+              <p class="authors">Yincong Chen, Ranpeng Qiu, Zihao Li, <strong>Yanan Zhou</strong>, Guoqiang Ren, and Weiming Zhi</p>
+              <p class="paper-status">arXiv, 2026</p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2606.16490" target="_blank" rel="noreferrer">Paper</a>
+                <a href="https://cyc0429.github.io/sai-project-page/" target="_blank" rel="noreferrer">Project Page</a>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for TriPilot-FF">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>TriPilot-FF: Coordinated Whole-Body Teleoperation with Force Feedback</h4>
+              <p class="authors">Zihao Li, <strong>Yanan Zhou</strong>, Ranpeng Qiu, Hangyu Wu, Guoqiang Ren, and Weiming Zhi</p>
+              <p class="paper-status">arXiv, 2026</p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2602.09888" target="_blank" rel="noreferrer">Paper</a>
+                <span class="reserved-link">Project Page <small>soon</small></span>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="publication-group" aria-labelledby="fl-title">
+          <div class="group-heading">
+            <p>Research area 02</p>
+            <h3 id="fl-title">Trustworthy &amp; Federated Learning</h3>
+          </div>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for GuardFed">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>GuardFed: A Trustworthy Federated Learning Framework Against Dual-Facet Attacks</h4>
+              <p class="authors">Yanli Li, <strong>Yanan Zhou</strong>, Zhongliang Guo, Nan Yang, Yuning Zhang, Huaming Chen, Dong Yuan, Weiping Ding, and Witold Pedrycz</p>
+              <p class="paper-status">arXiv, 2025</p>
+              <div class="paper-links">
+                <a href="https://arxiv.org/abs/2511.09294" target="_blank" rel="noreferrer">Paper</a>
+                <span class="reserved-link">Project Page <small>soon</small></span>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for privacy-protected federated learning">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>Toward Better Privacy-Protected Federated Learning for Healthcare Services in Non-IID Scenarios</h4>
+              <p class="authors">Yanli Li, Jifei Hu, Hang Zhang, <strong>Yanan Zhou</strong>, Nan Yang, Dong Yuan, and Weiping Ding</p>
+              <p class="paper-status">IEEE TETCI, 2026</p>
+              <div class="paper-links">
+                <a href="https://doi.org/10.1109/TETCI.2026.3670926" target="_blank" rel="noreferrer">Paper</a>
+                <span class="reserved-link">Project Page <small>soon</small></span>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication">
+            <figure class="paper-demo is-reserved" aria-label="Reserved GIF demo for FedSCOPE">
+              <div class="demo-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+              <figcaption><span>Demo</span><small>GIF reserved</small></figcaption>
+            </figure>
+            <div class="publication-copy">
+              <h4>FedSCOPE: A Comprehensive Evaluation Framework for Federated Learning in Human-Centered Social Computing</h4>
+              <p class="authors">Yanli Li, Yuqi Li, <strong>Yanan Zhou</strong>, Yuning Zhang, Nan Yang, Dong Yuan, and Weiping Ding</p>
+              <p class="paper-status">IEEE TCSS, 2025</p>
+              <div class="paper-links">
+                <a href="https://doi.org/10.1109/TCSS.2025.3603719" target="_blank" rel="noreferrer">Paper</a>
+                <span class="reserved-link">Project Page <small>soon</small></span>
+                <span class="reserved-link">GitHub <small>soon</small></span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section class="section contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <p><a href="mailto:yananzhou1035@gmail.com">yananzhou1035@gmail.com</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-shell">
+        <p>© <span id="year">2026</span> Yanan Zhou</p>
+        <p>Last updated August 2026.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="assets/web-threads.js"></script>
+  </body>
+</html>

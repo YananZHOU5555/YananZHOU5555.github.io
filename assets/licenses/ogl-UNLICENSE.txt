@@ -1,0 +1,7 @@
+OGL 1.0.11
+https://github.com/oframe/ogl
+
+The package declares the Unlicense license:
+https://unlicense.org/
+
+This is free and unencumbered software released into the public domain.
