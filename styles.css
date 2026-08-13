@@ -1123,7 +1123,18 @@ h4 {
 
 .experience-company {
   margin: 12px 0 19px;
-  font-weight: 700;
+}
+
+.experience-company a {
+  width: fit-content;
+  display: block;
+}
+
+.experience-company img {
+  width: auto;
+  height: 31px;
+  display: block;
+  object-fit: contain;
 }
 
 .experience-copy > p:last-child {
