@@ -298,6 +298,12 @@ h4 {
   stroke-width: 1;
 }
 
+.folding-table-front {
+  fill: rgba(249, 252, 252, 0.99);
+  stroke: rgba(94, 139, 161, 0.34);
+  stroke-width: 1;
+}
+
 .folding-table path {
   fill: none;
   stroke: rgba(94, 139, 161, 0.25);
@@ -544,10 +550,12 @@ h4 {
 }
 
 @keyframes orange-laundry-run {
-  0%, 2% { transform: translateX(-72px); }
-  12% { transform: translateX(45px); animation-timing-function: ease-out; }
-  19% { transform: translateX(45px); animation-timing-function: ease-in; }
-  29%, 100% { transform: translateX(-72px); }
+  0%, 4% { opacity: 0; transform: translateX(-72px); }
+  6% { opacity: 1; }
+  11% { opacity: 1; transform: translateX(45px); animation-timing-function: ease-out; }
+  17% { opacity: 1; transform: translateX(45px); animation-timing-function: ease-in; }
+  21% { opacity: 0; transform: translateX(-72px); }
+  22%, 100% { opacity: 0; transform: translateX(-72px); }
 }
 
 @keyframes orange-load-release {
