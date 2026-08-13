@@ -127,7 +127,7 @@ if (!reduceMotion && "IntersectionObserver" in window) {
   });
 }
 
-const paperVideos = document.querySelectorAll(".paper-demo video");
+const paperVideos = document.querySelectorAll(".paper-demo video, .experience-demo video");
 
 if (paperVideos.length) {
   if (reduceMotion || !("IntersectionObserver" in window)) {
