@@ -1037,6 +1037,101 @@ h4 {
   font-size: 1rem;
 }
 
+.experience-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr);
+  gap: 42px;
+  align-items: center;
+}
+
+.experience-demo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(107, 157, 183, 0.26);
+  border-radius: 16px;
+  background: #eef6fa;
+  box-shadow: 0 22px 55px rgba(52, 85, 108, 0.12);
+}
+
+.experience-demo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.experience-demo video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.experience-demo figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 999px;
+  color: #28485d;
+  background: rgba(248, 252, 254, 0.88);
+  backdrop-filter: blur(8px);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.experience-copy {
+  padding-right: 8px;
+}
+
+.experience-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.experience-eyebrow {
+  margin-bottom: 8px;
+  color: var(--subtle);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.experience-heading h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.78rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.experience-heading time {
+  flex: 0 0 auto;
+  padding-top: 23px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.experience-company {
+  margin: 12px 0 19px;
+  font-weight: 700;
+}
+
+.experience-copy > p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
 .publication-group + .publication-group {
   margin-top: 50px;
 }
@@ -1709,6 +1804,20 @@ h4 {
     gap: 24px;
   }
 
+  .experience-card {
+    grid-template-columns: minmax(0, 1.1fr) minmax(250px, 0.9fr);
+    gap: 26px;
+  }
+
+  .experience-heading {
+    display: block;
+  }
+
+  .experience-heading time {
+    display: block;
+    padding-top: 8px;
+  }
+
 }
 
 @media (max-width: 620px) {
@@ -1768,6 +1877,15 @@ h4 {
   .news-list li {
     grid-template-columns: 1fr;
     gap: 3px;
+  }
+
+  .experience-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .experience-copy {
+    padding-right: 0;
   }
 
   .research-lines > div {
