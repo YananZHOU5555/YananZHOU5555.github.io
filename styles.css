@@ -1115,26 +1115,42 @@ h4 {
 
 .experience-heading time {
   flex: 0 0 auto;
-  padding-top: 23px;
+  padding-top: 22px;
   color: var(--muted);
   font-size: 0.85rem;
   white-space: nowrap;
 }
 
 .experience-company {
-  margin: 12px 0 19px;
-}
-
-.experience-company a {
   width: fit-content;
-  display: block;
+  margin: 0 0 27px;
+  padding: 0 0 19px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(107, 157, 183, 0.28);
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .experience-company img {
   width: auto;
-  height: 31px;
+  height: 40px;
   display: block;
   object-fit: contain;
+}
+
+.experience-company span {
+  padding-left: 15px;
+  border-left: 1px solid rgba(107, 157, 183, 0.35);
+  color: var(--blue);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.experience-company:hover span {
+  color: var(--ink);
 }
 
 .experience-copy > p:last-child {
