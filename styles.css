@@ -508,6 +508,7 @@ h4 {
 }
 
 .green-courier {
+  opacity: 0;
   animation: green-laundry-run 14s linear infinite;
 }
 
@@ -535,11 +536,11 @@ h4 {
 @keyframes incoming-laundry-cycle {
   0%, 15.5% { opacity: 0; transform: translate(0, 0) scale(1); }
   18% { opacity: 0.5; transform: translate(0, 0) scale(1); }
-  20%, 25% { opacity: 1; transform: translate(0, 0) scale(1); animation-timing-function: ease-in-out; }
-  30% { opacity: 1; transform: translateX(25px) scale(0.97); }
-  35% { opacity: 1; transform: translateX(48px) scale(0.92); }
-  38% { opacity: 0.35; transform: translateX(60px) scale(0.86); }
-  39%, 100% { opacity: 0; transform: translateX(63px) scale(0.84); }
+  20% { opacity: 1; transform: translate(0, 0) scale(1); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  22.5% { opacity: 1; transform: translateX(28px) scale(0.97); }
+  25% { opacity: 1; transform: translateX(53px) scale(0.91); }
+  27% { opacity: 0.45; transform: translateX(61px) scale(0.86); }
+  28%, 100% { opacity: 0; transform: translateX(63px) scale(0.84); }
 }
 
 @keyframes folder-body-bob {
@@ -626,25 +627,25 @@ h4 {
 @keyframes finished-stack-cycle {
   0%, 62% { opacity: 0; transform: translate(0, 4px); }
   65% { opacity: 0.7; transform: translate(0, 1px); }
-  67%, 73% { opacity: 1; transform: translate(0, 0); }
-  79% { opacity: 1; transform: translateX(18px); }
-  84% { opacity: 1; transform: translateX(32px); }
-  87% { opacity: 0.5; transform: translateX(38px); }
-  89%, 100% { opacity: 0; transform: translateX(42px); }
+  67%, 78% { opacity: 1; transform: translate(0, 0); }
+  79.5% { opacity: 0.45; transform: translate(0, -1px); }
+  81%, 100% { opacity: 0; transform: translate(0, -1px); }
 }
 
 @keyframes green-laundry-run {
-  0%, 72% { transform: translateX(70px); }
-  80% { transform: translateX(-35px); animation-timing-function: ease-out; }
-  87% { transform: translateX(-35px); animation-timing-function: ease-in; }
-  96%, 100% { transform: translateX(70px); }
+  0%, 70% { opacity: 0; transform: translateX(70px); }
+  71.5% { opacity: 1; transform: translateX(54px); animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1); }
+  77% { opacity: 1; transform: translateX(-72px); }
+  82% { opacity: 1; transform: translateX(-72px); animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19); }
+  93% { opacity: 1; transform: translateX(70px); }
+  95%, 100% { opacity: 0; transform: translateX(70px); }
 }
 
 @keyframes green-load-pickup {
-  0%, 84% { opacity: 0; transform: translateX(-7px); }
-  87% { opacity: 0.5; transform: translateX(-7px); }
-  89%, 98% { opacity: 1; transform: translateX(-7px); }
-  100% { opacity: 0; transform: translateX(-7px); }
+  0%, 78% { opacity: 0; transform: translateX(-7px) translateY(2px); }
+  79.5% { opacity: 0.55; transform: translateX(-7px) translateY(0); }
+  81%, 93% { opacity: 1; transform: translateX(-7px) translateY(0); }
+  95%, 100% { opacity: 0; transform: translateX(-7px) translateY(0); }
 }
 
 @keyframes laundry-loop-sparkle {
