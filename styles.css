@@ -160,7 +160,20 @@ h4 {
   fill: #20272b;
   transform-box: fill-box;
   transform-origin: center;
-  animation: brand-bot-blink 5.2s ease-in-out infinite;
+  transform: translateX(var(--brand-eye-x, 0)) scaleY(var(--brand-eye-y, 1));
+  transition: transform 150ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.wordmark-bot.is-looking-left {
+  --brand-eye-x: -2px;
+}
+
+.wordmark-bot.is-looking-right {
+  --brand-eye-x: 2px;
+}
+
+.wordmark-bot.is-blinking {
+  --brand-eye-y: 0.08;
 }
 
 .brand-bot-arm {
@@ -178,11 +191,6 @@ h4 {
 @keyframes brand-bot-breathe {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-1.2px) rotate(-0.5deg); }
-}
-
-@keyframes brand-bot-blink {
-  0%, 44%, 48%, 100% { transform: scaleY(1); }
-  46% { transform: scaleY(0.12); }
 }
 
 .site-nav {

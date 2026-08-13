@@ -40,6 +40,75 @@ if (research) {
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const publications = document.querySelectorAll(".publication");
 
+const wordmarkBot = document.querySelector(".wordmark-bot");
+
+if (wordmarkBot && !reduceMotion) {
+  let eyeTimer = 0;
+
+  const clearEyePose = () => {
+    wordmarkBot.classList.remove("is-looking-left", "is-looking-right", "is-blinking");
+  };
+
+  const scheduleEyeAction = () => {
+    window.clearTimeout(eyeTimer);
+    eyeTimer = window.setTimeout(runEyeAction, 1200 + Math.random() * 1600);
+  };
+
+  const blink = (doubleBlink = false) => {
+    wordmarkBot.classList.add("is-blinking");
+    eyeTimer = window.setTimeout(() => {
+      wordmarkBot.classList.remove("is-blinking");
+
+      if (!doubleBlink) {
+        scheduleEyeAction();
+        return;
+      }
+
+      eyeTimer = window.setTimeout(() => {
+        wordmarkBot.classList.add("is-blinking");
+        eyeTimer = window.setTimeout(() => {
+          wordmarkBot.classList.remove("is-blinking");
+          scheduleEyeAction();
+        }, 105);
+      }, 145);
+    }, 105);
+  };
+
+  function runEyeAction() {
+    clearEyePose();
+
+    if (Math.random() < 0.52) {
+      blink(Math.random() < 0.22);
+      return;
+    }
+
+    const direction = Math.random() < 0.5 ? "is-looking-left" : "is-looking-right";
+    wordmarkBot.classList.add(direction);
+    eyeTimer = window.setTimeout(() => {
+      wordmarkBot.classList.remove(direction);
+
+      if (Math.random() < 0.28) {
+        blink(false);
+      } else {
+        scheduleEyeAction();
+      }
+    }, 420 + Math.random() * 620);
+  }
+
+  wordmarkBot.closest(".wordmark")?.addEventListener("pointerenter", () => {
+    window.clearTimeout(eyeTimer);
+    clearEyePose();
+    wordmarkBot.classList.add("is-looking-right");
+  });
+
+  wordmarkBot.closest(".wordmark")?.addEventListener("pointerleave", () => {
+    clearEyePose();
+    blink(false);
+  });
+
+  scheduleEyeAction();
+}
+
 if (!reduceMotion && "IntersectionObserver" in window) {
   const publicationObserver = new IntersectionObserver(
     (entries) => {
