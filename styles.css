@@ -1088,6 +1088,20 @@ h4 {
   mask-image: linear-gradient(135deg, #000, transparent 72%);
 }
 
+.paper-demo.has-media::before {
+  z-index: 1;
+  opacity: 0;
+}
+
+.paper-demo.has-media::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 48% 0 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(10, 19, 27, 0.56));
+}
+
 .paper-demo:hover {
   border-color: #c8d4e2;
 }
@@ -1098,6 +1112,10 @@ h4 {
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+.paper-demo video {
+  background: #eef3f6;
 }
 
 .paper-demo figcaption {
@@ -1116,11 +1134,20 @@ h4 {
   text-transform: uppercase;
 }
 
+.paper-demo.has-media figcaption {
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.42);
+}
+
 .paper-demo figcaption small {
   color: #8b95a0;
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.05em;
+}
+
+.paper-demo.has-media figcaption small {
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .demo-signal {
