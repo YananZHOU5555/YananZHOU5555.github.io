@@ -14,7 +14,7 @@
       content="Research in robot perception, manipulation, collaboration, and trustworthy AI."
     />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <title>Yanan Zhou</title>
   </head>
@@ -23,7 +23,23 @@
 
     <header class="site-header">
       <nav class="nav-shell" aria-label="Primary navigation">
-        <a class="wordmark" href="#top">Yanan Zhou</a>
+        <a class="wordmark" href="#top" aria-label="Yanan Zhou — Home">
+          <svg class="wordmark-bot" viewBox="0 0 82 74" aria-hidden="true">
+            <ellipse class="brand-bot-shadow" cx="41" cy="70" rx="27" ry="3"></ellipse>
+            <rect class="brand-bot-head" x="17" y="3" width="48" height="35" rx="16"></rect>
+            <rect class="brand-bot-face" x="21" y="7" width="40" height="27" rx="12"></rect>
+            <ellipse class="brand-bot-eye brand-bot-eye--left" cx="33" cy="20" rx="3" ry="5"></ellipse>
+            <ellipse class="brand-bot-eye brand-bot-eye--right" cx="49" cy="20" rx="3" ry="5"></ellipse>
+            <rect class="brand-bot-body" x="22" y="39" width="38" height="20" rx="8"></rect>
+            <rect class="brand-bot-panel" x="27" y="43" width="28" height="8" rx="4"></rect>
+            <path class="brand-bot-arm" d="M23 45 C14 45 12 53 17 58"></path>
+            <path class="brand-bot-arm" d="M59 45 C68 45 70 53 65 58"></path>
+            <rect class="brand-bot-base" x="16" y="58" width="50" height="10" rx="5"></rect>
+            <circle class="brand-bot-wheel" cx="29" cy="68" r="4.5"></circle>
+            <circle class="brand-bot-wheel" cx="53" cy="68" r="4.5"></circle>
+          </svg>
+          <span>Yanan Zhou</span>
+        </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
           <span class="sr-only">Open navigation</span>
           <span></span><span></span>
@@ -39,7 +55,108 @@
 
     <main id="main" class="page-shell">
       <section id="top" class="hero">
+        <canvas class="hero-linen-canvas" data-home-linen aria-hidden="true"></canvas>
         <div id="signal-field" class="signal-field" aria-hidden="true"></div>
+        <div class="hero-laundry-loop" aria-hidden="true">
+          <svg viewBox="0 0 360 92" role="presentation">
+            <defs>
+              <g id="loop-robot">
+                <ellipse class="loop-robot-shadow" cx="0" cy="57" rx="18" ry="2.8"></ellipse>
+                <rect class="loop-robot-base" x="-15" y="47" width="30" height="9" rx="4.5"></rect>
+                <circle class="loop-robot-wheel" cx="-8" cy="56" r="2.7"></circle>
+                <circle class="loop-robot-wheel" cx="8" cy="56" r="2.7"></circle>
+                <rect class="loop-robot-column" x="-3" y="34" width="6" height="14" rx="3"></rect>
+                <rect class="loop-robot-body" x="-14" y="23" width="28" height="22" rx="9"></rect>
+                <rect class="loop-robot-head-ring" x="-13" y="0" width="26" height="23" rx="10"></rect>
+                <rect class="loop-robot-face" x="-10.5" y="2.5" width="21" height="18" rx="7.5"></rect>
+                <ellipse class="loop-robot-eye" cx="-4" cy="11.5" rx="1.65" ry="2.8"></ellipse>
+                <ellipse class="loop-robot-eye" cx="4" cy="11.5" rx="1.65" ry="2.8"></ellipse>
+              </g>
+            </defs>
+
+            <path class="loop-floor" d="M18 78 C92 74 263 74 342 78"></path>
+            <g class="folding-table">
+              <rect x="98" y="62" width="164" height="7" rx="3.5"></rect>
+              <path d="M112 68 V82 M248 68 V82"></path>
+            </g>
+
+            <g class="orange-courier">
+              <g transform="translate(39 18)" color="#e6aa74">
+                <use href="#loop-robot"></use>
+                <path class="courier-arm" d="M12 31 C22 31 25 37 30 42"></path>
+                <g class="orange-rumple">
+                  <path d="M23 38 C20 31 29 28 35 33 C39 26 49 30 47 37 C55 38 53 48 46 48 H28 C20 48 18 42 23 38Z"></path>
+                  <path d="M29 37 q6 5 12 0 M28 43 q9 -4 17 1"></path>
+                </g>
+              </g>
+            </g>
+
+            <g class="incoming-rumple">
+              <path d="M107 56 C101 48 111 43 119 49 C123 40 136 45 133 53 C143 54 140 62 131 62 H112 C103 62 101 58 107 56Z"></path>
+              <path d="M112 52 q7 6 14 0 M110 58 q11 -5 20 1"></path>
+            </g>
+
+            <g class="blue-folder" transform="translate(180 8)" color="#9fc7dc">
+              <use href="#loop-robot"></use>
+              <g class="folder-arm folder-arm--left" transform="translate(-12 31)">
+                <rect class="folder-shoulder-shell" x="-6" y="-4.5" width="9" height="9" rx="4.5"></rect>
+                <g class="folder-upper">
+                  <rect class="folder-limb folder-limb--upper" x="-16" y="-4" width="16" height="8" rx="4"></rect>
+                  <path class="folder-seam" d="M-11 -3.2 V3.2"></path>
+                  <circle class="folder-joint" cx="-16" cy="0" r="4.5"></circle>
+                  <g class="folder-forearm" transform="translate(-16 0)">
+                    <rect class="folder-limb folder-limb--forearm" x="-12" y="-3.6" width="12" height="7.2" rx="3.6"></rect>
+                    <circle class="folder-wrist" cx="-12" cy="0" r="3.4"></circle>
+                    <circle class="folder-palm" cx="-15.5" cy="0" r="3.8"></circle>
+                    <path class="folder-fingers" d="M-18 -1.7 l-3.8 -1.2 M-18 1.7 l-3.8 1.2"></path>
+                  </g>
+                </g>
+              </g>
+              <g class="folder-arm folder-arm--right" transform="translate(12 31) scale(-1 1)">
+                <rect class="folder-shoulder-shell" x="-6" y="-4.5" width="9" height="9" rx="4.5"></rect>
+                <g class="folder-upper">
+                  <rect class="folder-limb folder-limb--upper" x="-16" y="-4" width="16" height="8" rx="4"></rect>
+                  <path class="folder-seam" d="M-11 -3.2 V3.2"></path>
+                  <circle class="folder-joint" cx="-16" cy="0" r="4.5"></circle>
+                  <g class="folder-forearm" transform="translate(-16 0)">
+                    <rect class="folder-limb folder-limb--forearm" x="-12" y="-3.6" width="12" height="7.2" rx="3.6"></rect>
+                    <circle class="folder-wrist" cx="-12" cy="0" r="3.4"></circle>
+                    <circle class="folder-palm" cx="-15.5" cy="0" r="3.8"></circle>
+                    <path class="folder-fingers" d="M-18 -1.7 l-3.8 -1.2 M-18 1.7 l-3.8 1.2"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <g class="folding-cloth">
+              <path d="M145 59 Q180 49 215 59 L210 65 H150Z"></path>
+              <path d="M164 57 L180 64 L197 57"></path>
+            </g>
+
+            <g class="finished-stack">
+              <rect class="loop-cloth loop-cloth--bottom" x="190" y="57" width="39" height="8" rx="3"></rect>
+              <rect class="loop-cloth loop-cloth--middle" x="194" y="50" width="34" height="8" rx="3"></rect>
+              <rect class="loop-cloth loop-cloth--top" x="191" y="43" width="35" height="8" rx="3"></rect>
+              <path d="M217 46 h6 M219 53 h6 M219 60 h7"></path>
+            </g>
+
+            <g class="green-courier">
+              <g transform="translate(318 18)" color="#9bc9ad">
+                <use href="#loop-robot"></use>
+                <path class="courier-arm" d="M-12 31 C-22 31 -25 37 -30 42"></path>
+                <g class="green-stack">
+                  <rect class="loop-cloth loop-cloth--bottom" x="-48" y="39" width="39" height="8" rx="3"></rect>
+                  <rect class="loop-cloth loop-cloth--middle" x="-44" y="32" width="34" height="8" rx="3"></rect>
+                  <rect class="loop-cloth loop-cloth--top" x="-47" y="25" width="35" height="8" rx="3"></rect>
+                </g>
+              </g>
+            </g>
+
+            <g class="loop-sparkles">
+              <path d="M177 1 v7 M173.5 4.5 h7 M260 35 v6 M257 38 h6"></path>
+            </g>
+          </svg>
+        </div>
         <div class="portrait-wrap">
           <img
             class="portrait"
@@ -99,7 +216,13 @@
         </div>
       </section>
 
-      <section id="research" class="section">
+      <section id="research" class="section" data-home-towel>
+        <div class="research-textile" aria-hidden="true">
+          <div class="research-textile__weave"></div>
+          <div class="research-textile__band"></div>
+          <div class="research-textile__fold"></div>
+          <span class="research-textile__label">YZ</span>
+        </div>
         <h2>Research</h2>
         <p class="research-summary">
           I study the loop from <span class="keyword">perception</span> to
@@ -282,6 +405,61 @@
         <p><a href="mailto:yananzhou1035@gmail.com">yananzhou1035@gmail.com</a></p>
       </section>
     </main>
+
+    <div class="laundry-progress" aria-hidden="true">
+      <div class="laundry-progress__track">
+        <div class="laundry-progress__fill"></div>
+
+        <div class="laundry-robot">
+          <div class="laundry-robot__bob">
+            <svg viewBox="0 0 92 86" role="presentation">
+              <ellipse class="robot-ground-shadow" cx="46" cy="80" rx="29" ry="4"></ellipse>
+              <rect class="robot-base" x="23" y="66" width="46" height="13" rx="6.5"></rect>
+              <circle class="robot-wheel" cx="34" cy="78" r="3.3"></circle>
+              <circle class="robot-wheel" cx="58" cy="78" r="3.3"></circle>
+              <rect class="robot-column" x="42" y="48" width="8" height="20" rx="4"></rect>
+              <rect class="robot-body" x="26" y="34" width="40" height="29" rx="12"></rect>
+              <path class="robot-arm" d="M29 43 C20 44, 20 55, 30 57"></path>
+              <path class="robot-arm" d="M63 43 C72 44, 72 55, 62 57"></path>
+              <rect class="robot-head-ring" x="27" y="5" width="38" height="31" rx="14"></rect>
+              <rect class="robot-face" x="30.5" y="8.5" width="31" height="24" rx="10.5"></rect>
+              <ellipse class="robot-eye" cx="40" cy="20.5" rx="2.3" ry="4"></ellipse>
+              <ellipse class="robot-eye" cx="52" cy="20.5" rx="2.3" ry="4"></ellipse>
+              <g class="laundry-stack">
+                <rect class="cloth cloth--bottom" x="22" y="51" width="48" height="8" rx="3"></rect>
+                <rect class="cloth cloth--middle" x="26" y="44" width="42" height="8" rx="3"></rect>
+                <rect class="cloth cloth--top" x="24" y="37" width="40" height="8" rx="3"></rect>
+                <path class="cloth-fold" d="M54 39.5 h7 M57 46.5 h8 M58 53.5 h9"></path>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="laundry-wardrobe">
+          <svg viewBox="0 0 72 92" role="presentation">
+            <ellipse class="wardrobe-shadow" cx="36" cy="88" rx="29" ry="3"></ellipse>
+            <rect class="wardrobe-frame" x="8" y="4" width="56" height="82" rx="7"></rect>
+            <rect class="wardrobe-inside" x="14" y="11" width="44" height="67" rx="3"></rect>
+            <path class="wardrobe-shelf" d="M15 50 H57"></path>
+            <g class="wardrobe-clothes">
+              <rect class="stored-cloth stored-cloth--bottom" x="20" y="63" width="31" height="7" rx="2.5"></rect>
+              <rect class="stored-cloth stored-cloth--middle" x="23" y="57" width="28" height="7" rx="2.5"></rect>
+              <rect class="stored-cloth stored-cloth--top" x="21" y="51" width="27" height="7" rx="2.5"></rect>
+            </g>
+            <g class="wardrobe-doors">
+              <path class="wardrobe-door wardrobe-door--left" d="M11 8 H36 V81 H11 Q8 81 8 77 V12 Q8 8 11 8Z"></path>
+              <path class="wardrobe-door wardrobe-door--right" d="M36 8 H61 Q64 8 64 12 V77 Q64 81 61 81 H36Z"></path>
+              <circle class="wardrobe-knob" cx="32.5" cy="46" r="1.6"></circle>
+              <circle class="wardrobe-knob" cx="39.5" cy="46" r="1.6"></circle>
+            </g>
+            <g class="delivery-sparkles">
+              <path d="M4 21 v8 M0 25 h8"></path>
+              <path d="M67 15 v6 M64 18 h6"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="page-shell">

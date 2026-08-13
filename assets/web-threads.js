@@ -38,7 +38,7 @@ ${Te(r)}`)),this.gl.linkProgram(this.program),!this.gl.getProgramParameter(this.
       float sdf = abs(yOffset + wave) / 0.93;
       float g = glow(sdf, 0.72, 0.0075);
       float mixValue = i / float(THREADS - 1);
-      vec3 threadColor = mix(vec3(0.22, 0.39, 0.63), vec3(0.61, 0.72, 0.84), mixValue);
+      vec3 threadColor = mix(vec3(0.37, 0.55, 0.63), vec3(0.78, 0.86, 0.91), mixValue);
       color += g * threadColor;
       sum += g;
     }
