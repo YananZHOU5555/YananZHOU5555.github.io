@@ -1118,6 +1118,19 @@ h4 {
   background: #eef3f6;
 }
 
+.paper-demo.has-figure {
+  background: #fff;
+}
+
+.paper-demo.has-figure::before {
+  content: none;
+}
+
+.paper-demo.has-figure img {
+  object-fit: contain;
+  padding: 4px;
+}
+
 .paper-demo figcaption {
   position: absolute;
   z-index: 2;
