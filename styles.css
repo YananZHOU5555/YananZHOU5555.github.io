@@ -455,6 +455,10 @@ h4 {
   stroke-linecap: round;
 }
 
+.finished-stack {
+  transform-origin: 210px 61px;
+}
+
 .green-stack {
   opacity: 0;
   transform: translateX(-7px);
@@ -559,22 +563,19 @@ h4 {
 }
 
 @keyframes orange-load-release {
-  0%, 15.5% { opacity: 1; transform: translate(0, 0) scale(1); }
-  18% { opacity: 0.5; transform: translate(0, 0) scale(1); }
-  20%, 84% { opacity: 0; transform: translate(0, 0) scale(1); }
-  86% { opacity: 0.6; transform: translate(0, 0) scale(1); }
-  92%, 100% { opacity: 1; transform: translate(0, 0) scale(1); }
+  0%, 17.99% { visibility: visible; opacity: 1; transform: translate(0, 0) scale(1); }
+  18%, 84% { visibility: hidden; opacity: 0; transform: translate(0, 0) scale(1); }
+  84.01%, 100% { visibility: visible; opacity: 1; transform: translate(0, 0) scale(1); }
 }
 
 @keyframes incoming-laundry-cycle {
-  0%, 15.5% { opacity: 0; transform: translate(0, 0) scale(1); }
-  18% { opacity: 0.5; transform: translate(0, 0) scale(1); }
-  20% { opacity: 1; transform: translate(0, 0) scale(1); }
+  0%, 17.99% { visibility: hidden; opacity: 0; transform: translate(0, 0) scale(1); }
+  18% { visibility: visible; opacity: 1; transform: translate(0, 0) scale(1); }
   24% { opacity: 1; transform: translate(23px, 3px) scale(0.98); }
   28% { opacity: 1; transform: translate(45px, 7px) scale(0.94); }
   32% { opacity: 1; transform: translate(61px, 10px) scale(0.9); }
-  34% { opacity: 0.72; transform: translate(63px, 10px) scale(0.88); }
-  36%, 100% { opacity: 0; transform: translate(63px, 10px) scale(0.88); }
+  34.99% { visibility: visible; opacity: 1; transform: translate(63px, 10px) scale(0.88); }
+  35%, 100% { visibility: hidden; opacity: 0; transform: translate(63px, 10px) scale(0.88); }
 }
 
 @keyframes folder-body-bob {
@@ -658,23 +659,22 @@ h4 {
 }
 
 @keyframes cloth-fold-cycle {
-  0%, 31% { opacity: 0; transform: translateX(3px) scaleX(1.06) rotate(-1deg); }
-  34% { opacity: 0.72; transform: translateX(3px) scaleX(1.04) rotate(-1deg); }
-  36% { opacity: 1; transform: translateX(2px) scaleX(1.02) rotate(0deg); }
-  43% { opacity: 1; transform: translateX(1px) scaleX(0.86) rotate(0.5deg); }
-  50% { opacity: 1; transform: translateX(7px) scaleX(0.7) rotate(0deg); }
-  57% { opacity: 1; transform: translateX(14px) scaleX(0.54) rotate(-0.5deg); }
-  64% { opacity: 1; transform: translateX(23px) scaleX(0.42) rotate(0deg); }
-  67% { opacity: 0.72; transform: translateX(27px) scaleX(0.38); }
-  69%, 100% { opacity: 0; transform: translateX(28px) scaleX(0.38); }
+  0%, 34.99% { visibility: hidden; opacity: 0; transform: translateX(4px) scaleX(0.58) rotate(-0.5deg); }
+  35% { visibility: visible; opacity: 1; transform: translateX(4px) scaleX(0.58) rotate(-0.5deg); }
+  39% { opacity: 1; transform: translateX(2px) scaleX(1.02) rotate(0deg); }
+  46% { opacity: 1; transform: translateX(1px) scaleX(0.86) rotate(0.4deg); }
+  53% { opacity: 1; transform: translateX(7px) scaleX(0.7) rotate(0deg); }
+  60% { opacity: 1; transform: translateX(14px) scaleX(0.54) rotate(-0.4deg); }
+  66% { opacity: 1; transform: translateX(23px) scaleX(0.42) rotate(0deg); }
+  67.99% { visibility: visible; opacity: 1; transform: translateX(28px) scaleX(0.38); }
+  68%, 100% { visibility: hidden; opacity: 0; transform: translateX(28px) scaleX(0.38); }
 }
 
 @keyframes finished-stack-cycle {
-  0%, 64% { opacity: 0; transform: translate(0, 3px); }
-  67% { opacity: 0.72; transform: translate(0, 1px); }
-  69%, 78% { opacity: 1; transform: translate(0, 0); }
-  79.5% { opacity: 0.45; transform: translate(0, -1px); }
-  81%, 100% { opacity: 0; transform: translate(0, -1px); }
+  0%, 67.99% { visibility: hidden; opacity: 0; transform: translate(0, 1px) scale(0.78, 0.55); }
+  68% { visibility: visible; opacity: 1; transform: translate(0, 1px) scale(0.78, 0.55); }
+  70%, 79.99% { visibility: visible; opacity: 1; transform: translate(0, 0) scale(1); }
+  80%, 100% { visibility: hidden; opacity: 0; transform: translate(0, 0) scale(1); }
 }
 
 @keyframes green-laundry-run {
@@ -687,10 +687,9 @@ h4 {
 }
 
 @keyframes green-load-pickup {
-  0%, 78% { opacity: 0; transform: translateX(-7px) translateY(2px); }
-  79.5% { opacity: 0.55; transform: translateX(-7px) translateY(0); }
-  81%, 93% { opacity: 1; transform: translateX(-7px) translateY(0); }
-  95%, 100% { opacity: 0; transform: translateX(-7px) translateY(0); }
+  0%, 79.99% { visibility: hidden; opacity: 0; transform: translateX(-7px) translateY(0); }
+  80%, 94.99% { visibility: visible; opacity: 1; transform: translateX(-7px) translateY(0); }
+  95%, 100% { visibility: hidden; opacity: 0; transform: translateX(-7px) translateY(0); }
 }
 
 @keyframes laundry-loop-sparkle {
