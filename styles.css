@@ -743,7 +743,13 @@ h4 {
   display: block;
   object-fit: cover;
   object-position: center;
-  filter: saturate(0.985) contrast(1.01);
+  filter: none;
+}
+
+@media (min-width: 761px) {
+  .portrait-wrap {
+    transform: translateY(-14px);
+  }
 }
 
 .hero h1 {
