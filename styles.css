@@ -228,7 +228,7 @@ h4 {
   overflow: clip;
   padding: 72px 0 48px;
   display: grid;
-  grid-template-columns: 270px minmax(0, 1fr);
+  grid-template-columns: 300px minmax(0, 1fr);
   column-gap: 58px;
   row-gap: 30px;
   align-items: start;
@@ -739,11 +739,11 @@ h4 {
 
 .portrait {
   width: 100%;
-  height: 338px;
+  height: 400px;
   display: block;
   object-fit: cover;
-  object-position: center 24%;
-  filter: saturate(0.94) contrast(0.97);
+  object-position: center;
+  filter: saturate(0.985) contrast(1.01);
 }
 
 .hero h1 {
@@ -1831,7 +1831,7 @@ h4 {
   }
 
   .portrait {
-    height: 188px;
+    height: 200px;
   }
 
   .publication {
@@ -1899,11 +1899,11 @@ h4 {
   }
 
   .portrait-wrap {
-    width: 170px;
+    width: 220px;
   }
 
   .portrait {
-    height: 213px;
+    height: 293px;
   }
 
   .hero h1 {

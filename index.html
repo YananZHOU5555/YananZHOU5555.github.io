@@ -178,13 +178,22 @@
           </svg>
         </div>
         <div class="portrait-wrap">
-          <img
-            class="portrait"
-            src="assets/yanan-zhou-soft.jpg"
-            alt="Portrait of Yanan Zhou"
-            width="795"
-            height="1113"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/yanan-zhou-zeno-720.webp 720w, assets/yanan-zhou-zeno-1440.webp 1440w"
+              sizes="(max-width: 620px) 220px, (max-width: 760px) 150px, 300px"
+            />
+            <img
+              class="portrait"
+              src="assets/yanan-zhou-zeno-1440.jpg"
+              alt="Yanan Zhou seated beside a Zeno robot"
+              width="1440"
+              height="1920"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </picture>
         </div>
 
         <div class="hero-copy">
