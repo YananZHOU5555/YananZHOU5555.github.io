@@ -127,29 +127,361 @@ if (!reduceMotion && "IntersectionObserver" in window) {
   });
 }
 
-const paperVideos = document.querySelectorAll(".paper-demo video, .experience-demo video");
+const evidenceVideos = [...document.querySelectorAll(".paper-demo video, .experience-demo video")];
 
-if (paperVideos.length) {
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    paperVideos.forEach((video) => video.pause());
-  } else {
-    const videoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target;
+if (evidenceVideos.length) {
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mediaControllers = [];
+  let activeController = null;
+  let activationToken = 0;
+  let schedulerFrame = 0;
+  let nearObserver = null;
 
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
+  const setMediaState = (controller, state) => {
+    controller.state = state;
+    controller.figure.dataset.mediaState = state;
+
+    const isPlaying = state === "playing";
+    controller.button.dataset.playing = String(isPlaying);
+    controller.button.setAttribute("aria-pressed", String(isPlaying));
+    const actionLabel = state === "error" ? "Retry" : isPlaying ? "Pause" : "Play";
+    controller.button.setAttribute("aria-label", `${actionLabel} ${controller.label}`);
+  };
+
+  const stopFrameLoop = (controller) => {
+    if (
+      controller.frameRequest &&
+      "cancelVideoFrameCallback" in controller.video
+    ) {
+      controller.video.cancelVideoFrameCallback(controller.frameRequest);
+    }
+    if (controller.animationRequest) window.cancelAnimationFrame(controller.animationRequest);
+    window.clearTimeout(controller.stallTimer);
+    controller.frameRequest = 0;
+    controller.animationRequest = 0;
+    controller.stallTimer = 0;
+  };
+
+  const revealDecodedFrame = (controller) => {
+    if (!controller.frameReady) {
+      controller.frameReady = true;
+      controller.figure.classList.add("is-frame-ready");
+    }
+    setMediaState(controller, "playing");
+  };
+
+  const startFrameLoop = (controller) => {
+    stopFrameLoop(controller);
+
+    const onVideoFrame = () => {
+      controller.frameRequest = 0;
+      if (controller.video.paused || activeController !== controller || document.hidden) return;
+      revealDecodedFrame(controller);
+      controller.frameRequest = controller.video.requestVideoFrameCallback(onVideoFrame);
+    };
+
+    const onAnimationFrame = () => {
+      controller.animationRequest = 0;
+      if (controller.video.paused || activeController !== controller || document.hidden) return;
+      if (controller.video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) revealDecodedFrame(controller);
+      controller.animationRequest = window.requestAnimationFrame(onAnimationFrame);
+    };
+
+    if ("requestVideoFrameCallback" in controller.video) {
+      controller.frameRequest = controller.video.requestVideoFrameCallback(onVideoFrame);
+    } else {
+      controller.animationRequest = window.requestAnimationFrame(onAnimationFrame);
+    }
+  };
+
+  const prepareMedia = (controller) => {
+    if (controller.prepared || controller.state === "error") return;
+    controller.prepared = true;
+    controller.video.preload = "metadata";
+    setMediaState(controller, "loading");
+  };
+
+  const pauseMedia = (controller, reason = "scheduler") => {
+    stopFrameLoop(controller);
+    if (!controller.video.paused) controller.video.pause();
+    controller.figure.classList.remove("is-media-buffering");
+
+    if (controller.state !== "error") {
+      setMediaState(controller, controller.frameReady ? "paused" : controller.prepared ? "ready" : "poster");
+    }
+
+    if (reason === "offscreen") controller.userPaused = false;
+    if (activeController === controller) activeController = null;
+  };
+
+  const playMedia = async (controller, source = "scheduler") => {
+    if (document.hidden || controller.state === "error") return;
+    if (motionPreference.matches && source !== "user") return;
+
+    prepareMedia(controller);
+    const token = ++activationToken;
+
+    mediaControllers.forEach((other) => {
+      if (other !== controller && !other.video.paused) pauseMedia(other);
+      if (other !== controller) other.figure.classList.remove("is-media-buffering");
+    });
+
+    activeController = controller;
+    setMediaState(controller, controller.video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA ? "ready" : "loading");
+
+    try {
+      await controller.video.play();
+      if (token !== activationToken || activeController !== controller || document.hidden) {
+        pauseMedia(controller);
+        return;
+      }
+      startFrameLoop(controller);
+    } catch (error) {
+      if (token !== activationToken) return;
+      controller.figure.classList.remove("is-media-buffering");
+      setMediaState(controller, controller.frameReady ? "paused" : "ready");
+    }
+  };
+
+  const scoreController = (controller) => {
+    const bounds = controller.figure.getBoundingClientRect();
+    const visibleTop = Math.max(bounds.top, 0);
+    const visibleBottom = Math.min(bounds.bottom, window.innerHeight);
+    const visiblePixels = Math.max(visibleBottom - visibleTop, 0);
+    const visibleRatio = bounds.height > 0 ? visiblePixels / bounds.height : 0;
+
+    if (visiblePixels < Math.min(92, bounds.height * 0.24)) return -Infinity;
+
+    const viewportCenter = window.innerHeight * 0.5;
+    const mediaCenter = bounds.top + bounds.height * 0.5;
+    const centerAffinity = 1 - Math.min(Math.abs(mediaCenter - viewportCenter) / window.innerHeight, 1);
+    return visibleRatio * 1.7 + centerAffinity;
+  };
+
+  const runMediaScheduler = () => {
+    schedulerFrame = 0;
+
+    if (document.hidden || motionPreference.matches) {
+      mediaControllers.forEach((controller) => {
+        if (!controller.video.paused) pauseMedia(controller);
+      });
+      return;
+    }
+
+    const candidates = mediaControllers
+      .filter((controller) => controller.nearViewport && !controller.userPaused && controller.state !== "error")
+      .map((controller) => ({ controller, score: scoreController(controller) }))
+      .filter(({ score }) => Number.isFinite(score))
+      .sort((a, b) => b.score - a.score);
+
+    const nextController = candidates[0]?.controller || null;
+
+    mediaControllers.forEach((controller) => {
+      if (controller !== nextController && !controller.video.paused) pauseMedia(controller, "offscreen");
+    });
+
+    if (!nextController) {
+      activeController = null;
+      return;
+    }
+
+    if (activeController !== nextController || nextController.video.paused) {
+      playMedia(nextController);
+    }
+  };
+
+  const requestMediaSchedule = () => {
+    if (!schedulerFrame) schedulerFrame = window.requestAnimationFrame(runMediaScheduler);
+  };
+
+  const toggleMediaPlayback = (controller) => {
+    if (controller.state === "error") {
+      controller.video.load();
+      controller.prepared = false;
+      setMediaState(controller, "poster");
+    }
+
+    if (controller.video.paused || activeController !== controller) {
+      controller.userPaused = false;
+      playMedia(controller, "user");
+    } else {
+      controller.userPaused = true;
+      pauseMedia(controller, "user");
+    }
+  };
+
+  evidenceVideos.forEach((video, index) => {
+    const figure = video.closest(".paper-demo, .experience-demo");
+    if (!figure) return;
+
+    const label = figure.getAttribute("aria-label") || `research preview ${index + 1}`;
+    const posterSource = video.getAttribute("poster");
+    const poster = document.createElement("img");
+    poster.className = "media-poster";
+    poster.alt = "";
+    poster.decoding = "async";
+    poster.setAttribute("aria-hidden", "true");
+    if (posterSource) poster.src = posterSource;
+
+    const chrome = document.createElement("div");
+    chrome.className = "media-chrome";
+    chrome.innerHTML = `
+      <button class="media-toggle" type="button" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="media-toggle__play" d="M9 7.5v9l7-4.5-7-4.5Z"></path>
+          <g class="media-toggle__pause"><rect x="8" y="7.5" width="3" height="9" rx="1"></rect><rect x="13" y="7.5" width="3" height="9" rx="1"></rect></g>
+        </svg>
+      </button>
+    `;
+
+    video.removeAttribute("autoplay");
+    video.autoplay = false;
+    video.preload = "none";
+    video.controls = false;
+    figure.classList.add("evidence-media");
+    figure.insertBefore(poster, video);
+    figure.append(chrome);
+
+    const controller = {
+      video,
+      figure,
+      poster,
+      chrome,
+      button: chrome.querySelector(".media-toggle"),
+      label,
+      state: "poster",
+      prepared: false,
+      frameReady: false,
+      nearViewport: false,
+      userPaused: false,
+      frameRequest: 0,
+      animationRequest: 0,
+      stallTimer: 0,
+    };
+
+    const failMedia = () => {
+      stopFrameLoop(controller);
+      controller.figure.classList.remove("is-media-buffering", "is-frame-ready");
+      controller.frameReady = false;
+      controller.prepared = false;
+      setMediaState(controller, "error");
+      if (activeController === controller) activeController = null;
+      requestMediaSchedule();
+    };
+
+    setMediaState(controller, "poster");
+
+    controller.button.addEventListener("click", () => toggleMediaPlayback(controller));
+    video.addEventListener("click", () => toggleMediaPlayback(controller));
+
+    video.addEventListener("loadedmetadata", () => {
+      if (controller.state !== "error" && controller.video.paused) setMediaState(controller, "ready");
+    });
+
+    video.addEventListener("playing", () => {
+      window.clearTimeout(controller.stallTimer);
+      controller.stallTimer = 0;
+      controller.figure.classList.remove("is-media-buffering");
+      startFrameLoop(controller);
+    });
+
+    video.addEventListener("waiting", () => {
+      if (activeController !== controller) return;
+      controller.figure.classList.add("is-media-buffering");
+      setMediaState(controller, "buffering");
+      window.clearTimeout(controller.stallTimer);
+      controller.stallTimer = window.setTimeout(() => {
+        if (
+          activeController === controller &&
+          !controller.frameReady &&
+          controller.video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA
+        ) {
+          failMedia();
+        }
+      }, 12000);
+    });
+
+    video.addEventListener("pause", () => {
+      stopFrameLoop(controller);
+      controller.figure.classList.remove("is-media-buffering");
+      if (controller.state !== "error" && activeController !== controller) {
+        setMediaState(controller, controller.frameReady ? "paused" : controller.prepared ? "ready" : "poster");
+      }
+    });
+
+    video.addEventListener("error", failMedia);
+    video.querySelectorAll("source").forEach((source) => {
+      source.addEventListener("error", () => {
+        window.setTimeout(() => {
+          if (
+            controller.video.error ||
+            controller.video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE
+          ) {
+            failMedia();
           }
         });
+      });
+    });
+
+    mediaControllers.push(controller);
+  });
+
+  if ("IntersectionObserver" in window) {
+    nearObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const controller = mediaControllers.find(({ figure }) => figure === entry.target);
+          if (!controller) return;
+          controller.nearViewport = entry.isIntersecting;
+          if (!entry.isIntersecting && activeController === controller) pauseMedia(controller, "offscreen");
+        });
+        requestMediaSchedule();
       },
-      { threshold: 0.2, rootMargin: "180px 0px" }
+      { rootMargin: "280px 0px", threshold: 0 }
     );
 
-    paperVideos.forEach((video) => videoObserver.observe(video));
+    mediaControllers.forEach(({ figure }) => nearObserver.observe(figure));
+  } else {
+    mediaControllers.forEach((controller) => {
+      controller.nearViewport = true;
+    });
   }
+
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      ++activationToken;
+      mediaControllers.forEach((controller) => {
+        if (!controller.video.paused) pauseMedia(controller);
+      });
+    } else {
+      requestMediaSchedule();
+    }
+  };
+
+  const handleMotionPreference = () => {
+    if (motionPreference.matches) {
+      ++activationToken;
+      mediaControllers.forEach((controller) => {
+        if (!controller.video.paused) pauseMedia(controller);
+      });
+    } else {
+      requestMediaSchedule();
+    }
+  };
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  window.addEventListener("scroll", requestMediaSchedule, { passive: true });
+  window.addEventListener("resize", requestMediaSchedule, { passive: true });
+  window.addEventListener("pagehide", () => {
+    ++activationToken;
+    if (nearObserver) nearObserver.disconnect();
+    mediaControllers.forEach((controller) => {
+      stopFrameLoop(controller);
+      controller.video.pause();
+    });
+  }, { once: true });
+  motionPreference.addEventListener?.("change", handleMotionPreference);
+  requestMediaSchedule();
 }
 
 if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
@@ -288,7 +620,9 @@ if (homeHero && homeLinenCanvas) {
         context.stroke();
       }
 
-      if (linenVisible && !reduceMotion) linenFrame = window.requestAnimationFrame(drawHomeLinen);
+      if (linenVisible && !document.hidden && !reduceMotion) {
+        linenFrame = window.requestAnimationFrame(drawHomeLinen);
+      }
     };
 
     const resizeHomeLinen = () => {
@@ -311,18 +645,37 @@ if (homeHero && homeLinenCanvas) {
     if ("ResizeObserver" in window) new ResizeObserver(resizeHomeLinen).observe(homeLinenCanvas);
     else window.addEventListener("resize", resizeHomeLinen, { passive: true });
 
+    const syncHeroRuntime = () => {
+      const shouldRun = linenVisible && !document.hidden && !reduceMotion;
+      homeHero.classList.toggle("is-runtime-paused", !shouldRun);
+
+      if (shouldRun && !linenFrame) {
+        linenFrame = window.requestAnimationFrame(drawHomeLinen);
+      } else if (!shouldRun && linenFrame) {
+        window.cancelAnimationFrame(linenFrame);
+        linenFrame = 0;
+      }
+    };
+
+    let heroObserver = null;
+
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(([entry]) => {
+      heroObserver = new IntersectionObserver(([entry]) => {
         linenVisible = entry.isIntersecting;
-        if (linenVisible && !linenFrame && !reduceMotion) linenFrame = window.requestAnimationFrame(drawHomeLinen);
-        if (!linenVisible && linenFrame) {
-          window.cancelAnimationFrame(linenFrame);
-          linenFrame = 0;
-        }
-      }).observe(homeHero);
+        syncHeroRuntime();
+      });
+      heroObserver.observe(homeHero);
     }
 
+    document.addEventListener("visibilitychange", syncHeroRuntime);
+    window.addEventListener("pagehide", () => {
+      if (heroObserver) heroObserver.disconnect();
+      if (linenFrame) window.cancelAnimationFrame(linenFrame);
+      linenFrame = 0;
+    }, { once: true });
+
     resizeHomeLinen();
+    syncHeroRuntime();
   }
 }
 
