@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-21T06:46:46.917767+00:00",
-  "generatedAt": "2026-09-21T06:48:40.913291+00:00",
+  "updatedAt": "2026-09-21T06:55:40.005250+00:00",
+  "generatedAt": "2026-09-21T06:55:46.378159+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -53352,6 +53352,16 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "rn50-cache-online-tf32-diagnosis-20260921T0637Z",
+      "at": "2026-09-21T06:53:08.837130+00:00",
+      "type": "correction",
+      "title": "RN50 缓存与在线编码的批大小数值差异已定位",
+      "summary": "同帧、同预处理下，启用TF32的缓存64图批次与在线2图批次存在特征差异；确定性开关不是根因。关闭TF32后批次间通过原一致性阈值，但与旧缓存不兼容，后续须新实现及新缓存身份。RN50-DP未准入；已有RN50-ACT保留为旧实现的开发测量，实际成功率影响尚未测量，不与未来修正版混算。",
+      "evidenceLabel": "rn50-same-input-report.json",
+      "evidenceSha256": "1d4e2514d77e12c1809bdc47820f232317d3dbfbd9f5187f9570616236c577c7",
+      "commitUrl": null
+    },
     {
       "id": "native-dp-seed29-43-admission-20260921T0637Z",
       "at": "2026-09-21T06:47:01+00:00",
