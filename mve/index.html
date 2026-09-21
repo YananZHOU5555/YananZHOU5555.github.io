@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="MVE 实验观测站：视觉编码器、机器人任务、真实执行片段与可追溯实验日志。"><title>MVE · 实验观测站</title><link rel="icon" type="image/png" href="data/media/mve-mark.png"><link rel="stylesheet" href="styles.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="./" aria-label="MVE 实验观测站首页"><img class="brand-mark" src="data/media/mve-mark.png" width="42" height="42" alt=""><span>MVE<span class="brand-sub">RESEARCH OBSERVATORY</span></span></a><div class="side-label">BENCHMARKS <span id="bench-count"></span></div><nav id="benchmarks" aria-label="选择benchmark"></nav><div class="side-foot"><span class="dot"></span> RSS27 · 实验观测站<p>Measured evidence.<br>Task by task.</p><a id="repository-link" href="https://github.com/YananZHOU5555/RSS27-MVE" target="_blank" rel="noopener">GitHub · 私有仓库 ↗</a><br><a href="data/data.json" target="_blank" rel="noopener">查看数据快照 ↗</a></div></aside>
+<main><header class="topbar"><span>RSS27 · Meta Visual Encoder <span class="slash">/</span> <span id="breadcrumb">LIBERO</span></span><div class="update"><span id="update-time"></span><button id="refresh" aria-label="重新加载数据">↻ 刷新</button></div></header>
+<section class="intro"><div class="eyebrow">ROBOT LEARNING · VISUAL REPRESENTATIONS</div><div class="title-row"><h1 id="page-title">Benchmark, in focus.</h1><a id="source" class="source" target="_blank" rel="noopener">官方项目 ↗</a></div><p id="description"></p></section>
+<div id="load-error" role="alert" hidden></div>
+<section id="metrics" class="metrics" aria-label="评估覆盖"></section>
+<div class="section-bar"><nav class="tabs" aria-label="内容视图"><button class="active" data-view="leaderboard">排行榜<span>01</span></button><button data-view="tasks">任务与 GIF<span>02</span></button><button data-view="protocol">评估说明<span>03</span></button><button data-view="log">实验日志<span>04</span></button></nav><span class="stage-pill" id="stage"></span></div>
+<div class="controls"><label>评估版本<select id="track"></select></label><label>动作模型<select id="head"><option value="all">全部动作模型</option><option value="DP">Diffusion Policy</option><option value="ACT">ACT</option></select></label><label>任务集<select id="suite"><option value="all">全部任务集</option></select></label><label class="search-label">搜索<input id="search" type="search" placeholder="搜索编码器、任务…" autocomplete="off"></label></div>
+<section id="content" aria-live="polite"></section>
+<footer><span>MVE / 实验观测站</span><span>每个分数对应明确的任务、模型与评估版本。</span></footer></main>
+<dialog id="detail"><div class="dialog-top"><span id="detail-eyebrow"></span><button id="close-detail" aria-label="关闭详情">✕</button></div><div id="detail-body"></div></dialog>
+<script src="app.js"></script></body></html>
