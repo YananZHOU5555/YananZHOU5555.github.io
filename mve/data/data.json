@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-22T06:14:12.091706+00:00",
-  "generatedAt": "2026-09-22T06:16:10.576685+00:00",
+  "updatedAt": "2026-09-22T06:26:53.121062+00:00",
+  "generatedAt": "2026-09-22T06:26:59.688088+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -86274,6 +86274,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "dpdit-first-training-dinov2-recache-20260922T0624Z",
+      "at": "2026-09-22T06:24:52.249853+00:00",
+      "type": "protocol",
+      "title": "DP-DiT正式进入开发训练，DINOv2独立精度修订重建缓存",
+      "summary": "官方TransformerForDiffusion（12层、12头、768宽度）接入同一原生token条件输入、DDPM100/DDIM20；三种视觉编码器均通过完整batch32、所有token梯度、逐位断点恢复、在线接口和8步闭环检查。EUPE/DINOv3/SigLIP2 seed17实测40/90/30步，目标20000步，29/43种子仍在计划中；此时没有DP-DiT成功率。MVE2按独立FP32/关闭TF32版本重建DINOv2缓存，旧缓存与失败证据保留。当前3路训练+1路缓存，未宣称八卡满负载。",
+      "evidenceLabel": "update2-summary-20260922.json",
+      "commitUrl": null
+    },
     {
       "id": "vc1-vit-complete-four-combos-20260922T0614Z",
       "at": "2026-09-22T06:14:12.091706+00:00",
