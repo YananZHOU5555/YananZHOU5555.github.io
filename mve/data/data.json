@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-22T02:57:33.080603+00:00",
-  "generatedAt": "2026-09-22T02:58:26.777893+00:00",
+  "updatedAt": "2026-09-22T03:22:08.731212+00:00",
+  "generatedAt": "2026-09-22T03:22:15.244222+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -78826,6 +78826,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "eight-gpu-owners-act-continuation-20260922T0320Z",
+      "at": "2026-09-22T03:20:54.987438+00:00",
+      "type": "protocol",
+      "title": "双机八路有效作业，ACT接续六个训练种子",
+      "summary": "保留六路健康DP评估，在两台服务器空闲GPU3分别启动VC-1和ViT-B/16的ACT seed17，实测70/40步。原生token、完整batch32、7层梯度、缓存/在线一致性、检查点回读及8步闭环门槛通过；其余四个训练种子在对应DP评估完成后自动接续，所有模型均排定20x1评估。八路作业不等于CPU/GPU持续100%利用率，不把门槛或训练步数计为成功率。",
+      "evidenceLabel": "utilization-summary-20260922.json",
+      "commitUrl": null
+    },
     {
       "id": "six-dp-final20k-evaluation-20260922T0256Z",
       "at": "2026-09-22T02:57:33.080603+00:00",
