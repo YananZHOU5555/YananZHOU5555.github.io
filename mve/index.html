@@ -7,7 +7,7 @@
 <div id="load-error" role="alert" hidden></div>
 <section id="metrics" class="metrics" aria-label="评估覆盖"></section>
 <div class="section-bar"><nav class="tabs" aria-label="内容视图"><button class="active" data-view="leaderboard">排行榜<span>01</span></button><button data-view="tasks">任务与 GIF<span>02</span></button><button data-view="protocol">评估说明<span>03</span></button><button data-view="log">实验日志<span>04</span></button></nav><span class="stage-pill" id="stage"></span></div>
-<div class="controls"><label>评估版本<select id="track"></select></label><label>动作模型<select id="head"><option value="all">全部动作模型</option><option value="DP">Diffusion Policy</option><option value="ACT">ACT</option></select></label><label>任务集<select id="suite"><option value="all">全部任务集</option></select></label><label class="search-label">搜索<input id="search" type="search" placeholder="搜索编码器、任务…" autocomplete="off"></label></div>
+<div class="controls"><label>评估版本<select id="track"></select></label><label>动作模型<select id="head"><option value="all">全部动作模型</option><option value="DP">DP-U-Net</option><option value="DP-DIT">DP-DiT</option><option value="ACT">ACT</option></select></label><label>任务集<select id="suite"><option value="all">全部任务集</option></select></label><label class="search-label">搜索<input id="search" type="search" placeholder="搜索编码器、任务…" autocomplete="off"></label></div>
 <section id="content" aria-live="polite"></section>
 <footer><span>MVE / 实验观测站</span><span>每个分数对应明确的任务、模型与评估版本。</span></footer></main>
 <dialog id="detail"><div class="dialog-top"><span id="detail-eyebrow"></span><button id="close-detail" aria-label="关闭详情">✕</button></div><div id="detail-body"></div></dialog>
