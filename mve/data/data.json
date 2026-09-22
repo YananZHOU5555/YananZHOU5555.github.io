@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-22T07:15:20.462208+00:00",
-  "generatedAt": "2026-09-22T07:15:26.933808+00:00",
+  "updatedAt": "2026-09-22T07:26:33.722529+00:00",
+  "generatedAt": "2026-09-22T07:26:54.458554+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -86274,6 +86274,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "dpdit-evalr1-recovery-20260922T0723Z",
+      "at": "2026-09-22T07:26:33.722529+00:00",
+      "type": "protocol",
+      "title": "修复DP-DiT评估入口，恢复八卡并行",
+      "summary": "首批EUPE、DINOv3、SigLIP2的DP-DiT均完成20000步；评估入口误检查U-Net源码文件名，曾导致三路评估停下。独立评估修订r1按真实Transformer源码核验，三个最终检查点通过严格预检，闭环已产生真实回合记录。已恢复4卡训练、4卡评估，并替换全部后续DP-DiT评估及受影响依赖；冻结训练代码、模型权重、预算和成功定义未改，失败记录保留。未完成评估不计入成功率，完整已审计结果仍为48模型、16组合。",
+      "evidenceLabel": "eight-card-summary-20260922.json",
+      "commitUrl": null
+    },
     {
       "id": "eight-card-rolling-24models-20260922T0712Z",
       "at": "2026-09-22T07:12:07.650662+00:00",
