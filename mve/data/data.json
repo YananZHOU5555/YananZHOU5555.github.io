@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-21T20:59:57.687908+00:00",
-  "generatedAt": "2026-09-21T21:05:57.152703+00:00",
+  "updatedAt": "2026-09-21T21:08:19.057515+00:00",
+  "generatedAt": "2026-09-22T02:04:49.599282+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -72098,6 +72098,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "next-two-dp-training-20260922T0203Z",
+      "at": "2026-09-22T02:03:30.378668+00:00",
+      "type": "protocol",
+      "title": "VC-1与ViT-B/16接续六个DP训练模型",
+      "summary": "两编码器的40任务原生缓存、完整batch32、全部token梯度、断点恢复、在线接口与8步闭环检查均已通过。六个独立训练模型已实际前进：VC-1三seed为610/700/590步，ViT-B/16为860/650/720步，目标仍为20000步，随后每任务20评估seed各1回合。现有36个完整模型的成绩保持原审计值；新模型尚无成功率。",
+      "evidenceLabel": "manual-training-mve2-20260922.json",
+      "commitUrl": null
+    },
+    {
+      "id": "dinov2-online-gate-failure-20260922T0200Z",
+      "at": "2026-09-22T02:00:13.041162+00:00",
+      "type": "protocol",
+      "title": "DINOv2缓存完成，但在线特征一致性门槛未通过",
+      "summary": "固定版本DINOv2 registers的40任务原生缓存已完成。完整batch32、全token梯度和断点恢复检查通过，但缓存/在线特征393216个元素中34616个超出原容差，最大绝对差0.046875；保留失败证据，未放宽阈值或启动该模型训练。该问题独立处理，不阻塞VC-1与ViT。",
+      "evidenceLabel": "manual-gates-mve2-20260922.json",
+      "commitUrl": null
+    },
     {
       "id": "next-native-cache-stage-20260921T2055Z",
       "at": "2026-09-21T21:05:00+00:00",
