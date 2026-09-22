@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-22T06:26:53.121062+00:00",
-  "generatedAt": "2026-09-22T06:26:59.688088+00:00",
+  "updatedAt": "2026-09-22T07:15:20.462208+00:00",
+  "generatedAt": "2026-09-22T07:15:26.933808+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -86274,6 +86274,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "eight-card-rolling-24models-20260922T0712Z",
+      "at": "2026-09-22T07:12:07.650662+00:00",
+      "type": "protocol",
+      "title": "八卡各有独立训练，24模型队列自动衔接",
+      "summary": "双机实测8个独立训练owner且步数持续增长；MVE1为EUPE/DINOv3/SigLIP/VC-1的12个DP-DiT模型，MVE2为CLIP/Theia/ViT的9个DP-DiT及3个DINOv2精度修订DP-U-Net模型。统一三个训练seed、完整batch32无累积、20000步、每模型800次评估；VC-1须先通过新动作头门槛。清理已退役可重建的池化特征缓存释放33.28GB，原始数据、权重、检查点、结果和当前native缓存保留。已验证48模型/16组合/38400回合不变；新动作头成功率仍待独立审计，不宣称持续100%硬件利用率。",
+      "evidenceLabel": "eight-card-summary-20260922.json",
+      "commitUrl": null
+    },
     {
       "id": "dpdit-first-training-dinov2-recache-20260922T0624Z",
       "at": "2026-09-22T06:24:52.249853+00:00",
