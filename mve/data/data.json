@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-09-23T09:01:10.060484+00:00",
-  "generatedAt": "2026-09-23T09:06:04.994206+00:00",
+  "updatedAt": "2026-09-23T09:08:11.866759+00:00",
+  "generatedAt": "2026-09-23T09:28:39.979721+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -174896,6 +174896,1600 @@
               ]
             }
           ],
+          "encoderBoard": {
+            "policyHeads": [
+              "act",
+              "dp",
+              "dp-dit"
+            ],
+            "rows": [
+              {
+                "id": "encoder::clip_b16",
+                "encoder": "clip_b16",
+                "encoderLabel": "CLIP ViT-B/16",
+                "successRate": 0.3441666666666667,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::clip_b16::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.36,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::clip_b16::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.33541666666666664,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::clip_b16::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.33708333333333335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.26166666666666666,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.13722222222222222,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.5477777777777778,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.43,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::dinov2_b14_reg",
+                "encoder": "dinov2_b14_reg",
+                "encoderLabel": "DINOv2 ViT-B/14 + registers",
+                "successRate": null,
+                "completedPolicies": [
+                  "act",
+                  "dp"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "partial",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::dinov2_b14_reg::act_native_dinov2_v1",
+                    "policyFamily": "act_native_dinov2_v1",
+                    "label": "ACT · DINOv2 FP32",
+                    "successRate": 0.45541666666666664,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::dinov2_b14_reg::dp_unet_native_dinov2_v6r1",
+                    "policyFamily": "dp_unet_native_dinov2_v6r1",
+                    "label": "DP-U-Net · DINOv2 v6r1",
+                    "successRate": 0.38625,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": null,
+                    "policyFamily": null,
+                    "label": "dp-dit",
+                    "successRate": null,
+                    "completedSeeds": []
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::dinov3_b16",
+                "encoder": "dinov3_b16",
+                "encoderLabel": "DINOv3 ViT-B/16",
+                "successRate": 0.39458333333333334,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::dinov3_b16::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.4708333333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::dinov3_b16::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.3720833333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::dinov3_b16::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.3408333333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.2783333333333333,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.12111111111111111,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.6094444444444445,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.5694444444444444,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::eupe_vit_b",
+                "encoder": "eupe_vit_b",
+                "encoderLabel": "EUPE ViT-B",
+                "successRate": 0.4363888888888889,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::eupe_vit_b::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.5095833333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::eupe_vit_b::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.4170833333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::eupe_vit_b::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.3825,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.3088888888888889,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.12166666666666667,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.7516666666666667,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.5633333333333334,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::mae_b16",
+                "encoder": "mae_b16",
+                "encoderLabel": "MAE ViT-B/16",
+                "successRate": 0.3686111111111111,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::mae_b16::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.5529166666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::mae_b16::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.30541666666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::mae_b16::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.2475,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.23055555555555554,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.1983333333333333,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.5527777777777778,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.49277777777777776,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::pe_core_b16_224",
+                "encoder": "pe_core_b16_224",
+                "encoderLabel": "PE Core ViT-B/16",
+                "successRate": 0.3745833333333333,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::pe_core_b16_224::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.44416666666666665,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::pe_core_b16_224::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.33916666666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::pe_core_b16_224::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.34041666666666665,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.22944444444444445,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.1361111111111111,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.5794444444444444,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.5533333333333333,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::r3m_resnet50",
+                "encoder": "r3m_resnet50",
+                "encoderLabel": "R3M ResNet-50",
+                "successRate": 0.35375,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::r3m_resnet50::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.33875,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::r3m_resnet50::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.3458333333333333,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::r3m_resnet50::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.37666666666666665,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.2816666666666667,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.16944444444444443,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.4338888888888889,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.53,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::resnet50_in1k_v2",
+                "encoder": "resnet50_in1k_v2",
+                "encoderLabel": "ResNet-50 · ImageNet-1K",
+                "successRate": 0.41875,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [
+                  "native-combo::resnet50_in1k_v2::act_native_7"
+                ],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::resnet50_in1k_v2::act_native_rn50_fp32_v1",
+                    "policyFamily": "act_native_rn50_fp32_v1",
+                    "label": "ACT · RN50 FP32",
+                    "successRate": 0.43833333333333335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::resnet50_in1k_v2::dp_unet_native_rn50_v5",
+                    "policyFamily": "dp_unet_native_rn50_v5",
+                    "label": "DP-U-Net · RN50 v5",
+                    "successRate": 0.415,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::resnet50_in1k_v2::dp_dit_native_rn50_v1",
+                    "policyFamily": "dp_dit_native_rn50_v1",
+                    "label": "DP-DiT · RN50 FP32",
+                    "successRate": 0.4029166666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.3383333333333333,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.19166666666666668,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.6483333333333333,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.49666666666666665,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::siglip2_b16_224",
+                "encoder": "siglip2_b16_224",
+                "encoderLabel": "SigLIP 2 ViT-B/16",
+                "successRate": 0.4423611111111111,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::siglip2_b16_224::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.62,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::siglip2_b16_224::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.365,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::siglip2_b16_224::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.34208333333333335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.30333333333333334,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.2516666666666667,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.6605555555555556,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.5538888888888889,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::theia_b_cdiv",
+                "encoder": "theia_b_cdiv",
+                "encoderLabel": "Theia ViT-B",
+                "successRate": 0.4041666666666667,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::theia_b_cdiv::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.46749999999999997,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::theia_b_cdiv::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.36916666666666664,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::theia_b_cdiv::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.37583333333333335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.29833333333333334,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.24166666666666667,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.6305555555555555,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.4461111111111111,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::vc1_b",
+                "encoder": "vc1_b",
+                "encoderLabel": "VC-1 ViT-B",
+                "successRate": 0.35583333333333333,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::vc1_b::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.45875,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::vc1_b::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.32708333333333334,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::vc1_b::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.2816666666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.18055555555555555,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.15333333333333335,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.6194444444444445,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.47,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::vc1_l",
+                "encoder": "vc1_l",
+                "encoderLabel": "VC-1 ViT-L",
+                "successRate": null,
+                "completedPolicies": [
+                  "act",
+                  "dp"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "partial",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::vc1_l::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.49625,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::vc1_l::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.29791666666666666,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::vc1_l::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": null,
+                    "completedSeeds": [
+                      17
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": null,
+                    "completedPolicies": [
+                      "act",
+                      "dp"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::vip",
+                "encoder": "vip",
+                "encoderLabel": "VIP ResNet-50",
+                "successRate": 0.3130555555555556,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::vip::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.27875,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::vip::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.3304166666666667,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::vip::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.33,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.125,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.16111111111111112,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.5161111111111112,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.45,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "encoder::vitb16_in1k_v1",
+                "encoder": "vitb16_in1k_v1",
+                "encoderLabel": "ViT-B/16 · ImageNet-1K",
+                "successRate": 0.38,
+                "completedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "expectedPolicies": [
+                  "act",
+                  "dp",
+                  "dp-dit"
+                ],
+                "status": "complete",
+                "excludedCombinationIds": [],
+                "policies": [
+                  {
+                    "head": "act",
+                    "combinationId": "native-combo::vitb16_in1k_v1::act_native_7",
+                    "policyFamily": "act_native_7",
+                    "label": "ACT7",
+                    "successRate": 0.46208333333333335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp",
+                    "combinationId": "native-combo::vitb16_in1k_v1::dp_unet_native",
+                    "policyFamily": "dp_unet_native",
+                    "label": "DP-U-Net",
+                    "successRate": 0.335,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  },
+                  {
+                    "head": "dp-dit",
+                    "combinationId": "native-combo::vitb16_in1k_v1::dp_dit_native",
+                    "policyFamily": "dp_dit_native",
+                    "label": "DP-DiT",
+                    "successRate": 0.34291666666666665,
+                    "completedSeeds": [
+                      17,
+                      29,
+                      43
+                    ]
+                  }
+                ],
+                "suiteResults": [
+                  {
+                    "suite": "libero_10",
+                    "successRate": 0.26611111111111113,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_goal",
+                    "successRate": 0.19111111111111112,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_object",
+                    "successRate": 0.54,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  },
+                  {
+                    "suite": "libero_spatial",
+                    "successRate": 0.5227777777777778,
+                    "completedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ],
+                    "expectedPolicies": [
+                      "act",
+                      "dp",
+                      "dp-dit"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "method": "先对训练种子17/29/43等权平均，再对全部动作策略等权平均；所有编码器采用同一策略集合。",
+            "revisionNote": "RN50采用FP32 ACT，与当前DP系列的视觉精度版本对齐；旧ACT仅保留在组合榜，不重复计权。",
+            "missingNote": "总分与各分类分别核验覆盖；任一策略缺少完整三训练种子，该范围均值为空，不以0或部分策略替代。"
+          },
           "expectedCombinations": 42,
           "completeCombinations": 41,
           "targetEpisodesPerCombination": 2400,
@@ -178407,6 +180001,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "encoder-board-20260923",
+      "at": "2026-09-23T09:28:32.929154+00:00",
+      "type": "release",
+      "title": "新增视觉编码器综合榜",
+      "summary": "新增独立视觉编码器榜：先平均每策略的三个训练种子，再对ACT、DP-U-Net、DP-DiT等权平均，每个编码器一行。所有编码器使用同一策略集合；总体及Spatial/Object/Goal/Long-horizon分别核验完整覆盖，缺失保留为空。当前14个编码器中12个可计算三策略综合分数，DINOv2和VC1-L覆盖未齐。RN50使用与当前DP系列视觉精度兼容的FP32 ACT，旧ACT仍留在组合榜且不重复计权。支持排序、筛选、各策略三种子和任务详情；仅派生现有已审计开发数据，未新增或改动实验。",
+      "evidenceLabel": "encoder-board-checks.json",
+      "commitUrl": null
+    },
     {
       "id": "cohort124-20260923T0858",
       "at": "2026-09-23T09:05:58.150074+00:00",
