@@ -1,11 +1,11 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-02T06:36:46.844792+00:00",
-  "generatedAt": "2026-10-02T06:40:14.153929+00:00",
+  "updatedAt": "2026-10-02T11:49:38.301388+00:00",
+  "generatedAt": "2026-10-02T11:49:45.771407+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
-    "native20x1": "2026-10-02T06:35:12.270472+00:00"
+    "native20x1": "2026-10-02T11:31:36.913696+00:00"
   },
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
@@ -26020,7 +26020,7 @@
           "episodesPerTask": 20,
           "targetEpisodesPerTask": 20,
           "targetEpisodesPerRun": 800,
-          "observedAt": "2026-10-02T06:35:12.270472+00:00",
+          "observedAt": "2026-10-02T11:31:36.913696+00:00",
           "uniquePhysicalInitialStatesPerTask": 20,
           "servers": [
             {
@@ -26271,7 +26271,7 @@
             },
             {
               "id": "MVE2",
-              "observedAt": "2026-10-02T06:35:12.270472+00:00",
+              "observedAt": "2026-10-02T11:31:36.913696+00:00",
               "evidenceId": "app-act-audit-MVE2-20260923T0258.json",
               "evidenceSha256": "17b6239ea3490db9a93897db70c40705087475cf935354fcaa7977b1a824eede",
               "familyAudits": [
@@ -26382,16 +26382,16 @@
                 },
                 {
                   "id": "MVE2",
-                  "observedAt": "2026-10-02T06:19:13.963555+00:00",
-                  "evidenceId": "app-dpdit-pespatial-audit-MVE2-20261002T0611.json",
-                  "evidenceSha256": "5270ccf5b1df172135d3b3bba6e7d295cac517874f67a927a4dd077a7e4282f7",
+                  "observedAt": "2026-10-02T11:31:36.913696+00:00",
+                  "evidenceId": "refill-dpdit-pespatial-audit-MVE2-20261002.json",
+                  "evidenceSha256": "2144b943ad67560c26737b7fdc8e47e9e15a4da1071ba1ce22890e862ad0daff",
                   "policyFamily": "dp_dit_native_pespatial_v1"
                 },
                 {
                   "id": "MVE2",
-                  "observedAt": "2026-10-02T06:35:12.270472+00:00",
-                  "evidenceId": "app-act-pespatial-audit-MVE2-20261002T0633.json",
-                  "evidenceSha256": "38b8f367715a013db53070ab6f8ec2505353b465da3aa5692b1fbb1071c0c590",
+                  "observedAt": "2026-10-02T11:31:21.120644+00:00",
+                  "evidenceId": "refill-act-pespatial-audit-MVE2-20261002.json",
+                  "evidenceSha256": "ed0b9235faccfd97a97cd170e49b029b1b808b76e364b4e0e74c9244a4ed0685",
                   "policyFamily": "act_native_pe_recompute_v1"
                 }
               ]
@@ -167391,7 +167391,7 @@
               "successRate": 0.215,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-02T06:19:08.366552+00:00",
+              "progressAsOf": "2026-10-02T11:31:26.298150+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "411f3af7a417154720ff980eb712085fb405e90ed70a4cea85af93336b1bcbf6",
@@ -167964,7 +167964,7 @@
               "successRate": 0.16375,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-02T06:19:13.957384+00:00",
+              "progressAsOf": "2026-10-02T11:31:31.637904+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "797833d974950562916bafb472d554aa8fa796493487b9c2415c4e4054e4fa10",
@@ -168531,339 +168531,560 @@
                 32,
                 32
               ],
-              "successes": null,
-              "episodes": 0,
+              "successes": 119,
+              "episodes": 800,
               "expectedEpisodes": 800,
-              "successRate": null,
-              "status": "pending",
-              "progressStatus": "training_incomplete",
-              "progressAsOf": "2026-10-02T06:19:13.963522+00:00",
+              "successRate": 0.14875,
+              "status": "complete",
+              "progressStatus": "complete",
+              "progressAsOf": "2026-10-02T11:31:36.913638+00:00",
               "rankingEligible": false,
               "rank": null,
-              "checkpointSha256": null,
-              "completeGroups": 0,
+              "checkpointSha256": "9f39346ed8deb06e188a834ba2fe3826591295e74f88fcdf55327631c05dcbd3",
+              "completeGroups": 20,
               "expectedGroups": 20,
-              "groups": [],
+              "groups": [
+                {
+                  "index": 0,
+                  "rootSeed": 31000000,
+                  "initIndex": 0,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 7,
+                  "audited": true,
+                  "protocolSha256": "82e55bbf3d25181ef461e01ab36c5d597011456c28b6a13fc2619924165ceb0f"
+                },
+                {
+                  "index": 1,
+                  "rootSeed": 32000000,
+                  "initIndex": 1,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 8,
+                  "audited": true,
+                  "protocolSha256": "cd6554dd9c4d0a1a9b562bea7d0a58ffc9b65146838296e99366730961fc02fa"
+                },
+                {
+                  "index": 2,
+                  "rootSeed": 33000000,
+                  "initIndex": 2,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 5,
+                  "audited": true,
+                  "protocolSha256": "6d0ff11eff4cbb9f54c551adbbd9b55ec3352d33a49d2a863dc9da680e66de66"
+                },
+                {
+                  "index": 3,
+                  "rootSeed": 34000000,
+                  "initIndex": 3,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 7,
+                  "audited": true,
+                  "protocolSha256": "59d64ab7cc410491e1bc8f4ef45a1b04f4d0c453fa24b1ef663802eb78013e27"
+                },
+                {
+                  "index": 4,
+                  "rootSeed": 35000000,
+                  "initIndex": 4,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 7,
+                  "audited": true,
+                  "protocolSha256": "a37b532ee176ec78c2ffc5925dcbe356cce89f5421e42dadc87fb8333a3f0515"
+                },
+                {
+                  "index": 5,
+                  "rootSeed": 36000000,
+                  "initIndex": 5,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 4,
+                  "audited": true,
+                  "protocolSha256": "674a27e6c3160fb211ed1b0ba85760f649cf56dc7becb8fe2144e3c475b18d07"
+                },
+                {
+                  "index": 6,
+                  "rootSeed": 37000000,
+                  "initIndex": 6,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 6,
+                  "audited": true,
+                  "protocolSha256": "fd07bf27855f95b17dc6ba9606259a4494ac0f671ea5757fe2ed10d9479e3078"
+                },
+                {
+                  "index": 7,
+                  "rootSeed": 38000000,
+                  "initIndex": 7,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 5,
+                  "audited": true,
+                  "protocolSha256": "f5a04d5cfeaf8cd4bb29b4ee1c98ec717f105446e92b98b20d24ddee9f18afa4"
+                },
+                {
+                  "index": 8,
+                  "rootSeed": 39000000,
+                  "initIndex": 8,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 9,
+                  "audited": true,
+                  "protocolSha256": "af64face8f311e339ac836837dd4510740d256ea9e5ddb1588245db0e8ed584f"
+                },
+                {
+                  "index": 9,
+                  "rootSeed": 40000000,
+                  "initIndex": 9,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 6,
+                  "audited": true,
+                  "protocolSha256": "7aa2953fdc935287b5d78ff2b476e232c9dcc5639570f2b3bfcaaf4dda1b6f10"
+                },
+                {
+                  "index": 10,
+                  "rootSeed": 41000000,
+                  "initIndex": 10,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 5,
+                  "audited": true,
+                  "protocolSha256": "bc82367431d435f235078903c289197f6ad3492c71f1b1daccdea04e4454e9d9"
+                },
+                {
+                  "index": 11,
+                  "rootSeed": 42000000,
+                  "initIndex": 11,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 8,
+                  "audited": true,
+                  "protocolSha256": "4d893190aa9affc8917367e6a75da4213e811680da6e1afe7edb788948a98ff6"
+                },
+                {
+                  "index": 12,
+                  "rootSeed": 43000000,
+                  "initIndex": 12,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 6,
+                  "audited": true,
+                  "protocolSha256": "3be04d16687a2f5e86b23d897da02413358e6c412163de4c61e1faad7c5e064b"
+                },
+                {
+                  "index": 13,
+                  "rootSeed": 44000000,
+                  "initIndex": 13,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 8,
+                  "audited": true,
+                  "protocolSha256": "70ac0ce11dc50bf7c1af101dbbaa049dc314f689b5c49128e00f3b9e307937a4"
+                },
+                {
+                  "index": 14,
+                  "rootSeed": 45000000,
+                  "initIndex": 14,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 4,
+                  "audited": true,
+                  "protocolSha256": "f6caee90debbe315b5bddb384bead1d688e6a516bbd09d8a5454f84f6b403476"
+                },
+                {
+                  "index": 15,
+                  "rootSeed": 46000000,
+                  "initIndex": 15,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 9,
+                  "audited": true,
+                  "protocolSha256": "09c0919344b19ca295402728f46102dcf4a57f68dae9fef6edcc1aae17fa64e1"
+                },
+                {
+                  "index": 16,
+                  "rootSeed": 47000000,
+                  "initIndex": 16,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 2,
+                  "audited": true,
+                  "protocolSha256": "4a9ee59e11cd630faea2d3ec397ca9713d8f41c5c166e903fb751b984b20bb7c"
+                },
+                {
+                  "index": 17,
+                  "rootSeed": 48000000,
+                  "initIndex": 17,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 5,
+                  "audited": true,
+                  "protocolSha256": "edd6c41461f76f63e10aabe05b2aa2c8152558e0544656a70876ae7fa37f47d6"
+                },
+                {
+                  "index": 18,
+                  "rootSeed": 49000000,
+                  "initIndex": 18,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 6,
+                  "audited": true,
+                  "protocolSha256": "d8c23be9c4e0476f5f44d793265d55cf346ad51b94c71584f7610bdd49302f5f"
+                },
+                {
+                  "index": 19,
+                  "rootSeed": 50000000,
+                  "initIndex": 19,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 2,
+                  "audited": true,
+                  "protocolSha256": "e54584d3772b11abb613d1ea8b312ac05658aa2f5283ef86f64c76253e0e6903"
+                }
+              ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 }
               ]
             },
@@ -168889,7 +169110,7 @@
               "successRate": 0.4125,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-02T06:35:11.326645+00:00",
+              "progressAsOf": "2026-10-02T11:31:19.889335+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "ba63faef43d6dbb8b467f2cfef609dcd07801400f9ea6ae9458a428b720230f8",
@@ -169456,17 +169677,17 @@
                 32,
                 32
               ],
-              "successes": null,
-              "episodes": 556,
+              "successes": 341,
+              "episodes": 800,
               "expectedEpisodes": 800,
-              "successRate": null,
-              "status": "in_progress",
-              "progressStatus": "partial",
-              "progressAsOf": "2026-10-02T06:35:11.777305+00:00",
+              "successRate": 0.42625,
+              "status": "complete",
+              "progressStatus": "complete",
+              "progressAsOf": "2026-10-02T11:31:20.493897+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "c380895d5688e81a5182dd496a6aea4e32eaa8f91c9a8ec99c166858d598110f",
-              "completeGroups": 13,
+              "completeGroups": 20,
               "expectedGroups": 20,
               "groups": [
                 {
@@ -169616,10 +169837,10 @@
                   "index": 13,
                   "rootSeed": 44000000,
                   "initIndex": 13,
-                  "status": "pending",
-                  "episodes": 36,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 15,
                   "audited": true,
                   "protocolSha256": "4e6e9e677bb1acbba5b306c7c3f1f38d8de62756da135b1169818e07a40c96fe"
                 },
@@ -169627,389 +169848,389 @@
                   "index": 14,
                   "rootSeed": 45000000,
                   "initIndex": 14,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 16,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "5dc31a647f699b04bcd5780c24a7daffcbe3ca51857a2df9f2bdc0e8af53f25b"
                 },
                 {
                   "index": 15,
                   "rootSeed": 46000000,
                   "initIndex": 15,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 20,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "e8c977bb0249ce263ae3e323c5d7681d2182cfa2d464992b83325330ecb30218"
                 },
                 {
                   "index": 16,
                   "rootSeed": 47000000,
                   "initIndex": 16,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 20,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "ccd8258825859a6e4c7ad71dc84a712257e0f22bb14b159eec30cc03d65d4f93"
                 },
                 {
                   "index": 17,
                   "rootSeed": 48000000,
                   "initIndex": 17,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 20,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "49aa8e020508a9f905533d08184715a8e189f309c4f6d4946dba7370edd01125"
                 },
                 {
                   "index": 18,
                   "rootSeed": 49000000,
                   "initIndex": 18,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 15,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "c48f425a10af9679ba97617addb916a490b91b65e1dcaa3f694901e753728589"
                 },
                 {
                   "index": 19,
                   "rootSeed": 50000000,
                   "initIndex": 19,
-                  "status": "pending",
-                  "episodes": 0,
+                  "status": "complete",
+                  "episodes": 40,
                   "expectedEpisodes": 40,
-                  "successes": null,
+                  "successes": 14,
                   "audited": true,
-                  "protocolSha256": null
+                  "protocolSha256": "2540379788db307e7d2d55af4067fd3c2bdce031e4984c6eab8a3b51e002a47e"
                 }
               ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 13,
-                  "status": "partial"
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 10,
-                  "status": "partial"
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 14,
-                  "status": "partial"
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 12,
-                  "status": "partial"
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 13,
-                  "status": "partial"
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 8,
-                  "status": "partial"
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 12,
-                  "status": "partial"
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "partial"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 4,
-                  "status": "partial"
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 5,
-                  "status": "partial"
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 13,
-                  "status": "partial"
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 4,
                   "auditedSuccesses": 4,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 12,
-                  "status": "partial"
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 9,
-                  "status": "partial"
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 14,
-                  "status": "partial"
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 7,
-                  "status": "partial"
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 14,
-                  "status": "partial"
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 14,
-                  "status": "partial"
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 10,
-                  "status": "partial"
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 14,
-                  "status": "partial"
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 1,
                   "auditedSuccesses": 1,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 2,
-                  "status": "partial"
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 6,
-                  "status": "partial"
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 1,
-                  "status": "partial"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 1,
                   "auditedSuccesses": 1,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 2,
                   "auditedSuccesses": 2,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 2,
                   "auditedSuccesses": 2,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 3,
                   "auditedSuccesses": 3,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 1,
-                  "status": "partial"
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 2,
                   "auditedSuccesses": 2,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 14,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 4,
-                  "status": "partial"
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 13,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 13,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 2,
                   "auditedSuccesses": 2,
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 13,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 1,
-                  "status": "partial"
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 13,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 6,
-                  "status": "partial"
+                  "successes": 10,
+                  "auditedSuccesses": 10,
+                  "status": "complete"
                 }
               ]
             },
@@ -170035,7 +170256,7 @@
               "successRate": 0.4225,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-02T06:35:12.270425+00:00",
+              "progressAsOf": "2026-10-02T11:31:21.120597+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "2cea12b13b513323fb66d931cbaf83929b8c949da066a5fcce5ecda2fdd9ce67",
@@ -243611,13 +243832,14 @@
               ],
               "rankingEligible": false,
               "rank": null,
-              "episodes": 2156,
+              "episodes": 2400,
               "expectedEpisodes": 2400,
-              "successes": null,
-              "successRate": null,
-              "successRateStd": null,
+              "successes": 1009,
+              "successRate": 0.42041666666666666,
+              "successRateStd": 0.007107800878846676,
               "completedSeeds": [
                 17,
+                29,
                 43
               ],
               "seedRates": [
@@ -243632,10 +243854,10 @@
                 {
                   "seed": 29,
                   "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                  "episodes": 556,
-                  "successes": null,
-                  "successRate": null,
-                  "complete": false
+                  "episodes": 800,
+                  "successes": 341,
+                  "successRate": 0.42625,
+                  "complete": true
                 },
                 {
                   "seed": 43,
@@ -243646,17 +243868,18 @@
                   "complete": true
                 }
               ],
-              "status": "partial",
+              "status": "complete",
               "suiteResults": [
                 {
                   "suite": "libero_spatial",
-                  "episodes": 540,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 357,
+                  "successRate": 0.595,
+                  "successRateStd": 0.06614378277661478,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243671,10 +243894,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 140,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 134,
+                      "successRate": 0.67,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243685,17 +243908,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_object",
-                  "episodes": 540,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 484,
+                  "successRate": 0.8066666666666666,
+                  "successRateStd": 0.012583057392117868,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243710,10 +243934,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 140,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 159,
+                      "successRate": 0.795,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243724,17 +243948,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_goal",
-                  "episodes": 540,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 67,
+                  "successRate": 0.11166666666666666,
+                  "successRateStd": 0.05575242894559243,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243749,10 +243974,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 140,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 18,
+                      "successRate": 0.09,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243763,17 +243988,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_10",
-                  "episodes": 536,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 101,
+                  "successRate": 0.16833333333333333,
+                  "successRateStd": 0.020207259421636904,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243788,10 +244014,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 136,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 30,
+                      "successRate": 0.15,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243802,19 +244028,20 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 49,
+                  "successRate": 0.8166666666666667,
+                  "successRateStd": 0.18929694486000911,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243829,10 +244056,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243843,17 +244070,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 38,
+                  "successRate": 0.6333333333333333,
+                  "successRateStd": 0.2466441431158124,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243868,10 +244096,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 16,
+                      "successRate": 0.8,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243882,17 +244110,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 44,
+                  "successRate": 0.7333333333333333,
+                  "successRateStd": 0.3403429642777023,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243907,10 +244136,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243921,17 +244150,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 41,
+                  "successRate": 0.6833333333333333,
+                  "successRateStd": 0.15275252316519464,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243946,10 +244176,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243960,17 +244190,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 32,
+                  "successRate": 0.5333333333333333,
+                  "successRateStd": 0.38188130791298663,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -243985,10 +244216,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -243999,17 +244230,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 31,
+                  "successRate": 0.5166666666666667,
+                  "successRateStd": 0.057735026918962595,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244024,10 +244256,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244038,17 +244270,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 38,
+                  "successRate": 0.6333333333333333,
+                  "successRateStd": 0.30550504633038933,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244063,10 +244296,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244077,17 +244310,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 25,
+                  "successRate": 0.4166666666666667,
+                  "successRateStd": 0.3253203549323856,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244102,10 +244336,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244116,17 +244350,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 30,
+                  "successRate": 0.5,
+                  "successRateStd": 0.17320508075688773,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244141,10 +244376,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244155,17 +244390,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 29,
+                  "successRate": 0.48333333333333334,
+                  "successRateStd": 0.07637626158259735,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244180,10 +244416,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 8,
+                      "successRate": 0.4,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244194,17 +244430,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 57,
+                  "successRate": 0.95,
+                  "successRateStd": 0.04999999999999999,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244219,10 +244456,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244233,17 +244470,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 7,
+                  "successRate": 0.11666666666666667,
+                  "successRateStd": 0.07637626158259733,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244258,10 +244496,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244272,17 +244510,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 52,
+                  "successRate": 0.8666666666666667,
+                  "successRateStd": 0.12583057392117916,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244297,10 +244536,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244311,17 +244550,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 46,
+                  "successRate": 0.7666666666666666,
+                  "successRateStd": 0.1607275126832159,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244336,10 +244576,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 13,
+                      "successRate": 0.65,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244350,17 +244590,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 55,
+                  "successRate": 0.9166666666666666,
+                  "successRateStd": 0.1040832999733066,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244375,10 +244616,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244389,17 +244630,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 38,
+                  "successRate": 0.6333333333333333,
+                  "successRateStd": 0.18929694486000911,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244414,10 +244656,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244428,17 +244670,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 58,
+                  "successRate": 0.9666666666666667,
+                  "successRateStd": 0.028867513459481315,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244453,10 +244696,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244467,17 +244710,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 58,
+                  "successRate": 0.9666666666666667,
+                  "successRateStd": 0.05773502691896256,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244492,10 +244736,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244506,17 +244750,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 55,
+                  "successRate": 0.9166666666666666,
+                  "successRateStd": 0.14433756729740643,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244531,10 +244776,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 15,
+                      "successRate": 0.75,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244545,17 +244790,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 58,
+                  "successRate": 0.9666666666666667,
+                  "successRateStd": 0.05773502691896256,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244570,10 +244816,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244584,17 +244830,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244609,10 +244856,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244623,17 +244870,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 2,
+                  "successRate": 0.03333333333333333,
+                  "successRateStd": 0.05773502691896258,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244648,10 +244896,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244662,17 +244910,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 12,
+                  "successRate": 0.2,
+                  "successRateStd": 0.15,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244687,10 +244936,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244701,17 +244950,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 3,
+                  "successRate": 0.05,
+                  "successRateStd": 0.05,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244726,10 +244976,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244740,17 +244990,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 3,
+                  "successRate": 0.049999999999999996,
+                  "successRateStd": 0.08660254037844387,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244765,10 +245016,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244779,17 +245030,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 11,
+                  "successRate": 0.18333333333333335,
+                  "successRateStd": 0.23629078131263043,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244804,10 +245056,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244818,17 +245070,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 2,
+                  "successRate": 0.03333333333333333,
+                  "successRateStd": 0.05773502691896258,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244843,10 +245096,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244857,17 +245110,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 22,
+                  "successRate": 0.36666666666666664,
+                  "successRateStd": 0.5057996968497839,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244882,10 +245136,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244896,17 +245150,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 10,
+                  "successRate": 0.16666666666666666,
+                  "successRateStd": 0.07637626158259733,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244921,10 +245176,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244935,17 +245190,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244960,10 +245216,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -244974,17 +245230,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 5,
+                  "successRate": 0.08333333333333333,
+                  "successRateStd": 0.14433756729740643,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -244999,10 +245256,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245013,17 +245270,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 10,
+                  "successRate": 0.16666666666666669,
+                  "successRateStd": 0.05773502691896258,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245038,10 +245296,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245052,17 +245310,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 5,
+                  "successRate": 0.08333333333333333,
+                  "successRateStd": 0.05773502691896257,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245077,10 +245336,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245091,17 +245350,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 22,
+                  "successRate": 0.36666666666666664,
+                  "successRateStd": 0.2254624876411447,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245116,10 +245376,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245130,17 +245390,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 4,
+                  "successRate": 0.06666666666666667,
+                  "successRateStd": 0.05773502691896258,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245155,10 +245416,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245169,17 +245430,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 54,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 11,
+                  "successRate": 0.18333333333333335,
+                  "successRateStd": 0.12583057392117916,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245194,10 +245456,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 14,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245208,17 +245470,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 53,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 3,
+                  "successRate": 0.05,
+                  "successRateStd": 0.05,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245233,10 +245496,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 13,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245247,17 +245510,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 53,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 15,
+                  "successRate": 0.25,
+                  "successRateStd": 0.21794494717703367,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245272,10 +245536,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 13,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245286,17 +245550,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 53,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 4,
+                  "successRate": 0.06666666666666667,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245311,10 +245576,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 13,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245325,17 +245590,18 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 53,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 22,
+                  "successRate": 0.36666666666666664,
+                  "successRateStd": 0.12583057392117916,
                   "completedSeeds": [
                     17,
+                    29,
                     43
                   ],
                   "seedRates": [
@@ -245350,10 +245616,10 @@
                     {
                       "seed": 29,
                       "runId": "nactpe1dev_pe_spatial_b16_512_act7_b32_s29",
-                      "episodes": 13,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 10,
+                      "successRate": 0.5,
+                      "complete": true
                     },
                     {
                       "seed": 43,
@@ -245364,7 +245630,7 @@
                       "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ]
             },
@@ -245391,14 +245657,15 @@
               ],
               "rankingEligible": false,
               "rank": null,
-              "episodes": 1600,
+              "episodes": 2400,
               "expectedEpisodes": 2400,
-              "successes": null,
-              "successRate": null,
-              "successRateStd": null,
+              "successes": 422,
+              "successRate": 0.17583333333333334,
+              "successRateStd": 0.03473860724515785,
               "completedSeeds": [
                 17,
-                29
+                29,
+                43
               ],
               "seedRates": [
                 {
@@ -245420,24 +245687,25 @@
                 {
                   "seed": 43,
                   "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                  "episodes": 0,
-                  "successes": null,
-                  "successRate": null,
-                  "complete": false
+                  "episodes": 800,
+                  "successes": 119,
+                  "successRate": 0.14875,
+                  "complete": true
                 }
               ],
-              "status": "partial",
+              "status": "complete",
               "suiteResults": [
                 {
                   "suite": "libero_spatial",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 143,
+                  "successRate": 0.23833333333333334,
+                  "successRateStd": 0.033291640592396976,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245459,24 +245727,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 46,
+                      "successRate": 0.23,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_object",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 190,
+                  "successRate": 0.31666666666666665,
+                  "successRateStd": 0.09569918146637062,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245498,24 +245767,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 42,
+                      "successRate": 0.21,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_goal",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 29,
+                  "successRate": 0.04833333333333333,
+                  "successRateStd": 0.017559422921421233,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245537,24 +245807,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 10,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_10",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 60,
+                  "successRate": 0.1,
+                  "successRateStd": 0.027838821814150105,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245576,26 +245847,27 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 21,
+                      "successRate": 0.105,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 17,
+                  "successRate": 0.2833333333333333,
+                  "successRateStd": 0.05773502691896256,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245617,24 +245889,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 15,
+                  "successRate": 0.25,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245656,24 +245929,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 20,
+                  "successRate": 0.33333333333333337,
+                  "successRateStd": 0.11547005383792516,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245695,24 +245969,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 36,
+                  "successRate": 0.6,
+                  "successRateStd": 0.21794494717703367,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245734,24 +246009,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 15,
+                      "successRate": 0.75,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 5,
+                  "successRate": 0.08333333333333333,
+                  "successRateStd": 0.07637626158259733,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245773,24 +246049,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 20,
+                  "successRate": 0.3333333333333333,
+                  "successRateStd": 0.07637626158259735,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245812,24 +246089,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 7,
+                      "successRate": 0.35,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 14,
+                  "successRate": 0.23333333333333334,
+                  "successRateStd": 0.02886751345948128,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245851,24 +246129,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245890,24 +246169,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 12,
+                  "successRate": 0.2,
+                  "successRateStd": 0.05,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245929,24 +246209,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 3,
+                  "successRate": 0.05,
+                  "successRateStd": 0.05,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -245968,24 +246249,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 12,
+                  "successRate": 0.19999999999999998,
+                  "successRateStd": 0.17320508075688773,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246007,24 +246289,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 9,
+                  "successRate": 0.15,
+                  "successRateStd": 0.08660254037844387,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246046,24 +246329,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 18,
+                  "successRate": 0.3,
+                  "successRateStd": 0.304138126514911,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246085,24 +246369,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 16,
+                  "successRate": 0.26666666666666666,
+                  "successRateStd": 0.05773502691896256,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246124,24 +246409,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 27,
+                  "successRate": 0.45,
+                  "successRateStd": 0.22912878474779197,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246163,24 +246449,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 26,
+                  "successRate": 0.43333333333333335,
+                  "successRateStd": 0.24664414311581237,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246202,24 +246489,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 8,
+                  "successRate": 0.13333333333333333,
+                  "successRateStd": 0.15275252316519466,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246241,24 +246529,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 23,
+                  "successRate": 0.3833333333333333,
+                  "successRateStd": 0.27537852736430507,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246280,24 +246569,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 21,
+                  "successRate": 0.35,
+                  "successRateStd": 0.21794494717703367,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246319,24 +246609,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 30,
+                  "successRate": 0.5,
+                  "successRateStd": 0.17320508075688767,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246358,24 +246649,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 8,
+                      "successRate": 0.4,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 3,
+                  "successRate": 0.05,
+                  "successRateStd": 0.05,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246397,24 +246689,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246436,24 +246729,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246475,24 +246769,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246514,24 +246809,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246553,24 +246849,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246592,24 +246889,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 7,
+                  "successRate": 0.11666666666666667,
+                  "successRateStd": 0.02886751345948128,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246631,24 +246929,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 17,
+                  "successRate": 0.2833333333333333,
+                  "successRateStd": 0.20816659994661327,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246670,24 +246969,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 7,
+                      "successRate": 0.35,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246709,24 +247009,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246748,24 +247049,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246787,24 +247089,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246826,24 +247129,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 15,
+                  "successRate": 0.25,
+                  "successRateStd": 0.08660254037844387,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246865,24 +247169,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 16,
+                  "successRate": 0.26666666666666666,
+                  "successRateStd": 0.10408329997330663,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246904,24 +247209,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246943,24 +247249,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 26,
+                  "successRate": 0.43333333333333335,
+                  "successRateStd": 0.10408329997330666,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -246982,24 +247289,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 7,
+                      "successRate": 0.35,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -247021,24 +247329,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -247060,24 +247369,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -247099,24 +247409,25 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 2,
+                  "successRate": 0.03333333333333333,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -247138,13 +247449,13 @@
                     {
                       "seed": 43,
                       "runId": "ndp7dev_pe_spatial_b16_512_dp_dit_b32_s43",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ]
             },
@@ -325082,7 +325393,9 @@
                 "encoderLabel": "PE Spatial ViT-B/16",
                 "successRate": null,
                 "completedPolicies": [
-                  "dp"
+                  "act",
+                  "dp",
+                  "dp-dit"
                 ],
                 "expectedPolicies": [
                   "act",
@@ -325099,9 +325412,10 @@
                     "combinationId": "native-combo::pe_spatial_b16_512::act_native_pe_recompute_v1",
                     "policyFamily": "act_native_pe_recompute_v1",
                     "label": "ACT · PE-Spatial recompute",
-                    "successRate": null,
+                    "successRate": 0.42041666666666666,
                     "completedSeeds": [
                       17,
+                      29,
                       43
                     ]
                   },
@@ -325122,10 +325436,11 @@
                     "combinationId": "native-combo::pe_spatial_b16_512::dp_dit_native_pespatial_v1",
                     "policyFamily": "dp_dit_native_pespatial_v1",
                     "label": "DP-DiT · PE-Spatial",
-                    "successRate": null,
+                    "successRate": 0.17583333333333334,
                     "completedSeeds": [
                       17,
-                      29
+                      29,
+                      43
                     ]
                   },
                   {
@@ -325150,7 +325465,9 @@
                     "suite": "libero_10",
                     "successRate": null,
                     "completedPolicies": [
-                      "dp"
+                      "act",
+                      "dp",
+                      "dp-dit"
                     ],
                     "expectedPolicies": [
                       "act",
@@ -325164,7 +325481,9 @@
                     "suite": "libero_goal",
                     "successRate": null,
                     "completedPolicies": [
-                      "dp"
+                      "act",
+                      "dp",
+                      "dp-dit"
                     ],
                     "expectedPolicies": [
                       "act",
@@ -325178,7 +325497,9 @@
                     "suite": "libero_object",
                     "successRate": null,
                     "completedPolicies": [
-                      "dp"
+                      "act",
+                      "dp",
+                      "dp-dit"
                     ],
                     "expectedPolicies": [
                       "act",
@@ -325192,7 +325513,9 @@
                     "suite": "libero_spatial",
                     "successRate": null,
                     "completedPolicies": [
-                      "dp"
+                      "act",
+                      "dp",
+                      "dp-dit"
                     ],
                     "expectedPolicies": [
                       "act",
@@ -326476,13 +326799,13 @@
             "missingNote": "总分与各分类分别核验覆盖；任一策略缺少完整三训练种子，该范围均值为空，不以0或部分策略替代。"
           },
           "expectedCombinations": 84,
-          "completeCombinations": 82,
+          "completeCombinations": 84,
           "targetEpisodesPerCombination": 2400,
           "targetEpisodesPerCombinationTask": 60,
           "targetEpisodesPerCombinationSuite": 600,
-          "auditedCompleteGroups": 5013,
-          "auditedValidEpisodes": 200556,
-          "completeModels": 250,
+          "auditedCompleteGroups": 5040,
+          "auditedValidEpisodes": 201600,
+          "completeModels": 252,
           "notes": [
             "与历史 pooled P1 / 20×3 分开，不混合分母。",
             "未完整模型不显示总体成功率；每任务收齐20回合才显示该任务成绩。",
@@ -330178,15 +330501,15 @@
       "server": "MVE2"
     },
     {
-      "id": "app-dpdit-pespatial-audit-MVE2-20261002T0611.json",
+      "id": "refill-dpdit-pespatial-audit-MVE2-20261002.json",
       "label": "MVE2 原生 DP-DiT · PE-Spatial full-batch32 / 20k / 20×1 独立原子审计",
-      "sha256": "5270ccf5b1df172135d3b3bba6e7d295cac517874f67a927a4dd077a7e4282f7",
+      "sha256": "2144b943ad67560c26737b7fdc8e47e9e15a4da1071ba1ce22890e862ad0daff",
       "server": "MVE2"
     },
     {
-      "id": "app-act-pespatial-audit-MVE2-20261002T0633.json",
+      "id": "refill-act-pespatial-audit-MVE2-20261002.json",
       "label": "MVE2 原生 ACT · PE-Spatial recompute full-batch32 / 20k / 20×1 独立原子审计",
-      "sha256": "38b8f367715a013db53070ab6f8ec2505353b465da3aa5692b1fbb1071c0c590",
+      "sha256": "ed0b9235faccfd97a97cd170e49b029b1b808b76e364b4e0e74c9244a4ed0685",
       "server": "MVE2"
     },
     {
@@ -330226,6 +330549,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "interactive-refill-20261002",
+      "at": "2026-10-02T11:49:38.301388+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial ACT与DP-DiT三种子齐全；八卡恢复有效训练",
+      "summary": "新增ACT seed29与DP-DiT seed43两个20k/800模型通过对应冻结family严格审计，三训练种子等权均值分别42.04%和17.58%。1044条新增原子及变更源元数据已独立SHA备份。八卡实测训练步数增长：MVE1四DP，MVE2三Flow及一BCViLT。SigLIP-SO修复489敏感帧采用独立稀疏overlay，旧缓存和暂扣ACT证据保留；新两DP门槛通过才准入。PE-Spatial BCViLT通过完整batch32、全部native tokens、严格逐位attention/梯度/更新/RNG对照及恢复检查，FP32协议不变。新增源码/门槛元数据独立备份；最终权重仍保留远端，未宣称全部异地权重完成。",
+      "evidenceLabel": "两独立family严格审计＋1044新增原子SHA备份＋两次八卡步数观测",
+      "commitUrl": null
+    },
     {
       "id": "app-20261002T0611",
       "at": "2026-10-02T06:34:19.681068+00:00",
