@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-03T12:27:22.265655+00:00",
-  "generatedAt": "2026-10-03T12:28:32.616030+00:00",
+  "updatedAt": "2026-10-03T12:34:09.244355+00:00",
+  "generatedAt": "2026-10-03T18:28:21.695974+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-language-three-seed-20261003T1817",
+      "at": "2026-10-03T18:28:00.558899+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Language 三训练种子完成：PE-Spatial × Flow 48.54%",
+      "summary": "同一冻结20k Joint40模型，训练seed17/29/43分别407/379/379成功，各800有效、0无效；40任务×20评估seed各1次。三训练种子等权均值48.54%，合计2400有效回合。Language扰动轨道内原任务类别均值：Spatial 54.00%、Object 85.67%、Goal 5.83%、Long-horizon 48.67%，每类独立覆盖三种子600回合、每任务60回合。新增seed29/43的冻结source/checkpoint、真实变体指令/目标及动作轨迹通过严格审计；新增原子与身份元数据已核SHA备份，完整权重/轨迹仍远端保留。该语言变化轨道单独记录，不并入base，不代表完整PRO或纯语言因果效应。",
+      "evidenceLabel": "app-pro-new-audits-20261003T1817-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-swap-single-seed-20261003T1817",
+      "at": "2026-10-03T18:28:00.558899+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Swap 首个完整训练种子：PE-Spatial × Flow seed17 为0.50%",
+      "summary": "物体交换轨道seed17完成4/800成功（0.50%），40任务×20评估seed各1次、0无效；真实变体指令、目标和动作轨迹严格审计，原子与身份元数据已核SHA备份。这是单训练种子结果，三训练种子均值仍为null；其余seed沿既有队列接续，暂不据此作完整组合排名或最终失效主张。与base、Object及Language轨道分开统计。",
+      "evidenceLabel": "app-pro-new-summary-20261003T1817-MVE2.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-three-seed-object-20261003T1215",
       "at": "2026-10-03T12:28:24.140817+00:00",
