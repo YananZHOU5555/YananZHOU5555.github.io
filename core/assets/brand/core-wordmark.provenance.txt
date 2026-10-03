@@ -1,0 +1,14 @@
+Asset: core-wordmark.png
+Generated: 2026-10-02
+Tool: built-in image_gen.imagegen, transparent_background=true. No API or CLI fallback.
+Original: D:/CodexHome/generated_images/01a0fbc2-94eb-73f3-95b3-5ad019782e72/exec-7d26be59-3706-453c-9c26-79caf83f6279.png
+Delivery processing: System.Drawing native alpha-bounding-box crop with 12 px transparent margin. Original color and alpha preserved; no other raster modifications.
+
+Final prompt:
+Use case: logo-brand.
+Asset type: final compact transparent typographic wordmark for a sophisticated academic collaborative-robotics research website.
+Primary request: design one exceptionally refined custom-drawn wordmark reading exactly "CoRE". Four letters, case-sensitive: capital C, lowercase o, capital R, capital E. One word on one baseline, no extra text.
+Art direction: quiet artistic confidence, contemporary editorial design meets exact scientific thinking. Draw bespoke, graceful letterforms with softly flared endings and gently modulated medium-weight strokes; distinctive sculptural curves, finely tuned optical spacing, clean deliberate edges. More tailored and original than a typeset serif, less mechanical than a geometric tech font. C and lowercase o form a subtle pair of mutually responding open/closed curves, an elegant restrained interlocking gesture suggesting collaboration, while preserving effortless CoRE readability. An expressive but controlled R leg and beautifully balanced E complete the word. Avoid a generic Times New Roman appearance. No standalone icon is needed; the lettering itself is the artwork.
+Color palette: predominantly deep sage #607f70 with near-black #252925 details; at most one very small muted periwinkle-blue #6f86bf accent if it strengthens the design. Flat solid color, no gradients.
+Composition: single horizontal compact wordmark centered and filling most of a wide canvas, optically balanced tight spacing. Clean true transparent background with zero colored backdrop. Sufficient stroke substance for legibility at 100 pixels wide and beauty at 280 pixels wide. Keep the full word inside the canvas with modest transparent margins.
+Constraints: lettering must read exactly CoRE, absolutely no slogan or other letters; no mockup, no paper, no shadow, no texture, no 3D, no watermark, no robot cartoon, no orbital ring, no stars or sparkles, no circuit diagram, no borders. Deliver one polished identity, not a grid of alternatives. Transparent PNG appearance, clean alpha around all edges.

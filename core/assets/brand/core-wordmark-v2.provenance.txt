@@ -1,0 +1,21 @@
+CoRE wordmark v2
+Created: 2026-10-02
+Tool: built-in image_gen.imagegen; no API/CLI fallback
+Original: D:/CodexHome/generated_images/01a0fbcb-b0e0-7201-bd71-6fed75860ffd/exec-61cae1c7-757a-4a1e-b2b2-8f93029da917.png
+Selected refined output: D:/CodexHome/generated_images/01a0fbcb-b0e0-7201-bd71-6fed75860ffd/exec-26aaed08-3eea-4393-ae43-dde2154670c5.png
+Postprocessing: transparent-margin crop only, preserving all pixels with alpha > 0, plus 8px margin.
+Validation: exact text CoRE visually checked; true RGBA transparency; geometric sans lettering; integrated blue/sage complementary o motif. Image model retains slight color variation and very faint alpha speckles despite cleanup request; exact flat RGB match is not claimed.
+
+Generation prompt:
+Use case: logo-brand.
+Asset type: final horizontal logo lockup for CoRE, a collaborative robotics research website.
+Create one premium memorable original identity, with the EXACT lettering "CoRE" (capital C, lowercase o, capital R, capital E). Bold custom sculpted geometric HUMANIST SANS letterforms, art-directed proportions, balanced negative space, warm, compact, subtle playful precision, sturdy strokes that remain legible at 110 px total width.
+Concept: integrate a small elegant pair of complementary rounded open forms around a single shared center into the C or lowercase o, suggesting two robot partners sharing one policy. The gesture should feel sculptural and distinctive; the rest of the lettering should be optically balanced with the curved motif. Do not add a large detached emblem. Design a cohesive custom lettering lockup, not a stock font with an icon attached.
+Palette: CoRE blue EXACT #768FC6 dominates the identity, sage EXACT #779E92 only for the smaller complementary curved piece; other letters may be deep charcoal #282D32 or blue. At most one tiny restrained gold #BD9B54 accent if composition needs it. Strong visual unity.
+Medium: precise clean flat vector-like shapes with immaculate antialiasing, no strokes too thin.
+Composition: one horizontal wordmark centered with modest clear transparent margins, entire lockup fully visible, no excessive blank canvas.
+Background: genuine transparent alpha, nothing else.
+Avoid: ALL serif lettering, calligraphy, existing green serif wordmarks, robotic heads, pictorial robots, generic infinity signs, atom or orbit motifs, arrows, network node diagrams, circles around the whole logo, 3D, gradients, texture, shadows, mockups, multiple options, frames, captions, slogans, any text beyond "CoRE".
+
+Refinement prompt:
+Use case: precise-object-edit. Refine the provided CoRE logo into a pristine professional flat vector-style transparent PNG. Preserve the exact custom sans letterforms, layout, spacing, letter case "CoRE", size relationship, and paired curved blue/green o with central dot. The single change is production cleanup: make ALL blue shapes uniformly EXACT #768FC6, make the sage arc uniformly EXACT #779E92; solid flat fills with NO variation, shading, texture, gradient, glow. Remove EVERY stray cyan/blue speckle, halo, and artifact outside the precise letter silhouettes. Smooth crisp antialiased vector-quality boundaries. All voids, counters, and space around the logo must be pure transparent alpha. No solid background, no extra text or graphics. Retain the complete composition.

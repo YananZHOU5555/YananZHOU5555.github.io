@@ -1,0 +1,186 @@
+{
+  "created_utc": "2026-10-02T17:12:23.878793+10:00",
+  "figures": [
+    {
+      "figure": "1",
+      "name": "paradigms",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\CoRE-web\\dist\\assets\\figures\\paradigms.pdf",
+      "source_sha256": "c30b32de956e7e20c7a7cf25d07f2011adde9cc7153423f5f9c18c0a9a0b9b7d",
+      "webp": "paradigms.webp",
+      "dimensions": [
+        2200,
+        757
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "b546cb150499b70af2e5c450e8f5d0ef935375287798ae5405cd98f4d40bf0d1"
+    },
+    {
+      "figure": "2",
+      "name": "method",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\CoRE-web\\dist\\assets\\figures\\method.pdf",
+      "source_sha256": "8de93b48e8fb6aa9d9775dc1b170b8aead055d38670e91bfddef1a77c51a3938",
+      "webp": "method.webp",
+      "dimensions": [
+        2200,
+        1005
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "3f2ab405cf42f71823377b5e4b5327cd80307a78ab4604eb56ef2a3c0267e1c1"
+    },
+    {
+      "figure": "3",
+      "name": "benchmarks",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\experiment_figures_20260906\\Fig03_Simulation_Benchmarks_v11.pdf",
+      "source_sha256": "cbd83659a879b5f24f67206e6a98edaca84c6a6403eca575d16fbb7c94e06490",
+      "webp": "benchmarks.webp",
+      "dimensions": [
+        2200,
+        1018
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "647ffec2404a824cfecee7d92bcc9b743b53a89d8a1d10fbef525f092657524c"
+    },
+    {
+      "figure": "4",
+      "name": "sequences",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq1_collaboration\\task_sequences.pdf",
+      "source_sha256": "33894dc47542cf672d2611f8ea1ee969f34bfbe8fc0f8c8c0fae6af17eef52b9",
+      "webp": "sequences.webp",
+      "dimensions": [
+        2200,
+        1306
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "e54e81e04faed736c393f8589aa7ad620523ae849a83811763d104b23d91f045"
+    },
+    {
+      "figure": "5",
+      "name": "routing",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\CoRE-web\\dist\\assets\\figures\\routing.pdf",
+      "source_sha256": "a33ed6686d60d2eeecb0e78c8c8902ac1621acd5c6cf58f1ad84a4432653c64d",
+      "webp": "routing.webp",
+      "dimensions": [
+        2200,
+        586
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [
+        "0 0 m\n504.566929 0 l\n504.566929 134.362205 l\n0 134.362205 l\nh\n\nf"
+      ],
+      "webp_sha256": "3cfd062f0b853c34b5ec4619b27a5bc92211e80468ba028681118c357b931cc9"
+    },
+    {
+      "figure": "6",
+      "name": "sim-robustness",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\robustness_label_comparison\\fig6_with_numbers.pdf",
+      "source_sha256": "db443eeb47e961f8599d1500544e546b57dd99a1fb681eb6fad8a23aa822742e",
+      "webp": "sim-robustness.webp",
+      "dimensions": [
+        2200,
+        1850
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [
+        "0 0 m\n243.779528 0 l\n243.779528 75.11811 l\n0 75.11811 l\nh\n\nf",
+        "18.283465 14.456693 m\n124.327559 14.456693 l\n124.327559 57.543307 l\n18.283465 57.543307 l\nh\n\nf",
+        "132.859843 14.456693 m\n238.903937 14.456693 l\n238.903937 57.543307 l\n132.859843 57.543307 l\nh\n\nf"
+      ],
+      "webp_sha256": "217192ca85dade1c4e9f145ba26da3336004b8b5d8cbe459f955e7bde15811b6"
+    },
+    {
+      "figure": "7",
+      "name": "physical-results",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\rq5_real_world.pdf",
+      "source_sha256": "2bfe69c9b8556638306ba8994b57426860ff2a8fbb42a52096aad3164e6954b3",
+      "webp": "physical-results.webp",
+      "dimensions": [
+        2200,
+        612
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "8885345f7089d19ca3003748ceb9cccd29bf83e71c47be7b35236812d287f0bf"
+    },
+    {
+      "figure": "8",
+      "name": "physical-process",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_collaboration_process\\rq5_collaboration_process.pdf",
+      "source_sha256": "3673dd2912edc11c2318671dfc0780fbe88c9b553e4ff763ec36d9b96dababbc",
+      "webp": "physical-process.webp",
+      "dimensions": [
+        2200,
+        914
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "5f27a1830502d15588f31c6c3520e026d8f08dab5d903c3e60ae1ad912f9407b"
+    },
+    {
+      "figure": "9",
+      "name": "physical-failures",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_physical_robustness\\rq5_physical_robustness.pdf",
+      "source_sha256": "9776b4abda8966a5f360ebdebb0dab6f6a8786ca7f0b54fa53fd5fcf3ce992bc",
+      "webp": "physical-failures.webp",
+      "dimensions": [
+        2200,
+        1152
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [],
+      "webp_sha256": "379dc028c1de9879fec56fe4662e5e623dbb2e3c2ecf54070ccd308418614c8a"
+    },
+    {
+      "figure": "10",
+      "name": "physical-robustness",
+      "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\robustness_label_comparison\\physical_with_numbers.pdf",
+      "source_sha256": "922b44df9ebcd9e70eb8dfd8350edb134196b6e89f71a683c186c797d34fcbae",
+      "webp": "physical-robustness.webp",
+      "dimensions": [
+        2200,
+        678
+      ],
+      "webp_quality": 95,
+      "source_pages": 1,
+      "rendered_page": 1,
+      "renderer": "PyMuPDF 1.27.2.3; RGBA; transparent canvas",
+      "omitted_background_paths": [
+        "0 0 m\n243.779528 0 l\n243.779528 75.11811 l\n0 75.11811 l\nh\n\nf",
+        "18.283465 14.456693 m\n124.327559 14.456693 l\n124.327559 57.543307 l\n18.283465 57.543307 l\nh\n\nf",
+        "132.859843 14.456693 m\n238.903937 14.456693 l\n238.903937 57.543307 l\n132.859843 57.543307 l\nh\n\nf"
+      ],
+      "webp_sha256": "f09c1d6e21b7aa8f2e4944c6d5b7ec6f2ae8c0ce15acaee56991d671003bc287"
+    }
+  ],
+  "export_note": "Transparent PDF export; only recorded vector backplates omitted; embedded evidence images preserved."
+}
