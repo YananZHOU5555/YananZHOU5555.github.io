@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-03T06:34:21.313505+00:00",
-  "generatedAt": "2026-10-03T06:34:29.560183+00:00",
+  "updatedAt": "2026-10-03T12:27:22.265655+00:00",
+  "generatedAt": "2026-10-03T12:28:32.616030+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-three-seed-object-20261003T1215",
+      "at": "2026-10-03T12:28:24.140817+00:00",
+      "type": "evaluation",
+      "title": "首个 native PRO Object 三训练种子组合：PE-Spatial × Flow 33.25%",
+      "summary": "同一协议的冻结20k Joint40模型，训练seed17/29/43各完成40任务×20评估seed各1次；成功数289/242/267，各800有效回合，三训练种子等权均值33.25%，合计2400有效、0无效。该Object扰动轨道内原任务类别均值：Spatial 43.33%、Object 71.17%、Goal 4.17%、Long-horizon 14.33%，各类别覆盖三种子600回合，分别独立核验。新增seed29/43的adapter/source/checkpoint、真实指令/目标及动作轨迹通过严格审计，原子与身份元数据已完成独立本地SHA备份；完整权重/轨迹仍远端保留，未称全部异地备份。结果与base榜单分开，不代表完整PRO或纯物体因果效应。",
+      "evidenceLabel": "app-pro-new-audits-20261003T1215-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-new-single-seeds-20261003T1215",
+      "at": "2026-10-03T12:28:24.140817+00:00",
+      "type": "evaluation",
+      "title": "新增 PRO 单训练种子完整结果：SigLIP-SO Object 与 PE-Spatial Language",
+      "summary": "SigLIP-SO × Flow seed17在PRO Object完成268/800成功（33.50%）；PE-Spatial × Flow seed17在PRO Language完成407/800成功（50.875%）。每模型40任务×20评估seed各1次，各0无效，真实变体instruction/goal/source/checkpoint/control traces严格审计与原子元数据独立SHA备份完成。这两项均为单训练种子结果，三种子均值保持null，不用于完整组合排名，不并入base。Language后续seed29正在既有依赖队列评估，随后接续其他已授权轨道。",
+      "evidenceLabel": "四新增PRO完整模型严格审计＋3200原子SHA备份",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-object-first-complete-20261003T0613",
       "at": "2026-10-03T06:34:21.313505+00:00",
