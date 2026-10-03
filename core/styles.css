@@ -145,3 +145,5 @@
 @keyframes details-arrive{from{opacity:.2;translate:0 5px}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toc-link,.toc-dot,.toc-marker,.toc-trail,.toc-reading-track>span,.contents-trigger,.site-header nav a,.site-header nav a:after,.resource-links a,.resource-links button,.clip-link,.figure-zoom,.video-wrap,.paper-original,[data-replay-chart],.paper-section-head,.paper-figure,.sim-card,.physical-card,.paper-subhead{transition:none!important}.paper-masthead,.contents-dialog[open],#figure-dialog[open],#film-dialog[open],.results-details[open]>.table-scroll,.citation[open]>pre{animation:none!important}.motion-pending{opacity:1;translate:none}}
 @media print{body{padding-right:0}.page-toc,.contents-trigger,.contents-dialog{display:none!important}.motion-pending{opacity:1;translate:none}}
+
+.code-pending{color:var(--muted);font-size:14px}

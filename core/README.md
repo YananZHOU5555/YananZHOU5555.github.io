@@ -9,3 +9,5 @@ GitHub Pages publishes the repository root from `main`; the existing root `.noje
 Local authoring source: `E:/OneDrive/文档/ICRA27/CoRE-web` (`build.mjs`, `dist/` and `media-provenance.json`). The public export updates canonical/Open Graph URLs to this domain. Keep these production URLs when synchronizing a later approved export.
 
 Scientific content and recorded playback speeds are unchanged. Simulation videos illustrate benchmark tasks; quantitative results report CoRE evaluations. Physical task executions and robustness successes are the confirmed CoRE recordings; unlabeled failure examples remain unlabeled.
+
+The policy code repository is currently private, so the public page marks code as coming soon instead of exposing an unavailable link.
