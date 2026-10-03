@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-03T06:24:16.451883+00:00",
-  "generatedAt": "2026-10-03T06:24:26.920843+00:00",
+  "updatedAt": "2026-10-03T06:34:21.313505+00:00",
+  "generatedAt": "2026-10-03T06:34:29.560183+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-object-first-complete-20261003T0613",
+      "at": "2026-10-03T06:34:21.313505+00:00",
+      "type": "evaluation",
+      "title": "首个 native PRO Object 完整模型：PE-Spatial × Flow seed17",
+      "summary": "同一个冻结20k Joint40模型在官方PRO Object变体完成40任务×20评估seed各1次，共800有效回合、0无效、289成功，单训练种子成功率36.125%。真实变体BDDL指令/目标、官方初态、checkpoint/source/control traces均独立严格审计，800条原子及身份元数据已本地SHA备份；完整动作轨迹传输180秒超时，原件仍保留远端，异地轨迹未齐；四类任务各200回合单独核验。seed29已通过独立四suite canary并接续正式800，seed43仍待评估，三训练种子均值为null。该Object OOD结果独立于base榜单，非完整PRO，也不能因初态未配对解释成纯物体因果效应。MVE1 SOFlow17的四suite检查4valid/0invalid完成后进入正式评估；两机八个真实owner，无健康重启。",
+      "evidenceLabel": "app-pro-pe17-audit-20261003T0613.json＋800原子与身份元数据SHA备份",
+      "commitUrl": null
+    },
     {
       "id": "app-supervision-20261003T0613",
       "at": "2026-10-03T06:24:16.451883+00:00",
