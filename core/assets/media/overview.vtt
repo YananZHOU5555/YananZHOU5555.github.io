@@ -1,0 +1,227 @@
+WEBVTT
+
+1
+00:00:00.257 --> 00:00:03.462
+Two independent robots collaborate
+using one shared policy.
+
+2
+00:00:04.245 --> 00:00:08.013
+One shared policy. Each robot independently
+predicts its own actions from
+
+3
+00:00:08.024 --> 00:00:10.508
+local visual observations
+and proprioception.
+
+4
+00:00:11.240 --> 00:00:14.776
+Appearance and geometry provide local
+evidence for predicting the next
+
+5
+00:00:14.787 --> 00:00:15.474
+action chunk.
+
+6
+00:00:16.250 --> 00:00:19.672
+Cross attention experts learn
+complementary action pathways.
+
+7
+00:00:20.083 --> 00:00:23.455
+A local router combines them
+separately for each predicted action.
+
+8
+00:00:24.244 --> 00:00:26.297
+Imitation trains the selected mixture.
+
+9
+00:00:26.686 --> 00:00:30.260
+Action expert alignment evaluates
+alternative routes against
+
+10
+00:00:30.272 --> 00:00:33.480
+demonstrations. directly
+supervising expert selection.
+
+11
+00:00:34.250 --> 00:00:38.475
+DuoBench tests shared object motion.
+constrained manipulation. and
+
+12
+00:00:38.488 --> 00:00:42.688
+handovers. Task demonstrations show
+the coordination requirements.
+
+13
+00:00:44.248 --> 00:00:47.973
+BiCoord tests support. placement.
+extraction. and sweeping.
+
+14
+00:00:48.378 --> 00:00:51.453
+Each robot acts independently
+from its own observations.
+
+15
+00:00:52.250 --> 00:00:56.488
+RoboFactory extends collaboration
+to teams of up to four robots.
+
+16
+00:00:56.912 --> 00:00:59.575
+Pipeline delivery requires
+successive transfers.
+
+17
+00:00:59.988 --> 00:01:02.938
+Take Photo combines concurrent
+complementary actions.
+
+18
+00:01:03.362 --> 00:01:06.100
+Pipeline delivery is shown
+at twice the source speed.
+
+19
+00:01:07.244 --> 00:01:11.460
+CoRE leads evaluated decentralized
+methods across all three benchmarks.
+
+20
+00:01:12.249 --> 00:01:16.716
+With identical RGB inputs and pooled
+demonstrations. expert organization
+
+21
+00:01:16.826 --> 00:01:18.491
+and selection improve collaboration.
+
+22
+00:01:19.250 --> 00:01:23.350
+Alignment raises pipeline delivery
+success from fifteen to ninety four
+
+23
+00:01:23.363 --> 00:01:23.863
+percent.
+
+24
+00:01:25.250 --> 00:01:29.388
+Expert contributions change across
+robots and collaboration stages.
+
+25
+00:01:30.250 --> 00:01:34.363
+CoRE better tolerates partner delays
+and slowdowns in coupled lifting and
+
+26
+00:01:34.375 --> 00:01:35.325
+sequential stacking.
+
+27
+00:01:36.262 --> 00:01:40.525
+The robots reorient the parts together.
+then perform complementary joining
+
+28
+00:01:40.538 --> 00:01:42.762
+motions. Both run the same policy.
+
+29
+00:01:44.250 --> 00:01:47.688
+Both robots coordinate the pan
+and place it onto the supports.
+
+30
+00:01:50.250 --> 00:01:54.104
+Bridge assembly requires preparing
+the supports before placing the beam.
+
+31
+00:01:54.528 --> 00:01:58.458
+The complete sequence shows how the
+two robots coordinate these steps.
+
+32
+00:01:59.250 --> 00:02:02.888
+In block stacking. the robots
+contribute successive placements.
+
+33
+00:02:03.300 --> 00:02:07.050
+Each action depends on the arrangement
+left by the partner. linking
+
+34
+00:02:07.062 --> 00:02:10.450
+individual motions into a
+shared construction process.
+
+35
+00:02:11.250 --> 00:02:15.675
+The robots reverse the block order.
+from blue above orange to orange above
+
+36
+00:02:15.688 --> 00:02:19.875
+blue. The complete sequence includes
+rearrangement and final release.
+
+37
+00:02:22.238 --> 00:02:26.289
+Across five physical tasks. CoRE
+succeeds in one hundred thirty-seven of
+
+38
+00:02:26.300 --> 00:02:27.496
+one hundred fifty trials.
+
+39
+00:02:28.263 --> 00:02:30.800
+Both sequences include
+random partner pauses.
+
+40
+00:02:31.212 --> 00:02:34.838
+CoRE succeeds on the left. preserving
+the alignment needed to join the
+
+41
+00:02:34.850 --> 00:02:38.312
+parts. The failure case on the
+right leaves them misaligned.
+
+42
+00:02:39.240 --> 00:02:42.006
+The right robot moves more
+slowly in both sequences.
+
+43
+00:02:42.390 --> 00:02:43.903
+CoRE completes placement on the left.
+
+44
+00:02:44.275 --> 00:02:47.481
+In the failure case. the pan
+tilts and remains displaced.
+
+45
+00:02:48.237 --> 00:02:52.384
+Across measured trials. CoRE outperforms
+CHORUS under every tested pause
+
+46
+00:02:52.493 --> 00:02:55.486
+and slowdown level. retaining
+more of its nominal success.
+
+47
+00:02:56.244 --> 00:02:58.460
+Shared policy. Complementary teamwork.

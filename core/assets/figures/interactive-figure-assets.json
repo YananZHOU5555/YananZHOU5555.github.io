@@ -1,0 +1,54 @@
+[
+  {
+    "asset": "lift-evidence.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\robustness_label_comparison\\fig6_with_numbers.pdf",
+    "source_sha256": "db443eeb47e961f8599d1500544e546b57dd99a1fb681eb6fad8a23aa822742e",
+    "pdf_clip": [
+      0.0,
+      9.5,
+      121.88976287841797,
+      129.023621
+    ]
+  },
+  {
+    "asset": "stack-evidence.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\robustness_label_comparison\\fig6_with_numbers.pdf",
+    "source_sha256": "db443eeb47e961f8599d1500544e546b57dd99a1fb681eb6fad8a23aa822742e",
+    "pdf_clip": [
+      121.88976287841797,
+      9.5,
+      243.77952575683594,
+      129.023621
+    ]
+  },
+  {
+    "asset": "real-box.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\photos\\01B_16x10_light.png",
+    "source_sha256": "7193905a33bd1626c154b42652f1c1061fee8621c0a071c34afa1b3565723493",
+    "selected_frame": "01B"
+  },
+  {
+    "asset": "real-pan.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\photos\\02B_16x10_light.png",
+    "source_sha256": "7e4ed3b0bd98de10fe15db6633c8a0ad8094fbc69ddea9e5e138c5c56625abeb",
+    "selected_frame": "02B"
+  },
+  {
+    "asset": "real-bridge.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\photos\\03C_16x10_light.png",
+    "source_sha256": "f8434a08412037b8a818aed482b2ae4b81d97ff4f8b4859b77fb936c6b26ce64",
+    "selected_frame": "03C"
+  },
+  {
+    "asset": "real-stack.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\photos\\04C_16x10_light.png",
+    "source_sha256": "c4b3034ae06e0d2c790a214fee02e93e8cb159e2e76a1ac9e6d38f719eac0a0e",
+    "selected_frame": "04C"
+  },
+  {
+    "asset": "real-exchange.webp",
+    "source": "E:\\OneDrive\\文档\\ICRA27\\papers\\StereoCoRE\\figures\\rq5_real_world\\photos\\05B_16x10_light.png",
+    "source_sha256": "28965d21a74e147affe18b223475d640c52316ad9cbfa916485230ae43b46fc0",
+    "selected_frame": "05B"
+  }
+]
