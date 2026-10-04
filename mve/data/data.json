@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-04T00:26:54.192376+00:00",
-  "generatedAt": "2026-10-04T06:42:01.945931+00:00",
+  "updatedAt": "2026-10-04T06:49:28.151811+00:00",
+  "generatedAt": "2026-10-04T12:31:06.639748+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peact-object-three-seed-20261004T1219",
+      "at": "2026-10-04T12:30:59.041392+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Object 三训练种子完成：PE-Spatial × ACT7 19.54%",
+      "summary": "复用同一组三个20k Joint40冻结ACT7模型，FP32、完整batch32、native空间token；训练seed17/29/43分别122/176/171成功，各800有效、0无效，每任务20评估seed各1次。三训练种子等权均值19.54%，共2400有效回合；四原任务类别各600、每任务60回合独立核验：Spatial 24.17%、Object 49.67%、Goal 2.50%、Long-horizon 1.83%。本次新增冻结source/checkpoint、真实变体instruction/goal及动作轨迹均通过对应family严格审计；原子与身份元数据完成独立本地SHA备份，完整权重和轨迹仍在远端保留。与base、其他PRO轨道及Flow分开统计；Swap沿既有队列接续，Task随后按每模型canary门槛运行。Environment资产仍缺失，不代表完整PRO；不同变体物理初态未保证完全匹配，不作纯因素因果主张。",
+      "evidenceLabel": "app-pro-new-audits-20261004T1219-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-peact-lan-three-seed-20261004T1219",
+      "at": "2026-10-04T12:30:59.041392+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Language 三训练种子完成：PE-Spatial × ACT7 34.38%",
+      "summary": "复用同一组三个20k Joint40冻结ACT7模型，FP32、完整batch32、native空间token；训练seed17/29/43分别270/369/186成功，各800有效、0无效，每任务20评估seed各1次。三训练种子等权均值34.38%，共2400有效回合；四原任务类别各600、每任务60回合独立核验：Spatial 40.50%、Object 72.00%、Goal 3.83%、Long-horizon 21.17%。本次新增冻结source/checkpoint、真实变体instruction/goal及动作轨迹均通过对应family严格审计；原子与身份元数据完成独立本地SHA备份，完整权重和轨迹仍在远端保留。与base、其他PRO轨道及Flow分开统计；Swap沿既有队列接续，Task随后按每模型canary门槛运行。Environment资产仍缺失，不代表完整PRO；不同变体物理初态未保证完全匹配，不作纯因素因果主张。",
+      "evidenceLabel": "app-pro-new-audits-20261004T1219-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-task-three-seed-20261004T0618",
       "at": "2026-10-04T06:41:13.953206+00:00",
