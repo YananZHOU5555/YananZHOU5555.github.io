@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-03T18:32:02.034666+00:00",
-  "generatedAt": "2026-10-04T00:22:43.601097+00:00",
+  "updatedAt": "2026-10-04T00:26:54.192376+00:00",
+  "generatedAt": "2026-10-04T06:42:01.945931+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,33 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-task-three-seed-20261004T0618",
+      "at": "2026-10-04T06:41:13.953206+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Task 三训练种子完成：PE-Spatial × Flow 2.67%",
+      "summary": "任务变化轨道训练seed17/29/43分别22/20/22成功，各800有效、0无效；三训练种子等权均值2.67%，合计2400有效回合。四原任务类别各600、每任务60回合独立核验：Spatial 6.33%、Object 0.00%、Goal 1.00%、Long-horizon 3.33%。新增seed29/43的冻结source/checkpoint、真实变体指令/目标及动作轨迹严格审计与原子、身份元数据本地SHA备份完成，完整权重/轨迹仍远端保留。Object、Language、Swap、Task四个公开预生成轨道现已各完成三个训练种子；仍缺Environment资产，不能称完整PRO，不并入base或作纯因果扰动主张。",
+      "evidenceLabel": "app-pro-new-audits-20261004T0618-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-peflow-four-tracks-20261004T0618",
+      "at": "2026-10-04T06:41:13.953206+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × Flow 四个已准备 PRO 轨道三种子全部完成",
+      "summary": "四轨道各2400有效回合、各0无效，分别独立统计；Object 33.25%、Language 48.54%、Swap 0.54%、Task 2.67%。均复用同一组三个20k Joint40冻结模型，官方资源与真实变体instruction/goal锁定；各任务20评估seed各1次，canary不计入正式回合。未将轨道合成总PRO分数，不保证原始与变体物理初态完全相同，不作纯因素因果隔离或最终论文机制主张。",
+      "evidenceLabel": "native Object/Language/Swap/Task 严格审计与独立SHA证据",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-peact-start-20261004T0618",
+      "at": "2026-10-04T06:41:13.953206+00:00",
+      "type": "evaluation",
+      "title": "MVE2 GPU2 接续 PE-Spatial × ACT7 同 checkpoint PRO 评估",
+      "summary": "ACT7三个既有20k/full32/native/FP32 base模型均重新通过其冻结评估器的800回合严格身份审计；独立PRO adapter仅更换所引用的冻结ACT source路径，通过7项审计拒绝测试。首个Object seed17四类任务完整horizon canary为4有效、0无效，技术门槛通过后正式评估已产生回合记录。计划四轨道×三个训练seed、各800正式回合，共12模型9600回合；每模型依赖并重新审计自己的canary，其他模型失败不阻塞独立组合。尚无ACT完整PRO模型或三种子分数，不将canary当性能；沿现有服务与队列，无健康训练重启或新监督机制。",
+      "evidenceLabel": "app-pro-peact-queue-20261004T0618.json＋首个canary审计",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-swap-three-seed-20261004T0017",
       "at": "2026-10-04T00:22:23.681393+00:00",
