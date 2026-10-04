@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-04T06:49:28.151811+00:00",
-  "generatedAt": "2026-10-04T12:31:06.639748+00:00",
+  "updatedAt": "2026-10-04T18:49:35.170540+00:00",
+  "generatedAt": "2026-10-04T18:49:42.841628+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,42 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peact-swap-three-seed-20261004T1820",
+      "at": "2026-10-04T18:47:14.503336+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Swap 三训练种子完成：PE-Spatial × ACT7 1.04%",
+      "summary": "复用三个20k Joint40冻结模型，训练seed17/29/43分别4/18/3成功，各800有效、0无效，每任务20评估seed各1次。三种子等权均值1.04%，每原任务类别600、每任务60回合独立核验：Spatial 1.17%、Object 0.17%、Goal 2.83%、Long-horizon 0.00%。新增模型的source/checkpoint、真实变体instruction/goal与控制轨迹严格审计通过，本轮4800正式原子及身份元数据已分批本地核SHA备份。ACT7四个已准备轨道现已完成：Object19.54%、Language34.38%、Swap1.04%、Task3.00%。Environment资产仍缺失；与base和Flow分开，不计算全PRO总分，不作匹配初态或纯因素因果主张。",
+      "evidenceLabel": "app-pro-new-audits-20261004T1820-MVE2.json、app-pro-last-audits-20261004T1820-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-peact-task-three-seed-20261004T1820",
+      "at": "2026-10-04T18:47:14.503336+00:00",
+      "type": "evaluation",
+      "title": "Native PRO Task 三训练种子完成：PE-Spatial × ACT7 3.00%",
+      "summary": "复用三个20k Joint40冻结模型，训练seed17/29/43分别23/23/26成功，各800有效、0无效，每任务20评估seed各1次。三种子等权均值3.00%，每原任务类别600、每任务60回合独立核验：Spatial 7.83%、Object 0.00%、Goal 3.33%、Long-horizon 0.83%。新增模型的source/checkpoint、真实变体instruction/goal与控制轨迹严格审计通过，本轮4800正式原子及身份元数据已分批本地核SHA备份。ACT7四个已准备轨道现已完成：Object19.54%、Language34.38%、Swap1.04%、Task3.00%。Environment资产仍缺失；与base和Flow分开，不计算全PRO总分，不作匹配初态或纯因素因果主张。",
+      "evidenceLabel": "app-pro-new-audits-20261004T1820-MVE2.json、app-pro-last-audits-20261004T1820-MVE2.json＋SHA备份",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-peunet-start-20261004T1820",
+      "at": "2026-10-04T18:47:14.503336+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-U-Net 接续同 checkpoint 四轨道 PRO 评估",
+      "summary": "三个既有20k/native/FP32/full32 DP-U-Net模型通过其冻结评估器800回合完整身份重审；独立adapter仅更换SOURCE常量，14项审计测试通过。首个Object seed17四类别完整horizon canary为4有效、0无效且严格审计通过，正式评估已16有效回合。原队列接入四轨道×三训练seed各800，共12模型9600正式回合；各模型经自己的canary门槛、有限重试接续，48技术回合不计分。尚无完整DP-U-Net PRO模型或三种子分数；与ACT7、Flow、base分开。",
+      "evidenceLabel": "app-pro-peunet-queue-20261004T1820.json＋canary审计",
+      "commitUrl": null
+    },
+    {
+      "id": "app-bcvilt-checkpoint-resume-20261004T1820",
+      "at": "2026-10-04T18:47:14.503336+00:00",
+      "type": "recovery",
+      "title": "PE-Spatial × BCViLT seed17 从真实6200-step断点恢复",
+      "summary": "原任务因48小时wall-time上限退出，保留失败诊断。原进程结束后由一个独立有限恢复owner接续同一科学run，源码/数据/FP32/full32/20k/seed不变，完整缓存复用。恢复6201/6202更新的样本哈希、loss、梯度范数和学习率与原记录逐值一致，随后已至6208。仅新owner时限为14天、最多一次尝试；未重启健康任务或新增监督机制。6200-step权重在远端保留核SHA断点副本，完整权重本地下载因链路慢未完成；诊断、身份和队列元数据已独立本地核SHA备份。",
+      "evidenceLabel": "app-BC17-resume-two-update-parity-20261004T1820.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peact-object-three-seed-20261004T1219",
       "at": "2026-10-04T12:30:59.041392+00:00",
