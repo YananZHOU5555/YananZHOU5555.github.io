@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-05T00:35:55.848855+00:00",
-  "generatedAt": "2026-10-05T00:36:12.269062+00:00",
+  "updatedAt": "2026-10-05T06:29:34.576962+00:00",
+  "generatedAt": "2026-10-05T06:30:14.934821+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peunet-language-three-seed-20261005T0623",
+      "at": "2026-10-05T06:29:34.576962+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-U-Net：PRO Language 三训练种子完成",
+      "summary": "训练seed17/29/43分别301/324/353成功，各800有效、0无效，等权平均40.75%。每个模型40任务各20独立评估seed×1回合；四类各600、每任务60覆盖独立核验。新增2400原子和身份元数据已严格审计、独立本地核SHA备份；完整权重和动作轨迹仍远端保留。该成绩仅属于PRO Language独立轨道，不并入LIBERO base或全PRO；Swap/Task三seed均值暂为null。Swap17已自动接续，MVE2四唯一owner有实测进展；MVE1 CUDA阻塞未恢复，旧断点和诊断保留，未重启健康任务。",
+      "evidenceLabel": "app-pro-new-summary-20261005T0623.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peunet-object-three-seed-20261005T0022",
       "at": "2026-10-05T00:35:55.848855+00:00",
