@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-04T18:49:35.170540+00:00",
-  "generatedAt": "2026-10-04T18:49:42.841628+00:00",
+  "updatedAt": "2026-10-05T00:35:55.848855+00:00",
+  "generatedAt": "2026-10-05T00:36:12.269062+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peunet-object-three-seed-20261005T0022",
+      "at": "2026-10-05T00:35:55.848855+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-U-Net：PRO Object 三训练种子完成",
+      "summary": "训练seed17/29/43分别196/207/223成功，各800有效、0无效，等权平均26.08%。每个模型40任务各20独立评估seed×1回合；四类各600、每任务60覆盖独立核验。新增2400原子和身份元数据已严格审计、独立本地核SHA备份；完整权重和动作轨迹仍远端保留。该成绩仅属于PRO Object独立轨道，不并入LIBERO base或全PRO；Language/Swap/Task三seed均值暂为null。Language17已自动接续。",
+      "evidenceLabel": "app-pro-new-summary-20261005T0022.json",
+      "commitUrl": null
+    },
+    {
+      "id": "app-mve1-cuda-block-20261005T0022",
+      "at": "2026-10-05T00:35:55.848855+00:00",
+      "type": "recovery",
+      "title": "MVE1 CUDA 初始化失败；断点保留，MVE2 四卡继续",
+      "summary": "MVE1两条BCViLT训练达到原48小时时限后，自动第二次尝试在CUDA初始化失败，有限尝试已尽。两张NVML可见卡使用编号及UUID的独立计算检查均失败，另两卡设备查询错误；当前不能宣称MVE1有可用计算卡。9400/9300-step断点的SHA、配置、源码、优化器/调度器/EMA/RNG已核验并在远端保留，失败和身份日志已本地核SHA备份，完整权重未异地备份。MVE2四唯一owner持续增长；未重启健康任务或更改宿主/驱动/Vast。MVE1需主机侧排查，计算恢复验证后再用独立有限owner续跑。",
+      "evidenceLabel": "app-MVE1-CUDA-canary-20261005T0022.txt",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peact-swap-three-seed-20261004T1820",
       "at": "2026-10-04T18:47:14.503336+00:00",
