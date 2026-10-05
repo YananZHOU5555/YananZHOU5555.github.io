@@ -116,7 +116,7 @@ function openProCell(id,key){
 function updateRoute(){history.replaceState(null,'',location.pathname+location.search+(view==='pro'?'#pro':view==='encoders'?'#encoders':''));}
 function selectView(value){
   if(value==='pro'){benchmarkId='libero-pro';trackId='pro-native-20x1';$('#head').value='all';$('#suite').value='all';$('#search').value='';}
-  else if(value==='encoders'||(value==='leaderboard'&&view==='pro')){benchmarkId='libero';trackId='native-20x1';}
+  else if(value==='encoders'||(value==='leaderboard'&&benchmarkId==='libero-pro'&&track()?.proRows)){benchmarkId='libero';trackId='native-20x1';}
   view=value;updateRoute();render();
 }
 function openEncoder(id){
