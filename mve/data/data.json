@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-05T12:47:42.460288+00:00",
-  "generatedAt": "2026-10-05T12:48:06.037738+00:00",
+  "updatedAt": "2026-10-05T18:32:02.221801+00:00",
+  "generatedAt": "2026-10-05T18:32:19.754637+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peunet-task-three-seed-20261005T1824",
+      "at": "2026-10-05T18:32:02.221801+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-U-Net：四个已准备 PRO 轨道完成",
+      "summary": "PRO Task训练seed17/29/43分别13/15/22成功，各800有效、0无效，等权平均2.08%。四类各600、每任务60覆盖与每模型每任务20独立评估seed×1次独立核验；seed17复用此前严格审计和备份证据，其余两份为本轮新增。四个已准备轨道三seed均值为Object26.08%、Language40.75%、Swap0.50%、Task2.08%，共12个完整模型、9600次有效评估。各轨道独立计分，不并入LIBERO base或合成为全PRO；Environment官方资产仍缺失，也不假设扰动前后物理初态严格配对。DP-DiT已由原队列自动接续，未重启健康任务。",
+      "evidenceLabel": "app-pro-new-summary-20261005T1824.json",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-pedit-object-first-20261005T1824",
+      "at": "2026-10-05T18:32:02.221801+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-DiT：首份 PRO Object 完整评估",
+      "summary": "DP-DiT的seed17在PRO Object完成114/800（14.25%），零无效；seed29正在评估，三训练种子组合均值仍为空。两份新canary各4次有效评估严格重审通过；800次正式评估另核验四类各200、40任务各20独立评估seed×1次。此次新DP-U-Net Task两份和DP-DiT Object一份共2400次正式原子，加8次不计分canary及5092项身份元数据已独立本地核SHA备份；完整权重和动作轨迹仍远端保留。沿独立DP-DiT-r1冻结身份审计，不混其他动作头或版本。MVE2四卡有真实进展；MVE1 CUDA阻塞仍未恢复。",
+      "evidenceLabel": "app-pro-new-audits-20261005T1824-MVE2.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peunet-swap-three-seed-20261005T1224",
       "at": "2026-10-05T12:47:42.460288+00:00",
