@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-05T18:32:02.221801+00:00",
-  "generatedAt": "2026-10-05T18:32:19.754637+00:00",
+  "updatedAt": "2026-10-05T23:20:45.372748+00:00",
+  "generatedAt": "2026-10-05T23:21:01.715367+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "interactive-pro-pedit-object-three-seed-20261005T2316",
+      "at": "2026-10-05T23:20:45.372748+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-DiT：PRO Object 三训练种子完成",
+      "summary": "训练seed17/29/43分别114/92/77成功，各800有效、0无效，三训练种子等权均值11.79%。四类各600、每任务60覆盖及每模型每任务20独立评估seed×1次独立核验。seed17复用此前严格审计及备份证据，其余两份为本次新增。新增1600次正式原子、8次不计分canary和3407项身份元数据已独立本地核SHA备份；完整权重和动作轨迹仍远端保留。Language17已413次有效评估，另外三条轨道的三seed均值仍为空。不混LIBERO base或其他动作头/版本，不合成为完整PRO，不假设变体前后物理初态配对。MVE2四卡持续进展，MVE1 CUDA仍未恢复。",
+      "evidenceLabel": "interactive-pro-new-summary-20261005T2316.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peunet-task-three-seed-20261005T1824",
       "at": "2026-10-05T18:32:02.221801+00:00",
