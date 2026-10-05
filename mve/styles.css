@@ -59,3 +59,15 @@
 
 /* Keep all scientific category columns accessible on narrow screens. */
 .benchmark-table{min-width:1090px}.benchmark-table .suite-col,.benchmark-table .status-col{display:table-cell}.column-note,.coverage-note{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:5px}.suite-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px}.suite-summary>div{padding:13px;background:var(--sky-pale);border-radius:5px}.suite-summary span,.suite-summary small{display:block;font-size:10px;color:var(--muted)}.suite-summary strong{display:block;font-size:22px;margin:8px 0}.seed-table{min-width:480px}@media(max-width:700px){.suite-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.benchmark-table{min-width:1020px}}
+
+/* PRO perturbations remain independent, with full seed coverage visible per cell. */
+.pro-entry{display:inline-block;margin:4px 0 0;padding:7px 12px;border:1px solid #c5ddea;border-radius:5px;background:var(--sky-pale);color:var(--sky-dark);font-size:11px}
+.pro-table{min-width:960px}.pro-table th{min-width:140px}.pro-table th:first-child{min-width:240px}.pro-table td{vertical-align:middle}
+.pro-cell{display:block;width:100%;text-align:left;border:0;border-radius:5px;background:transparent;padding:5px 0;color:var(--ink)}
+.pro-cell strong{display:block;color:var(--sky-dark);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
+.pro-cell span,.pro-cell small{display:block;color:var(--muted);font-size:10px;margin-top:4px;white-space:nowrap}.pro-cell small{font-family:ui-monospace,monospace}
+.pro-cell:hover strong{color:#174f73;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.pro-proof{font-size:11px;color:var(--muted);margin-top:20px}.pro-proof summary{color:var(--sky-dark);cursor:pointer}.pro-proof code{display:inline;overflow-wrap:anywhere;font-size:10px}.pro-proof p{line-height:1.8;overflow-wrap:anywhere}
+@media(max-width:1100px){.tabs{flex-wrap:wrap}.pro-table{min-width:910px}}
+
+.pro-table .encoder-name small{display:block;font-size:9px;color:var(--muted);overflow-wrap:anywhere;margin-top:3px}.pro-scroll-note{display:none;font-size:10px;color:var(--sky-dark)}@media(max-width:700px){.pro-scroll-note{display:block}}
