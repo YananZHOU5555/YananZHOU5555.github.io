@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-05T06:29:34.576962+00:00",
-  "generatedAt": "2026-10-05T06:30:14.934821+00:00",
+  "updatedAt": "2026-10-05T12:47:42.460288+00:00",
+  "generatedAt": "2026-10-05T12:48:06.037738+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -344654,6 +344654,24 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-peunet-swap-three-seed-20261005T1224",
+      "at": "2026-10-05T12:47:42.460288+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-U-Net：PRO Swap 三训练种子完成",
+      "summary": "训练seed17/29/43分别3/5/4成功，各800有效、0无效，等权平均0.50%。四类各600、每任务60覆盖及每模型每任务20独立评估seed×1次独立核验。新增2400原子和身份元数据已严格审计、独立本地核SHA备份。Task17另完成13/800，零无效，800新原子也已严格审计并独立核SHA备份；Task29接续，Task三种子均值仍为null。完整权重和动作轨迹仍远端保留。以上只属于各自PRO轨道，不并入LIBERO base或全PRO，也不假设扰动前后物理初态严格配对。",
+      "evidenceLabel": "app-pro-new-summary-20261005T1224.json",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-pedit-conditional-queue-20261005T1224",
+      "at": "2026-10-05T12:47:42.460288+00:00",
+      "type": "queue",
+      "title": "PE-Spatial × DP-DiT：四类 PRO 条件队列接续准备完成",
+      "summary": "三个既有DP-DiT基准模型各800回合严格重审通过，14项审计拒绝测试通过。新增独立PRO适配快照固定训练源码及独立r1评估包装器，策略、控制器和精度保持不变。24个单元已加入原队列，每个模型先做四类任务canary并严格重审，再跑800次；计划12个正式模型9600次，48次技术canary不计分。当前DP-U-Net可运行单元优先，未重启健康任务；12:36UTC新单元均待运行，PRO成绩及三seed均值仍为空。19项源码、队列与准入身份元数据已独立本地核SHA备份。MVE2四卡有真实进展；MVE1 CUDA阻塞仍未恢复。",
+      "evidenceLabel": "app-pro-pedit-queue-20261005T1224.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-peunet-language-three-seed-20261005T0623",
       "at": "2026-10-05T06:29:34.576962+00:00",
