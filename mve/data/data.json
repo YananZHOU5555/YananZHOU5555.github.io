@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-06T04:24:35.387184+00:00",
-  "generatedAt": "2026-10-06T04:24:53.045122+00:00",
+  "updatedAt": "2026-10-06T06:28:56.064994+00:00",
+  "generatedAt": "2026-10-06T06:29:08.056175+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -343199,34 +343199,78 @@
                 {
                   "track": "swap",
                   "label": "Swap",
-                  "models": [],
-                  "completedSeeds": [],
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 1,
+                      "episodes": 800,
+                      "successRate": 0.00125,
+                      "checkpointSha256": "411f3af7a417154720ff980eb712085fb405e90ed70a4cea85af93336b1bcbf6",
+                      "adapterSha256": "a49fa91db93f62fc585abf82046f7f6270f420c4007fbdbe0f7daaab28b5a45a",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261006T0625-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "4dcda675c8223ba8df6565f41223185d83097352e7bf2b0f0226bb324021648e"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 1,
+                          "successRate": 0.005
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17
+                  ],
                   "expectedEpisodes": 2400,
-                  "episodes": 0,
+                  "episodes": 800,
                   "successes": null,
                   "successRate": null,
                   "suiteResults": [
                     {
                       "suite": "libero_spatial",
-                      "episodes": 0,
+                      "episodes": 200,
                       "successes": null,
                       "successRate": null
                     },
                     {
                       "suite": "libero_object",
-                      "episodes": 0,
+                      "episodes": 200,
                       "successes": null,
                       "successRate": null
                     },
                     {
                       "suite": "libero_goal",
-                      "episodes": 0,
+                      "episodes": 200,
                       "successes": null,
                       "successRate": null
                     },
                     {
                       "suite": "libero_10",
-                      "episodes": 0,
+                      "episodes": 200,
                       "successes": null,
                       "successRate": null
                     }
@@ -344162,7 +344206,7 @@
             }
           ],
           "completedCells": 14,
-          "auditedValidEpisodes": 34400
+          "auditedValidEpisodes": 35200
         },
         {
           "id": "pro-development",
@@ -347381,6 +347425,11 @@
       "sha256": "f60d02bd9afbe01fd6b6fc588a2a701b8e2bbaf13440a435c828e1b09bee5090"
     },
     {
+      "id": "app-pro-new-audits-20261006T0625-MVE2.json",
+      "label": "PRO 严格审计 · Swap",
+      "sha256": "4dcda675c8223ba8df6565f41223185d83097352e7bf2b0f0226bb324021648e"
+    },
+    {
       "id": "app-pro-pe17-audit-20261003T0613.json",
       "label": "PRO 严格审计 · Object",
       "sha256": "682a2ee54213777a5c015036d023b1c8c81e10ad2d20bc4df1f3ba16e2ba57f3"
@@ -347427,6 +347476,15 @@
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-pedit-swap-first-20261006T0625",
+      "at": "2026-10-06T06:28:56.064994+00:00",
+      "type": "evaluation",
+      "title": "PE-Spatial × DP-DiT：PRO Swap 首个训练种子完成",
+      "summary": "训练seed17在Swap扰动完成1/800，零无效；三训练种子均值仍为空，网页显示1/3完整覆盖。四原始分类各200回合、40任务各20个独立评估seed×1次独立核验。seed29沿原队列接续，实测36次有效评估；新增800正式原子和4不计分canary独立本地核SHA备份，完整权重和动作轨迹仍远端。DP-DiT共7份正式评估完成、5份剩余；不混基础LIBERO、动作头或版本，不合成全PRO总分。",
+      "evidenceLabel": "app-pro-new-summary-20261006T0625.json",
+      "commitUrl": null
+    },
     {
       "id": "interactive-pro-pedit-language-complete-20261006T0421",
       "at": "2026-10-06T04:24:35.387184+00:00",
