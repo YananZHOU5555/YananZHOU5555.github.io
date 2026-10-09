@@ -1,7 +1,7 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-09T00:41:23.151840+00:00",
-  "generatedAt": "2026-10-09T00:41:52.205950+00:00",
+  "updatedAt": "2026-10-09T06:42:48.591582+00:00",
+  "generatedAt": "2026-10-09T06:44:09.169648+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
@@ -346158,6 +346158,171 @@
                           "successRate": 0.0
                         }
                       ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 17,
+                      "episodes": 800,
+                      "successRate": 0.02125,
+                      "checkpointSha256": "62331ce197a785ad00b055e944d4e73efb2c39c880d2c1f6e25ba8dfcc9bafbc",
+                      "adapterSha256": "700269e694daa436b61b90f02a3148ccd9593fa6239f86856b1a54f1f74d2bc7",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261009T0636-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "a2383dcc0451fbff0530c9ee2551260820f7825ee6bd5d0fb8542bc5831cb326"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 1,
+                          "successRate": 0.005
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 5,
+                          "successRate": 0.025
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 11,
+                          "successRate": 0.055
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 23,
+                  "successRate": 0.009583333333333334,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 2,
+                      "successRate": 0.0033333333333333335
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 5,
+                      "successRate": 0.008333333333333333
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 16,
+                      "successRate": 0.02666666666666667
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 0,
+                      "successRate": 0.0
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "task",
+                  "label": "Task",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 22,
+                      "episodes": 800,
+                      "successRate": 0.0275,
+                      "checkpointSha256": "ec29edb9b813dc98e52894fbbe5edb01ffa535894d204b53b6f31901b2a284ff",
+                      "adapterSha256": "700269e694daa436b61b90f02a3148ccd9593fa6239f86856b1a54f1f74d2bc7",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261009T0636-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "a2383dcc0451fbff0530c9ee2551260820f7825ee6bd5d0fb8542bc5831cb326"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 12,
+                          "successRate": 0.06
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 1,
+                          "successRate": 0.005
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 9,
+                          "successRate": 0.045
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 25,
+                      "episodes": 800,
+                      "successRate": 0.03125,
+                      "checkpointSha256": "b12536bda97070a13c0c5df98f7ce05507a0f1a49030efd9cb9bc62d36a98a79",
+                      "adapterSha256": "700269e694daa436b61b90f02a3148ccd9593fa6239f86856b1a54f1f74d2bc7",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261009T0636-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "a2383dcc0451fbff0530c9ee2551260820f7825ee6bd5d0fb8542bc5831cb326"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 15,
+                          "successRate": 0.075
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 1,
+                          "successRate": 0.005
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 9,
+                          "successRate": 0.045
+                        }
+                      ]
                     }
                   ],
                   "completedSeeds": [
@@ -346195,43 +346360,6 @@
                     }
                   ],
                   "status": "pending"
-                },
-                {
-                  "track": "task",
-                  "label": "Task",
-                  "models": [],
-                  "completedSeeds": [],
-                  "expectedEpisodes": 2400,
-                  "episodes": 0,
-                  "successes": null,
-                  "successRate": null,
-                  "suiteResults": [
-                    {
-                      "suite": "libero_spatial",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
-                    },
-                    {
-                      "suite": "libero_object",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
-                    },
-                    {
-                      "suite": "libero_goal",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
-                    },
-                    {
-                      "suite": "libero_10",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
-                    }
-                  ],
-                  "status": "pending"
                 }
               ]
             }
@@ -346254,8 +346382,8 @@
               "label": "Task"
             }
           ],
-          "completedCells": 26,
-          "auditedValidEpisodes": 64800
+          "completedCells": 27,
+          "auditedValidEpisodes": 67200
         },
         {
           "id": "pro-development",
@@ -349612,9 +349740,37 @@
       "id": "app-pro-new-audits-20261009T0036-MVE2.json",
       "label": "PRO 严格审计 · Swap",
       "sha256": "c54852578562b34d60f1ff16a7ae748905abb5b5302ce4e69e76cd6517db97d1"
+    },
+    {
+      "id": "app-pro-new-audits-20261009T0636-MVE2.json",
+      "label": "PRO 严格审计 · Swap",
+      "sha256": "a2383dcc0451fbff0530c9ee2551260820f7825ee6bd5d0fb8542bc5831cb326"
+    },
+    {
+      "id": "app-pro-new-audits-20261009T0636-MVE2.json",
+      "label": "PRO 严格审计 · Task",
+      "sha256": "a2383dcc0451fbff0530c9ee2551260820f7825ee6bd5d0fb8542bc5831cb326"
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-theiaflow-admission-20261009T0636",
+      "at": "2026-10-09T06:42:48.591582+00:00",
+      "type": "protocol",
+      "title": "Theia-B CDIV × Flow-DiT：同checkpoint PRO接续队列",
+      "summary": "三个已保存的20k模型重新通过各自冻结base评估审计并核对checkpoint pin。新独立PRO adapter只改SOURCE绑定，14项拒绝测试通过，源码/队列/模型配置等35份metadata独立本地SHA备份。追加24个唯一单元，CLIP Task43完成后自动接续四扰动、三训练种子，每个模型先自身四分类full-horizon canary再800正式回合，共9600正式回合。当前尚无Theia PRO成绩；未重启健康训练、未重训/新增缓存/改变FP32及控制协议。",
+      "evidenceLabel": "app-pro-theiaflow-queue-20261009T0636.json",
+      "commitUrl": null
+    },
+    {
+      "id": "app-pro-clipflow-swap-complete-20261009T0636",
+      "at": "2026-10-09T06:41:12.337177+00:00",
+      "type": "evaluation",
+      "title": "CLIP-B/16 × Flow-DiT：PRO Swap三训练种子完成",
+      "summary": "Swap训练seed17/29/43成功数{'17': 5, '29': 1, '43': 17}，各800有效零无效，等权平均0.958333%。四原始分类各600回合、40任务各60回合及20独立评估seed×1逐模型核验。Task训练seed17/29成功数{'17': 22, '29': 25}，各800严格有效，43进行中，未齐三种子的组合及分类均值保持null。新增2400正式原子与12不计分canary metadata独立本地SHA备份，完整权重/动作轨迹仍MVE2远端。四卡继续实际增长，无新增失败/健康重启/精度变化；基础LIBERO开发榜及其他PRO行不变。",
+      "evidenceLabel": "app-pro-new-summary-20261009T0636.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-clipflow-language-complete-20261009T0036",
       "at": "2026-10-09T00:41:23.151840+00:00",
