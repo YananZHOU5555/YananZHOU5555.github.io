@@ -1,11 +1,11 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-10T12:55:40.376517+00:00",
-  "generatedAt": "2026-10-10T12:56:00.120738+00:00",
+  "updatedAt": "2026-10-10T19:00:08.028025+00:00",
+  "generatedAt": "2026-10-10T19:00:36.607179+00:00",
   "evidenceAsOf": {
     "base": "2026-09-20T23:51:14+00:00",
     "expanded": "2026-09-21T00:52:56.226087+00:00",
-    "native20x1": "2026-10-10T06:48:31.048984+00:00"
+    "native20x1": "2026-10-10T18:45:56.140638+00:00"
   },
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
@@ -26020,7 +26020,7 @@
           "episodesPerTask": 20,
           "targetEpisodesPerTask": 20,
           "targetEpisodesPerRun": 800,
-          "observedAt": "2026-10-10T06:48:31.048984+00:00",
+          "observedAt": "2026-10-10T18:45:56.140638+00:00",
           "uniquePhysicalInitialStatesPerTask": 20,
           "servers": [
             {
@@ -26292,7 +26292,7 @@
             },
             {
               "id": "MVE2",
-              "observedAt": "2026-10-10T06:48:31.048984+00:00",
+              "observedAt": "2026-10-10T18:45:56.140638+00:00",
               "evidenceId": "app-act-audit-MVE2-20260923T0258.json",
               "evidenceSha256": "17b6239ea3490db9a93897db70c40705087475cf935354fcaa7977b1a824eede",
               "familyAudits": [
@@ -26424,9 +26424,9 @@
                 },
                 {
                   "id": "MVE2",
-                  "observedAt": "2026-10-10T06:48:31.048984+00:00",
-                  "evidenceId": "app-native-bcvilt-pespatial-audit-20261010T0640-MVE2.json",
-                  "evidenceSha256": "25ac0277741bb5e0d011f0435fa72fe7446538a2901339fa94bd76b4ad77e69e",
+                  "observedAt": "2026-10-10T18:45:56.140638+00:00",
+                  "evidenceId": "app-native-bcvilt-pespatial-audit-20261010T1841-MVE2.json",
+                  "evidenceSha256": "b122b1a5d1c07263e8486a3adff16b0b714a5f11c377ef29a03dc6c5068adfb1",
                   "policyFamily": "bcvilt_native_pespatialr2_v3"
                 }
               ]
@@ -177519,7 +177519,7 @@
               "successRate": 0.0,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-10T06:48:30.614972+00:00",
+              "progressAsOf": "2026-10-10T18:45:55.432041+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "6e8d619a36e89ac1e9a8d55e0d81ebe77e0370e4c5d33eb044e7e57900b22aa1",
@@ -178086,339 +178086,560 @@
                 32,
                 32
               ],
-              "successes": null,
-              "episodes": 0,
+              "successes": 15,
+              "episodes": 800,
               "expectedEpisodes": 800,
-              "successRate": null,
-              "status": "pending",
-              "progressStatus": "training_incomplete",
-              "progressAsOf": "2026-10-10T06:48:30.620590+00:00",
+              "successRate": 0.01875,
+              "status": "complete",
+              "progressStatus": "complete",
+              "progressAsOf": "2026-10-10T18:45:55.769236+00:00",
               "rankingEligible": false,
               "rank": null,
-              "checkpointSha256": null,
-              "completeGroups": 0,
+              "checkpointSha256": "c95ff8b1a6546959a4eab39a6c212ae82857d312015a8281f4c22634b610114d",
+              "completeGroups": 20,
               "expectedGroups": 20,
-              "groups": [],
+              "groups": [
+                {
+                  "index": 0,
+                  "rootSeed": 31000000,
+                  "initIndex": 0,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "e258b6d54124aef30f146aab0ebcde6d492aec87be7736a1b731201f64c92a8f"
+                },
+                {
+                  "index": 1,
+                  "rootSeed": 32000000,
+                  "initIndex": 1,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "ba55f8b055a5c1663fbdc30b66e43c5f9e8c2a8541c2f7557691bb97c3fb26d6"
+                },
+                {
+                  "index": 2,
+                  "rootSeed": 33000000,
+                  "initIndex": 2,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "4437af811cab5e01c691fbe4d1accdbaee14a6b8072de4e7e83291170264b86a"
+                },
+                {
+                  "index": 3,
+                  "rootSeed": 34000000,
+                  "initIndex": 3,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "420b595f903fe514fb1c51a3cf3997dea4ebbd4f18826f6889200a9b00c69617"
+                },
+                {
+                  "index": 4,
+                  "rootSeed": 35000000,
+                  "initIndex": 4,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 2,
+                  "audited": true,
+                  "protocolSha256": "aba402c5143b3ca1c2f5fb43e59edd8c1361b84494abd4e839fb2a4c93a293ab"
+                },
+                {
+                  "index": 5,
+                  "rootSeed": 36000000,
+                  "initIndex": 5,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "b756647aa38e6796cff8afb2ff130dc702cb366924cff67967b1152ec38c60db"
+                },
+                {
+                  "index": 6,
+                  "rootSeed": 37000000,
+                  "initIndex": 6,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 2,
+                  "audited": true,
+                  "protocolSha256": "9e54d18d721213874497e131424fa95865acec9e0fcaa875776d694afcfb493f"
+                },
+                {
+                  "index": 7,
+                  "rootSeed": 38000000,
+                  "initIndex": 7,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "b06174d766e085612571e96bc76b32a5873b6afadd6793cc755712a83fa95f2c"
+                },
+                {
+                  "index": 8,
+                  "rootSeed": 39000000,
+                  "initIndex": 8,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "01938ffe099351d7f5045b256b1fe2dd805f9c3cbb0787e055c5224b7ed57a78"
+                },
+                {
+                  "index": 9,
+                  "rootSeed": 40000000,
+                  "initIndex": 9,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "d8263619426c140ec98b94a8f3c4cf49f9621c44bdddc9ad9726f9b48269f13c"
+                },
+                {
+                  "index": 10,
+                  "rootSeed": 41000000,
+                  "initIndex": 10,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "fd86f8d869d6859c48977a0728fa8d0c280ad1f9339931225e3d3e32c251014d"
+                },
+                {
+                  "index": 11,
+                  "rootSeed": 42000000,
+                  "initIndex": 11,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "16ae0d8773875e60c7ddbd0813b04cdfa381b96c11c111941fb6aeb79dd5a36e"
+                },
+                {
+                  "index": 12,
+                  "rootSeed": 43000000,
+                  "initIndex": 12,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 0,
+                  "audited": true,
+                  "protocolSha256": "562ba4d3f79c7508eed96cc7fe5b17a34280878663d463aeea3a7e20711e5ecb"
+                },
+                {
+                  "index": 13,
+                  "rootSeed": 44000000,
+                  "initIndex": 13,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "3f219a4117766d11fd752cf7718b8cba08e2b85c8c4d0f291f0802ed440fcf9b"
+                },
+                {
+                  "index": 14,
+                  "rootSeed": 45000000,
+                  "initIndex": 14,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 2,
+                  "audited": true,
+                  "protocolSha256": "c5934c45b062ed18cd49aa92a32dd67231b732d903c0de566eaf8b3f45d43fdd"
+                },
+                {
+                  "index": 15,
+                  "rootSeed": 46000000,
+                  "initIndex": 15,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "302fc2ac9a104a9593427384f3da35a68e40827bd24a6dfb67fb1b66d2909313"
+                },
+                {
+                  "index": 16,
+                  "rootSeed": 47000000,
+                  "initIndex": 16,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "557b4fcf53e74e14076eac9fc5e7b7fe718638df74fa618958dc6463501d1948"
+                },
+                {
+                  "index": 17,
+                  "rootSeed": 48000000,
+                  "initIndex": 17,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "250c9d92a2d0a0bfd127d9e60f713b04b0153a90f10e55b5b2fd5aacaac278e0"
+                },
+                {
+                  "index": 18,
+                  "rootSeed": 49000000,
+                  "initIndex": 18,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "c8d4e685b2122ab830fb62cedaf2931c322433f848acae9e21bf61cf078adf87"
+                },
+                {
+                  "index": 19,
+                  "rootSeed": 50000000,
+                  "initIndex": 19,
+                  "status": "complete",
+                  "episodes": 40,
+                  "expectedEpisodes": 40,
+                  "successes": 1,
+                  "audited": true,
+                  "protocolSha256": "85618445900c9bc666e6471d0fcc9d9a6b7c160ba74fa7d214fd85f756a8c99e"
+                }
+              ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
-                  "auditedSuccesses": 0,
-                  "status": "pending"
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 0,
+                  "episodes": 20,
                   "expectedEpisodes": 20,
-                  "successes": null,
+                  "successes": 0,
                   "auditedSuccesses": 0,
-                  "status": "pending"
+                  "status": "complete"
                 }
               ]
             },
@@ -178444,7 +178665,7 @@
               "successRate": 0.0075,
               "status": "complete",
               "progressStatus": "complete",
-              "progressAsOf": "2026-10-10T06:48:31.048938+00:00",
+              "progressAsOf": "2026-10-10T18:45:56.140590+00:00",
               "rankingEligible": false,
               "rank": null,
               "checkpointSha256": "5e17827ab34033ae9b2dc94d1a8a83ce3d16247dd938996097bbbcb369a82dcf",
@@ -253845,14 +254066,15 @@
               ],
               "rankingEligible": false,
               "rank": null,
-              "episodes": 1600,
+              "episodes": 2400,
               "expectedEpisodes": 2400,
-              "successes": null,
-              "successRate": null,
-              "successRateStd": null,
+              "successes": 21,
+              "successRate": 0.008749999999999999,
+              "successRateStd": 0.009437293044088437,
               "completedSeeds": [
                 17,
-                29
+                29,
+                43
               ],
               "seedRates": [
                 {
@@ -253874,24 +254096,25 @@
                 {
                   "seed": 43,
                   "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                  "episodes": 0,
-                  "successes": null,
-                  "successRate": null,
-                  "complete": false
+                  "episodes": 800,
+                  "successes": 15,
+                  "successRate": 0.01875,
+                  "complete": true
                 }
               ],
-              "status": "partial",
+              "status": "complete",
               "suiteResults": [
                 {
                   "suite": "libero_spatial",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 20,
+                  "successRate": 0.03333333333333333,
+                  "successRateStd": 0.035118845842842465,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -253913,24 +254136,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 14,
+                      "successRate": 0.07,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_object",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -253952,24 +254176,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_goal",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.0016666666666666668,
+                  "successRateStd": 0.002886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -253991,24 +254216,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 1,
+                      "successRate": 0.005,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "suite": "libero_10",
-                  "episodes": 400,
+                  "episodes": 600,
                   "expectedEpisodes": 600,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254030,26 +254256,27 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 200,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ],
               "taskResults": [
                 {
                   "taskId": "libero-00",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 11,
+                  "successRate": 0.18333333333333335,
+                  "successRateStd": 0.31754264805429416,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254071,24 +254298,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-01",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254110,24 +254338,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-02",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254149,24 +254378,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-03",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254188,24 +254418,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-04",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254227,24 +254458,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-05",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254266,24 +254498,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-06",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254305,24 +254538,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-07",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254344,24 +254578,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-08",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 7,
+                  "successRate": 0.11666666666666667,
+                  "successRateStd": 0.16072751268321592,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254383,24 +254618,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-09",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254422,24 +254658,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-10",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254461,24 +254698,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-11",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254500,24 +254738,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-12",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254539,24 +254778,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-13",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254578,24 +254818,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-14",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254617,24 +254858,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-15",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254656,24 +254898,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-16",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254695,24 +254938,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-17",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254734,24 +254978,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-18",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254773,24 +255018,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-19",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254812,24 +255058,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-20",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254851,24 +255098,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-21",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254890,24 +255138,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-22",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254929,24 +255178,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-23",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -254968,24 +255218,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-24",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255007,24 +255258,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-25",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255046,24 +255298,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-26",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255085,24 +255338,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-27",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 1,
+                  "successRate": 0.016666666666666666,
+                  "successRateStd": 0.02886751345948129,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255124,24 +255378,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-28",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255163,24 +255418,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-29",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255202,24 +255458,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-30",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255241,24 +255498,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-31",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255280,24 +255538,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-32",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255319,24 +255578,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-33",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255358,24 +255618,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-34",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255397,24 +255658,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-35",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255436,24 +255698,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-36",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255475,24 +255738,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-37",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255514,24 +255778,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-38",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255553,24 +255818,25 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 },
                 {
                   "taskId": "libero-39",
-                  "episodes": 40,
+                  "episodes": 60,
                   "expectedEpisodes": 60,
-                  "successes": null,
-                  "successRate": null,
-                  "successRateStd": null,
+                  "successes": 0,
+                  "successRate": 0.0,
+                  "successRateStd": 0.0,
                   "completedSeeds": [
                     17,
-                    29
+                    29,
+                    43
                   ],
                   "seedRates": [
                     {
@@ -255592,13 +255858,13 @@
                     {
                       "seed": 43,
                       "runId": "n10_native_bcvilt_pespatialr2_v3_20261002_bcvilt_native_b32_s43_loader0_r1_20261003T0012",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null,
-                      "complete": false
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true
                     }
                   ],
-                  "status": "partial"
+                  "status": "complete"
                 }
               ]
             },
@@ -342614,11 +342880,12 @@
                 "id": "encoder::pe_spatial_b16_512",
                 "encoder": "pe_spatial_b16_512",
                 "encoderLabel": "PE Spatial ViT-B/16",
-                "successRate": null,
+                "successRate": 0.28941666666666666,
                 "completedPolicies": [
                   "act",
                   "dp",
                   "dp-dit",
+                  "bcvilt",
                   "flow"
                 ],
                 "expectedPolicies": [
@@ -342628,7 +342895,7 @@
                   "bcvilt",
                   "flow"
                 ],
-                "status": "partial",
+                "status": "complete",
                 "excludedCombinationIds": [],
                 "policies": [
                   {
@@ -342672,10 +342939,11 @@
                     "combinationId": "native-combo::pe_spatial_b16_512::bcvilt_native_pespatialr2_v3",
                     "policyFamily": "bcvilt_native_pespatialr2_v3",
                     "label": "BCViLT v3 · PE-Spatial-B16",
-                    "successRate": null,
+                    "successRate": 0.008749999999999999,
                     "completedSeeds": [
                       17,
-                      29
+                      29,
+                      43
                     ]
                   },
                   {
@@ -342694,11 +342962,12 @@
                 "suiteResults": [
                   {
                     "suite": "libero_10",
-                    "successRate": null,
+                    "successRate": 0.21,
                     "completedPolicies": [
                       "act",
                       "dp",
                       "dp-dit",
+                      "bcvilt",
                       "flow"
                     ],
                     "expectedPolicies": [
@@ -342711,11 +342980,12 @@
                   },
                   {
                     "suite": "libero_goal",
-                    "successRate": null,
+                    "successRate": 0.059666666666666666,
                     "completedPolicies": [
                       "act",
                       "dp",
                       "dp-dit",
+                      "bcvilt",
                       "flow"
                     ],
                     "expectedPolicies": [
@@ -342728,11 +342998,12 @@
                   },
                   {
                     "suite": "libero_object",
-                    "successRate": null,
+                    "successRate": 0.5146666666666666,
                     "completedPolicies": [
                       "act",
                       "dp",
                       "dp-dit",
+                      "bcvilt",
                       "flow"
                     ],
                     "expectedPolicies": [
@@ -342745,11 +343016,12 @@
                   },
                   {
                     "suite": "libero_spatial",
-                    "successRate": null,
+                    "successRate": 0.37333333333333335,
                     "completedPolicies": [
                       "act",
                       "dp",
                       "dp-dit",
+                      "bcvilt",
                       "flow"
                     ],
                     "expectedPolicies": [
@@ -344168,13 +344440,13 @@
             "missingNote": "总分与各分类分别核验覆盖；任一策略缺少完整三训练种子，该范围均值为空，不以0或部分策略替代。"
           },
           "expectedCombinations": 89,
-          "completeCombinations": 87,
+          "completeCombinations": 88,
           "targetEpisodesPerCombination": 2400,
           "targetEpisodesPerCombinationTask": 60,
           "targetEpisodesPerCombinationSuite": 600,
-          "auditedCompleteGroups": 5300,
-          "auditedValidEpisodes": 212000,
-          "completeModels": 265,
+          "auditedCompleteGroups": 5320,
+          "auditedValidEpisodes": 212800,
+          "completeModels": 266,
           "notes": [
             "与历史 pooled P1 / 20×3 分开，不混合分母。",
             "未完整模型不显示总体成功率；每任务收齐20回合才显示该任务成绩。",
@@ -351699,6 +351971,1176 @@
                   "status": "complete"
                 }
               ]
+            },
+            {
+              "id": "native_clipact_v1",
+              "encoder": "clip_b16",
+              "encoderLabel": "CLIP ViT-B/16",
+              "head": "act_native_7",
+              "policyLabel": "ACT7",
+              "cells": [
+                {
+                  "track": "Object",
+                  "label": "Object",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 106,
+                      "episodes": 800,
+                      "successRate": 0.1325,
+                      "checkpointSha256": "aa2c3be0d7ef79c6094f9832a590d5b8dc1d9e1b8b00f4cee7a81e17d63ffe1c",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 33,
+                          "successRate": 0.165
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 25,
+                          "successRate": 0.125
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 36,
+                          "successRate": 0.18
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 12,
+                          "successRate": 0.06
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 126,
+                      "episodes": 800,
+                      "successRate": 0.1575,
+                      "checkpointSha256": "38403aca8a970f40d74289ae4e08044fba47d17e6b7b334ae639d3be501e3655",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 44,
+                          "successRate": 0.22
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 31,
+                          "successRate": 0.155
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 28,
+                          "successRate": 0.14
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 23,
+                          "successRate": 0.115
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 53,
+                      "episodes": 800,
+                      "successRate": 0.06625,
+                      "checkpointSha256": "6f73df0f80c5792edd32df19489f3faa57e0473135acd0f84d40d0d33e936410",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 36,
+                          "successRate": 0.18
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 5,
+                          "successRate": 0.025
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 4,
+                          "successRate": 0.02
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 8,
+                          "successRate": 0.04
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 285,
+                  "successRate": 0.11875000000000001,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 113,
+                      "successRate": 0.18833333333333332
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 61,
+                      "successRate": 0.10166666666666667
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 68,
+                      "successRate": 0.11333333333333334
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 43,
+                      "successRate": 0.07166666666666667
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "lan",
+                  "label": "Language",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 92,
+                      "episodes": 800,
+                      "successRate": 0.115,
+                      "checkpointSha256": "aa2c3be0d7ef79c6094f9832a590d5b8dc1d9e1b8b00f4cee7a81e17d63ffe1c",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 19,
+                          "successRate": 0.095
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 50,
+                          "successRate": 0.25
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 6,
+                          "successRate": 0.03
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 17,
+                          "successRate": 0.085
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 107,
+                      "episodes": 800,
+                      "successRate": 0.13375,
+                      "checkpointSha256": "38403aca8a970f40d74289ae4e08044fba47d17e6b7b334ae639d3be501e3655",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 25,
+                          "successRate": 0.125
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 54,
+                          "successRate": 0.27
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 9,
+                          "successRate": 0.045
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 19,
+                          "successRate": 0.095
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 110,
+                      "episodes": 800,
+                      "successRate": 0.1375,
+                      "checkpointSha256": "6f73df0f80c5792edd32df19489f3faa57e0473135acd0f84d40d0d33e936410",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 33,
+                          "successRate": 0.165
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 56,
+                          "successRate": 0.28
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 1,
+                          "successRate": 0.005
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 20,
+                          "successRate": 0.1
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 309,
+                  "successRate": 0.12875,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 77,
+                      "successRate": 0.12833333333333333
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 160,
+                      "successRate": 0.26666666666666666
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 16,
+                      "successRate": 0.026666666666666665
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 56,
+                      "successRate": 0.09333333333333334
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "swap",
+                  "label": "Swap",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 23,
+                      "episodes": 800,
+                      "successRate": 0.02875,
+                      "checkpointSha256": "aa2c3be0d7ef79c6094f9832a590d5b8dc1d9e1b8b00f4cee7a81e17d63ffe1c",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 23,
+                          "successRate": 0.115
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 10,
+                      "episodes": 800,
+                      "successRate": 0.0125,
+                      "checkpointSha256": "38403aca8a970f40d74289ae4e08044fba47d17e6b7b334ae639d3be501e3655",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 10,
+                          "successRate": 0.05
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 0,
+                      "episodes": 800,
+                      "successRate": 0.0,
+                      "checkpointSha256": "6f73df0f80c5792edd32df19489f3faa57e0473135acd0f84d40d0d33e936410",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 33,
+                  "successRate": 0.01375,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 0,
+                      "successRate": 0.0
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 33,
+                      "successRate": 0.055
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 0,
+                      "successRate": 0.0
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 0,
+                      "successRate": 0.0
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "task",
+                  "label": "Task",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 46,
+                      "episodes": 800,
+                      "successRate": 0.0575,
+                      "checkpointSha256": "aa2c3be0d7ef79c6094f9832a590d5b8dc1d9e1b8b00f4cee7a81e17d63ffe1c",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 13,
+                          "successRate": 0.065
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 17,
+                          "successRate": 0.085
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 16,
+                          "successRate": 0.08
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 28,
+                      "episodes": 800,
+                      "successRate": 0.035,
+                      "checkpointSha256": "38403aca8a970f40d74289ae4e08044fba47d17e6b7b334ae639d3be501e3655",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 13,
+                          "successRate": 0.065
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 15,
+                          "successRate": 0.075
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 31,
+                      "episodes": 800,
+                      "successRate": 0.03875,
+                      "checkpointSha256": "6f73df0f80c5792edd32df19489f3faa57e0473135acd0f84d40d0d33e936410",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 26,
+                          "successRate": 0.13
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 2,
+                          "successRate": 0.01
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 3,
+                          "successRate": 0.015
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 105,
+                  "successRate": 0.043750000000000004,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 52,
+                      "successRate": 0.08666666666666667
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 19,
+                      "successRate": 0.03166666666666667
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 34,
+                      "successRate": 0.056666666666666664
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 0,
+                      "successRate": 0.0
+                    }
+                  ],
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "native_theiaact_v1",
+              "encoder": "theia_b_cdiv",
+              "encoderLabel": "Theia ViT-B",
+              "head": "act_native_7",
+              "policyLabel": "ACT7",
+              "cells": [
+                {
+                  "track": "Object",
+                  "label": "Object",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 190,
+                      "episodes": 800,
+                      "successRate": 0.2375,
+                      "checkpointSha256": "1b9f993bcdc83291bbcfc00058c0958a1714d5aa6365e6d3c04bb73cf7af9db6",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 58,
+                          "successRate": 0.29
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 79,
+                          "successRate": 0.395
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 33,
+                          "successRate": 0.165
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 20,
+                          "successRate": 0.1
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 152,
+                      "episodes": 800,
+                      "successRate": 0.19,
+                      "checkpointSha256": "72aefb7d56ccf0922237020af31ff9d6aedbaac57a27a1630e59fd2bdc06bc75",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 49,
+                          "successRate": 0.245
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 61,
+                          "successRate": 0.305
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 28,
+                          "successRate": 0.14
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 14,
+                          "successRate": 0.07
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 224,
+                      "episodes": 800,
+                      "successRate": 0.28,
+                      "checkpointSha256": "7b7e23a0e09d2e61c8c077fa2dc7c064ec622f906a877e31b8d0c17e0407f3f5",
+                      "adapterSha256": "2a7cada4dca0b40e19c1a6d662ff6ac2a0e284376a098c17eb55b6945405acda",
+                      "manifestSha256": "be3a5a5ada46866484719884fca8a176cc8084d05a56e295cadf7213f51b56d6",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Object",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 62,
+                          "successRate": 0.31
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 84,
+                          "successRate": 0.42
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 56,
+                          "successRate": 0.28
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 22,
+                          "successRate": 0.11
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 566,
+                  "successRate": 0.23583333333333334,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 169,
+                      "successRate": 0.2816666666666667
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 224,
+                      "successRate": 0.37333333333333335
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 117,
+                      "successRate": 0.195
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 56,
+                      "successRate": 0.09333333333333334
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "lan",
+                  "label": "Language",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 178,
+                      "episodes": 800,
+                      "successRate": 0.2225,
+                      "checkpointSha256": "1b9f993bcdc83291bbcfc00058c0958a1714d5aa6365e6d3c04bb73cf7af9db6",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 24,
+                          "successRate": 0.12
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 68,
+                          "successRate": 0.34
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 34,
+                          "successRate": 0.17
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 52,
+                          "successRate": 0.26
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 167,
+                      "episodes": 800,
+                      "successRate": 0.20875,
+                      "checkpointSha256": "72aefb7d56ccf0922237020af31ff9d6aedbaac57a27a1630e59fd2bdc06bc75",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 46,
+                          "successRate": 0.23
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 70,
+                          "successRate": 0.35
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 28,
+                          "successRate": 0.14
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 23,
+                          "successRate": 0.115
+                        }
+                      ]
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 109,
+                      "episodes": 800,
+                      "successRate": 0.13625,
+                      "checkpointSha256": "7b7e23a0e09d2e61c8c077fa2dc7c064ec622f906a877e31b8d0c17e0407f3f5",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 13,
+                          "successRate": 0.065
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 66,
+                          "successRate": 0.33
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 12,
+                          "successRate": 0.06
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 18,
+                          "successRate": 0.09
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 2400,
+                  "successes": 454,
+                  "successRate": 0.18916666666666668,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 600,
+                      "successes": 83,
+                      "successRate": 0.13833333333333334
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 600,
+                      "successes": 204,
+                      "successRate": 0.34
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 600,
+                      "successes": 74,
+                      "successRate": 0.12333333333333334
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 600,
+                      "successes": 93,
+                      "successRate": 0.155
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "track": "swap",
+                  "label": "Swap",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 8,
+                      "episodes": 800,
+                      "successRate": 0.01,
+                      "checkpointSha256": "1b9f993bcdc83291bbcfc00058c0958a1714d5aa6365e6d3c04bb73cf7af9db6",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "9460f042950e29b023278a5e93a98f07ae4bc8e076609a144b9dde76eb2a495c",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Swap",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 8,
+                          "successRate": 0.04
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 800,
+                  "successes": null,
+                  "successRate": null,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    }
+                  ],
+                  "status": "pending"
+                },
+                {
+                  "track": "task",
+                  "label": "Task",
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 18,
+                      "episodes": 800,
+                      "successRate": 0.0225,
+                      "checkpointSha256": "1b9f993bcdc83291bbcfc00058c0958a1714d5aa6365e6d3c04bb73cf7af9db6",
+                      "adapterSha256": "6c672d61aa670adefb0aa5bb06d08f1d679089eb8eb5b7a2569d63c0e9f6f059",
+                      "manifestSha256": "b5bc2ef1d88169b41db5d6b77d4dc2321c2060b4eed69639ac37324f1cef862b",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+                        "label": "PRO 严格审计 · Task",
+                        "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 9,
+                          "successRate": 0.045
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 0,
+                          "successRate": 0.0
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 2,
+                          "successRate": 0.01
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 7,
+                          "successRate": 0.035
+                        }
+                      ]
+                    }
+                  ],
+                  "completedSeeds": [
+                    17
+                  ],
+                  "expectedEpisodes": 2400,
+                  "episodes": 800,
+                  "successes": null,
+                  "successRate": null,
+                  "suiteResults": [
+                    {
+                      "suite": "libero_spatial",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_object",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_goal",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    },
+                    {
+                      "suite": "libero_10",
+                      "episodes": 200,
+                      "successes": null,
+                      "successRate": null
+                    }
+                  ],
+                  "status": "pending"
+                }
+              ]
             }
           ],
           "perturbations": [
@@ -351719,8 +353161,8 @@
               "label": "Task"
             }
           ],
-          "completedCells": 40,
-          "auditedValidEpisodes": 96800
+          "completedCells": 46,
+          "auditedValidEpisodes": 112800
         },
         {
           "id": "pro-development",
@@ -354834,9 +356276,9 @@
       "server": "MVE2"
     },
     {
-      "id": "app-native-bcvilt-pespatial-audit-20261010T0640-MVE2.json",
+      "id": "app-native-bcvilt-pespatial-audit-20261010T1841-MVE2.json",
       "label": "MVE2 原生 BCViLT v3 · PE-Spatial-B16 full-batch32 / 20k / 20×1 独立原子审计",
-      "sha256": "25ac0277741bb5e0d011f0435fa72fe7446538a2901339fa94bd76b4ad77e69e",
+      "sha256": "b122b1a5d1c07263e8486a3adff16b0b714a5f11c377ef29a03dc6c5068adfb1",
       "server": "MVE2"
     },
     {
@@ -355163,9 +356605,38 @@
       "id": "app-pro-new-audits-20261010T1241-MVE2.json",
       "label": "PRO 严格审计 · Task",
       "sha256": "40a18ad55953e91a8bf3343fe6d1a8a54d9d3046a7c6429ece9a06d0c2ffcf0c"
+    },
+    {
+      "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+      "label": "PRO 严格审计 · Object",
+      "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+    },
+    {
+      "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+      "label": "PRO 严格审计 · Language",
+      "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+    },
+    {
+      "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+      "label": "PRO 严格审计 · Swap",
+      "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
+    },
+    {
+      "id": "app-pro-new-audits-20261010T1841-MVE2.json",
+      "label": "PRO 严格审计 · Task",
+      "sha256": "f0b6af4f5ce19edcc43901c706a552d386bb7a4372f8cd65c129d5dfdff2d77c"
     }
   ],
   "experimentLog": [
+    {
+      "id": "app-pro-clipact-theiaact-bc43-vitact-pecoreact-20261010T1841",
+      "at": "2026-10-10T19:00:08.028025+00:00",
+      "type": "evaluation",
+      "title": "CLIP ACT四扰动、PE-Spatial BCViLT基础三seed完成；ViT ACT接续",
+      "summary": "CLIP ACT四扰动完整；Theia ACT Object/Language三seed完整，Swap/Task仅严格已完成模型计入覆盖，未齐三seed均值为null。新增16000正式回合，每模型800有效零无效，20评估seed各1次，四suite各600/每任务60独立校验。严格均值：{\"native_clipact_v1\": {\"Object\": 0.11875000000000001, \"lan\": 0.12875, \"swap\": 0.01375, \"task\": 0.043750000000000004}, \"native_theiaact_v1\": {\"Object\": 0.23583333333333334, \"lan\": 0.18916666666666668, \"swap\": null, \"task\": null}}。PE-Spatial BCViLT三训练seed成功6/0/15各800，等权21/2400=0.875%，新增第三seed基础800。两空卡已接续ViT ACT，并前置PE-Core ACT依赖队列，共追加48唯一单元/19200正式回合预算，六base重新严格复核、adapter与已验证ACT逐字节一致、ViT自身两canary严格通过；无健康重启/协议改变/新缓存/新监督。新增原子及源码/队列元数据SHA备份F；BC43完整final远端保存、F有界续传待独立全SHA，保留缓存。Environment缺资产，无全PRO总分。",
+      "evidenceLabel": "app-pro-new-summary-20261010T1841.json",
+      "commitUrl": null
+    },
     {
       "id": "app-pro-maeact-four-tracks-clipact-theiaact-refill-20261010T1241",
       "at": "2026-10-10T12:55:40.376517+00:00",
