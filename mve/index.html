@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <meta name="description" content="MVE 视觉编码器评测：跨动作策略的成功率、任务分类、机器人执行片段与实验记录。">
 <title>MVE · Visual Encoder Benchmark</title>
-<link rel="icon" type="image/png" href="data/media/mve-mark.png"><link rel="stylesheet" href="styles.css?v=layout-20261012">
+<link rel="icon" type="image/png" href="data/media/mve-mark.png"><link rel="stylesheet" href="styles.css?v=summit-20261012">
 </head>
 <body>
 <a class="skip-link" href="#content">跳到评测结果</a>
@@ -13,24 +13,39 @@
 <span class="header-caption">A research benchmark for robot learning</span>
 <nav class="header-links" aria-label="项目链接"><a href="https://yananzhou.me/">Yanan Zhou ↗</a><a id="repository-link" href="https://github.com/YananZHOU5555/RSS27-MVE" target="_blank" rel="noopener">GitHub ↗</a></nav>
 </div></header>
+<div class="app-shell">
+<aside class="benchmark-sidebar" aria-label="Benchmark 导航">
+<button class="atlas-entry" data-view="atlas"><span class="atlas-icon">◈</span><span>Benchmark 图谱<small>它们分别在测试什么？</small></span><span>↗</span></button>
+<div class="side-label">BENCHMARKS <span id="bench-count"></span></div><nav id="benchmarks" aria-label="选择 benchmark"></nav>
+<div class="sidebar-resources"><div class="side-label">RESEARCH</div><button data-view="protocol">评估协议 <span>↗</span></button><button data-view="log">实验日志 <span>↗</span></button></div>
+<div class="sidebar-note"><span class="dot"></span>可追溯的开发评测<p>三训练种子等权平均<br>缺失成绩保留为空</p></div>
+</aside>
 <main>
-<div class="benchmark-bar"><div class="side-label">BENCHMARK <span id="bench-count"></span></div><nav id="benchmarks" aria-label="选择 benchmark"></nav></div>
 <section class="intro" aria-labelledby="page-title"><div class="intro-main">
-<div class="eyebrow">RSS27 <span>/</span> VISUAL REPRESENTATIONS FOR ROBOT LEARNING</div>
+<div class="eyebrow">MVE RESEARCH ATLAS <span>/</span> VISUAL REPRESENTATIONS</div>
 <h1 id="page-title">Leaderboard</h1><p id="description"></p>
-<div class="intro-meta"><span id="breadcrumb">LIBERO</span><span class="meta-divider">·</span><span class="stage-pill" id="stage"></span><a id="source" class="source" target="_blank" rel="noopener">官方项目 ↗</a></div>
+<div class="intro-meta"><span id="breadcrumb">LIBERO</span><span class="meta-divider">·</span><span class="stage-pill" id="stage"></span><a id="source" class="source" target="_blank" rel="noopener">官方项目 ↗</a><button class="guide-shortcut" data-view="guide">这个 benchmark 测什么？ →</button></div>
 </div><div class="snapshot"><span class="snapshot-label"><span class="dot"></span>已核验数据快照</span><time id="update-time"></time><button id="refresh" aria-label="重新加载数据">↻ 刷新数据</button><a id="pro-results-link" href="#pro" hidden>查看 PRO 鲁棒性结果 →</a></div></section>
 <div id="load-error" role="alert" hidden></div>
 <section id="metrics" class="metrics" aria-label="评估覆盖"></section>
-<div class="section-bar"><nav class="tabs" aria-label="内容视图"><button class="active" data-view="leaderboard">策略组合</button><button data-view="encoders">视觉编码器</button><button data-view="pro">PRO 鲁棒性</button><button data-view="tasks">任务图库</button><button data-view="protocol">评估协议</button><button data-view="log">实验日志</button></nav></div>
+<section class="workspace" id="workspace" aria-label="Benchmark 工作区">
+<header class="workspace-head">
+<div class="section-bar"><nav class="tabs" aria-label="内容视图"></nav><span class="workspace-label">INTERACTIVE BENCHMARK</span></div>
 <div class="controls" role="search" aria-label="筛选评测结果">
-<label>评估版本<select id="track" aria-label="评估版本"></select></label><label>动作策略<select id="head"><option value="all">全部动作策略</option></select></label><label>任务分类<select id="suite"><option value="all">全部任务分类</option></select></label>
+<label>评估版本<select id="track" aria-label="评估版本"></select></label><label>动作策略<select id="head"><option value="all">全部动作策略</option></select></label><label hidden>任务分类<select id="suite"><option value="all">全部任务分类</option></select></label>
+<label id="task-selector" hidden>具体任务<select id="task-scope" aria-label="选择逐任务分榜"></select></label>
 <label class="search-label"><span>搜索</span><span class="search-field"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><input id="search" type="search" placeholder="编码器、策略或任务…" autocomplete="off"></span></label>
 <button id="reset-filters" class="reset-button" aria-label="清除策略、分类与搜索筛选">重置</button>
 </div>
+<div id="category-tabs" class="scope-row" aria-label="任务分类分榜"></div>
+<div id="perturbation-tabs" class="scope-row" aria-label="PRO 扰动分榜" hidden></div>
+<div id="board-options" class="board-options"></div>
+</header>
 <section id="content" aria-live="polite" aria-label="评测内容" tabindex="-1"></section>
+</section>
 <footer><div><strong>MVE</strong><span>Measured evidence, task by task.</span></div><div><span>开发阶段 · 同协议比较</span><a href="data/data.json" target="_blank" rel="noopener">下载数据快照 ↗</a></div></footer>
 </main>
+</div>
 <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><span id="detail-eyebrow"></span><button id="close-detail" aria-label="关闭详情">✕</button></div><div id="detail-body"></div></dialog>
-<script src="app.js?v=layout-20261012"></script>
+<script src="explorer.js?v=summit-20261012"></script><script src="app.js?v=summit-20261012"></script>
 </body></html>

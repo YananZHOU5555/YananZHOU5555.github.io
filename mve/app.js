@@ -1,4 +1,5 @@
 'use strict';
+let catalog={encoders:{},benchmarks:{}}, proPerturbation='Object';
 let data, benchmarkId=location.hash==='#pro'?'libero-pro':'libero', trackId=location.hash==='#pro'?'pro-native-20x1':'native-20x1', view=({'#pro':'pro','#encoders':'encoders','#tasks':'tasks','#protocol':'protocol','#log':'log'}[location.hash]||'leaderboard'), ascending=false, encoderBreakdown='policies';
 const $=s=>document.querySelector(s), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pct=(s,n)=>n>0&&s!==null&&s!==undefined?`${(100*s/n).toFixed(1)}%`:'—';
@@ -48,47 +49,51 @@ function visibleRuns(ignoreSearch=false){
 }
 
 function render(){
-  const b=bench(),t=track(),isLog=view==='log',isPro=view==='pro',isProtocol=view==='protocol';
-  const titles={leaderboard:'Leaderboard',encoders:'视觉编码器榜',pro:'LIBERO-PRO',tasks:'任务图库',protocol:'评估协议',log:'实验日志'};
-  const descriptions={leaderboard:'视觉编码器 × 动作策略：在相同任务与评估协议下，比较三训练种子的平均成功率。',encoders:'统一动作策略集合，等权汇总各策略成绩，比较视觉表征的整体表现。',pro:'同一冻结模型，独立测试 Object、Language、Swap 与 Task 四类扰动。',tasks:'浏览 benchmark 的任务分类、真实场景与有来源的机器人执行片段。',protocol:'查看训练设置、评估预算、统计口径与版本边界。',log:'实验进展、协议变化与证据记录；关联明确提供的 GitHub 提交。'};
-  $('#breadcrumb').textContent=isLog?'全局实验记录':b.name;
-  $('#page-title').textContent=b.status==='planned'&&!isLog?b.name:titles[view];
-  $('#description').textContent=(b.status==='planned'&&!isLog)||(view==='leaderboard'&&!t?.combinations&&!t?.proRows)?b.description:descriptions[view];
-  $('#source').href=safeUrl(isLog?data.repository?.commitsUrl:b.sourceUrl);
-  $('#source').textContent=isLog?'GitHub 提交记录 ↗':'官方项目 ↗';
-  $('#source').hidden=isLog?!data.repository?.commitsUrl:!b.sourceUrl;
-  $('#pro-results-link').hidden=isLog||isPro||!data.benchmarks.some(b=>b.tracks.some(t=>t.proRows?.length));
-  $('#metrics').hidden=isLog||isProtocol;$('.controls').hidden=isLog;$('.controls').dataset.view=view;
-  const repo=$('#repository-link');if(data.repository?.url)repo.href=safeUrl(data.repository.url);
-  repo.textContent='GitHub ↗';repo.title=data.repository?.isPrivate===false?'公开项目仓库':'私有项目仓库 · 需要访问权限';
-  $('#bench-count').textContent=String(data.benchmarks.length).padStart(2,'0');
-  const button=x=>`<button class="bench ${!isLog&&x.id===b.id?'active':''}" data-benchmark="${esc(x.id)}" ${!isLog&&x.id===b.id?'aria-current="page"':''}><span class="bench-name">${esc(x.id==='libero'?'LIBERO':x.name)}${x.status==='planned'?'<small>尚未接入评测</small>':''}</span></button>`;
-  const future=data.benchmarks.filter(x=>x.status==='planned'&&x.id!==b.id);
-  $('#benchmarks').innerHTML=data.benchmarks.filter(x=>x.status!=='planned'||x.id===b.id).map(button).join('')+(future.length?`<details class="planned-benches"><summary>后续 benchmark · ${future.length}</summary><div class="planned-list">${future.map(button).join('')}</div></details>`:'');
-  const trackLabel=x=>({'native-20x1':'Native · FP32 / 20k','p1-2ep':'历史 P1 · 每任务 2 回合','expanded-20x3':'历史扩展 · 20×3','pro-native-20x1':'PRO · Native / 20×1','pro-development':'历史 PRO · 单例诊断','plus-development':'Plus · 单例诊断'}[x.id]||x.label);
-  $('#track').innerHTML=(b.tracks||[]).map(x=>`<option value="${esc(x.id)}" title="${esc(x.label)}" ${x.id===t?.id?'selected':''}>${esc(trackLabel(x))}</option>`).join('')||'<option>暂无评估</option>';
-  $('#track').disabled=!t;
-  const rs=displayRuns(),done=rs.filter(r=>r.status==='complete'),samples=rs.reduce((n,r)=>n+(r.episodes||0),0),enc=new Set(rs.map(r=>r.encoder));
-  $('#metrics').innerHTML=metric('评测任务',b.taskCount??'—',b.taskCountLabel||`${(b.tasks||[]).length} 个已登记任务`)+metric('视觉编码器',enc.size||'—',rs.length?`${rs.length} 个编码器 × 策略组合`:'尚无模型评估')+metric(t?.combinations?'三种子完整组合':t?.ranked?'完整评估组合':'已核验回合',t?.combinations||t?.ranked?done.length:num(samples),t?.combinations?`${num(samples)} 个已核验回合`:t?.ranked?'未完成组合不计失败':'局部覆盖 · 独立诊断',t?.combinations||t?.ranked?`/ ${rs.length}`:'')+metric(t?.combinations?'每组合 · 每任务':'每模型 · 每任务',t?.combinations?t.targetEpisodesPerCombinationTask:t?.targetEpisodesPerTask??'—',t?.combinations?'3 训练种子 × 20 评估种子':`训练种子 ${t?.trainingSeeds?.join(' / ')||'未开始'}`,'回合');
-  $('#stage').textContent=isLog?'可追溯实验记录':isPro?'开发比较 · 独立扰动':t?.id==='native-20x1'?'开发比较 · FP32 / 20k':t?.id==='expanded-20x3'?'历史协议 · 20×3':t?'开发数据 · 非正式排名':'计划阶段';
-  document.querySelectorAll('[data-view]').forEach(e=>{e.classList.toggle('active',e.dataset.view===view);e.setAttribute('aria-current',e.dataset.view===view?'page':'false');});
-  const old=$('#suite').value;
-  $('#suite').innerHTML='<option value="all">全部任务分类</option>'+[...new Set(t?.proRows?['libero_spatial','libero_object','libero_goal','libero_10']:(b.tasks||[]).map(x=>x.suite))].map(s=>`<option value="${esc(s)}">${esc(suiteName(s))}</option>`).join('');
-  if([...$('#suite').options].some(o=>o.value===old))$('#suite').value=old;
-  $('#head').closest('label').hidden=view==='encoders'||isProtocol;
-  $('#head').disabled=isProtocol||view==='encoders';
-  $('#suite').closest('label').hidden=isProtocol;$('#search').closest('label').hidden=isProtocol;$('#reset-filters').hidden=isProtocol;
-  $('#suite').disabled=isProtocol||(view==='leaderboard'&&!t?.proRows&&!t?.runs?.some(r=>r.taskResults?.length));
-  if($('#suite').disabled)$('#suite').value='all';$('#search').disabled=isProtocol;
-  if(view==='encoders'){
-    const board=t?.encoderBoard;
-    $('#metrics').innerHTML=metric('评测任务',b.taskCount??'—','同一 benchmark 内比较')+metric('视觉编码器',board?.rows.length||'—','每个编码器一行')+metric('策略覆盖完整',board?.rows.filter(r=>r.status==='complete').length??'—','统一策略集合 · 三训练种子')+metric('纳入动作策略',board?.policyHeads.length||'—',board?.policyHeads.map(policyName).join(' / ')||'等待当前版本数据');
-  }
-  if(isPro)$('#metrics').innerHTML=metric('每类扰动 · 任务',t?.tasksPerTrack||'—','同一冻结模型 · 独立扰动')+metric('视觉编码器',new Set(t?.proRows?.map(r=>r.encoder)).size||'—',`${t?.proRows?.length||0} 个编码器 × 策略组合`)+metric('三种子完整结果',t?.completedCells||0,`${num(t?.auditedValidEpisodes)} 个已核验回合`)+metric('每格 · 每任务',60,'3 训练种子 × 20 评估种子','回合');
-  const previousHead=$('#head').value,choices=t?.proRows||displayRuns(),heads=[...new Map(choices.map(r=>[r.head,r.policyLabel||policyName(r.head)])).entries()];
-  $('#head').innerHTML='<option value="all">全部动作策略</option>'+heads.map(([id,label])=>`<option value="${esc(id.toUpperCase())}">${esc(label)}</option>`).join('');
-  if([...$('#head').options].some(o=>o.value===previousHead))$('#head').value=previousHead;
-  renderContent();
+ const b=bench(),t=track(),meta=benchmarkMeta(b.id),isLog=view==='log',isAtlas=view==='atlas',info=['log','atlas','guide','protocol'].includes(view),pro=!!t?.proRows;
+ $('#page-title').textContent=isAtlas?'Benchmark Atlas':isLog?'实验日志':b.id==='libero'?'LIBERO · Joint40':b.name;
+ $('#description').textContent=isAtlas?'了解测试目标、任务结构与 MVE 的实际评测覆盖。':isLog?'训练、评估、审计与发布的可追溯记录。':meta.question||b.description;
+ $('#breadcrumb').textContent=isAtlas?'8 BENCHMARKS':isLog?'RESEARCH JOURNAL':meta.publicationDate?publication(meta):b.name;
+ $('#stage').textContent=isLog?'实验与 GitHub 记录':isAtlas?'任务 · 能力 · 证据':t?.id==='native-20x1'?'开发比较 · FP32 / 20k':pro?'开发比较 · 独立扰动':t?'历史 / 独立诊断':'尚未接入';
+ $('#source').href=safeUrl(isLog?data.repository?.commitsUrl:meta.projectUrl||b.sourceUrl);
+ $('#source').hidden=isAtlas||!(isLog?data.repository?.commitsUrl:meta.projectUrl||b.sourceUrl);
+ $('#source').textContent=isLog?'GitHub 提交记录 ↗':'官方项目 ↗';
+ $('.guide-shortcut').hidden=info;
+ $('#pro-results-link').hidden=true;
+ $('#metrics').hidden=info;
+ $('.controls').hidden=info;
+ $('.workspace-head').classList.toggle('information-view',info);
+ $('#repository-link').href=safeUrl(data.repository?.url);
+ $('#repository-link').title=data.repository?.isPrivate===false?'项目仓库':'私有项目仓库 · 需要访问权限';
+ $('#bench-count').textContent=String(data.benchmarks.length).padStart(2,'0');
+ $('#benchmarks').innerHTML=data.benchmarks.map((x,i)=>`${i===4?'<div class="side-label upcoming-label">EXPLORE NEXT</div>':''}<button class="bench ${!isLog&&!isAtlas&&x.id===b.id?'active':''}" data-benchmark="${esc(x.id)}" ${!isLog&&!isAtlas&&x.id===b.id?'aria-current="page"':''}><span class="bench-index">${String(i+1).padStart(2,'0')}</span><span class="bench-name">${esc(x.id==='libero'?'LIBERO':x.name)}<small>${benchmarkStatus(x)}</small></span><span class="bench-indicator ${x.status}"></span></button>`).join('');
+ const views=[[pro?'pro':'leaderboard',pro?'扰动分榜':'策略组合'],...(t?.encoderBoard?[['encoders','编码器综合']]:[]),...(t?.encoderBoard||pro?[['mountains','性能山']]:[]),...(t?.combinations?[['taskboard','逐任务分榜']]:[]),['tasks','任务图库'],['guide','Benchmark 解读']];
+ $('.tabs').innerHTML=(b.status==='planned'?[['guide','Benchmark 解读']]:views).map(([id,label])=>`<button data-view="${id}" class="${view===id?'active':''}" aria-current="${view===id?'page':'false'}">${label}</button>`).join('');
+ $('.section-bar').hidden=isLog||isAtlas;
+ document.querySelectorAll('.benchmark-sidebar [data-view]').forEach(e=>{e.classList.toggle('active',e.dataset.view===view);e.setAttribute('aria-current',e.dataset.view===view?'page':'false');});
+ const labels={'native-20x1':'Native · FP32 / 20k','p1-2ep':'历史 P1 · 2 回合','expanded-20x3':'历史扩展 · 20×3','pro-native-20x1':'PRO · Native / 20×1','pro-development':'历史 PRO · 单例诊断','plus-development':'Plus · 单例诊断'};
+ $('#track').innerHTML=(b.tracks||[]).map(x=>`<option value="${esc(x.id)}" ${x.id===t?.id?'selected':''}>${esc(labels[x.id]||x.label)}</option>`).join('')||'<option>暂无评估</option>';
+ $('#track').disabled=!t;
+ const oldSuite=$('#suite').value,oldHead=$('#head').value,suites=pro?suiteOrder:[...new Set((b.tasks||[]).map(x=>x.suite))];
+ $('#suite').innerHTML='<option value="all">全部任务</option>'+suites.map(x=>`<option value="${esc(x)}">${esc(suiteName(x))}</option>`).join('');
+ if(suites.includes(oldSuite))$('#suite').value=oldSuite;
+ const choices=pro?t.proRows:displayRuns(),heads=[...new Set(choices.map(r=>r.head).filter(Boolean))];
+ $('#head').innerHTML=`<option value="all">${view==='encoders'||view==='mountains'&&!pro?`${t?.encoderBoard?.policyHeads.length||5} 策略等权平均`:'全部动作策略'}</option>`+heads.map(h=>`<option value="${esc(h.toUpperCase())}">${esc(policyName(h))}</option>`).join('');
+ if(heads.some(h=>h.toUpperCase()===oldHead))$('#head').value=oldHead;
+ $('#head').disabled=false;$('#head').closest('label').hidden=false;$('#search').disabled=false;$('#suite').disabled=false;
+ const rs=displayRuns(),done=rs.filter(r=>r.status==='complete'),samples=rs.reduce((n,r)=>n+(r.episodes||0),0),enc=new Set((pro?t.proRows:rs).map(r=>r.encoder));
+ $('#metrics').innerHTML=metric('任务覆盖',pro?t.tasksPerTrack:b.taskCount??'—',pro?'每种扰动独立覆盖':b.taskCountLabel||'同一 benchmark')+metric('视觉编码器',enc.size||'—',t?.encoderBoard?`${t.encoderBoard.policyHeads.length} 种动作策略`:pro?`${t.proRows.length} 个策略组合`:'独立诊断')+metric(pro?'完整扰动格':t?.combinations?'完整策略组合':'已核验回合',pro?t.completedCells:t?.combinations?done.length:num(samples),pro||t?.combinations?'完整三个训练种子':'诊断覆盖',t?.combinations?`/ ${rs.length}`:'')+metric('有效评估回合',num(pro?t.auditedValidEpisodes:samples),t?.combinations||pro?'每任务 20 seed × 3 训练种子':'仅列已核验证据');
+ renderContent();
+}
+function renderHeaderControls(){
+ const info=['log','atlas','guide','protocol'].includes(view),t=track();
+ $('#category-tabs').hidden=info;$('#perturbation-tabs').hidden=info||!t?.proRows;$('#board-options').hidden=info;
+ const suites=t?.proRows?suiteOrder:suiteOrder.filter(s=>(bench().tasks||[]).some(t=>t.suite===s));
+ $('#category-tabs').innerHTML=`<span class="scope-label">任务分类</span>${categoryButton('all','Overall · 全部')}${suites.map(s=>categoryButton(s)).join('')}<span class="scope-hint">点击分类，重新排序</span>`;
+ if(t?.proRows){if(!t.proRows[0].cells.some(c=>c.track===proPerturbation))proPerturbation=t.proRows[0].cells[0].track;
+ $('#perturbation-tabs').innerHTML='<span class="scope-label">扰动分榜</span>'+t.proRows[0].cells.map(c=>`<button data-perturbation="${esc(c.track)}" class="${c.track===proPerturbation?'active':''}" aria-pressed="${c.track===proPerturbation}">${esc(c.label)}${c.track===proPerturbation?' ↓':''}</button>`).join('')+'<span class="scope-hint">每类独立 · 无全 PRO 总分</span>';}
+ $('#task-selector').hidden=view!=='taskboard';
+ if(view==='taskboard'){const previous=$('#task-scope').value,tasks=(bench().tasks||[]).filter(t=>$('#suite').value==='all'||t.suite===$('#suite').value);$('#task-scope').innerHTML=tasks.map((t,i)=>`<option value="${esc(t.id)}">${String(i+1).padStart(2,'0')} · ${esc(t.instruction||t.name)}</option>`).join('');if(tasks.some(t=>t.id===previous))$('#task-scope').value=previous;}
+ $('#board-options').innerHTML=`<span class="active-scope"><span class="dot"></span>${esc(currentScope())}${view==='taskboard'?' · 单任务':$('#head').value==='all'?'':` · ${esc(policyName($('#head').value))}`}<small>${t?.combinations||t?.proRows?'开发比较 · 3 个训练种子等权':`独立诊断 · 训练种子 ${esc(t?.trainingSeeds?.join(' / ')||'未登记')}`}</small></span>${view==='encoders'?`<div class="segmented" role="group" aria-label="编码器表格明细"><button data-breakdown="policies" aria-pressed="${encoderBreakdown==='policies'}">策略明细</button><button data-breakdown="suites" aria-pressed="${encoderBreakdown==='suites'}">分类明细</button></div>`:''}${view==='mountains'?`<button class="text-action" id="sort">成功率 ${ascending?'↑ 升序':'↓ 降序'}</button>`:''}`;
 }
 function empty(title,message){return `<div class="empty-state"><div class="eyebrow">EVIDENCE FIRST</div><h2>${esc(title)}</h2><p>${esc(message)}</p>${bench().sourceUrl?`<a href="${esc(safeUrl(bench().sourceUrl))}" target="_blank" rel="noopener">了解官方 benchmark ↗</a>`:''}</div>`;}
 
@@ -101,50 +106,47 @@ function notice(){
 }
 function scoreHTML(s,n,rate=n&&s!==null&&s!==undefined?s/n:null){return rate!==null?`<div class="score"><strong>${(100*rate).toFixed(1)}%</strong><span class="bar"><i style="width:${100*rate}%"></i></span></div>`:`<div class="score"><span class="null">${track()?.id==='native-20x1'?'—':n?'覆盖未齐':'尚无结果'}</span></div>`;}
 function renderContent(){
-  stopGifs();const b=bench(),t=track();
-  if(view==='pro'||(view==='leaderboard'&&t?.proRows)){renderProBoard();return;}
-  if(view==='encoders'){renderEncoderBoard();return;}
-  if(view==='log'){$('#content').innerHTML=experimentLog();return;}
-  if(view==='protocol'){$('#content').innerHTML=protocol();return;}
-  if(view==='tasks'){renderTasks();return;}
-  if(!t||!displayRuns().length){$('#content').innerHTML=empty('这里的实验尚未开始',b.status==='planned'?'已纳入研究视野，尚未接入任务与评测数据。':'当前没有可展示的模型成绩。任务页可查看已审计的素材与诊断条件。');return;}
-  const runs=visibleRuns(),combined=!!t.combinations,suites=[...new Set(b.tasks.map(x=>x.suite))],suiteCols=b.id==='libero'&&(t.id==='p1-2ep'||combined);
-  $('#content').innerHTML=notice()+boardHeading('策略组合',`${runs.length} 个组合`,'三种子平均成功率 · 点击编码器查看种子与逐任务成绩')+`<div class="table-wrap" tabindex="0" role="region" aria-label="策略组合成绩，可横向滚动"><table class="${combined?'benchmark-table':''}"><thead><tr>${combined?'':'<th>#</th>'}<th>视觉编码器</th><th class="action-cell">动作模型</th><th><button class="sort-button" id="sort" ${!t.ranked&&!combined?'disabled':''}>${combined?'平均成功率':'成功率'} ${t.ranked||combined?(ascending?'↑':'↓'):''}</button>${combined?'<small class="column-note">训练种子 17 / 29 / 43</small>':''}</th><th>成功 / 有效</th>${suiteCols?suites.map(s=>`<th class="suite-col">${suiteName(s)}</th>`).join(''):''}<th class="status-col">评估状态</th><th></th></tr></thead><tbody>${runs.map(r=>{
-    const a=runScore(r),rank=1+visibleRuns(true).filter(x=>x.rankingEligible&&runScore(x).rate!==null&&runScore(x).rate>a.rate).length;
-    return `<tr data-result-id="${esc(r.id)}">${combined?'':`<td class="rank ${rank===1?'first':''}">${t.ranked&&r.rankingEligible?String(rank).padStart(2,'0'):'—'}</td>`}<td><button class="link-button encoder" data-run="${esc(r.id)}">${encoderLabel(r)}</button><span class="mobile-policy">${badge(r.head)}</span></td><td class="action-cell">${badge(r.head)}</td><td>${scoreHTML(a.successes,a.episodes,a.rate)}</td><td class="sample">${a.episodes?`${a.successes??'—'} / ${num(a.episodes)}`:'—'}</td>${suiteCols?suites.map(s=>{const z=runScore(r,s);return `<td class="suite-col suite-score" title="${combined?'三个训练种子的分类均值；需600回合完整覆盖':'分类成功率'}">${z.rate===null?'—':`${(100*z.rate).toFixed(1)}%`}</td>`;}).join(''):''}<td class="status-col"><span class="status ${r.status==='complete'?'complete':'pending'}">${combined?`${r.completedSeeds.length} / 3 种子完成`:esc(statusLabel(r))}</span>${r.expectedEpisodes?`<small class="coverage-note">${num(r.episodes)} / ${num(r.expectedEpisodes)} 回合</small>`:''}</td><td><button class="link-button" data-run="${esc(r.id)}" aria-label="查看${esc(r.encoderLabel||r.encoder)}详情">↗</button></td></tr>`;
-  }).join('')||'<tr><td colspan="11">没有符合筛选条件的组合。</td></tr>'}</tbody></table></div><div class="table-caption"><span>${runs.length} 个组合 · 点击查看${combined?'三种子成绩与':'逐任务'}表现</span><span>${combined?'分类与总分均为三种子等权均值；— 表示覆盖未齐':'分母为有效回合；缺失结果保留为空'}</span></div>`;
+ stopGifs();renderHeaderControls();const b=bench(),t=track();
+ if(view==='atlas'){renderAtlas();return;}
+ if(view==='guide'){renderGuide();return;}
+ if(view==='mountains'){renderMountains();return;}
+ if(view==='log'){$('#content').innerHTML=experimentLog();return;}
+ if(view==='protocol'){$('#content').innerHTML=protocol();return;}
+ if(view==='tasks'){renderTasks();return;}
+ if(view==='pro'||t?.proRows){renderProBoard();return;}
+ if(view==='encoders'){renderEncoderBoard();return;}
+ if(!t||!displayRuns().length){renderGuide();return;}
+ const combined=!!t.combinations,runs=combined?rankedRuns():visibleRuns(),universe=combined?rankedRuns(true):visibleRuns(true),taskView=view==='taskboard',suites=suiteOrder.filter(s=>(b.tasks||[]).some(t=>t.suite===s)),suiteCols=!taskView&&b.id==='libero'&&(t.id==='p1-2ep'||combined);
+ const score=combined?selectedRunScore:runScore;
+ $('#content').innerHTML=notice()+boardHeading(taskView?'逐任务分榜':'编码器 × 动作策略',`${runs.length} 个组合`,taskView?$('#task-scope').selectedOptions[0]?.textContent||'':`${currentScope()} · ${combined?'三个训练种子等权平均':`独立诊断 · 训练种子 ${t.trainingSeeds?.join(' / ')||'未登记'}`}`)+`<div class="table-wrap" tabindex="0" role="region" aria-label="策略组合分榜"><table class="benchmark-table"><thead><tr><th>比较序</th><th>视觉编码器 / 发布</th><th class="action-cell">动作策略</th><th aria-sort="${ascending?'ascending':'descending'}"><button class="sort-button" id="sort" ${!t.ranked&&!combined?'disabled':''}>${taskView?'任务成功率':$('#suite').value==='all'?'平均成功率':esc(suiteName($('#suite').value))} ${ascending?'↑':'↓'}</button><small class="column-note">${taskView?'单任务 · 60 回合':combined?'三训练种子均值':`训练种子 ${esc(t.trainingSeeds?.join(' / ')||'未登记')}`}</small></th><th>成功 / 有效</th>${suiteCols?categoryHeaders(suites):''}<th class="status-col">覆盖</th></tr></thead><tbody>${runs.map(r=>{
+ const a=score(r),rank=combined||t.ranked?comparisonRank(a.rate,universe,x=>score(x).rate):null;
+ return `<tr data-result-id="${esc(r.id)}"><td class="rank ${rank===1?'first':''}">${rank===null?'—':String(rank).padStart(2,'0')}</td><td><button class="link-button encoder" data-run="${esc(r.id)}">${encoderLabel(r)}</button><div class="encoder-byline"><span>${esc(publication(encoderMeta(r.encoder)))}</span>${projectLink(r.encoder)}</div></td><td class="action-cell">${badge(r.head)}</td><td>${scoreHTML(a.successes,a.episodes,a.rate)}</td><td class="sample">${a.episodes?`${a.successes??'—'} / ${num(a.episodes)}`:'—'}</td>${suiteCols?suites.map(s=>{const z=runScore(r,s);return `<td class="suite-col suite-score ${$('#suite').value===s?'selected-column':''}">${z.rate===null?'—':scoreText(z.rate)}</td>`;}).join(''):''}<td class="status-col"><span class="status ${r.status==='complete'?'complete':'pending'}">${combined?`${r.completedSeeds.length} / 3 种子`:esc(statusLabel(r))}</span><button class="row-detail" data-run="${esc(r.id)}">证据 ↗</button></td></tr>`;
+ }).join('')||'<tr><td colspan="10">没有符合筛选条件的组合。</td></tr>'}</tbody></table></div><div class="table-caption"><span>分类表头可直接切换分榜；点击编码器查看种子与逐任务证据。</span><span>比较序为当前范围内的开发排序；— 表示覆盖未齐</span></div>`;
 }
 function mediaPreview(task,index){const m=(task.media||[]).find(x=>x.type==='gif'&&x.runId)||(task.media||[]).find(x=>x.type==='gif')||task.media?.[0];const poster=m?.posterUrl||(m?.type==='image'?m.url:null);if(!m)return `<div class="empty-visual"><span class="task-num">${String(index+1).padStart(2,'0')}</span><span class="empty-label">执行 GIF 尚未收录</span></div>`;return `${poster?`<img src="${esc(safeUrl(poster))}" loading="lazy" alt="${esc(task.instruction)} · 实验场景">`:`<div class="empty-visual"><span class="task-num">${String(index+1).padStart(2,'0')}</span><span class="empty-label">真实执行片段</span></div>`}<span class="media-badge" title="${esc(m.label)}">${esc(m.type==='gif'?m.label:'真实场景 · 静态帧')}</span>${m.type==='gif'?`<button class="play-gif" data-gif="${esc(m.url)}" data-poster="${esc(poster||'')}" aria-pressed="false">▶ 播放 GIF</button>`:''}`;}
 function renderTasks(){const tasks=visibleTasks();if(!tasks.length){$('#content').innerHTML=empty(bench().tasks.length?'没有匹配的任务':'任务素材尚未接入','已完成的评估与真实素材会在这里按任务整理。');return;}const t=track();$('#content').innerHTML=(t?.proRows?'<div class="notice"><strong>历史任务素材</strong><span>此页保留早期单回合诊断的真实 GIF；当前 40 任务的多任务成绩请查看 PRO 结果。历史视频不代表当前模型的平均表现。</span></div>':'')+`<div class="table-caption"><span>${tasks.length} 个任务 · 真实场景与执行素材</span><span>GIF注明模型与来源；未录制的任务仅展示静态帧</span></div><div class="task-grid">${tasks.map((task,i)=>{const head=$('#head').value;const allowed=new Set((t?.runs||[]).filter(r=>head==='all'||r.head?.toUpperCase()===head).map(r=>r.id));const results=(task.results||[]).filter(r=>r.episodes>0&&allowed.has(r.runId));return `<article class="task-card"><div class="task-visual">${mediaPreview(task,i)}</div><div class="task-info"><div class="task-suite">${esc(suiteName(task.suite))} / ${esc(task.id)}</div><h2 class="task-title"><button class="link-button" data-task="${esc(task.id)}">${esc(task.instruction||task.name.replaceAll('_',' '))}</button></h2><div class="task-bottom"><span>${t?.id==='p1-2ep'?`${results.length} 个模型有结果`:'查看当前评估版本'}</span><button data-task="${esc(task.id)}">任务详情 ↗</button></div></div></article>`;}).join('')}</div>`;}
-function protocol(){const t=track(),b=bench();if(t?.proRows)return proNotice()+`<div class="protocol-grid"><article class="protocol-block"><h2>Same frozen policy.</h2><p>40任务共同训练，保留原生视觉tokens，完整batch32、FP32、20,000步。每个动作模型独立冻结，同一训练种子的不同扰动复用同一checkpoint。</p><p>每模型、每任务20个评估种子各1次；每格需三个训练种子17 / 29 / 43各800回合，分类各200回合。技术canary不计分。</p></article><article class="protocol-block"><h2>Separate perturbations.</h2><p>Object、Language、Swap、Task是扰动维度；Spatial、Object、Goal、Long-horizon是原始任务分类，可通过任务集筛选独立查看。</p><p>Environment官方资产缺失，因此不显示全PRO总分。不把非配对初态解释成纯因果增益；历史单回合诊断与当前多任务结果分开。</p></article></div>`;return `<div class="protocol-grid"><article class="protocol-block"><h2>One protocol. Fair comparison.</h2><dl><dt>Benchmark</dt><dd>${esc(b.name)}</dd><dt>当前版本</dt><dd>${esc(t?.label||'尚无评估')}</dd><dt>独立训练种子</dt><dd>${esc(t?.trainingSeeds?.join(', ')||'—')} · 目标 17 / 29 / 43</dd><dt>每模型、每任务目标</dt><dd>${t?.targetEpisodesPerTask||'—'} 回合</dd><dt>证据更新时间</dt><dd>${esc(data.updatedAt)}</dd></dl></article><article class="protocol-block"><h2>Read the evidence.</h2>${t?.id==='native-20x1'?'<p>Joint40多任务共同训练，冻结视觉编码器并保留原生空间tokens；ACT使用7层解码器，DP使用扩散U-Net，两者均为完整batch32训练20000步。各动作模型独立汇总，不混合成绩。</p><p>每个训练seed模型、每任务20个评估种子，每种子1回合，分别使用20个不同官方初态；每个训练种子需完整800回合；主榜将17 / 29 / 43的成功率等权平均，合计2400回合。Spatial、Object、Goal、Long-horizon各含10任务，各分类在三个种子均收齐200回合后显示均值。未完整的组合保留进度，不与历史P1或20×3合并，仍为开发比较。</p>':'<p>当前LIBERO为Joint40共同训练，冻结视觉编码器，比较DP与ACT。P1为开发校准；排行榜仅在相同协议和完整覆盖内排序。</p><p>历史扩展评估为每个训练模型、每任务20个评估种子，每种子3回合。官方每任务50个唯一初态，60回合包含10次跨评估种子的初态复用；它们不是60个独立物理场景。</p>'}<p>Plus／PRO的少量诊断与基础LIBERO分开，不混合成鲁棒性排名。未完成结果不会填0，也不会被计为失败。</p><p>GIF是有明确来源的执行节选，可能来自专家重放或早期诊断。素材标签与当前表格成绩相互独立；选中的视频不代表平均表现。</p></article></div>`;}
+function protocol(){const t=track(),b=bench();if(b.id!=='libero'&&!t?.proRows)return `<div class="protocol-grid"><article class="protocol-block"><h2>${esc(b.name)} · 本站协议</h2><p>${esc(b.description)}</p><p>${esc(t?.rankingNote||'尚未接入实测；参见 Benchmark 解读中的官方范围。')}</p><dl><dt>当前记录</dt><dd>${esc(t?.label||'暂无评估')}</dd><dt>训练种子</dt><dd>${esc(t?.trainingSeeds?.join(' / ')||'尚未登记')}</dd><dt>每任务回合数</dt><dd>${esc(t?.targetEpisodesPerTask||'—')}</dd></dl></article><article class="protocol-block"><h2>结果边界</h2><p>${esc(benchmarkMeta(b.id).caveat||'诊断与参照基线不混入 MVE 原生编码器排名。')}</p><button class="text-action" data-view="guide">查看这个 benchmark 的测试目标 →</button></article></div>`;if(t?.proRows)return proNotice()+`<div class="protocol-grid"><article class="protocol-block"><h2>Same frozen policy.</h2><p>40任务共同训练，保留原生视觉tokens，完整batch32、FP32、20,000步。每个动作模型独立冻结，同一训练种子的不同扰动复用同一checkpoint。</p><p>每模型、每任务20个评估种子各1次；每格需三个训练种子17 / 29 / 43各800回合，分类各200回合。技术canary不计分。</p></article><article class="protocol-block"><h2>Separate perturbations.</h2><p>Object、Language、Swap、Task是扰动维度；Spatial、Object、Goal、Long-horizon是原始任务分类，可通过任务集筛选独立查看。</p><p>Environment官方资产缺失，因此不显示全PRO总分。不把非配对初态解释成纯因果增益；历史单回合诊断与当前多任务结果分开。</p></article></div>`;return `<div class="protocol-grid"><article class="protocol-block"><h2>One protocol. Fair comparison.</h2><dl><dt>Benchmark</dt><dd>${esc(b.name)}</dd><dt>当前版本</dt><dd>${esc(t?.label||'尚无评估')}</dd><dt>独立训练种子</dt><dd>${esc(t?.trainingSeeds?.join(', ')||'—')} · 目标 17 / 29 / 43</dd><dt>每模型、每任务目标</dt><dd>${t?.targetEpisodesPerTask||'—'} 回合</dd><dt>证据更新时间</dt><dd>${esc(data.updatedAt)}</dd></dl></article><article class="protocol-block"><h2>Read the evidence.</h2>${t?.id==='native-20x1'?'<p>Joint40多任务共同训练，冻结视觉编码器并保留原生空间tokens；动作策略涵盖 ACT（7层解码器）、DP-U-Net、DP-DiT、BCViLT、Flow-DiT，均使用完整 batch32、FP32 训练 20,000 步。组合榜按各自冻结版本独立汇总；编码器综合榜在完整、相同的策略集合内等权平均。</p><p>每个训练seed模型、每任务20个评估种子，每种子1回合，分别使用20个不同官方初态；每个训练种子需完整800回合；主榜将17 / 29 / 43的成功率等权平均，合计2400回合。Spatial、Object、Goal、Long-horizon各含10任务，各分类在三个种子均收齐200回合后显示均值。未完整的组合保留进度，不与历史P1或20×3合并，仍为开发比较。</p>':'<p>当前LIBERO为Joint40共同训练，冻结视觉编码器，比较DP与ACT。P1为开发校准；排行榜仅在相同协议和完整覆盖内排序。</p><p>历史扩展评估为每个训练模型、每任务20个评估种子，每种子3回合。官方每任务50个唯一初态，60回合包含10次跨评估种子的初态复用；它们不是60个独立物理场景。</p>'}<p>Plus／PRO的少量诊断与基础LIBERO分开，不混合成鲁棒性排名。未完成结果不会填0，也不会被计为失败。</p><p>GIF是有明确来源的执行节选，可能来自专家重放或早期诊断。素材标签与当前表格成绩相互独立；选中的视频不代表平均表现。</p></article></div>`;}
 function openRun(id){const r=displayRuns().find(x=>x.id===id)||track().runs.find(x=>x.id===id);if(!r)return;if(isCombination(r)){openCombination(r);return;}$('#detail-eyebrow').textContent=`MODEL DETAIL / ${track().label}`;const tr=new Map((r.taskResults||[]).map(x=>[x.taskId,x]));$('#detail-body').innerHTML=`<h2 class="model-title">${encoderLabel(r)} ${badge(r.head)}</h2><p class="detail-instruction">${esc(statusLabel(r))}${r.server?` · ${esc(r.server)}`:''} · 训练种子 ${r.trainingSeed??track().trainingSeeds.join(' / ')}</p><div class="detail-stat">${pct(r.successes,r.episodes)}<small>${r.successes??'—'} / ${num(r.episodes)} 有效回合</small></div>${!r.rankingEligible?`<div class="notice">${track().id==='native-20x1'?(r.status==='complete'?'已完成800回合的单训练种子开发评估；主榜按三个训练种子等权汇总。':'模型覆盖未齐，仅展示已核验进度，不计算总体成功率。'):'覆盖未齐，不用于正式排名或跨覆盖比较。'}</div>`:''}<h3>逐任务成功 / 有效回合</h3><div class="heatmap">${bench().tasks.map((task,i)=>{const a=tr.get(task.id),n=a?.episodes||0,f=n&&typeof a.successes==='number'?a.successes/n:null;return `<button data-task="${esc(task.id)}" style="background:${f===null?'#f1f2ed':f===0?'#f1e7e1':f===1?'#bbd1b8':'#dde7d6'}" title="${esc(task.instruction)}">${String(i+1).padStart(2,'0')}<small>${f!==null?`${a.successes}/${n}`:n?`${n}/${a.expectedEpisodes||'—'} 回合`:'—'}</small></button>`;}).join('')}</div>${r.groups?.length?`<h3>已审计评估种子组</h3><div class="table-wrap"><table><thead><tr><th>评估种子</th><th>有效 / 目标</th><th>组内成功数</th></tr></thead><tbody>${r.groups.map(g=>`<tr><td>${g.rootSeed}</td><td>${g.episodes} / ${g.expectedEpisodes}</td><td>${g.successes??'尚未收齐'}</td></tr>`).join('')}</tbody></table></div>`:''}<p class="dialog-note">${track().id==='native-20x1'?'每任务收齐20回合才显示该任务成功数；未收齐的格子只显示回合进度。历史素材按标签展示，不代表原生模型执行。':'点击格子查看任务、GIF与模型对比。空白格表示未评估；成功数为0表示已评估但未成功。'}</p>`;showDialog();}
 const policyName=h=>({'act':'ACT','dp':'DP-U-Net','dp-dit':'DP-DiT','flow':'Flow-DiT','bcvilt':'BCViLT'}[String(h).toLowerCase()]||String(h));
 const encoderScore=(r,suite=$('#suite').value)=>suite==='all'?r:r.suiteResults.find(s=>s.suite===suite)||{successRate:null,completedPolicies:[]};
 
 function renderEncoderBoard(){
-  const board=track()?.encoderBoard;
-  if(!board?.rows.length){$('#content').innerHTML=empty('当前版本尚无编码器综合成绩','此榜需要同一 benchmark、同一评估版本下完整的三训练种子与动作策略覆盖。请切换到原生 20×1 评估版本。');return;}
-  const q=$('#search').value.trim().toLowerCase(),suites=[...new Set(bench().tasks.map(t=>t.suite))];
-  const rows=board.rows.filter(r=>!q||`${r.encoder} ${r.encoderLabel}`.toLowerCase().includes(q)).sort((a,b)=>{
-    const x=encoderScore(a).successRate,y=encoderScore(b).successRate;
-    if((x!==null)!==(y!==null))return x!==null?-1:1;
-    return x!==null&&y!==null&&x!==y?(ascending?1:-1)*(x-y):a.encoder.localeCompare(b.encoder);
-  });
-  const switcher=`<div class="segmented" role="group" aria-label="编码器成绩明细"><button data-breakdown="policies" aria-pressed="${encoderBreakdown==='policies'}">按动作策略</button><button data-breakdown="suites" aria-pressed="${encoderBreakdown==='suites'}">按任务分类</button></div>`;
-  $('#content').innerHTML=methodNote(`${board.policyHeads.length} 种策略等权平均 · 每种策略完整三训练种子后计分`,`${board.method} 当前策略：${board.policyHeads.map(policyName).join(' / ')}。${board.missingNote} ${board.revisionNote} 当前仍为开发比较；后续新增策略时全榜统一扩展。`)+boardHeading('视觉编码器',`${rows.length} 个编码器`,'同一策略集合 · 平均成功率越高越好',switcher)+`<div class="table-wrap" tabindex="0" role="region" aria-label="视觉编码器成绩，可横向滚动"><table class="benchmark-table encoder-table" data-breakdown="${encoderBreakdown}"><thead><tr><th>#</th><th>视觉编码器</th><th><button class="sort-button" id="sort">策略平均成功率 ${ascending?'↑':'↓'}</button><small class="column-note">${$('#suite').value==='all'?'全部任务':esc(suiteName($('#suite').value))} · 策略等权</small></th>${board.policyHeads.map(h=>`<th class="policy-col">${esc(policyName(h))}</th>`).join('')}${suites.map(s=>`<th class="suite-col">${esc(suiteName(s))}</th>`).join('')}<th class="status-col">策略覆盖</th></tr></thead><tbody>${rows.map(r=>{
-    const s=encoderScore(r),rank=s.successRate===null?null:1+board.rows.filter(x=>encoderScore(x).successRate!==null&&encoderScore(x).successRate>s.successRate).length;
-    return `<tr data-encoder-id="${esc(r.encoder)}"><td class="rank ${rank===1?'first':''}">${rank===null?'—':String(rank).padStart(2,'0')}</td><td><button class="link-button encoder" data-encoder-detail="${esc(r.id)}">${encoderLabel(r)}</button></td><td>${scoreHTML(null,0,s.successRate)}</td>${r.policies.map(p=>{const c=track().combinations.find(c=>c.id===p.combinationId),rate=c?runScore(c).rate:null;return `<td class="policy-col">${c?`<button class="link-button" data-run="${esc(c.id)}" aria-label="查看 ${esc(r.encoderLabel)} ${esc(policyName(p.head))}">${rate===null?'—':`${(rate*100).toFixed(1)}%`} ↗</button>`:'—'}</td>`;}).join('')}${suites.map(s=>`<td class="suite-col suite-score">${encoderScore(r,s).successRate===null?'—':`${(100*encoderScore(r,s).successRate).toFixed(1)}%`}</td>`).join('')}<td class="status-col"><span class="status ${s.successRate===null?'pending':'complete'}">${s.completedPolicies.length} / ${board.policyHeads.length} 策略</span><small class="coverage-note">${s.successRate===null?'当前范围覆盖未齐':'每策略三训练种子'}</small></td></tr>`;
-  }).join('')||`<tr><td colspan="${8+board.policyHeads.length}">没有匹配的视觉编码器。</td></tr>`}</tbody></table></div><div class="table-caption"><span>${rows.length} 个编码器 · 点击策略分数查看种子与任务详情</span><span>均值 = 各策略三种子均值之和 ÷ ${board.policyHeads.length}；— 为覆盖未齐</span></div>`;
+ const board=track()?.encoderBoard;
+ if(!board?.rows.length){$('#content').innerHTML=empty('当前版本尚无编码器综合成绩','需要相同 benchmark、协议和策略集合下的完整三训练种子。');return;}
+ const q=$('#search').value.trim().toLowerCase(),suites=suiteOrder.filter(s=>bench().tasks.some(t=>t.suite===s)),h=$('#head').value;
+ const rows=board.rows.filter(r=>!q||`${r.encoder} ${r.encoderLabel}`.toLowerCase().includes(q)).sort((a,b)=>compareRates(encoderViewScore(a).successRate,encoderViewScore(b).successRate)||a.encoder.localeCompare(b.encoder));
+ $('#content').innerHTML=methodNote(h==='all'?`${board.policyHeads.length} 种动作策略等权平均`:`${policyName(h)} · 三训练种子均值`,`${board.method} 当前完整策略集合：${board.policyHeads.map(policyName).join(' / ')}。${board.missingNote} ${board.revisionNote} 策略分榜仅使用该策略的三种子均值；综合榜需要全策略覆盖。`)+boardHeading(h==='all'?'视觉编码器综合榜':`视觉编码器 · ${policyName(h)}`,`${rows.length} 个编码器`,`${currentScope()} · ${h==='all'?'相同五策略集合，等权比较':'固定动作策略，比较视觉表征'}`)+`<div class="table-wrap" tabindex="0" role="region" aria-label="视觉编码器分榜"><table class="benchmark-table encoder-table" data-breakdown="${encoderBreakdown}"><thead><tr><th>比较序</th><th>视觉编码器 / 发布</th><th><button class="sort-button" id="sort">${h==='all'?'策略平均':policyName(h)} ${ascending?'↑':'↓'}</button><small class="column-note">${esc(currentScope())}</small></th>${board.policyHeads.map(h=>`<th class="policy-col"><button data-policy="${h.toUpperCase()}" class="column-filter ${$('#head').value===h.toUpperCase()?'active':''}">${esc(policyName(h))}${$('#head').value===h.toUpperCase()?' ↓':''}</button></th>`).join('')}${categoryHeaders(suites)}<th class="status-col">覆盖</th></tr></thead><tbody>${rows.map(r=>{
+ const z=encoderViewScore(r),rank=comparisonRank(z.successRate,board.rows,x=>encoderViewScore(x).successRate);
+ return `<tr data-encoder-id="${esc(r.encoder)}"><td class="rank ${rank===1?'first':''}">${rank===null?'—':String(rank).padStart(2,'0')}</td><td><button class="link-button encoder" data-encoder-detail="${esc(r.id)}">${encoderLabel(r)}</button><div class="encoder-byline"><span>${esc(publication(encoderMeta(r.encoder)))}</span>${projectLink(r.encoder)}</div></td><td>${scoreHTML(null,0,z.successRate)}</td>${r.policies.map(p=>{const c=track().combinations.find(c=>c.id===p.combinationId),rate=c?runScore(c).rate:null;return `<td class="policy-col">${c?`<button class="link-button" data-run="${esc(c.id)}">${scoreText(rate)} ↗</button>`:'—'}</td>`;}).join('')}${suites.map(s=>`<td class="suite-col suite-score ${$('#suite').value===s?'selected-column':''}">${scoreText(encoderViewScore(r,s).successRate)}</td>`).join('')}<td class="status-col"><span class="status ${z.successRate===null?'pending':'complete'}">${h==='all'?`${z.completedPolicies.length} / ${board.policyHeads.length} 策略`:z.successRate===null?'覆盖未齐':'3 / 3 种子'}</span></td></tr>`;
+ }).join('')||'<tr><td colspan="12">没有匹配的编码器。</td></tr>'}</tbody></table></div><div class="table-caption"><span>点击策略表头切换单策略榜；分类表头切换分类榜。</span><span>${h==='all'?'相同策略集合等权平均':'当前为单策略三种子均值'} · 缺项不填 0</span></div>`;
 }
 function proScore(cell,suite=$('#suite').value){return suite==='all'?cell:cell.suiteResults.find(x=>x.suite===suite);}
 
 function proNotice(){return methodNote('四类扰动分别计分 · 三训练种子等权均值 · 无全 PRO 总分','每格为训练种子 17 / 29 / 43 等权均值：40 个任务，每模型、每任务 20 个评估种子各 1 次；完整覆盖 2,400 回合后显示。点击分数查看种子与 Spatial / Object / Goal / Long-horizon 分类。未完成项显示 —。当前为开发比较；Environment 资产尚未齐全，四类扰动不合成全 PRO 总分。原始与变体初态不作纯因果配对解释。');}
 function renderProBoard(){
-  const t=track();
-  if(!t?.proRows?.length){$('#content').innerHTML=empty('PRO 多任务结果尚未接入','历史单例诊断仍保留在评估版本中。');return;}
-  const h=$('#head').value,q=$('#search').value.trim().toLowerCase();
-  const rows=t.proRows.filter(r=>(h==='all'||r.head.toUpperCase()===h)&&(!q||`${r.encoder} ${r.encoderLabel} ${r.policyLabel}`.toLowerCase().includes(q)));
-  $('#content').innerHTML=proNotice()+boardHeading('扰动鲁棒性',`${rows.length} 个组合`,'各列独立比较 · 点击分数查看三种子与任务分类')+`<p class="pro-scroll-note">左右滑动，查看四类扰动 →</p><div class="table-wrap" tabindex="0" role="region" aria-label="PRO 扰动成绩，可横向滚动"><table class="benchmark-table pro-table"><thead><tr><th>视觉编码器</th><th class="action-cell">动作模型</th>${t.perturbations.map(p=>`<th>${esc(p.label)}<small class="column-note">${$('#suite').value==='all'?'40 任务':esc(suiteName($('#suite').value))} · 三种子均值</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr data-pro-row="${esc(r.id)}"><td>${encoderLabel(r)}<span class="mobile-policy">${badge(r.policyLabel)}</span></td><td class="action-cell">${badge(r.policyLabel)}</td>${r.cells.map(c=>{const s=proScore(c);return `<td data-pro-track="${esc(c.track)}"><button class="pro-cell" data-pro-detail="${esc(r.id)}" data-pro-key="${esc(c.track)}" aria-label="查看 ${esc(r.encoderLabel)} ${esc(r.policyLabel)} ${esc(c.label)} 详情"><strong>${s.successRate===null?'—':`${(100*s.successRate).toFixed(2)}%`}</strong><span>${c.completedSeeds.length} / 3 训练种子${s.successRate===null?' · 待完成':' ↗'}</span><small>${s.successes??'—'} / ${num(s.episodes)} 有效回合</small></button></td>`;}).join('')}</tr>`).join('')||'<tr><td colspan="6">没有符合筛选条件的组合。</td></tr>'}</tbody></table></div><div class="table-caption"><span>${rows.length} 个组合 · 四类扰动分别展示${$('#suite').value==='all'?'':' · 当前分类：'+esc(suiteName($('#suite').value))}</span><span>分数来自已通过严格审计的完整评估；不与基础 LIBERO 合并</span></div>`;
+ const t=track();if(!t?.proRows?.length){$('#content').innerHTML=empty('当前版本没有完整 PRO 多任务成绩','历史单例诊断保留在评估版本中。');return;}
+ const h=$('#head').value,q=$('#search').value.trim().toLowerCase(),universe=t.proRows.filter(r=>h==='all'||r.head.toUpperCase()===h),rows=universe.filter(r=>!q||`${r.encoder} ${r.encoderLabel} ${r.policyLabel}`.toLowerCase().includes(q)).sort((a,b)=>compareRates(proSelectedScore(a),proSelectedScore(b))||a.encoder.localeCompare(b.encoder));
+ $('#content').innerHTML=proNotice()+boardHeading('扰动鲁棒性分榜',`${rows.length} 个组合`,`${rows[0]?.cells.find(c=>c.track===proPerturbation)?.label||proPerturbation} 扰动排序 · ${currentScope()}`)+`<div class="table-wrap" tabindex="0" role="region" aria-label="PRO 扰动分榜"><table class="benchmark-table pro-table"><thead><tr><th>比较序</th><th>视觉编码器 / 发布</th><th class="action-cell">动作策略</th>${t.proRows[0].cells.map(p=>`<th class="${p.track===proPerturbation?'selected-column':''}" aria-sort="${p.track===proPerturbation?(ascending?'ascending':'descending'):'none'}"><button data-perturbation="${esc(p.track)}" class="column-filter">${esc(p.label)} ${p.track===proPerturbation?'↓':''}</button><small class="column-note">${esc(currentScope())} · 三种子</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>{const rank=comparisonRank(proSelectedScore(r),universe,proSelectedScore);return `<tr data-pro-row="${esc(r.id)}"><td class="rank ${rank===1?'first':''}">${rank===null?'—':String(rank).padStart(2,'0')}</td><td>${encoderLabel(r)}<div class="encoder-byline"><span>${esc(publication(encoderMeta(r.encoder)))}</span>${projectLink(r.encoder)}</div></td><td class="action-cell">${badge(r.head)}</td>${r.cells.map(c=>{const z=proScore(c);return `<td data-pro-track="${esc(c.track)}" class="${c.track===proPerturbation?'selected-column':''}"><button class="pro-cell" data-pro-detail="${esc(r.id)}" data-pro-key="${esc(c.track)}" aria-label="查看 ${esc(r.encoderLabel)} ${esc(c.label)} 证据"><strong>${scoreText(z.successRate)}</strong><span>${c.completedSeeds.length} / 3 种子 · ${z.successes??'—'} / ${num(z.episodes)} 回合 ↗</span></button></td>`;}).join('')}</tr>`;}).join('')||'<tr><td colspan="7">没有符合筛选条件的组合。</td></tr>'}</tbody></table></div><div class="table-caption"><span>点击扰动列标题重新排序；上方任务分类独立筛选。</span><span>四类扰动不合成 PRO 总分 · Environment 资产尚未齐全</span></div>`;
 }
 function openProCell(id,key){
   const r=track().proRows.find(r=>r.id===id),c=r?.cells.find(c=>c.track===key);if(!c)return;
@@ -154,11 +156,23 @@ function openProCell(id,key){
   showDialog();
 }
 
-function updateRoute(){history.replaceState(null,'',location.pathname+location.search+(view==='leaderboard'?'':`#${view}`));}
+function updateRoute(){
+ const hash=new URLSearchParams({b:benchmarkId,view,suite:$('#suite').value,policy:$('#head').value});
+ if(trackId)hash.set('version',trackId);if(track()?.proRows)hash.set('perturbation',proPerturbation);if(view==='taskboard')hash.set('task',$('#task-scope').value);
+ history.replaceState(null,'',location.pathname+location.search+'#'+hash.toString());
+}
+function restoreRoute(){
+ const raw=location.hash.slice(1);
+ if(raw.includes('=')){const h=new URLSearchParams(raw);benchmarkId=data.benchmarks.some(b=>b.id===h.get('b'))?h.get('b'):'libero';trackId=h.get('version')||bench().tracks.find(t=>t.combinations||t.proRows)?.id||bench().tracks[0]?.id;view=['leaderboard','encoders','mountains','pro','tasks','taskboard','guide','atlas','protocol','log'].includes(h.get('view'))?h.get('view'):'leaderboard';proPerturbation=h.get('perturbation')||'Object';render();for(const [id,key] of [['suite','suite'],['head','policy']])if([...$('#'+id).options].some(o=>o.value===h.get(key)))$('#'+id).value=h.get(key);renderContent();if(h.get('task')&&[...$('#task-scope').options].some(o=>o.value===h.get('task'))){$('#task-scope').value=h.get('task');renderContent();}}
+ else {view=['pro','encoders','mountains','tasks','taskboard','guide','atlas','protocol','log'].includes(raw)?raw:'leaderboard';benchmarkId=view==='pro'?'libero-pro':'libero';trackId=view==='pro'?'pro-native-20x1':'native-20x1';render();}
+}
+function selectBenchmark(id,nextView){
+ benchmarkId=id;trackId=bench().tracks.find(t=>t.combinations||t.proRows)?.id||bench().tracks[0]?.id;view=nextView||(bench().status==='planned'?'guide':track()?.proRows?'pro':'leaderboard');ascending=false;
+ $('#head').value='all';$('#suite').value='all';$('#search').value='';render();updateRoute();window.scrollTo(0,0);
+}
 function selectView(value){
-  if(value==='pro'){benchmarkId='libero-pro';trackId='pro-native-20x1';$('#head').value='all';$('#suite').value='all';$('#search').value='';}
-  else if(value==='encoders'||(value==='leaderboard'&&benchmarkId==='libero-pro'&&track()?.proRows)){benchmarkId='libero';trackId='native-20x1';}
-  view=value;updateRoute();render();window.scrollTo(0,0);
+ if(value==='pro'&&benchmarkId!=='libero-pro'){selectBenchmark('libero-pro','pro');return;}
+ view=value;render();updateRoute();window.scrollTo(0,0);
 }
 function openEncoder(id){
   const board=track().encoderBoard,r=board.rows.find(r=>r.id===id);if(!r)return;
@@ -184,18 +198,37 @@ function experimentLog(){
 function showDialog(){const title=$('#detail-body h2');if(title)title.id='detail-title';if(!$('#detail').open)$('#detail').showModal();$('#detail').scrollTop=0;}
 function stopGifs(){document.querySelectorAll('[data-gif][aria-pressed="true"]').forEach(b=>{const p=b.closest('.task-visual');const im=p.querySelector('img');if(im){if(b.dataset.poster)im.src=b.dataset.poster;else im.remove();}b.setAttribute('aria-pressed','false');b.textContent='▶ 播放 GIF';});}
 document.addEventListener('click',e=>{
- const b=e.target.closest('[data-benchmark]');if(b){if(view==='log'||view==='pro')view='leaderboard';benchmarkId=b.dataset.benchmark;trackId=bench().tracks.find(t=>t.proRows||t.combinations)?.id||bench().tracks[0]?.id;if(track()?.proRows)view='pro';$('#head').value='all';$('#search').value='';$('#suite').value='all';updateRoute();render();return;}
+ const b=e.target.closest('[data-benchmark]');if(b){selectBenchmark(b.dataset.benchmark);return;}
+ const guide=e.target.closest('[data-guide]');if(guide){selectBenchmark(guide.dataset.guide,'guide');return;}
+ const gc=e.target.closest('[data-guide-category]');if(gc){view='leaderboard';$('#suite').value=gc.dataset.guideCategory;render();updateRoute();window.scrollTo(0,0);return;}
+ const category=e.target.closest('[data-category]');if(category){$('#suite').value=category.dataset.category;ascending=false;renderContent();updateRoute();$('#category-tabs [data-category="'+$('#suite').value+'"]').focus({preventScroll:true});return;}
+ const policy=e.target.closest('[data-policy]');if(policy){$('#head').value=policy.dataset.policy;ascending=false;renderContent();updateRoute();$('#head').focus({preventScroll:true});return;}
+ const perturbation=e.target.closest('[data-perturbation]');if(perturbation){proPerturbation=perturbation.dataset.perturbation;ascending=false;renderContent();updateRoute();$('#perturbation-tabs [data-perturbation="'+proPerturbation+'"]').focus({preventScroll:true});return;}
  const logToggle=e.target.closest('[data-log-toggle]');if(logToggle){const expanded=logToggle.getAttribute('aria-expanded')!=='true';logToggle.setAttribute('aria-expanded',String(expanded));logToggle.closest('.log-entry').querySelector('.log-summary').classList.toggle('expanded',expanded);logToggle.textContent=expanded?'收起记录 ⌃':'展开完整记录 ⌄';return;}
- const breakdown=e.target.closest('[data-breakdown]');if(breakdown&&breakdown.tagName==='BUTTON'){encoderBreakdown=breakdown.dataset.breakdown;renderContent();$(`[data-breakdown="${encoderBreakdown}"]`).focus();return;}
+ const breakdown=e.target.closest('button[data-breakdown]');if(breakdown){encoderBreakdown=breakdown.dataset.breakdown;renderContent();$(`button[data-breakdown="${encoderBreakdown}"]`).focus({preventScroll:true});return;}
  const tab=e.target.closest('[data-view]');if(tab){selectView(tab.dataset.view);return;}
  const pro=e.target.closest('[data-pro-detail]');if(pro){openProCell(pro.dataset.proDetail,pro.dataset.proKey);return;}
  const enc=e.target.closest('[data-encoder-detail]');if(enc){openEncoder(enc.dataset.encoderDetail);return;}
  const task=e.target.closest('[data-task]');if(task){openTask(task.dataset.task);return;}
  const run=e.target.closest('[data-run]');if(run){openRun(run.dataset.run);return;}
  const gif=e.target.closest('[data-gif]');if(gif){const was=gif.getAttribute('aria-pressed')==='true';stopGifs();if(!was){let im=gif.closest('.task-visual').querySelector('img');if(!im){im=document.createElement('img');im.alt='真实执行GIF';gif.closest('.task-visual').prepend(im);}im.src=safeUrl(gif.dataset.gif);gif.setAttribute('aria-pressed','true');gif.textContent='Ⅱ 暂停';}return;}
- if(e.target.closest('#sort')){ascending=!ascending;renderContent();$('#sort')?.focus();}
+ if(e.target.closest('#sort')){ascending=!ascending;renderContent();$('#sort')?.focus({preventScroll:true});}
 });
-$('#track').addEventListener('change',e=>{trackId=e.target.value;if(view==='pro'&&!track()?.proRows)view='leaderboard';else if(view==='leaderboard'&&track()?.proRows)view='pro';updateRoute();render();});$('#head').addEventListener('change',renderContent);$('#suite').addEventListener('change',renderContent);$('#search').addEventListener('input',renderContent);$('#close-detail').onclick=()=>$('#detail').close();$('#detail').addEventListener('close',()=>{stopGifs();$('#detail-body').querySelectorAll('video').forEach(v=>v.pause());});$('#detail').addEventListener('click',e=>{if(e.target===$('#detail'))$('#detail').close();});document.addEventListener('visibilitychange',()=>{if(document.hidden){stopGifs();document.querySelectorAll('video').forEach(v=>v.pause());}});const observer=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting&&e.target.getAttribute('aria-pressed')==='true')stopGifs();}));
-window.addEventListener('hashchange',()=>{if(data)selectView({'#pro':'pro','#encoders':'encoders','#tasks':'tasks','#protocol':'protocol','#log':'log'}[location.hash]||'leaderboard');});
-async function load(){const button=$('#refresh');button.disabled=true;try{const response=await fetch('data/data.json',{cache:'no-store'});if(!response.ok)throw new Error(`数据读取失败 ${response.status}`);data=await response.json();if(!data.benchmarks?.length)throw new Error('没有可读取的benchmark数据');$('#update-time').textContent=`${String(data.updatedAt).replace('T',' ').slice(0,16)} UTC`;$('#update-time').dateTime=data.updatedAt;$('#load-error').hidden=true;render();}catch(e){$('#load-error').hidden=false;$('#load-error').textContent=`暂时无法读取结果：${e.message}。请点击刷新重试；数据按已核验快照展示。`;}finally{button.disabled=false;}}
-new MutationObserver(()=>document.querySelectorAll('[data-gif]').forEach(b=>observer.observe(b))).observe($('#content'),{childList:true,subtree:true});$('#refresh').onclick=load;$('#reset-filters').onclick=()=>{$('#head').value='all';$('#suite').value='all';$('#search').value='';renderContent();};load();
+$('#track').addEventListener('change',e=>{trackId=e.target.value;if(['pro','encoders','taskboard','mountains'].includes(view))view=track()?.proRows?'pro':'leaderboard';render();updateRoute();});
+for(const id of ['head','suite','task-scope'])$('#'+id).addEventListener('change',()=>{ascending=false;renderContent();updateRoute();});
+$('#search').addEventListener('input',renderContent);
+$('#reset-filters').onclick=()=>{$('#head').value='all';$('#suite').value='all';$('#search').value='';ascending=false;renderContent();updateRoute();};
+$('#close-detail').onclick=()=>$('#detail').close();
+$('#detail').addEventListener('close',()=>{stopGifs();$('#detail-body').querySelectorAll('video').forEach(v=>v.pause());});
+$('#detail').addEventListener('click',e=>{if(e.target===$('#detail'))$('#detail').close();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopGifs();document.querySelectorAll('video').forEach(v=>v.pause());}});
+const observer=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting&&e.target.getAttribute('aria-pressed')==='true')stopGifs();}));
+window.addEventListener('hashchange',()=>{if(data)restoreRoute();});
+async function load(){
+ const button=$('#refresh');button.disabled=true;
+ try{const responses=await Promise.all([fetch('data/data.json',{cache:'no-store'}),fetch('data/catalog.json',{cache:'no-store'})]);if(!responses[0].ok)throw new Error(`数据读取失败 ${responses[0].status}`);data=await responses[0].json();if(responses[1].ok)catalog=await responses[1].json();if(!data.benchmarks?.length)throw new Error('没有可读取的 benchmark 数据');$('#update-time').textContent=`${String(data.updatedAt).replace('T',' ').slice(0,16)} UTC`;$('#update-time').dateTime=data.updatedAt;$('#load-error').hidden=true;restoreRoute();}
+ catch(e){$('#load-error').hidden=false;$('#load-error').textContent=`暂时无法读取结果：${e.message}。请点击刷新重试。`;}
+ finally{button.disabled=false;}
+}
+$('#refresh').onclick=load;
+load();

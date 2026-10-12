@@ -1,0 +1,529 @@
+{
+  "schema": "mve.catalog.v1",
+  "verifiedAt": "2026-10-12T08:37:25.974476+00:00",
+  "encoders": {
+    "resnet50_in1k_v2": {
+      "name": "ResNet-50 · ImageNet-1K V2",
+      "shortName": "ResNet50",
+      "family": "监督学习",
+      "projectUrl": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet50.html",
+      "paperUrl": "https://arxiv.org/abs/1512.03385",
+      "publicationDate": "2022-06-28",
+      "publicationLabel": "TorchVision 0.13 · V2 权重发布",
+      "sourceUrl": "https://github.com/pytorch/vision/releases/tag/v0.13.0",
+      "focus": "ImageNet 类别监督学习的卷积表征，作为通用视觉基线。"
+    },
+    "vitb16_in1k_v1": {
+      "name": "ViT-B/16 · ImageNet-1K V1",
+      "shortName": "ViT-B/16",
+      "family": "监督学习",
+      "projectUrl": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.vit_b_16.html",
+      "paperUrl": "https://arxiv.org/abs/2010.11929",
+      "publicationDate": "2022-03-10",
+      "publicationLabel": "TorchVision 0.12 · ViT 权重发布",
+      "sourceUrl": "https://github.com/pytorch/vision/releases/tag/v0.12.0",
+      "focus": "ImageNet 类别监督学习的图像 patch 表征。"
+    },
+    "mae_b16": {
+      "name": "MAE ViT-B/16",
+      "shortName": "MAE-B",
+      "family": "像素重建",
+      "projectUrl": "https://github.com/facebookresearch/mae",
+      "paperUrl": "https://arxiv.org/abs/2111.06377",
+      "publicationDate": "2021-11-11",
+      "publicationLabel": "家族论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2111.06377",
+      "focus": "通过重建被遮挡的图像区域学习视觉结构。"
+    },
+    "dinov2_b14_reg": {
+      "name": "DINOv2 ViT-B/14 + registers",
+      "shortName": "DINOv2-B+R",
+      "family": "自监督学习",
+      "projectUrl": "https://github.com/facebookresearch/dinov2",
+      "paperUrl": "https://arxiv.org/abs/2309.16588",
+      "publicationDate": "2023-10-26",
+      "publicationLabel": "registers 版本权重发布",
+      "sourceUrl": "https://github.com/facebookresearch/dinov2",
+      "focus": "自监督 patch 特征；额外 register tokens 缓解密集特征中的伪影。"
+    },
+    "dinov3_b16": {
+      "name": "DINOv3 ViT-B/16",
+      "shortName": "DINOv3-B",
+      "family": "自监督学习",
+      "projectUrl": "https://github.com/facebookresearch/dinov3",
+      "paperUrl": "https://arxiv.org/abs/2508.10104",
+      "publicationDate": "2025-08-14",
+      "publicationLabel": "DINOv3 权重公开",
+      "sourceUrl": "https://github.com/facebookresearch/dinov3",
+      "focus": "大规模自监督学习与蒸馏，兼顾全局语义和密集空间特征。"
+    },
+    "dinov3_l16": {
+      "name": "DINOv3 ViT-L/16",
+      "shortName": "DINOv3-L",
+      "family": "自监督学习",
+      "projectUrl": "https://github.com/facebookresearch/dinov3",
+      "paperUrl": "https://arxiv.org/abs/2508.10104",
+      "publicationDate": "2025-08-14",
+      "publicationLabel": "DINOv3 权重公开",
+      "sourceUrl": "https://github.com/facebookresearch/dinov3",
+      "focus": "更大 ViT 容量的 DINOv3，提供全局语义与密集空间表征。"
+    },
+    "clip_b16": {
+      "name": "CLIP ViT-B/16",
+      "shortName": "CLIP-B/16",
+      "family": "图文对齐",
+      "projectUrl": "https://github.com/openai/CLIP",
+      "paperUrl": "https://arxiv.org/abs/2103.00020",
+      "publicationDate": "2021-07",
+      "publicationLabel": "ViT-B/16 权重发布",
+      "sourceUrl": "https://github.com/openai/CLIP/blob/main/model-card.md",
+      "focus": "通过图像与自然语言对比学习获得语义视觉表征。"
+    },
+    "siglip2_b16_224": {
+      "name": "SigLIP 2 ViT-B/16 · 224px",
+      "shortName": "SigLIP2-B",
+      "family": "图文对齐",
+      "projectUrl": "https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/image_text/README_siglip2.md",
+      "paperUrl": "https://arxiv.org/abs/2502.14786",
+      "publicationDate": "2025-02-20",
+      "publicationLabel": "SigLIP 2 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2502.14786",
+      "focus": "图文学习结合自蒸馏和掩码预测，增强语义、定位与密集特征。"
+    },
+    "siglip2_so400m14_384": {
+      "name": "SigLIP 2 SO400M/14 · 384px",
+      "shortName": "SigLIP2-SO400M",
+      "family": "图文对齐",
+      "projectUrl": "https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/image_text/README_siglip2.md",
+      "paperUrl": "https://arxiv.org/abs/2502.14786",
+      "publicationDate": "2025-02-20",
+      "publicationLabel": "SigLIP 2 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2502.14786",
+      "focus": "更大容量与输入分辨率的 SigLIP 2 图文视觉表征。"
+    },
+    "pe_core_b16_224": {
+      "name": "PE Core ViT-B/16 · 224px",
+      "shortName": "PE-Core-B",
+      "family": "感知对齐",
+      "projectUrl": "https://github.com/facebookresearch/perception_models",
+      "paperUrl": "https://arxiv.org/abs/2504.13181",
+      "publicationDate": "2025-04-17",
+      "publicationLabel": "PE Core 模型发布",
+      "sourceUrl": "https://github.com/facebookresearch/perception_models",
+      "focus": "图像与视频对比预训练，学习可用于多种感知任务的视觉语义。"
+    },
+    "pe_spatial_b16_512": {
+      "name": "PE Spatial ViT-B/16 · 512px",
+      "shortName": "PE-Spatial-B",
+      "family": "空间表征",
+      "projectUrl": "https://github.com/facebookresearch/perception_models",
+      "paperUrl": "https://arxiv.org/abs/2504.13181",
+      "publicationDate": "2025-07-11",
+      "publicationLabel": "PE Spatial B 模型发布",
+      "sourceUrl": "https://github.com/facebookresearch/perception_models",
+      "focus": "从 PE Spatial G 蒸馏，侧重分割、跟踪等密集空间表征。"
+    },
+    "r3m_resnet50": {
+      "name": "R3M ResNet-50",
+      "shortName": "R3M",
+      "family": "具身视频",
+      "projectUrl": "https://github.com/facebookresearch/r3m",
+      "paperUrl": "https://arxiv.org/abs/2203.12601",
+      "publicationDate": "2022-03-23",
+      "publicationLabel": "R3M 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2203.12601",
+      "focus": "从人类视频学习时间对比与视频语言对齐表征，面向机器人操作。"
+    },
+    "vip": {
+      "name": "VIP ResNet-50",
+      "shortName": "VIP",
+      "family": "具身视频",
+      "projectUrl": "https://github.com/facebookresearch/vip",
+      "paperUrl": "https://arxiv.org/abs/2210.00030",
+      "publicationDate": "2022-09-30",
+      "publicationLabel": "VIP 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2210.00030",
+      "focus": "用目标条件价值学习组织视频表征，使嵌入距离反映任务进展。"
+    },
+    "vc1_b": {
+      "name": "VC-1 ViT-B",
+      "shortName": "VC-1-B",
+      "family": "具身视觉",
+      "projectUrl": "https://eai-vc.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2303.18240",
+      "publicationDate": "2023-03-31",
+      "publicationLabel": "VC-1 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2303.18240",
+      "focus": "在第一人称视频与 ImageNet 上用 MAE 预训练，服务具身控制。"
+    },
+    "vc1_l": {
+      "name": "VC-1 ViT-L",
+      "shortName": "VC-1-L",
+      "family": "具身视觉",
+      "projectUrl": "https://eai-vc.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2303.18240",
+      "publicationDate": "2023-03-31",
+      "publicationLabel": "VC-1 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2303.18240",
+      "focus": "更大容量的 VC-1，融合第一人称视频与图像的重建学习表征。"
+    },
+    "theia_b_cdiv": {
+      "name": "Theia ViT-B/16 · CDIV",
+      "shortName": "Theia-B",
+      "family": "多教师蒸馏",
+      "projectUrl": "https://theia.theaiinstitute.com/",
+      "paperUrl": "https://arxiv.org/abs/2407.20179",
+      "publicationDate": "2024-07-29",
+      "publicationLabel": "Theia 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2407.20179",
+      "focus": "将多种视觉基础模型的知识蒸馏到同一编码器，面向机器人学习。"
+    },
+    "eupe_vit_b": {
+      "name": "EUPE ViT-B/16",
+      "shortName": "EUPE-ViT-B",
+      "family": "多教师蒸馏",
+      "projectUrl": "https://github.com/facebookresearch/EUPE",
+      "paperUrl": "https://arxiv.org/abs/2603.22387",
+      "publicationDate": "2026-03-23",
+      "publicationLabel": "EUPE 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2603.22387",
+      "focus": "先融合多领域教师，再蒸馏到紧凑 ViT，兼顾多类视觉任务。"
+    },
+    "eupe_convnext_b": {
+      "name": "EUPE ConvNeXt-B",
+      "shortName": "EUPE-ConvNeXt-B",
+      "family": "多教师蒸馏",
+      "projectUrl": "https://github.com/facebookresearch/EUPE",
+      "paperUrl": "https://arxiv.org/abs/2603.22387",
+      "publicationDate": "2026-03-23",
+      "publicationLabel": "EUPE 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2603.22387",
+      "focus": "采用 EUPE 多教师知识聚合与压缩流程的 ConvNeXt 表征。"
+    },
+    "c_radio_v3_b": {
+      "name": "C-RADIO v3 ViT-B",
+      "shortName": "C-RADIOv3-B",
+      "family": "多教师蒸馏",
+      "projectUrl": "https://github.com/NVlabs/RADIO",
+      "paperUrl": "https://arxiv.org/abs/2412.07679",
+      "publicationDate": "2025-06-03",
+      "publicationLabel": "C-RADIOv3 权重发布",
+      "sourceUrl": "https://github.com/NVlabs/RADIO",
+      "focus": "蒸馏图文、空间与分割教师，在同一网络中整合多类视觉表征。"
+    },
+    "c_radio_v4_so400m": {
+      "name": "C-RADIO v4 SO400M",
+      "shortName": "C-RADIOv4",
+      "family": "多教师蒸馏",
+      "projectUrl": "https://github.com/NVlabs/RADIO",
+      "paperUrl": "https://arxiv.org/abs/2601.17237",
+      "publicationDate": "2026-01-27",
+      "publicationLabel": "C-RADIOv4 权重发布",
+      "sourceUrl": "https://github.com/NVlabs/RADIO",
+      "focus": "融合 SigLIP 2、DINOv3 和 SAM 3 教师，覆盖语义与密集感知。"
+    },
+    "sam21_hiera_t": {
+      "name": "SAM 2.1 Hiera-Tiny · 图像编码器",
+      "shortName": "SAM2.1-T",
+      "family": "分割表征",
+      "projectUrl": "https://github.com/facebookresearch/sam2",
+      "paperUrl": "https://arxiv.org/abs/2408.00714",
+      "publicationDate": "2024-09",
+      "publicationLabel": "SAM 2.1 权重发布（月）",
+      "sourceUrl": "https://github.com/facebookresearch/sam2",
+      "focus": "来自可提示图像与视频分割模型的 Hiera 图像表征。"
+    },
+    "dav2_b": {
+      "name": "Depth Anything V2 · ViT-B",
+      "shortName": "DepthAnythingV2-B",
+      "family": "深度表征",
+      "projectUrl": "https://depth-anything-v2.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2406.09414",
+      "publicationDate": "2024-06-14",
+      "publicationLabel": "Depth Anything V2 模型发布",
+      "sourceUrl": "https://github.com/DepthAnything/Depth-Anything-V2",
+      "focus": "面向单目深度估计学习的视觉骨干，侧重场景几何。"
+    },
+    "dp_resnet18_scratch": {
+      "name": "ResNet-18 · 官方 DP 从零训练",
+      "shortName": "DP-RN18 scratch",
+      "family": "从零训练参照",
+      "projectUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
+      "paperUrl": "https://arxiv.org/abs/2303.04137",
+      "publicationDate": null,
+      "publicationLabel": "从零训练；无预训练权重发布日期",
+      "sourceUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
+      "focus": "与 Diffusion Policy 一起端到端训练的视觉骨干；属于参照基线。"
+    }
+  },
+  "benchmarks": {
+    "libero": {
+      "name": "LIBERO",
+      "tagline": "空间、对象、目标与长程操作",
+      "question": "同一视觉表征能否支持不同对象、空间关系和操作目标？",
+      "description": "原始 LIBERO 研究机器人多任务与终身学习中的知识迁移。本站 Joint40 联合训练 Spatial、Object、Goal、Long 四个 10 任务子集。",
+      "projectUrl": "https://libero-project.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2306.03310",
+      "publicationDate": "2023-06-05",
+      "publicationLabel": "论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2306.03310",
+      "scale": "官方共 130 任务；本站 Joint40 使用其中 40 任务",
+      "axes": [
+        {
+          "name": "空间关系",
+          "description": "物体相对位置变化下，识别指令所指的操作对象。"
+        },
+        {
+          "name": "对象变化",
+          "description": "同类操作面对不同目标物体时的知识迁移。"
+        },
+        {
+          "name": "目标区分",
+          "description": "相似场景中按不同指令完成不同终态。"
+        },
+        {
+          "name": "长程执行",
+          "description": "LIBERO-Long（libero_10）要求连续完成更长的操作过程。"
+        }
+      ],
+      "caveat": "Joint40 是本站多任务开发设置；其成绩不等同于原论文终身学习协议，也不构成正式排名。"
+    },
+    "libero-plus": {
+      "name": "LIBERO-Plus",
+      "tagline": "七类受控扰动下的可靠性",
+      "question": "视角、外观或初始化稍有变化，策略还能完成原任务吗？",
+      "description": "围绕 LIBERO 构造七类扰动：布局、视角、机器人初态、语言、光照、背景与传感噪声；下面按五组解释。",
+      "projectUrl": "https://github.com/sylvestf/LIBERO-plus",
+      "paperUrl": "https://arxiv.org/abs/2510.13626",
+      "publicationDate": "2025-10-15",
+      "publicationLabel": "论文预印本",
+      "sourceUrl": "https://github.com/sylvestf/LIBERO-plus",
+      "scale": "官方 10,030 个任务变体 · 7 类扰动",
+      "axes": [
+        {
+          "name": "相机视角",
+          "description": "改变相机位置、朝向或视场。"
+        },
+        {
+          "name": "布局与初态",
+          "description": "移动目标或干扰物，并改变机器人起始姿态。"
+        },
+        {
+          "name": "光照与背景",
+          "description": "改变照明、场景背景和表面纹理。"
+        },
+        {
+          "name": "语言改写",
+          "description": "用不同自然语言表达同一操作意图。"
+        },
+        {
+          "name": "传感噪声",
+          "description": "施加图像退化与光度扰动。"
+        }
+      ],
+      "caveat": "本站为少量单例诊断；不同指令 profile 分开记录，不能替代官方全量鲁棒性评测。"
+    },
+    "libero-pro": {
+      "name": "LIBERO-PRO",
+      "tagline": "检验场景与动作序列记忆",
+      "question": "物体、位置或任务逻辑改变后，模型还能依据当前场景行动吗？",
+      "description": "在 LIBERO 上改变物体、初态、语言、目标逻辑与环境，检查策略能否摆脱固定布局和动作序列的记忆。",
+      "projectUrl": "https://zxy-mllab.github.io/LIBERO-PRO-Webpage/",
+      "paperUrl": "https://arxiv.org/abs/2510.03827",
+      "publicationDate": "2025-10-04",
+      "publicationLabel": "论文预印本",
+      "sourceUrl": "https://github.com/Zxy-MLlab/LIBERO-PRO",
+      "scale": "原始四套任务上的 5 类扰动；本站接入其中 4 类",
+      "axes": [
+        {
+          "name": "Object · 物体",
+          "description": "改变外观、颜色或尺寸，检查视觉适应。"
+        },
+        {
+          "name": "Swap · 位置",
+          "description": "在可行范围内重排物体位置，检查空间适应。"
+        },
+        {
+          "name": "Language · 指令",
+          "description": "改写自然语言命令，检查语言鲁棒性。"
+        },
+        {
+          "name": "Task · 任务",
+          "description": "改变任务逻辑与目标状态，检查操作流程迁移。"
+        },
+        {
+          "name": "Environment · 环境",
+          "description": "替换操作环境，检查跨环境适应。"
+        }
+      ],
+      "caveat": "本站 Environment 资产未齐，不生成完整 PRO 总分；三训练种子齐全才显示均值，结果仍为开发比较。"
+    },
+    "robotwin2": {
+      "name": "RoboTwin 2.0",
+      "tagline": "双臂操作与环境随机化",
+      "question": "双臂策略能否在环境变化和不同机器人形态下完成操作？",
+      "description": "提供双臂任务、自动数据生成与统一评估协议；通过杂物、光照、背景、桌高和语言随机化增加场景变化。",
+      "projectUrl": "https://robotwin-platform.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2506.18088",
+      "publicationDate": "2025-06-21",
+      "publicationLabel": "RoboTwin 2.0 项目发布",
+      "sourceUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
+      "scale": "官方 50 个双臂任务 · 5 种机器人形态",
+      "axes": [
+        {
+          "name": "双臂协调",
+          "description": "考察双臂协同、交接与复杂操作过程。"
+        },
+        {
+          "name": "外观变化",
+          "description": "通过光照和背景随机化改变视觉输入。"
+        },
+        {
+          "name": "场景几何",
+          "description": "用杂物与桌面高度变化改变操作条件。"
+        },
+        {
+          "name": "语言变化",
+          "description": "在任务语言表达变化下执行操作。"
+        },
+        {
+          "name": "多种形态",
+          "description": "框架支持五种机器人形态；各设置需独立报告。"
+        }
+      ],
+      "caveat": "本站为 4 任务官方 DP 参照；视觉骨干端到端从零训练，与冻结编码器实验分开比较。"
+    },
+    "robodojo": {
+      "name": "RoboDojo",
+      "tagline": "仿真与实机的互补能力评测",
+      "question": "通用操作策略能否同时应对记忆、精度、长程执行与开放词汇指令？",
+      "description": "将可扩展仿真与标准化实机测试结合，用五类能力任务定位通用机器人策略的边界。",
+      "projectUrl": "https://robodojo-benchmark.com/",
+      "paperUrl": "https://arxiv.org/abs/2607.04434",
+      "publicationDate": "2026-07-06",
+      "publicationLabel": "论文与代码公开发布",
+      "sourceUrl": "https://github.com/RoboDojo-Benchmark/RoboDojo",
+      "scale": "42 个仿真任务 · 18 个实机任务 · 实机覆盖 3 种形态",
+      "axes": [
+        {
+          "name": "泛化",
+          "description": "在变化的物体或操作条件下迁移已学能力。"
+        },
+        {
+          "name": "记忆",
+          "description": "利用先前观测中的信息指导后续操作。"
+        },
+        {
+          "name": "精度",
+          "description": "完成具有精细几何或接触要求的操作。"
+        },
+        {
+          "name": "长程执行",
+          "description": "持续完成多阶段任务并处理阶段间依赖。"
+        },
+        {
+          "name": "开放词汇",
+          "description": "依据开放词汇指令定位目标并执行相应操作。"
+        }
+      ],
+      "caveat": "本站尚无接入成绩；仿真表现与实机部署能力需分别验证。"
+    },
+    "robocasa365": {
+      "name": "RoboCasa365",
+      "tagline": "多样厨房中的日常操作",
+      "question": "策略能否把技能迁移到大量日常任务和未见厨房环境？",
+      "description": "面向家庭移动操作，以多样厨房、单步与组合任务以及人类和合成演示，支持多任务、基础模型和终身学习研究。",
+      "projectUrl": "https://robocasa.ai/",
+      "paperUrl": "https://arxiv.org/abs/2603.04356",
+      "publicationDate": "2026-02-18",
+      "publicationLabel": "RoboCasa365 v1.0 发布",
+      "sourceUrl": "https://robocasa.ai/",
+      "scale": "365 个日常任务 · 2,500 个厨房环境",
+      "axes": [
+        {
+          "name": "任务多样性",
+          "description": "在多种日常厨房操作之间共享和迁移技能。"
+        },
+        {
+          "name": "环境泛化",
+          "description": "面对不同厨房布局、风格与场景实例。"
+        },
+        {
+          "name": "组合操作",
+          "description": "将原子技能串成多阶段日常任务。"
+        },
+        {
+          "name": "数据与迁移",
+          "description": "支持研究数据规模、多任务训练与持续学习设置。"
+        }
+      ],
+      "caveat": "本站尚无接入成绩；厨房仿真覆盖不等同于开放家庭环境中的实机可靠性。"
+    },
+    "vlabench": {
+      "name": "VLABench",
+      "tagline": "语言意图、常识与长程推理",
+      "question": "机器人能否理解隐含意图，并用常识完成多步操作？",
+      "description": "以具有语义变化与随机化的语言条件操作任务，评估动作策略，以及 VLM/LLM 支持的推理与规划能力。",
+      "projectUrl": "https://vlabench.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2412.18194",
+      "publicationDate": "2024-12-24",
+      "publicationLabel": "论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2412.18194",
+      "scale": "100 类任务 · 2,000 余个物体",
+      "axes": [
+        {
+          "name": "对象泛化",
+          "description": "识别未见物体类别或实例并执行操作。"
+        },
+        {
+          "name": "语义与意图",
+          "description": "理解超出固定语言模板的语义和隐含意图。"
+        },
+        {
+          "name": "常识迁移",
+          "description": "将世界知识与常识用于目标选择和任务执行。"
+        },
+        {
+          "name": "长程推理",
+          "description": "分解多步目标并处理操作的先后依赖。"
+        },
+        {
+          "name": "视觉鲁棒性",
+          "description": "在纹理、背景等视觉条件变化下执行任务。"
+        }
+      ],
+      "caveat": "本站尚无接入成绩；VLM 规划评测与闭环动作成功率需分开解释。"
+    },
+    "geniesim": {
+      "name": "Genie Sim 3.0",
+      "tagline": "大规模场景生成与闭环评估",
+      "question": "策略能否在生成的多样场景中理解语义、判断空间并完成操作？",
+      "description": "AgiBot 的仿真平台结合自然语言场景生成、多维场景变化和自动评估，用闭环任务建立能力画像。",
+      "projectUrl": "https://agibot-world.com/genie-sim",
+      "paperUrl": "https://arxiv.org/abs/2601.02078",
+      "publicationDate": "2026-01-05",
+      "publicationLabel": "3.0 论文预印本",
+      "sourceUrl": "https://arxiv.org/abs/2601.02078",
+      "scale": "200 余项任务 · 100,000 余个评估场景",
+      "axes": [
+        {
+          "name": "语义理解",
+          "description": "将任务指令与场景中的对象和目标对应。"
+        },
+        {
+          "name": "空间推理",
+          "description": "识别对象属性、位置与空间关系。"
+        },
+        {
+          "name": "操作执行",
+          "description": "通过闭环控制完成物理交互与任务终态。"
+        },
+        {
+          "name": "场景鲁棒性",
+          "description": "在物体、姿态、照明和纹理变化下评估表现。"
+        }
+      ],
+      "caveat": "本站尚无接入成绩；自动判定协议与实机成功需分别核验，本文日期对应 3.0 版本。"
+    }
+  }
+}
