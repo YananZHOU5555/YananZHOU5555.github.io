@@ -1,104 +1,207 @@
-/* Official task descriptions and media are editorial metadata, never scores. */
-let guideLibrary={benchmarks:{}},guideCategory='all',guideQuery='',guideTaskId='',guidePage=0;
-const guidePageSize=10;
-const guideData=()=>guideLibrary.benchmarks[benchmarkId]||{};
-const hasLocalTask=t=>(bench().tasks||[]).some(x=>x.id===t?.localTaskId);
-function taskFacts(t){
- const facts=[];
- if(t.domain)facts.push(['场景',t.domain==='simulation'?'仿真任务':'实机任务']);
- if(t.structure)facts.push(['结构',t.structure==='composite'?'组合任务':'基础操作']);
- if(t.activity)facts.push(['活动组',t.activity==='Atomic'?'原子技能':t.activity]);
- if(t.subtasks!=null)facts.push(['子任务',String(t.subtasks)]);
- if(t.mobileManipulation)facts.push(['移动操作',t.mobileManipulation==='No'?'不需要':t.mobileManipulation==='Yes'?'需要':t.mobileManipulation]);
- if(t.embodiments?.length)facts.push(['机器人',t.embodiments.join(' / ')]);
- if(t.officialDimensions)Object.entries(t.officialDimensions).forEach(([k,v])=>facts.push([k==='manip'?'官方操作标签':k==='cognition'?'官方认知标签':k,Array.isArray(v)?v.join(' / '):String(v)]));
- if(t.categoryAssignment)facts.push(['归类依据',t.categoryAssignment]);
- return `${facts.length?`<dl class="task-facts">${facts.map(([label,value])=>`<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>`:''}${t.note?`<p class="task-definition-note">${esc(t.note)}</p>`:''}${t.goalDefinition?`<details class="task-definition"><summary>官方目标谓词 <span>＋</span></summary><pre>${esc(t.goalDefinition)}</pre></details>`:''}`;
-}
-function guideTasks(){
- const g=guideData();
- return g.tasks?.length?g.tasks:(bench().tasks||[]).map(t=>({id:t.id,localTaskId:t.id,title:t.instruction||t.name,objective:t.instruction||t.name,categoryId:t.suite,instruction:t.instruction}));
-}
-function guideCategories(){return guideData().categories||((benchmarkMeta(benchmarkId).axes||[]).map((a,i)=>({id:suiteOrder[i]||String(i),name:a.name,question:a.description})));}
-function taskMedia(task){
- const local=bench().tasks?.find(t=>t.id===task?.localTaskId);
- const localMedia=(local?.media||[]).filter(m=>m.videoUrl||m.type==='video').map(m=>({...m,url:m.videoUrl||m.url,type:'video',kind:'local_diagnostic',note:m.condition||m.note,sourceUrl:m.sourceUrl}));
- return [...(task?.media||[]),...localMedia].filter((m,i,all)=>m.url&&all.findIndex(x=>x.url===m.url)===i);
-}
-function guideHeroMedia(){
- const g=guideData();if(g.media?.length)return g.media[0];
- const sample=guideTasks().find(t=>taskMedia(t).length);return sample?taskMedia(sample)[0]:null;
-}
-function mediaOrigin(m){return m?.label?.includes('专家')?'专家动作重放 · 不计入模型成绩':m?.kind==='local_diagnostic'?'MVE 历史诊断 · 非当前榜单演示':'官方演示 · 非 MVE 测评结果';}
-function videoEmbed(m,role='task'){
- if(!m?.url)return `<div class="video-unavailable"><span class="film-icon" aria-hidden="true">▷</span><strong>尚无已核验的执行视频</strong><p>保留任务说明与官方来源，素材补齐后在此播放。</p></div>`;
- const url=safeUrl(m.url);
- const content=`<video class="evidence-video" controls muted playsinline preload="${['atlas','gallery'].includes(role)?'none':'metadata'}" ${m.posterUrl?`poster="${esc(safeUrl(m.posterUrl))}"`:''} src="${esc(url)}" aria-label="${esc(m.label||'任务执行视频')}"></video>`;
- return `<figure class="video-evidence" data-media-role="${role}"><div class="video-stage">${content}<div class="video-error" hidden>视频暂时无法加载。<a href="${esc(url)}" target="_blank" rel="noopener">打开视频来源 ↗</a></div></div><figcaption><span class="video-provenance"><i></i>${esc(mediaOrigin(m))}</span><span>${esc(m.label||'任务演示')}${m.originalDurationSeconds?` · ${m.originalDurationSeconds}s`:''}</span>${m.sourceUrl?`<a href="${esc(safeUrl(m.sourceUrl))}" target="_blank" rel="noopener">来源 ↗</a>`:''}</figcaption></figure>`;
-}
+'use strict';
+/* MVE leaderboard v2 · editorial pages: benchmark guide (关于), task videos, task drawer, atlas, method, log.
+   Task descriptions and media are editorial metadata, never scores. */
+
+/* ---------- media ---------- */
+const mediaVis=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)e.target.pause();}),{threshold:.05});
 function initVideos(){
- document.querySelectorAll('video').forEach(v=>{
-  mediaVisibility.observe(v);if(v.dataset.bound)return;v.dataset.bound='true';
-  v.addEventListener('play',()=>document.querySelectorAll('video').forEach(other=>{if(other!==v)other.pause();}));
-  v.addEventListener('error',()=>{const error=v.closest('.video-stage')?.querySelector('.video-error');if(error)error.hidden=false;});
- });
+  for(const v of $$('video')){mediaVis.observe(v);if(v.dataset.bound)continue;v.dataset.bound='1';
+    v.addEventListener('play',()=>$$('video').forEach(o=>{if(o!==v)o.pause();}));}
 }
-const mediaVisibility=new IntersectionObserver(entries=>entries.forEach(e=>{if(!e.isIntersecting)e.target.pause();}),{threshold:.05});
-function cleanupVideos(){mediaVisibility.disconnect();document.querySelectorAll('video').forEach(v=>v.pause());}
-function mediaCount(tasks){return tasks.filter(t=>taskMedia(t).length).length;}
-function guideScopeText(){return guideData().taskInventory?.note||guideData().taskScope||'任务目录仅说明任务目标；视频与当前评估成绩独立。';}
-function benchmarkCard(b){
- const m=benchmarkMeta(b.id),g=guideLibrary.benchmarks[b.id]||{},media=g.media?.[0]||(b.tasks||[]).flatMap(t=>(t.media||[]).filter(m=>m.videoUrl).map(m=>({...m,url:m.videoUrl,kind:'local_diagnostic'})))[0];
- return `<article class="benchmark-card" data-benchmark-card="${esc(b.id)}"><div class="benchmark-card-top"><span class="catalog-status ${b.status}">${benchmarkStatus(b)}</span><time>${esc(dateText(m))}</time></div><div class="atlas-card-title"><h2><button class="link-button" data-guide="${esc(b.id)}">${esc(m.name||b.name)}</button></h2><button class="round-link" data-guide="${esc(b.id)}" aria-label="打开 ${esc(m.name||b.name)} 总览">↗</button></div><p class="benchmark-question">${esc(m.question||b.description)}</p>${media?videoEmbed(media,'atlas'):`<div class="atlas-text-preview"><span>RESEARCH SCOPE</span><strong>${esc(m.tagline)}</strong><p>${esc(m.scale)}</p></div>`}<div class="axis-tags">${(g.categories||m.axes||[]).map(a=>`<span>${esc(a.name)}</span>`).join('')}</div><div class="benchmark-card-bottom"><span>${g.tasks?.length?`${num(g.tasks.length)} 项任务 / 变体已编目`:'官方任务目录'}<small>${esc(benchmarkCoverage(b))}</small></span><button class="text-action" data-guide="${esc(b.id)}">总览与任务 →</button></div></article>`;
+function mediaOrigin(m){
+  const l=String(m?.label||'');
+  if(l.includes('专家'))return '专家动作重放 · 不计入任何模型成绩';
+  if(m?.kind==='official_demo'||/^https?:/.test(String(m?.src||m?.url||'')))return '官方演示 · 非 MVE 评测结果';
+  return 'MVE 历史诊断片段 · 不代表当前榜单的平均表现';
 }
-function renderAtlas(){
- $('#content').innerHTML=`<div class="atlas-intro"><span class="eyebrow">THE BENCHMARK COLLECTION</span><h2>先看清测试什么，<br>再比较谁做得更好。</h2><p>从桌面操作到双臂协作，从对象辨识到长程推理。逐一查看任务、分类差异与执行视频，再进入相应结果。</p><div class="atlas-key"><span><i class="key-live"></i>本站已有评测</span><span><i class="key-diagnostic"></i>独立诊断</span><span><i class="key-planned"></i>官方任务导览</span></div></div><div class="benchmark-grid">${data.benchmarks.map(benchmarkCard).join('')}</div>`;initVideos();
+function videoBlock(list,i=0,id='v'){
+  const m=list[i];
+  if(!m)return `<div class="vid"><div class="vid-empty">尚无已核验的执行视频<br>保留任务说明与官方来源</div></div>`;
+  const src=safeUrl(m.src||m.url),poster=m.poster||m.posterUrl;
+  return `<div class="d-video" data-vbox="${esc(id)}"><video controls playsinline muted preload="metadata" ${poster?`poster="${esc(safeUrl(poster))}"`:''} src="${esc(src)}" aria-label="${esc(m.label||'任务视频')}"></video></div>
+    ${list.length>1?`<div class="clips" role="group" aria-label="切换视频">${list.map((x,j)=>`<button data-clip="${j}" data-clip-box="${esc(id)}" aria-pressed="${j===i}">${esc(x.label||`片段 ${j+1}`)}</button>`).join('')}</div>`:''}
+    <div class="prov"><i></i>${esc(mediaOrigin(m))}${m.label?` · ${esc(m.label)}`:''}${m.sourceUrl?` · <a class="link" href="${esc(safeUrl(m.sourceUrl))}" target="_blank" rel="noopener">来源 ↗</a>`:''}</div>`;
 }
-function renderGuide(){
- const b=bench(),m=benchmarkMeta(b.id),g=guideData(),categories=guideCategories(),tasks=guideTasks(),media=guideHeroMedia(),source=m.projectUrl||b.sourceUrl;
- if(!categories.some(c=>c.id===guideCategory))guideCategory='all';
- $('#content').innerHTML=`<article class="benchmark-guide"><nav class="guide-sections" aria-label="总览章节"><button data-guide-section="guide-overview"><span>01</span>总览</button><button data-guide-section="guide-taxonomy"><span>02</span>类别区别</button><button data-guide-section="guide-directory"><span>03</span>任务与视频 <small>${num(tasks.length)}</small></button><button data-guide-section="guide-evaluation"><span>04</span>评测范围</button></nav><section class="guide-hero" id="guide-overview"><div class="guide-story"><span class="eyebrow">UNDERSTAND THE BENCHMARK</span><h2>${esc(m.tagline||m.name)}</h2><p class="guide-lead">${esc(g.intro||m.description||b.description)}</p><dl class="guide-facts-inline"><div><dt>官方规模</dt><dd>${esc(m.scale)}</dd></div><div><dt>本站进度</dt><dd>${esc(benchmarkCoverage(b))}</dd></div></dl><div class="guide-links"><a href="${esc(safeUrl(source))}" target="_blank" rel="noopener">官方项目 ↗</a>${m.paperUrl?`<a href="${esc(safeUrl(m.paperUrl))}" target="_blank" rel="noopener">阅读论文 ↗</a>`:''}<time>${esc(publication(m))}</time></div><button class="primary-action" data-guide-section="guide-directory">探索 ${num(tasks.length)} 项任务 <span>↓</span></button></div><div class="guide-hero-media">${videoEmbed(media,'hero')}<p class="media-context">${esc(media?.note||media?.condition||'演示用于理解任务流程；不代表本站模型的平均表现。')}</p></div></section><section id="guide-taxonomy" class="guide-block"><div class="guide-block-heading"><div><span class="section-number">02 / TAXONOMY</span><h2>这些类别，究竟差在哪？</h2></div><p>${esc(g.categoryBasis||'按官方测试维度解读；不同维度的分数独立阅读。')}</p></div><div class="taxonomy-grid">${categories.map((c,i)=>`<button class="taxonomy-tab ${i===0?'active':''}" data-axis="${esc(c.id)}" aria-pressed="${i===0}"><span class="axis-counter">${String(i+1).padStart(2,'0')}</span><span><strong>${esc(c.name)}</strong><small>${esc(c.english||'测试维度')}</small></span><span class="axis-arrow">↗</span></button>`).join('')}</div><div id="axis-detail"></div><details class="taxonomy-compare"><summary>并排比较全部 ${categories.length} 个类别 <span>＋</span></summary><div class="table-wrap"><table><thead><tr><th>类别</th><th>主要改变什么</th><th>保持什么 / 对照范围</th><th>与其他类别的区别</th></tr></thead><tbody>${categories.map(c=>`<tr><td><strong>${esc(c.name)}</strong></td><td>${esc(c.changes||c.question||'详见官方任务')}</td><td>${esc(c.holdsFixed||'以各任务定义为准')}</td><td>${esc(c.distinction||c.question||'详见官方定义')}</td></tr>`).join('')}</tbody></table></div></details></section><section id="guide-directory" class="guide-block"><div class="guide-block-heading"><div><span class="section-number">03 / TASK EXPLORER</span><h2>每个任务，都说清楚。</h2></div><p>${esc(g.taskInventory?.label||g.taskScope||'逐项查看动作目标与真实执行视频。')}</p></div><div class="directory-toolbar"><div class="directory-filter"><label for="guide-category">任务类别</label><select id="guide-category"><option value="all">全部类别 · ${tasks.length}</option>${categories.map(c=>`<option value="${esc(c.id)}" ${guideCategory===c.id?'selected':''}>${esc(c.name)} · ${tasks.filter(t=>t.categoryId===c.id).length}</option>`).join('')}</select></div><label class="directory-search"><span>⌕</span><input id="guide-search" type="search" placeholder="搜索任务、物体或动作…" value="${esc(guideQuery)}" aria-label="搜索任务目录"></label><span class="directory-coverage">${num(mediaCount(tasks))} 项含视频</span></div><div class="task-workbench"><div class="task-index"><div class="task-index-head"><span id="guide-match-count"></span><span>选择任务 →</span></div><div id="guide-task-list"></div><div id="guide-pagination"></div></div><div id="guide-task-preview" class="task-preview" aria-live="polite"></div></div><p class="directory-note">${esc(guideScopeText())}${g.taskInventory?.sourceUrl?` <a href="${esc(safeUrl(g.taskInventory.sourceUrl))}" target="_blank" rel="noopener">官方任务目录 ↗</a>`:''}</p></section><section id="guide-evaluation" class="guide-block"><div class="guide-block-heading"><div><span class="section-number">04 / EVALUATION</span><h2>官方任务与本站成绩，分别看。</h2></div></div><div class="evaluation-columns"><section><span class="evaluation-label">MVE COVERAGE</span><h3>本站评测范围</h3><p>${esc(b.description)}</p>${b.id==='libero'||track()?.proRows?'<p>冻结视觉编码器 · FP32 · 完整 batch 32 · 20k steps。每任务 20 个评估 seed 各 1 次，训练种子 17 / 29 / 43 齐全后等权平均。</p>':''}${b.status!=='planned'?`<button class="primary-action" data-view="${track()?.proRows?'pro':'leaderboard'}">进入${b.status==='diagnostic'?'诊断结果':'成绩分榜'} →</button>`:'<span class="not-evaluated">尚无 MVE 实测成绩</span>'}</section><section><span class="evaluation-label">READING THE EVIDENCE</span><h3>如何正确读结果</h3><p>${esc(b.status==='planned'?'本站尚无实测成绩。官方任务演示说明测试内容，不构成 MVE 模型表现。':m.caveat)}</p><p>这里的视频用于理解任务。官方演示、专家重放与本站历史诊断均保留来源；不以示例视频替代当前模型的成功率。</p><div class="guide-sources">${(g.sources||[]).slice(0,5).map(s=>`<a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>`).join('')}</div></section></div></section><div class="guide-bottom"><button class="text-action" data-view="atlas">← 对比所有 benchmark</button><button class="text-action" data-guide-section="guide-overview">回到总览 ↑</button></div></article>`;
- renderAxis(categories[0]?.id);renderGuideDirectory();initVideos();
-}
-function renderAxis(id){
- const c=guideCategories().find(c=>c.id===id);if(!c)return;
- $('#axis-detail').querySelectorAll('video').forEach(v=>{v.pause();mediaVisibility.unobserve(v);});
- document.querySelectorAll('[data-axis]').forEach(b=>{b.classList.toggle('active',b.dataset.axis===id);b.setAttribute('aria-pressed',String(b.dataset.axis===id));});
- const count=guideTasks().filter(t=>t.categoryId===id).length,media=guideData().media?.find(m=>m.categoryId===id);
- $('#axis-detail').innerHTML=`<section class="axis-detail"><div class="axis-question"><span>${esc(c.english||c.name)}</span><h3>${esc(c.question||c.name)}</h3><p>${esc(c.distinction||'具体类别定义以官方说明为准。')}</p>${count?`<button class="text-action" data-directory-category="${esc(id)}">浏览本类 ${count} 项任务 →</button>`:''}${benchmarkId==='libero'&&suiteOrder.includes(id)?`<button class="text-action" data-guide-category="${esc(id)}">查看 ${suiteName(id)} 分榜 →</button>`:''}</div><dl><div><dt>改变什么</dt><dd>${esc(c.changes||'以任务定义为准')}</dd></div><div><dt>保持什么</dt><dd>${esc(c.holdsFixed||'以任务定义为准；不假设严格配对')}</dd></div><div class="axis-example"><dt>具体例子</dt><dd>${esc(c.example||'在下方目录选择任务，查看具体操作目标。')}</dd></div></dl></section>`;
- if(media)$('#axis-detail').insertAdjacentHTML('beforeend',`<div class="axis-video"><div><span class="section-number">CATEGORY IN ACTION</span><h3>${esc(c.name)}，看实际变化。</h3><p>${esc(media.note||media.label)}</p></div>${videoEmbed(media,'category')}</div>`);
- initVideos();
-}
-function matchingGuideTasks(){const q=guideQuery.trim().toLowerCase();return guideTasks().filter(t=>(guideCategory==='all'||t.categoryId===guideCategory)&&(!q||`${t.title} ${t.objective} ${t.instruction||''} ${t.id}`.toLowerCase().includes(q)));}
-function renderGuideDirectory(){
- const tasks=matchingGuideTasks(),pages=Math.max(1,Math.ceil(tasks.length/guidePageSize));guidePage=Math.min(guidePage,pages-1);
- if(!tasks.some(t=>t.id===guideTaskId))guideTaskId=tasks[0]?.id||'';
- const first=guidePage*guidePageSize,subset=tasks.slice(first,first+guidePageSize);
- $('#guide-match-count').textContent=`${num(tasks.length)} 项任务`;
- $('#guide-task-list').innerHTML=subset.map((t,i)=>`<button class="task-index-row ${t.id===guideTaskId?'active':''}" data-guide-task="${esc(t.id)}" aria-pressed="${t.id===guideTaskId}"><span class="task-index-number">${String(first+i+1).padStart(2,'0')}</span><span><strong>${esc(t.title||t.id)}</strong><small>${esc(t.objective)}</small></span><span class="task-index-media" title="${taskMedia(t).length?'有执行视频':'任务说明'}">${taskMedia(t).length?'▷':'↗'}</span></button>`).join('')||'<div class="directory-empty">没有匹配任务。试试其他动作或物体名称。</div>';
- $('#guide-pagination').innerHTML=`<button data-guide-page="${guidePage-1}" ${guidePage===0?'disabled':''} aria-label="上一页任务">←</button><span>${guidePage+1} / ${pages}</span><button data-guide-page="${guidePage+1}" ${guidePage===pages-1?'disabled':''} aria-label="下一页任务">→</button>`;
- renderGuideTask();
-}
-function renderGuideTask(mediaIndex=0){
- const t=guideTasks().find(t=>t.id===guideTaskId),panel=$('#guide-task-preview');
- document.querySelectorAll('[data-guide-task]').forEach(b=>{b.classList.toggle('active',b.dataset.guideTask===t?.id);b.setAttribute('aria-pressed',String(b.dataset.guideTask===t?.id));});
- if(t&&panel.dataset.task===t.id&&panel.dataset.clip===String(mediaIndex))return;
- panel.dataset.task=t?.id||'';panel.dataset.clip=String(mediaIndex);
- panel.querySelectorAll('video').forEach(v=>{v.pause();mediaVisibility.unobserve(v);});
- if(!t){panel.innerHTML='<div class="directory-empty">调整筛选后，选择一个任务查看。</div>';return;}
- const cat=guideCategories().find(c=>c.id===t.categoryId),media=taskMedia(t),m=media[mediaIndex];
- document.querySelectorAll('[data-guide-task]').forEach(b=>{b.classList.toggle('active',b.dataset.guideTask===t.id);b.setAttribute('aria-pressed',String(b.dataset.guideTask===t.id));});
- panel.innerHTML=`<div class="task-preview-heading"><span class="task-category-label">${esc(cat?.name||t.categoryId)}</span><span class="task-evidence-kind">${hasLocalTask(t)?'本站任务条目':t.categoryAssignment?.includes('导读')?'官方任务 · 导览归类':'官方任务定义'}</span></div><h3>${esc(t.title||t.id)}</h3><p class="task-objective">${esc(t.objective)}</p>${taskFacts(t)}${videoEmbed(m)}${media.length>1?`<div class="clip-switcher" aria-label="切换该任务视频">${media.map((x,i)=>`<button data-guide-clip="${i}" aria-pressed="${i===mediaIndex}">${esc(x.label||`片段 ${i+1}`)}</button>`).join('')}</div>`:''}<p class="task-video-note">${esc(m?.note||m?.condition||'此条目提供任务定义；尚无可核验的逐任务视频。')}</p>${t.instruction?`<details class="task-instruction"><summary>原始任务指令 <span>＋</span></summary><p lang="en">${esc(t.instruction)}</p></details>`:''}<div class="task-preview-footer"><span>${esc(t.id)}</span><div>${t.sourceUrl?`<a href="${esc(safeUrl(t.sourceUrl))}" target="_blank" rel="noopener">官方定义 ↗</a>`:''}${hasLocalTask(t)?`<button class="text-action" data-task="${esc(t.localTaskId)}">本站记录 ↗</button>`:''}</div></div>`;
- initVideos();
+const CLIPS={};
+function guideMedia(list){return (list||[]).filter(m=>m.url||m.src).map(m=>({...m,src:m.src||m.url,poster:m.poster||m.posterUrl||''}));}
+function taskClipList(b,t,g){
+  const all=[...taskVideos(b,t),...guideMedia(g?.media)];
+  return all.filter((m,i)=>m.src&&all.findIndex(x=>x.src===m.src)===i);
 }
 document.addEventListener('click',e=>{
- const section=e.target.closest('[data-guide-section]');if(section){$('#'+section.dataset.guideSection)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});return;}
- const axis=e.target.closest('[data-axis]');if(axis){renderAxis(axis.dataset.axis);return;}
- const category=e.target.closest('[data-directory-category]');if(category){guideCategory=category.dataset.directoryCategory;guideQuery='';guidePage=0;$('#guide-category').value=guideCategory;$('#guide-search').value='';renderGuideDirectory();updateRoute();$('#guide-directory').scrollIntoView({block:'start'});return;}
- const task=e.target.closest('[data-guide-task]');if(task){guideTaskId=task.dataset.guideTask;renderGuideTask();updateRoute();return;}
- const clip=e.target.closest('[data-guide-clip]');if(clip){renderGuideTask(Number(clip.dataset.guideClip));return;}
- const page=e.target.closest('[data-guide-page]');if(page){guidePage=Number(page.dataset.guidePage);guideTaskId=matchingGuideTasks()[guidePage*guidePageSize]?.id||'';renderGuideDirectory();updateRoute();return;}
-
+  const c=e.target.closest('[data-clip]');if(!c)return;
+  const id=c.dataset.clipBox,list=CLIPS[id];if(!list)return;
+  for(const host of $$(`[data-vhost="${CSS.escape(id)}"]`)){host.innerHTML=videoBlock(list,Number(c.dataset.clip),id);}initVideos();
 });
-document.addEventListener('input',e=>{if(e.target.id==='guide-search'){guideQuery=e.target.value;guidePage=0;renderGuideDirectory();updateRoute();}});
-document.addEventListener('change',e=>{if(e.target.id==='guide-category'){guideCategory=e.target.value;guidePage=0;renderGuideDirectory();updateRoute();}});
+
+/* ---------- task facts & drawer ---------- */
+function taskFacts(t){
+  if(!t)return '';
+  const f=[];
+  if(t.domain)f.push(['场景',t.domain==='simulation'?'仿真':'实机']);
+  if(t.structure)f.push(['结构',t.structure==='composite'?'组合任务':'基础操作']);
+  if(t.activity)f.push(['活动组',t.activity==='Atomic'?'原子技能':t.activity]);
+  if(t.subtasks!=null)f.push(['子任务',String(t.subtasks)]);
+  if(t.mobileManipulation)f.push(['移动操作',t.mobileManipulation==='No'?'不需要':t.mobileManipulation==='Yes'?'需要':t.mobileManipulation]);
+  if(t.embodiments?.length)f.push(['机器人',t.embodiments.join(' / ')]);
+  if(t.officialDimensions)for(const [k,v] of Object.entries(t.officialDimensions))f.push([k==='manip'?'官方操作标签':k==='cognition'?'官方认知标签':k,Array.isArray(v)?v.join(' / '):String(v)]);
+  if(t.categoryAssignment)f.push(['归类依据',t.categoryAssignment]);
+  return `${f.length?`<dl class="tfacts">${f.map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>`:''}${t.note?`<p class="muted" style="font-size:12.5px">${esc(t.note)}</p>`:''}${t.goalDefinition?`<details class="note-box" style="margin:10px 0"><summary>官方目标谓词</summary><pre class="mono" style="padding:10px 14px;margin:0;white-space:pre-wrap">${esc(t.goalDefinition)}</pre></details>`:''}`;
+}
+function taskBoard(b){
+  const bd=activeBoard(b,['rank','combos','mountain','matrix'].includes(S.view)?S.view:'rank');
+  if(!bd)return null;if(bd.kind==='encoder')return getBoard(b,bd.track,'auto');if(bd.kind==='pro')return null;return bd;
+}
+function taskDrawer(b,t){
+  const g=guideTaskMap(b.id).get(t.id),title=g?.title||t.instruction||shortTask(t),list=taskClipList(b,t,g),vid=`task-${t.id}`;CLIPS[vid]=list;
+  const cat=b.id==='libero'?`${suiteName(t.suite)} · ${SUITES[t.suite]?.[1]||''}`:t.condition||t.suite||'';
+  let h=`<div class="d-h">${tile(b.id)}<div><h2>${esc(title)}</h2><p>${esc(g?.objective||'')}</p></div></div>
+    <div class="meta" style="margin-top:10px">${cat?`<span class="pill">${esc(cat)}</span>`:''}<span class="mono muted">${esc(t.id)}</span>${g?.sourceUrl?`<a href="${esc(safeUrl(g.sourceUrl))}" target="_blank" rel="noopener">官方定义 ↗</a>`:''}</div>
+    ${t.instruction?`<p class="ins">原始指令 <code lang="en">${esc(t.instruction)}</code></p>`:''}
+    <div class="d-sec" data-vhost="${esc(vid)}">${videoBlock(list,0,vid)}</div>`;
+  const bd=taskBoard(b);
+  if(bd){const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>({r,v:r.tasks?.[t.id]})).filter(x=>x.v).sort((a,c)=>(fin(c.v.rate)?c.v.rate:-1)-(fin(a.v.rate)?a.v.rate:-1));
+    if(rows.length)h+=`<div class="d-sec"><h3>本任务成绩 <small>${esc(shortTrack(bd.track))}${S.pol!=='all'?' · '+esc(polName(S.pol)):''}</small></h3><div class="blist">${rows.slice(0,40).map(x=>bRow(`${encMark(x.r.encoder)}<span>${esc(x.r.name)}</span>${bd.kind!=='run'||bd.pols.length>1?polBadge(x.r.head):''}`,x.v.rate,fin(x.v.succ)?`${x.v.succ}/${x.v.ep}`:'覆盖未齐',`data-row="${esc(x.r.id)}"`)).join('')}</div>${rows.length>40?`<p class="muted" style="font-size:12px">仅列前 40 行。</p>`:''}</div>`;}
+  h+=g?`<div class="d-sec"><h3>任务说明</h3>${taskFacts(g)}</div>`:'';
+  return h;
+}
+
+/* ---------- task videos ---------- */
+function videosView(b){
+  const g=guideTaskMap(b.id),q=S.q.trim().toLowerCase();
+  const tasks=(b.tasks||[]).filter(t=>taskVideos(b,t).length).filter(t=>S.cat==='all'||!SUITE_ORDER.includes(S.cat)||t.suite===S.cat)
+    .filter(t=>!q||`${t.name} ${t.instruction} ${g.get(t.id)?.title||''} ${t.condition||''}`.toLowerCase().includes(q));
+  if(!tasks.length)return emptyBox('没有符合条件的任务视频');
+  return `<div class="scopebar"><b>${tasks.length} 个任务</b><span class="sep"></span><span>封面为初始观测或片段首帧；点击查看视频、任务说明与该任务的各模型成绩。视频是任务演示或历史诊断，不代表当前模型的平均表现。</span></div>
+    <div class="vgrid">${tasks.map(t=>{const gt=g.get(t.id),poster=taskPoster(t),cat=b.id==='libero'?suiteName(t.suite):(t.condition||'');
+      return `<button class="vcard" data-task="${esc(t.id)}"><span class="poster">${poster?`<img src="${esc(safeUrl(poster))}" alt="" loading="lazy" decoding="async">`:''}${cat?`<span class="tag pill">${esc(cat)}</span>`:''}<span class="play">${icon('play')}</span></span>
+        <span class="body"><b>${esc(gt?.title||t.instruction||shortTask(t))}</b><small>${esc(gt?.objective||t.instruction||'')}</small></span></button>`;}).join('')}</div>`;
+}
+
+/* ---------- 关于 (benchmark guide) ---------- */
+function guideTasks(b){
+  const g=GUIDES[b.id];
+  if(g?.tasks?.length)return g.tasks;
+  return (b.tasks||[]).map(t=>({id:t.id,localTaskId:t.id,title:t.instruction||shortTask(t),objective:t.condition||t.instruction||'',categoryId:t.suite,instruction:t.instruction}));
+}
+function guideCats(b){
+  const g=GUIDES[b.id];if(g?.categories?.length)return g.categories;
+  return (bmeta(b.id).axes||[]).map((a,i)=>({id:SUITE_ORDER[i]||String(i),name:a.name,question:a.description}));
+}
+function coverageText(b){
+  if(isPlanned(b))return '尚无本站实测成绩';
+  const nat=b.tracks.find(t=>t.combinations),pro=b.tracks.find(t=>t.proRows);
+  if(nat)return `Joint40 · ${nat.completeCombinations}/${nat.expectedCombinations} 个编码器 × 策略组合完整（三训练种子）`;
+  if(pro)return `${pro.tasksPerTrack||40} 任务 × ${(pro.perturbations||[]).length} 类扰动 · ${pro.completedCells} 个完整扰动格`;
+  if(b.id==='robotwin2')return `${b.taskCount} 个任务已评估 · ${b.tracks.length} 个版本（Easy / Hard / 官方 DP 参照）`;
+  return `${b.taskCount} 个实例 · ${b.tracks.reduce((n,t)=>n+t.runs.length,0)} 条单回合诊断`;
+}
+function aboutView(b){
+  const m=bmeta(b.id),g=GUIDES[b.id]||{},cats=guideCats(b),tasks=guideTasks(b),hm=guideMedia(g.media),src=m.projectUrl||b.sourceUrl;
+  if(!hm.length){const t=tasks.find(x=>(x.media||[]).length);if(t)hm.push(...guideMedia(t.media));else{const lt=(b.tasks||[]).find(x=>taskVideos(b,x).length);if(lt)hm.push(...taskVideos(b,lt));}}
+  CLIPS['hero']=hm;
+  return `<div class="about">
+    ${isPlanned(b)?`<div class="callout">本站尚未接入 ${esc(m.name||b.name)} 的实测成绩。下面的任务与类别说明来自官方资料，用于理解测试目标。</div>`:''}
+    <section class="card about-hero"><div><h2>${esc(m.tagline||m.name||b.name)}</h2><p>${esc(g.intro||m.description||b.description)}</p>
+      <dl class="facts"><dt>官方规模</dt><dd>${esc(m.scale||'—')}</dd><dt>本站进度</dt><dd>${esc(coverageText(b))}</dd>${m.caveat?`<dt>阅读提示</dt><dd>${esc(m.caveat)}</dd>`:''}</dl>
+      <div class="src-list">${src?`<a class="btn" href="${esc(safeUrl(src))}" target="_blank" rel="noopener">${icon('ext')}官方项目</a>`:''}${m.paperUrl?`<a class="btn" href="${esc(safeUrl(m.paperUrl))}" target="_blank" rel="noopener">${icon('book')}论文</a>`:''}${!isPlanned(b)?`<button class="btn primary" data-view="rank">${icon('trophy')}查看榜单</button>`:''}</div></div>
+      <div data-vhost="hero">${videoBlock(hm,0,'hero')}</div></section>
+    ${cats.length?`<section><div class="section-h"><div><h2>评测维度</h2><p>${esc(g.categoryBasis||'按官方测试维度解读；不同维度的分数分开读。')}</p></div><span class="muted">${cats.length} 类</span></div>
+      <div class="cats">${cats.map((c,i)=>{const n=tasks.filter(t=>t.categoryId===c.id).length;return `<article class="catc"><span class="n">${String(i+1).padStart(2,'0')}${c.english?` · ${esc(c.english)}`:''}</span><h4>${esc(c.name)}${n?`<small>${n} 项任务</small>`:''}</h4><p>${esc(c.question||'')}</p>
+        ${c.changes||c.holdsFixed||c.example||c.distinction?`<dl>${c.changes?`<div><dt>改变什么</dt><dd>${esc(c.changes)}</dd></div>`:''}${c.holdsFixed?`<div><dt>保持不变</dt><dd>${esc(c.holdsFixed)}</dd></div>`:''}${c.example?`<div><dt>例子</dt><dd>${esc(c.example)}</dd></div>`:''}${c.distinction?`<div><dt>与其他类别的区别</dt><dd>${esc(c.distinction)}</dd></div>`:''}</dl>`:''}</article>`;}).join('')}</div></section>`:''}
+    <section><div class="section-h"><div><h2>任务目录</h2><p>${esc(g.taskInventory?.label||g.taskScope||'逐项查看任务目标与执行视频。')}</p></div><span class="muted">${num(tasks.length)} 项${g.taskInventory?.officialCount?` · 官方共 ${num(g.taskInventory.officialCount)} 项`:''}</span></div>
+      <div class="card dir"><div class="dir-list"><div class="dir-tools">${cats.length>1?`<div class="seg">${[['all','全部']].concat(cats.map(c=>[c.id,c.name])).map(([k,l])=>`<button data-gcat="${esc(k)}" aria-pressed="${S.gcat===k}">${esc(l)}</button>`).join('')}</div>`:''}
+        <label class="search">${icon('search')}<span class="sr-only">搜索任务</span><input id="gq" type="search" value="${esc(S.gq)}" placeholder="搜索任务、物体或动作…" autocomplete="off"></label></div><div id="dir-list"></div><div class="pager" id="dir-pager"></div></div>
+      <div class="dir-view" id="dir-view" aria-live="polite"></div></div>
+      ${g.taskInventory?.note||g.taskScope?`<p class="muted" style="font-size:12.5px;margin:10px 2px 0">${esc(g.taskInventory?.note||g.taskScope)}${g.taskInventory?.sourceUrl?` <a class="link" href="${esc(safeUrl(g.taskInventory.sourceUrl))}" target="_blank" rel="noopener">官方任务目录 ↗</a>`:''}</p>`:''}</section>
+    ${(g.sources||[]).length?`<section><div class="section-h"><div><h2>来源</h2></div></div><div class="src-list">${g.sources.map(s=>`<a class="btn" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>`).join('')}</div></section>`:''}
+  </div>`;
+}
+const PAGE=12;
+function matchingGuide(b){const q=S.gq.trim().toLowerCase();return guideTasks(b).filter(t=>(S.gcat==='all'||t.categoryId===S.gcat)&&(!q||`${t.title} ${t.objective} ${t.instruction||''} ${t.id}`.toLowerCase().includes(q)));}
+function renderDirectory(){
+  const b=B(),list=$('#dir-list');if(!list)return;
+  const tasks=matchingGuide(b),pages=Math.max(1,Math.ceil(tasks.length/PAGE));
+  if(S.gtask&&tasks.some(t=>t.id===S.gtask))S.gpage=Math.floor(tasks.findIndex(t=>t.id===S.gtask)/PAGE);
+  S.gpage=Math.min(S.gpage,pages-1);if(!tasks.some(t=>t.id===S.gtask))S.gtask=tasks[S.gpage*PAGE]?.id||'';
+  const sub=tasks.slice(S.gpage*PAGE,S.gpage*PAGE+PAGE),loc=new Set((b.tasks||[]).map(t=>t.id));
+  list.innerHTML=sub.map((t,i)=>{const hasV=(t.media||[]).length||(loc.has(t.localTaskId)&&taskVideos(b,(b.tasks||[]).find(x=>x.id===t.localTaskId)).length);
+    return `<button class="trow" data-gtask="${esc(t.id)}" aria-pressed="${t.id===S.gtask}"><span class="i">${String(S.gpage*PAGE+i+1).padStart(2,'0')}</span><span><b>${esc(t.title||t.id)}</b><small>${esc(t.objective||'')}</small></span>${icon(hasV?'video':'book')}</button>`;}).join('')||'<div class="empty">没有匹配的任务</div>';
+  $('#dir-pager').innerHTML=`<button data-gpage="${S.gpage-1}" ${S.gpage===0?'disabled':''} aria-label="上一页">‹</button><span>${num(tasks.length)} 项 · ${S.gpage+1} / ${pages}</span><button data-gpage="${S.gpage+1}" ${S.gpage>=pages-1?'disabled':''} aria-label="下一页">›</button>`;
+  renderGuideTask(b);
+}
+function renderGuideTask(b){
+  const view=$('#dir-view');if(!view)return;$$('#dir-view video').forEach(v=>v.pause());
+  const t=guideTasks(b).find(x=>x.id===S.gtask);
+  if(!t){view.innerHTML='<div class="empty">选择左侧任务查看。</div>';return;}
+  const cat=guideCats(b).find(c=>c.id===t.categoryId),local=(b.tasks||[]).find(x=>x.id===t.localTaskId),list=local?taskClipList(b,local,t):guideMedia(t.media),vid=`g-${t.id}`;CLIPS[vid]=list;
+  view.innerHTML=`<div class="meta">${cat?`<span class="pill">${esc(cat.name)}</span>`:''}<span class="mono muted">${esc(t.id)}</span>${local?`<button class="btn" data-task="${esc(local.id)}" style="margin-left:auto">${icon('trophy')}本站成绩</button>`:''}</div>
+    <h3>${esc(t.title||t.id)}</h3><p class="obj">${esc(t.objective||'')}</p><div data-vhost="${esc(vid)}">${videoBlock(list,0,vid)}</div>
+    ${t.instruction?`<p class="ins">原始指令 <code lang="en">${esc(t.instruction)}</code></p>`:''}${taskFacts(t)}
+    ${t.sourceUrl?`<p style="font-size:12.5px"><a class="link" href="${esc(safeUrl(t.sourceUrl))}" target="_blank" rel="noopener">官方定义 ↗</a></p>`:''}`;
+  initVideos();
+}
+document.addEventListener('click',e=>{
+  let el;
+  if((el=e.target.closest('[data-gcat]'))){S.gcat=el.dataset.gcat;S.gpage=0;S.gtask='';$$('[data-gcat]').forEach(x=>x.setAttribute('aria-pressed',String(x===el)));renderDirectory();writeRoute();return;}
+  if((el=e.target.closest('[data-gtask]'))){S.gtask=el.dataset.gtask;$$('[data-gtask]').forEach(x=>x.setAttribute('aria-pressed',String(x===el)));renderGuideTask(B());writeRoute();return;}
+  if((el=e.target.closest('[data-gpage]'))){S.gpage=Number(el.dataset.gpage);S.gtask='';renderDirectory();writeRoute();return;}
+});
+document.addEventListener('input',e=>{if(e.target.id==='gq'){S.gq=e.target.value;S.gpage=0;S.gtask='';renderDirectory();}});
+
+/* ---------- atlas ---------- */
+function atlasPage(){
+  return `<div class="wrap"><div class="page-h"><h1>Benchmark 图谱</h1><p>八个机器人操作 benchmark：各自测什么、规模多大、本站评测进行到哪一步。每个 benchmark 的颜色与图标在全站一致。</p></div>
+    <div class="atlas">${DATA.benchmarks.map(b=>{const m=bmeta(b.id),g=GUIDES[b.id]||{},axes=(g.categories||m.axes||[]).map(a=>a.name);
+      return `<article class="bcard" style="${bcVars(b.id)}"><div class="top-row">${tile(b.id,'l')}<h3>${esc(m.name||b.name)}<small>${esc(m.tagline||'')}</small></h3></div>
+        <p class="q">${esc(m.question||b.description)}</p>${axes.length?`<div class="axes">${axes.slice(0,6).map(a=>`<span>${esc(a)}</span>`).join('')}</div>`:''}
+        <div class="meta">${statusPill(b)}${m.publicationDate?`<span>${dateDot(m.publicationDate)}</span>`:''}<span>${esc(m.scale||'')}</span></div>
+        <div class="foot"><span><b>${esc(isPlanned(b)?'尚无实测':benchBlurb(b))}</b><br>${num((g.tasks||[]).length||b.taskCount)} 项任务已编目</span>
+          <div class="actions"><button class="btn" data-go-bench="${esc(b.id)}" data-go-view="about">了解任务</button>${!isPlanned(b)?`<button class="btn primary" data-go-bench="${esc(b.id)}" data-go-view="rank">榜单</button>`:''}</div></div></article>`;}).join('')}</div></div>`;
+}
+
+/* ---------- method ---------- */
+function methodPage(){
+  const P=[['scale','同协议才比较','只有同一 benchmark、同一训练与评估协议、同一覆盖范围内的结果才排名次。历史协议与诊断记录分开显示，不混合分母。'],
+    ['seed','多个训练种子','以三个训练种子的等权平均为准（LIBERO：17 / 29 / 43；RoboTwin：0 / 1 / 2），± 为种子间标准差；只有单个种子的版本会在版本名里注明。'],
+    ['layersOff','缺失不填 0','覆盖未齐的格子显示 “—”，不计为失败，也不用部分种子的均值代替。'],
+    ['eye','冻结视觉编码器','视觉编码器全程冻结，只训练动作模型；比较的是视觉表征本身对机器人操作的支持。'],
+    ['flask','证据可追溯','每个成绩都能追到审计记录、checkpoint 与日志；有回合报错的评估作废重跑。视频是任务演示或历史诊断，不代表平均表现。']];
+  const cards=DATA.benchmarks.filter(b=>!isPlanned(b)).map(b=>{const m=bmeta(b.id);
+    return `<section class="card proto" style="${bcVars(b.id)}"><div class="top-row">${tile(b.id)}<h3>${esc(m.name||b.name)}</h3>${statusPill(b)}</div><p class="muted" style="margin:0 0 10px;font-size:13px">${esc(b.description)}</p>
+      <table><tbody>${[...b.tracks].sort((x,y)=>((y.combinations||y.proRows)?1:0)-((x.combinations||x.proRows)?1:0)).map(t=>`<tr><th>${esc(shortTrack(t))}</th><td>${t.trainingSeeds?.length?`训练种子 ${esc(t.trainingSeeds.join(' / '))}`:''}${t.targetEpisodesPerTask?` · 每任务 ${esc(t.targetEpisodesPerTask)} 回合`:''}${t.rankingNote?`<br><span class="muted">${esc(t.rankingNote)}</span>`:''}</td></tr>`).join('')}
+      ${m.caveat?`<tr><th>阅读提示</th><td>${esc(m.caveat)}</td></tr>`:''}</tbody></table></section>`;}).join('');
+  return `<div class="wrap"><div class="page-h"><h1>评测方法</h1><p>MVE 比较冻结视觉编码器在机器人操作中的作用。下面是全站共同的规则和每个 benchmark 的协议。</p></div>
+    <div class="method"><div class="principles">${P.map(([i,t,d])=>`<article class="principle">${icon(i)}<h4>${esc(t)}</h4><p>${esc(d)}</p></article>`).join('')}</div>${cards}
+    ${(DATA.notes||[]).length?`<section class="card proto"><h3 style="margin:0 0 8px">数据快照说明</h3><ul style="margin:0;padding-left:18px;color:var(--ink-2);font-size:13px">${DATA.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></section>`:''}</div></div>`;
+}
+
+/* ---------- log ---------- */
+const LOG_TYPES={evaluation:'评估',protocol:'协议',correction:'勘误',release:'发布',queue:'队列',recovery:'恢复'};
+function logBench(e){const s=`${e.id} ${e.title}`.toLowerCase();if(s.includes('robotwin'))return 'robotwin2';if(/plus/.test(s))return 'libero-plus';if(/(^|[-_ ])pro([-_ ]|$)|PRO/.test(`${e.id} ${e.title}`))return 'libero-pro';if(e.type==='evaluation')return 'libero';return '';}
+function logList(){
+  const q=S.logq.trim().toLowerCase();
+  const items=[...(DATA.experimentLog||[])].sort((a,b)=>(Date.parse(b.at)||0)-(Date.parse(a.at)||0))
+    .filter(e=>(S.logtype==='all'||e.type===S.logtype)&&(!q||`${e.title} ${e.summary} ${e.id}`.toLowerCase().includes(q)));
+  let day='',out='';
+  for(const e of items){const d=String(e.at||'').slice(0,10);if(d!==day){day=d;out+=`<div class="day">${esc(d||'时间未记录')}</div>`;}
+    const bid=logBench(e),bm=bid?bmeta(bid):null;
+    out+=`<article class="entry"><time>${esc(String(e.at||'').slice(11,16))} UTC</time><div><h4>${bid?`<span class="btag" style="${bcVars(bid)}"><i></i>${esc(bm?.name||bid)}</span>`:''}<span class="tpill">${esc(LOG_TYPES[e.type]||e.type||'记录')}</span>${esc(e.title)}</h4>
+      <p>${esc(e.summary)}</p>${String(e.summary||'').length>150?'<button class="more" data-more>展开全文</button>':''}<div class="ev"><span>证据 · ${esc(e.evidenceLabel||'—')}</span>${e.commitUrl&&safeUrl(e.commitUrl)!=='#'?`<a class="link" href="${esc(safeUrl(e.commitUrl))}" target="_blank" rel="noopener">关联提交 ↗</a>`:''}</div></div></article>`;}
+  return out||'<div class="card empty"><h3>没有匹配的记录</h3></div>';
+}
+function logPage(){
+  const types=[...new Set((DATA.experimentLog||[]).map(e=>e.type).filter(Boolean))],commits=DATA.repository?.recentCommits||[];
+  return `<div class="wrap"><div class="page-h"><h1>实验日志</h1><p>训练、评估、审计与发布的可追溯记录 · ${num((DATA.experimentLog||[]).length)} 条 · 数据快照 ${esc(String(DATA.updatedAt||'').replace('T',' ').slice(0,16))} UTC</p></div>
+    <div class="log"><section><div class="log-tools"><div class="seg">${[['all','全部']].concat(types.map(t=>[t,LOG_TYPES[t]||t])).map(([k,l])=>`<button data-logtype="${esc(k)}" aria-pressed="${S.logtype===k}">${esc(l)}</button>`).join('')}</div>
+      <label class="search">${icon('search')}<span class="sr-only">搜索日志</span><input id="logq" type="search" value="${esc(S.logq)}" placeholder="搜索标题或内容…" autocomplete="off"></label></div><div id="log-list">${logList()}</div></section>
+      <aside class="card commits"><h3>${icon('github')} GitHub 提交</h3><p class="muted" style="font-size:12.5px;margin:0">代码历史，与左侧实验记录分开列示。${DATA.repository?.isPrivate!==false?'仓库为私有。':''}</p>
+        ${commits.length?`<ol>${commits.map(c=>`<li><time>${esc(String(c.at||'').slice(0,16).replace('T',' '))}</time>${c.url&&safeUrl(c.url)!=='#'?`<a class="link" href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener">${esc(c.title)}</a>`:esc(c.title)} <span class="mono muted">${esc(String(c.sha||'').slice(0,8))}</span></li>`).join('')}</ol>`:'<p class="muted">暂无提交记录。</p>'}
+        ${DATA.repository?.commitsUrl?`<p style="margin:12px 0 0"><a class="btn" href="${esc(safeUrl(DATA.repository.commitsUrl))}" target="_blank" rel="noopener">完整提交历史 ↗</a></p>`:''}</aside></div></div>`;
+}
+document.addEventListener('click',e=>{
+  let el;
+  if((el=e.target.closest('[data-logtype]'))){S.logtype=el.dataset.logtype;$$('[data-logtype]').forEach(x=>x.setAttribute('aria-pressed',String(x===el)));$('#log-list').innerHTML=logList();return;}
+  if((el=e.target.closest('[data-more]'))){const a=el.closest('.entry');a.classList.toggle('open');el.textContent=a.classList.contains('open')?'收起':'展开全文';}
+});
+document.addEventListener('input',e=>{if(e.target.id==='logq'){S.logq=e.target.value;$('#log-list').innerHTML=logList();}});
