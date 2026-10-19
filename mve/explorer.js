@@ -137,7 +137,7 @@ function viewTracks(b,view){
     if(view==='rank'||view==='mountain')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
     if(view==='combos'||view==='matrix')return ts.filter(t=>t.combinations||t.runs?.length).sort((a,c)=>(c.combinations?1:0)-(a.combinations?1:0)).map(t=>t.id);
   }
-  if(view==='mountain')return ts.filter(t=>t.proRows||(t.runs||[]).filter(r=>fin(r.successRate)).length>=3).map(t=>t.id);
+  if(view==='mountain')return ts.filter(t=>t.proRows||(t.runs||[]).filter(r=>fin(r.successRate)&&(r.episodes||0)>1).length>=3).map(t=>t.id);
   if(view==='matrix')return ts.filter(t=>t.proRows||(t.runs||[]).length>1).map(t=>t.id);
   return ts.map(t=>t.id);
 }
@@ -256,7 +256,8 @@ function rowStd(bd,r){
 const inPool=(bd,r)=>bd.kind==='encoder'||S.pol==='all'||r.head===S.pol;
 function rankRows(bd){
   const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>({r,s:rowScore(bd,r)}));
-  for(const x of rows)x.rank=fin(x.s)?1+rows.filter(y=>fin(y.s)&&y.s>x.s+1e-12).length:null;
+  // single-episode diagnostics are marked 不排名 in the data: no ranks for them
+  for(const x of rows)x.rank=!bd.single&&fin(x.s)?1+rows.filter(y=>fin(y.s)&&y.s>x.s+1e-12).length:null;
   return rows;
 }
 function visibleRows(bd){
