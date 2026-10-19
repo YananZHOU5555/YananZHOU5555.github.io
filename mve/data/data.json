@@ -392868,13 +392868,1961 @@
     {
       "id": "robotwin2",
       "name": "RoboTwin 2.0",
-      "status": "planned",
+      "status": "evaluated",
       "sourceUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
-      "description": "后续计划；当前没有接入的任务、评估成绩或本地实测媒体。",
-      "taskCount": 0,
-      "taskCountLabel": "已接入任务",
-      "tasks": [],
-      "tracks": []
+      "description": "MVE 冻结编码器对比（M6 协议 v1）：冻结视觉编码器 → 逐 token LayerNorm → 线性 512 → 官方 DP（U-Net）动作头；aloha-agilex 头部相机，demo_clean 50 回合训练 600 epoch，每任务 100 回合评估。Easy 为 demo_clean 场景，Hard 为 demo_randomized 随机化场景（训练只用 clean 数据）。R0 为官方 DP（ResNet-18 从零端到端训练）。数据截至 2026-10-19 05:48 UTC。",
+      "taskCount": 20,
+      "taskCountLabel": "已评估任务（RoboTwin 共 50 个）",
+      "tasks": [
+        {
+          "id": "robotwin2-adjust_bottle",
+          "name": "adjust_bottle",
+          "instruction": "adjust bottle",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP 重复评估：90% / 90% / 90%；官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 96,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 99,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 90,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 85,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 90,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_vit_b",
+              "successes": 290,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_convnext_b",
+              "successes": 292,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-resnet18_in1k",
+              "successes": 276,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dinov3_l16",
+              "successes": 240,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dp_resnet18_scratch",
+              "successes": 277,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 9,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 1,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 2,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 21,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 90,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-beat_block_hammer",
+          "name": "beat_block_hammer",
+          "instruction": "beat block hammer",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP 重复评估：27% / 30% / 28%；官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 44,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 69,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 74,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 8,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 27,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_vit_b",
+              "successes": 130,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_convnext_b",
+              "successes": 213,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-resnet18_in1k",
+              "successes": 212,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dinov3_l16",
+              "successes": 36,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dp_resnet18_scratch",
+              "successes": 80,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 1,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 27,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-handover_block",
+          "name": "handover_block",
+          "instruction": "handover block",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 49,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 22,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 22,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 5,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 16,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_vit_b",
+              "successes": 166,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_convnext_b",
+              "successes": 56,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-resnet18_in1k",
+              "successes": 82,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dinov3_l16",
+              "successes": 13,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dp_resnet18_scratch",
+              "successes": 63,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 16,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-place_empty_cup",
+          "name": "place_empty_cup",
+          "instruction": "place empty cup",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP 重复评估：28% / 28%；官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 53,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 50,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 30,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 36,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 28,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_vit_b",
+              "successes": 161,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-eupe_convnext_b",
+              "successes": 170,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-resnet18_in1k",
+              "successes": 98,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dinov3_l16",
+              "successes": 107,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-3seed-dp_resnet18_scratch",
+              "successes": 72,
+              "episodes": 300,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 28,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-click_bell",
+          "name": "click_bell",
+          "instruction": "click bell",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 84,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 85,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 78,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 75,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 69,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 3,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 4,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 5,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 11,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 69,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-blocks_ranking_rgb",
+          "name": "blocks_ranking_rgb",
+          "instruction": "blocks ranking rgb",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 4,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 8,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 3,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 2,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 2,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-stack_blocks_two",
+          "name": "stack_blocks_two",
+          "instruction": "stack blocks two",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "M6 协议任务",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 56,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 29,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 25,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 10,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 9,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-open_laptop",
+          "name": "open_laptop",
+          "instruction": "open laptop",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 66,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 59,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 56,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 54,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 47,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 47,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-lift_pot",
+          "name": "lift_pot",
+          "instruction": "lift pot",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 90,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 80,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 92,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 89,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 39,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dinov3_l16",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 39,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-place_object_scale",
+          "name": "place_object_scale",
+          "instruction": "place object scale",
+          "suite": "M6 协议任务",
+          "media": [],
+          "note": "M6 协议任务",
+          "results": [
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "successes": 3,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "successes": 3,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dinov3_l16",
+              "successes": 3,
+              "episodes": 100,
+              "status": "complete"
+            },
+            {
+              "runId": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "successes": 1,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-click_alarmclock",
+          "name": "click_alarmclock",
+          "instruction": "click alarmclock",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：6%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 70,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-dump_bin_bigbin",
+          "name": "dump_bin_bigbin",
+          "instruction": "dump bin bigbin",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 42,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-blocks_ranking_size",
+          "name": "blocks_ranking_size",
+          "instruction": "blocks ranking size",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 1,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-grab_roller",
+          "name": "grab_roller",
+          "instruction": "grab roller",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 97,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-handover_mic",
+          "name": "handover_mic",
+          "instruction": "handover mic",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 49,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-hanging_mug",
+          "name": "hanging_mug",
+          "instruction": "hanging mug",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 20,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-move_can_pot",
+          "name": "move_can_pot",
+          "instruction": "move can pot",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 14,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-move_pillbottle_pad",
+          "name": "move_pillbottle_pad",
+          "instruction": "move pillbottle pad",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 4,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-move_playingcard_away",
+          "name": "move_playingcard_away",
+          "instruction": "move playingcard away",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 57,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "robotwin2-move_stapler_pad",
+          "name": "move_stapler_pad",
+          "instruction": "move stapler pad",
+          "suite": "官方 DP 参照任务",
+          "media": [],
+          "note": "官方 DP Hard：0%",
+          "results": [
+            {
+              "runId": "robotwin2-dp-official",
+              "successes": 0,
+              "episodes": 100,
+              "status": "complete"
+            }
+          ]
+        }
+      ],
+      "tracks": [
+        {
+          "id": "robotwin2-m6-easy-s0",
+          "label": "编码器对比 · Easy · 训练种子 0（10 任务）",
+          "stage": "development",
+          "ranked": false,
+          "trainingSeeds": [
+            0
+          ],
+          "episodesPerTask": 100,
+          "targetEpisodesPerTask": 100,
+          "runs": [
+            {
+              "id": "robotwin2-m6-easy-s0-eupe_vit_b",
+              "encoder": "eupe_vit_b",
+              "encoderLabel": "EUPE ViT-B · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 545,
+              "episodes": 1000,
+              "expectedEpisodes": 1000,
+              "successRate": 0.545,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 96,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 44,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 49,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 53,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 84,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 4,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-stack_blocks_two",
+                  "successes": 56,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 66,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 90,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_object_scale",
+                  "successes": 3,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-s0-eupe_convnext_b",
+              "encoder": "eupe_convnext_b",
+              "encoderLabel": "EUPE ConvNeXt-B · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 504,
+              "episodes": 1000,
+              "expectedEpisodes": 1000,
+              "successRate": 0.504,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 99,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 69,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 22,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 50,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 85,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 8,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-stack_blocks_two",
+                  "successes": 29,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 59,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 80,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_object_scale",
+                  "successes": 3,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-s0-resnet18_in1k",
+              "encoder": "resnet18_in1k",
+              "encoderLabel": "ResNet-18 · ImageNet-1K（R1）· 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 470,
+              "episodes": 1000,
+              "expectedEpisodes": 1000,
+              "successRate": 0.47,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 90,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 74,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 22,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 30,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 78,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 3,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-stack_blocks_two",
+                  "successes": 25,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 56,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 92,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_object_scale",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-s0-dinov3_l16",
+              "encoder": "dinov3_l16",
+              "encoderLabel": "DINOv3 ViT-L/16 · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 365,
+              "episodes": 1000,
+              "expectedEpisodes": 1000,
+              "successRate": 0.365,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 85,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 8,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 5,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 36,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 75,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-stack_blocks_two",
+                  "successes": 10,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 54,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 89,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_object_scale",
+                  "successes": 3,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-s0-dp_resnet18_scratch",
+              "encoder": "dp_resnet18_scratch",
+              "encoderLabel": "ResNet-18 · 从零训练（R0，官方 DP）",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 328,
+              "episodes": 1000,
+              "expectedEpisodes": 1000,
+              "successRate": 0.328,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "官方 DP 端到端",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 90,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 27,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 16,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 28,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 69,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 2,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-stack_blocks_two",
+                  "successes": 9,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 47,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 39,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_object_scale",
+                  "successes": 1,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            }
+          ],
+          "rankingNote": "10 个协议任务 × 5 组，每格 100 回合，训练种子 0 全部完成；平均成功率 = 10 个任务等权平均。按序贯设计，均值相差不到 10 个点的对比正在补训练种子 1、2，见“3 个训练种子”版本。日志中出现回合报错或 OIDN 报错的评估一律作废并单独重跑。开发比较。 平均成功率从高到低：EUPE ViT-B 54.5%，EUPE ConvNeXt-B 50.4%，R1（ResNet-18 IN-1K） 47.0%，DINOv3 ViT-L/16 36.5%，R0（官方 DP） 32.8%。"
+        },
+        {
+          "id": "robotwin2-m6-easy-3seed",
+          "label": "编码器对比 · Easy · 3 个训练种子（4 任务）",
+          "stage": "development",
+          "ranked": false,
+          "trainingSeeds": [
+            0,
+            1,
+            2
+          ],
+          "episodesPerTask": 300,
+          "targetEpisodesPerTask": 300,
+          "runs": [
+            {
+              "id": "robotwin2-m6-easy-3seed-eupe_vit_b",
+              "encoder": "eupe_vit_b",
+              "encoderLabel": "EUPE ViT-B · 冻结",
+              "head": "dp",
+              "trainingSeed": null,
+              "successes": 747,
+              "episodes": 1200,
+              "expectedEpisodes": 1200,
+              "successRate": 0.6225,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 290,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 130,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 166,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 161,
+                  "episodes": 300,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-3seed-eupe_convnext_b",
+              "encoder": "eupe_convnext_b",
+              "encoderLabel": "EUPE ConvNeXt-B · 冻结",
+              "head": "dp",
+              "trainingSeed": null,
+              "successes": 731,
+              "episodes": 1200,
+              "expectedEpisodes": 1200,
+              "successRate": 0.6091666666666666,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 292,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 213,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 56,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 170,
+                  "episodes": 300,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-3seed-resnet18_in1k",
+              "encoder": "resnet18_in1k",
+              "encoderLabel": "ResNet-18 · ImageNet-1K（R1）· 冻结",
+              "head": "dp",
+              "trainingSeed": null,
+              "successes": 668,
+              "episodes": 1200,
+              "expectedEpisodes": 1200,
+              "successRate": 0.5566666666666666,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 276,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 212,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 82,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 98,
+                  "episodes": 300,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-3seed-dinov3_l16",
+              "encoder": "dinov3_l16",
+              "encoderLabel": "DINOv3 ViT-L/16 · 冻结",
+              "head": "dp",
+              "trainingSeed": null,
+              "successes": 396,
+              "episodes": 1200,
+              "expectedEpisodes": 1200,
+              "successRate": 0.33,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 240,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 36,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 13,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 107,
+                  "episodes": 300,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-easy-3seed-dp_resnet18_scratch",
+              "encoder": "dp_resnet18_scratch",
+              "encoderLabel": "ResNet-18 · 从零训练（R0，官方 DP）",
+              "head": "dp",
+              "trainingSeed": null,
+              "successes": 492,
+              "episodes": 1200,
+              "expectedEpisodes": 1200,
+              "successRate": 0.41,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "官方 DP 端到端",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 277,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 80,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 63,
+                  "episodes": 300,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 72,
+                  "episodes": 300,
+                  "status": "complete"
+                }
+              ]
+            }
+          ],
+          "rankingNote": "只含 5 组都已收齐训练种子 0、1、2 的任务：adjust_bottle、beat_block_hammer、handover_block、place_empty_cup。每任务 300 回合（3 × 100），成功率为三种子等权平均，任务之间也等权。click_bell、blocks_ranking_rgb、stack_blocks_two、open_laptop、lift_pot、place_object_scale 的种子 1、2 正在补跑。 平均成功率从高到低：EUPE ViT-B 62.3%，EUPE ConvNeXt-B 60.9%，R1（ResNet-18 IN-1K） 55.7%，R0（官方 DP） 41.0%，DINOv3 ViT-L/16 33.0%。"
+        },
+        {
+          "id": "robotwin2-m6-hard-s0",
+          "label": "编码器对比 · Hard · 训练种子 0（6 任务）",
+          "stage": "development",
+          "ranked": false,
+          "trainingSeeds": [
+            0
+          ],
+          "episodesPerTask": 100,
+          "targetEpisodesPerTask": 100,
+          "runs": [
+            {
+              "id": "robotwin2-m6-hard-s0-eupe_vit_b",
+              "encoder": "eupe_vit_b",
+              "encoderLabel": "EUPE ViT-B · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 12,
+              "episodes": 600,
+              "expectedEpisodes": 600,
+              "successRate": 0.02,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 9,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 3,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-hard-s0-eupe_convnext_b",
+              "encoder": "eupe_convnext_b",
+              "encoderLabel": "EUPE ConvNeXt-B · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 6,
+              "episodes": 600,
+              "expectedEpisodes": 600,
+              "successRate": 0.01,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 1,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 1,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 4,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-hard-s0-resnet18_in1k",
+              "encoder": "resnet18_in1k",
+              "encoderLabel": "ResNet-18 · ImageNet-1K（R1）· 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 7,
+              "episodes": 600,
+              "expectedEpisodes": 600,
+              "successRate": 0.011666666666666667,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 2,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 5,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-hard-s0-dinov3_l16",
+              "encoder": "dinov3_l16",
+              "encoderLabel": "DINOv3 ViT-L/16 · 冻结",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 32,
+              "episodes": 600,
+              "expectedEpisodes": 600,
+              "successRate": 0.05333333333333334,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "M6 冻结编码器 + 官方 DP 动作头",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 21,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 11,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            },
+            {
+              "id": "robotwin2-m6-hard-s0-dp_resnet18_scratch",
+              "encoder": "dp_resnet18_scratch",
+              "encoderLabel": "ResNet-18 · 从零训练（R0，官方 DP）",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 0,
+              "episodes": 600,
+              "expectedEpisodes": 600,
+              "successRate": 0.0,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "官方 DP 端到端",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            }
+          ],
+          "rankingNote": "同一个只用 clean 数据训练的 checkpoint，在 demo_randomized 场景评估（未见过的杂物、光照、背景、桌高与指令）。只含 5 组都有结果的任务：adjust_bottle、beat_block_hammer、handover_block、place_empty_cup、click_bell、lift_pot。blocks_ranking_rgb、stack_blocks_two、open_laptop、place_object_scale 进行中。 平均成功率从高到低：DINOv3 ViT-L/16 5.3%，EUPE ViT-B 2.0%，R1（ResNet-18 IN-1K） 1.2%，EUPE ConvNeXt-B 1.0%，R0（官方 DP） 0.0%。"
+        },
+        {
+          "id": "robotwin2-dp-reference",
+          "label": "官方 DP 参照 · 18 任务 · 不排名",
+          "stage": "diagnostic",
+          "ranked": false,
+          "trainingSeeds": [
+            0
+          ],
+          "episodesPerTask": 100,
+          "targetEpisodesPerTask": 100,
+          "runs": [
+            {
+              "id": "robotwin2-dp-official",
+              "encoder": "dp_resnet18_scratch",
+              "encoderLabel": "ResNet-18 · 从零训练（R0，官方 DP）",
+              "head": "dp",
+              "trainingSeed": 0,
+              "successes": 672,
+              "episodes": 1800,
+              "expectedEpisodes": 1800,
+              "successRate": 0.37333333333333335,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "label": "官方 DP 参照",
+              "taskResults": [
+                {
+                  "taskId": "robotwin2-adjust_bottle",
+                  "successes": 90,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-beat_block_hammer",
+                  "successes": 27,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-place_empty_cup",
+                  "successes": 28,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_block",
+                  "successes": 16,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_alarmclock",
+                  "successes": 70,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-click_bell",
+                  "successes": 69,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-dump_bin_bigbin",
+                  "successes": 42,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_rgb",
+                  "successes": 2,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-blocks_ranking_size",
+                  "successes": 1,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-grab_roller",
+                  "successes": 97,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-handover_mic",
+                  "successes": 49,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-hanging_mug",
+                  "successes": 20,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-lift_pot",
+                  "successes": 39,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-move_can_pot",
+                  "successes": 14,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-move_pillbottle_pad",
+                  "successes": 4,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-move_playingcard_away",
+                  "successes": 57,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-move_stapler_pad",
+                  "successes": 0,
+                  "episodes": 100,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "robotwin2-open_laptop",
+                  "successes": 47,
+                  "episodes": 100,
+                  "status": "complete"
+                }
+              ]
+            }
+          ],
+          "rankingNote": "官方 DP（ResNet-18 与 DP 端到端从零训练）在官方流程评估过的全部任务上的 Easy 成绩（训练种子 0，每任务取首次完整评估）。是冻结编码器对比的参照线，不排名。"
+        }
+      ]
     },
     {
       "id": "robodojo",
@@ -396437,6 +398385,11 @@
       "id": "app-dav2ditr2-strict-new-20261019T0443.json",
       "label": "PRO 严格审计 · Task",
       "sha256": "59adeb93794b2ed20ce4ead4b3ebfc2225031d36bfc4d613a7e15e71a20dfb37"
+    },
+    {
+      "id": "robotwin-results-20261019T0548Z.json",
+      "label": "RoboTwin 2.0 结果（MVE 服务器：M6 编码器对比 + 官方 DP）",
+      "sha256": "170c878250a114350e3fe47323514fb6c967a8f47b6efc257ec5752181b7af93"
     }
   ],
   "experimentLog": [
@@ -397764,6 +399717,16 @@
       "title": "DAV2 DiT 首种子四扰动齐备，第二种子基础评估完成",
       "summary": "同一20k原生1369tokens、完整batch32无累积、严格FP32_noTF32协议。seed17新增Swap严格0/800、Task严格1/800，均0invalid；自身Task canary4回合排除计分。seed29基础40任务×20评估seed严格0/800、0invalid。分类各200有效回合独立核验；缺少seed43及其他PRO种子，三种子与分类均值仍为空。四卡继续有效推进。Flow/U-Net源码与CPU身份准备完成，尚待自身GPU门槛和累计空间预算；完整归档校验前保留原始模型。",
       "evidenceLabel": "app-summary-20261019T0443.json",
+      "commitUrl": null
+    },
+    {
+      "id": "robotwin-m6-web-20261019T0548Z",
+      "at": "2026-10-19T05:48:17.847824+00:00",
+      "type": "evaluation",
+      "title": "RoboTwin 2.0 编码器对比上线（M6 协议）",
+      "summary": "10 个协议任务 × 5 组的训练种子 0 Easy 全部完成，10 任务等权均值：EUPE ViT-B 54.5%，EUPE ConvNeXt-B 50.4%，R1（ResNet-18 IN-1K） 47.0%，DINOv3 ViT-L/16 36.5%，R0（官方 DP） 32.8%。3 个训练种子已收齐 4 个任务，Hard 已覆盖 6 个任务；其余种子与 Hard 补跑中。每次评估 100 回合，含回合报错或 OIDN 报错的评估作废重跑。",
+      "evidenceLabel": "robotwin-results-20261019T0548Z.json",
+      "evidenceSha256": "170c878250a114350e3fe47323514fb6c967a8f47b6efc257ec5752181b7af93",
       "commitUrl": null
     }
   ],
