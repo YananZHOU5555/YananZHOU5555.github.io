@@ -34,7 +34,10 @@ function heroStats(b){
     return [['视觉编码器',rows.length,`${rows.filter(r=>fin(r.successRate)).length} 个覆盖完整`],['策略组合',`${nat.completeCombinations}/${nat.expectedCombinations}`,'完整 / 计划'],
       ['有效回合',num(nat.auditedValidEpisodes),`严格审计 · 训练种子 ${(nat.trainingSeeds||[]).join(' / ')}`],
       top?['跨策略平均第 1',pcs(top.successRate),encName(top.encoder,top.encoderLabel)]:['训练种子',(nat.trainingSeeds||[]).join(' · '),'等权平均']];}
-  if(pro){const k=(pro.perturbations||[]).length;return [['编码器 × 策略',pro.proRows.length,`${k} 类扰动独立计分`],['完整扰动格',`${pro.completedCells}/${pro.proRows.length*k}`,'三种子齐全'],['有效回合',num(pro.auditedValidEpisodes),'严格审计'],['训练种子',(pro.trainingSeeds||[]).join(' · '),'等权平均']];}
+  if(pro){const k=(pro.perturbations||[]).length,top=getBoard(b,pro,'auto').rows.filter(r=>fin(r.overall?.rate)).sort((a,c)=>c.overall.rate-a.overall.rate)[0];
+    return [['编码器 × 策略',pro.proRows.length,`${k} 类扰动 · 总分为 ${k} 类均值`],['完整扰动格',`${pro.completedCells}/${pro.proRows.length*k}`,'三种子齐全'],
+      ['有效回合',num(pro.auditedValidEpisodes),`严格审计 · 训练种子 ${(pro.trainingSeeds||[]).join(' / ')}`],
+      top?['总分第 1',pcs(top.overall.rate),`${top.name} · ${top.polLabel||polName(top.head)}`]:['训练种子',(pro.trainingSeeds||[]).join(' · '),'等权平均']];}
   if(pair)return pairStats(getBoard(b,pair,'auto'));
   if(b.id==='robotwin2'){const g=new Set(ts.flatMap(t=>(t.runs||[]).map(r=>r.encoder))),seeds=[...new Set(ts.flatMap(t=>t.trainingSeeds||[]))].sort();
     const main=ts[0];return [['编码器组',g.size,'R0 官方 DP + 冻结编码器'],['协议任务',`${new Set((main.runs||[]).flatMap(r=>(r.taskResults||[]).map(x=>x.taskId))).size} / 50`,`共评估 ${b.taskCount} 个任务`],['评估版本',ts.length,'Easy / Hard / 参照'],['训练种子',seeds.join(' · '),'序贯补种子']];}
@@ -96,8 +99,8 @@ function filters(b){
   if(bd.kind==='pair'){const cur=curCat(bd),n=k=>bd.rows.filter(r=>k==='all'||(k==='peer'&&r.peer)||(k==='ours'&&r.ours)).length;
     parts.push(`<div class="fgroup"><div class="seg">${bd.cats.map(c=>`<button data-cat="${esc(c.id)}" aria-pressed="${cur===c.id}" title="${esc(c.title||'')}">按 ${esc(c.label)} 排</button>`).join('')}</div></div>`);
     if((bd.groups||[]).length>1)parts.push(`<div class="fgroup"><span class="flabel">显示</span><div class="seg">${[['all','全部'],['peer','同口径'],['ours','我们']].map(([k,l])=>`<button data-grp="${k}" aria-pressed="${S.grp===k}">${l}<span class="cnt">${n(k)}</span></button>`).join('')}</div></div>`);}
-  else if(bd.catKind!=='task'&&bd.cats.length){const opts=bd.kind==='pro'?bd.cats:[{id:'all',label:'全部任务'},...bd.cats];const cur=curCat(bd);
-    parts.push(`<div class="fgroup"><span class="flabel">${bd.kind==='pro'?'扰动':'分类口径'}</span><div class="seg">${opts.map(c=>`<button data-cat="${esc(c.id)}" aria-pressed="${cur===c.id}" title="${esc(c.title||'')}">${esc(c.label)}</button>`).join('')}</div></div>`);}
+  else if(bd.catKind!=='task'&&bd.cats.length){const opts=bd.kind==='pro'?[{id:'all',label:'总分',title:`${bd.cats.length} 类扰动等权平均`},...bd.cats]:[{id:'all',label:'全部任务'},...bd.cats];const cur=curCat(bd);
+    parts.push(`<div class="fgroup"><span class="flabel">${bd.kind==='pro'?'口径':'分类口径'}</span><div class="seg">${opts.map(c=>`<button data-cat="${esc(c.id)}" aria-pressed="${cur===c.id}" title="${esc(c.title||'')}">${esc(c.label)}</button>`).join('')}</div></div>`);}
   else if(bd.catKind==='task'&&curCat(bd)!=='all'){const c=bd.cats.find(x=>x.id===curCat(bd));
     parts.push(`<div class="fgroup"><span class="flabel">口径</span><div class="seg"><button data-cat="all" aria-pressed="false">全部任务</button><button aria-pressed="true">${esc(c.label)}</button></div></div>`);}
   if(bd.kind==='pro')parts.push(`<div class="fgroup"><span class="flabel">任务集</span><div class="seg">${[['all','全部'],...SUITE_ORDER.map(s=>[s,suiteName(s)])].map(([k,l])=>`<button data-suite="${k}" aria-pressed="${S.suite===k}">${esc(l)}</button>`).join('')}</div></div>`);
@@ -172,7 +175,7 @@ function notesBox(bd){
    Each row: rank · identity · a 0–100 track with the row's markers · numbers. Filled dot = the ranking score
    (two-metric boards: filled = first metric, ring = second); component markers keep one shape per policy / category. */
 const PCT=v=>`${(100*Math.max(0,Math.min(1,v))).toFixed(2)}%`;
-function shortScore(bd){const c=bd.cats.find(x=>x.id===curCat(bd));if(bd.kind==='encoder'&&S.pol!=='all')return polName(S.pol);return c?c.label:'平均';}
+function shortScore(bd){const c=bd.cats.find(x=>x.id===curCat(bd));if(bd.kind==='encoder'&&S.pol!=='all')return polName(S.pol);return c?c.label:bd.kind==='pro'?'总分':'平均';}
 function rowSubShort(bd,r){
   if(bd.kind==='pair')return r.sub;
   if(bd.kind==='encoder')return encMeta(r.encoder).family||'';
@@ -193,7 +196,6 @@ function dotSpec(bd){
     return {v,svg:shape(i,0,0,4.3,'',bd.kind==='pro'&&cur===c.id?'var(--acc)':'var(--faint)'),z:bd.kind==='pro'&&cur===c.id?3:1};});
   const detCols=many?[]:det.map(c=>({label:c.label,title:c.title||c.label,attr:c.type==='pol'?`data-pol="${esc(c.id)}"`:`data-cat="${esc(c.id)}"`,
     on:c.type==='pol'?S.pol===c.id:cur===c.id,value:r=>detailValue(bd,r,c).rate}));
-  if(bd.kind==='pro')return {cols:detCols,essential:detCols.length,line:()=>'var(--ink-2)',marks:comp};
   const cols=[{label:shortScore(bd),title:scopeLabel(bd).join(' · '),attr:'data-sort',on:true,value:r=>rowScore(bd,r)},...detCols];
   return {cols,essential:1,line:()=>'var(--ink-2)',marks:r=>[...comp(r),{v:rowScore(bd,r),cls:'dot',color:main,z:2}]};
 }
@@ -221,7 +223,8 @@ function dotLegend(bd){
     k.push(`<span class="key">${mk('dot','var(--ink-2)')}${esc(bd.cats[0]?.label||'')}${bd.cats[1]?`<span class="gap"></span>${mk('ring','var(--ink-2)')}${esc(bd.cats[1].label)}`:''}</span>`);
   }else{
     const det=detailCols(bd),pol=det[0]?.type==='pol',cur=curCat(bd);
-    if(bd.kind!=='pro')k.push(`<span class="key">${mk('dot',pol?'var(--ink)':'var(--acc)')}${esc(shortScore(bd)==='平均'&&bd.kind==='encoder'&&S.pol==='all'?'跨策略平均':shortScore(bd))}</span>`);
+    const mainLbl=cur==='all'&&bd.kind==='encoder'&&S.pol==='all'?'跨策略平均':cur==='all'&&bd.kind==='pro'?`总分（${det.length} 类均值）`:shortScore(bd);
+    k.push(`<span class="key">${mk('dot',pol?'var(--ink)':'var(--acc)')}${esc(mainLbl)}</span>`);
     if(det.length>6)k.push(`<span class="key"><i class="lg-m tiny"></i>单个${bd.catKind==='task'?'任务':'分类'}</span>`);
     else det.forEach((c,i)=>k.push(`<span class="key">${sv(pol?shape(polIdx(c.id),0,0,4.6):shape(i,0,0,4.3,'',bd.kind==='pro'&&cur===c.id?'var(--acc)':'var(--faint)'))}${esc(c.label)}</span>`));
   }
@@ -364,7 +367,7 @@ function rowDrawer(bd,r){
     h+=taskHeat(bd,r);
     h+=`<div class="d-sec"><h3>冻结身份</h3><dl class="kv"><dt>动作策略版本</dt><dd class="mono">${esc(c.policyFamily||'—')}</dd><dt>模型</dt><dd class="mono">${(c.runIds||[]).map(esc).join('<br>')}</dd></dl></div>`;
   }else if(bd.kind==='pro'){
-    h+=`<div class="d-sec"><h3>四类扰动 <small>各自独立计分，不合成总分</small></h3><div class="blist">${bd.cats.map(c=>{const v=r.cats[c.id];return bRow(esc(c.label),v?.rate,v?`${v.done}/3 种子`:'');}).join('')}</div></div>`;
+    h+=`<div class="d-sec"><h3>四类扰动 <small>各自计分；总分为 ${bd.cats.length} 类等权平均</small></h3><div class="blist">${bd.cats.map(c=>{const v=r.cats[c.id];return bRow(esc(c.label),v?.rate,v?`${v.done}/3 种子`:'');}).join('')}</div></div>`;
     h+=`<div class="d-sec"><h3>扰动 × 原始任务分类</h3><table class="seed-t"><thead><tr><th></th>${SUITE_ORDER.map(s=>`<th>${suiteName(s)}</th>`).join('')}</tr></thead><tbody>${bd.cats.map(c=>`<tr><td>${esc(c.label)}</td>${SUITE_ORDER.map(s=>`<td>${pcs(r.cats[c.id]?.suites?.[s]?.rate)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
     const models=Object.values(r.cats).flatMap(c=>c.models.map(m=>({...m,p:c.label})));
     if(models.length)h+=`<div class="d-sec"><h3>审计身份 <small>${models.length} 个完整模型评估</small></h3><table class="seed-t"><thead><tr><th>扰动</th><th>种子</th><th>成功率</th><th>Checkpoint</th></tr></thead><tbody>${models.map(m=>`<tr><td>${esc(m.p)}</td><td>${m.trainingSeed}</td><td>${pcs(m.successRate)}</td><td class="mono">${esc(String(m.checkpointSha256||'').slice(0,12))}</td></tr>`).join('')}</tbody></table></div>`;

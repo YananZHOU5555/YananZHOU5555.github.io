@@ -213,13 +213,16 @@ function proBoard(b,t){
     for(const c of r.cells){const ok=c.status==='complete'&&fin(c.successRate),suites={};
       for(const s of c.suiteResults||[])suites[s.suite]={rate:ok&&fin(s.successRate)?s.successRate:null,succ:s.successes,ep:s.episodes};
       cats[c.track]={rate:ok?c.successRate:null,succ:c.successes,ep:c.episodes,exp:c.expectedEpisodes,done:c.completedSeeds?.length||0,total:3,suites,models:c.models||[],label:c.label};}
-    return {id:r.id,kind:'pro',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:polKey(r.head),polLabel:r.policyLabel,overall:null,cats,
+    // 总分 (user, 2026-10-21): equal-weight mean of the perturbations, only when every one of them is complete
+    const ks=Object.keys(cats),all=ks.length>0&&ks.every(k=>fin(cats[k].rate)),mean=v=>v.reduce((n,x)=>n+x,0)/v.length,ov={rate:all?mean(ks.map(k=>cats[k].rate)):null,suites:{}};
+    for(const s of SUITE_ORDER){const v=ks.map(k=>cats[k].suites?.[s]?.rate);ov.suites[s]={rate:all&&v.every(fin)?mean(v):null};}
+    return {id:r.id,kind:'pro',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:polKey(r.head),polLabel:r.policyLabel,overall:ov,cats,
       cover:{done:Object.values(cats).filter(c=>fin(c.rate)).length,total:r.cells.length,unit:'扰动'},ref:r};
   });
-  return {kind:'pro',bench:b,track:t,title:'扰动鲁棒性榜',overall:false,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
+  return {kind:'pro',bench:b,track:t,title:'扰动鲁棒性榜',overall:true,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
     pols:sortPols(rows.map(r=>r.head)),rows,suites:SUITE_ORDER,
-    method:'每个扰动单独计分：训练种子 17 / 29 / 43 各 800 回合的等权均值；四类扰动不合成 PRO 总分。',
-    note:'Environment 官方资产尚未齐全，所以没有全 PRO 总分；原始与变体初态不作纯因果配对解释。',notes:[],seeds:t.trainingSeeds,taskCols:[],episodes:t.auditedValidEpisodes};
+    method:'每个扰动单独计分：训练种子 17 / 29 / 43 各 800 回合的等权均值。总分 = 4 类扰动（Object、Language、Swap、Task）的等权平均，只给 4 类都完整的行；默认按总分排名。',
+    note:'Environment 官方资产尚未齐全，所以总分只含 4 类，与官方 5 类 PRO 总分不同；原始与变体初态不作纯因果配对解释。',notes:[],seeds:t.trainingSeeds,taskCols:[],episodes:t.auditedValidEpisodes};
 }
 function runBoard(b,t){
   const isLib=b.id==='libero',present=new Set(t.runs.flatMap(r=>(r.taskResults||[]).map(x=>x.taskId)));
@@ -267,10 +270,10 @@ function rowMark(bd,r,cls=''){
 }
 
 /* ---------- scope, scores, ranks ---------- */
-function curCat(bd){if(bd.kind==='pro'||bd.kind==='pair')return bd.cats.some(c=>c.id===S.cat)?S.cat:bd.cats[0]?.id;return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
+function curCat(bd){if(bd.kind==='pair')return bd.cats.some(c=>c.id===S.cat)?S.cat:bd.cats[0]?.id;return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
 function rowScore(bd,r,cat=curCat(bd)){
   if(bd.kind==='encoder'&&S.pol!=='all'){const p=r.pols[S.pol];if(!p)return null;if(cat==='all')return p.rate;return bd.combos.get(p.combo)?.cats[cat]?.rate??null;}
-  if(bd.kind==='pro'){const c=r.cats[cat];if(!c)return null;return S.suite==='all'?c.rate:(c.suites?.[S.suite]?.rate??null);}
+  if(bd.kind==='pro'){const c=cat==='all'?r.overall:r.cats[cat];if(!c)return null;return S.suite==='all'?c.rate:(c.suites?.[S.suite]?.rate??null);}
   if(bd.kind==='pair')return r.cats[cat]?.rate??null;
   return cat==='all'?(r.overall?.rate??null):(r.cats[cat]?.rate??null);
 }
@@ -296,7 +299,7 @@ function visibleRows(bd){
 function scopeLabel(bd){
   const cat=curCat(bd),c=bd.cats.find(x=>x.id===cat);
   if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all];
-  const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):'全部任务'];
+  const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):bd.kind==='pro'?'总分（4 类扰动均值）':'全部任务'];
   if(bd.kind==='pro'&&S.suite!=='all')parts.push(suiteName(S.suite));
   parts.push(S.pol==='all'?(bd.kind==='encoder'?`${bd.pols.length} 种动作策略等权`:'全部动作策略'):polName(S.pol));
   return parts;
