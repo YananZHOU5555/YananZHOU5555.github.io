@@ -14,7 +14,7 @@ const safeUrl=u=>{if(!u)return '#';try{const x=new URL(u,location.href);return /
 const dateDot=d=>d?String(d).slice(0,10).replaceAll('-','.'):'';
 
 /* ---------- state ---------- */
-const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',drawer:'',
+const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',proSeed:'mean',drawer:'',
   gcat:'all',gq:'',gtask:'',gpage:0,logq:'',logtype:'all'};
 let DATA=null,CATALOG={encoders:{},benchmarks:{}};
 const GUIDES={},BOARDS=new Map();
@@ -173,7 +173,7 @@ function taskPoster(t){
 /* ---------- boards: one shape for every benchmark ---------- */
 function getBoard(b,t,kind){
   if(!t)return null;
-  const key=`${b.id}|${t.id}|${kind}`;if(BOARDS.has(key))return BOARDS.get(key);
+  const key=`${b.id}|${t.id}|${kind}|${t.proRows?S.proSeed:''}`;if(BOARDS.has(key))return BOARDS.get(key);
   const bd=kind==='encoder'&&t.encoderBoard?encoderBoard(b,t):t.pairBoard?pairBoard(b,t):t.proRows?proBoard(b,t):t.combinations?comboBoard(b,t):runBoard(b,t);
   BOARDS.set(key,bd);return bd;
 }
@@ -207,22 +207,28 @@ function encoderBoard(b,t){
     seeds:t.trainingSeeds,taskCols:taskCols(b),episodes:t.auditedValidEpisodes};
 }
 function proBoard(b,t){
+  const seed=['17','29','43'].includes(S.proSeed)?Number(S.proSeed):null;
   const perts=t.perturbations||(t.proRows[0]?.cells||[]).map(c=>({id:c.track,label:c.label}));
   const rows=t.proRows.map(r=>{
     const cats={};
-    for(const c of r.cells){const ok=c.status==='complete'&&fin(c.successRate),suites={};
-      for(const s of c.suiteResults||[])suites[s.suite]={rate:ok&&fin(s.successRate)?s.successRate:null,succ:s.successes,ep:s.episodes};
-      cats[c.track]={rate:ok?c.successRate:null,succ:c.successes,ep:c.episodes,exp:c.expectedEpisodes,done:c.completedSeeds?.length||0,total:3,suites,models:c.models||[],label:c.label};}
+    for(const c of r.cells){
+      const models=(c.models||[]).filter(m=>seed===null||m.trainingSeed===seed),v=seed===null?c:models[0];
+      const ok=!!v&&fin(v.successRate)&&(seed!==null||c.status==='complete'),suites={};
+      for(const s of v?.suiteResults||[])suites[s.suite]={rate:ok&&fin(s.successRate)?s.successRate:null,succ:s.successes,ep:s.episodes};
+      cats[c.track]={rate:ok?v.successRate:null,succ:v?.successes??null,ep:v?.episodes||0,exp:seed===null?c.expectedEpisodes:800,
+        done:seed===null?(c.completedSeeds?.length||0):models.length,total:seed===null?3:1,suites,models,label:c.label};}
     // 总分 (user, 2026-10-21): equal-weight mean of the perturbations, only when every one of them is complete
     const ks=Object.keys(cats),all=ks.length>0&&ks.every(k=>fin(cats[k].rate)),mean=v=>v.reduce((n,x)=>n+x,0)/v.length,ov={rate:all?mean(ks.map(k=>cats[k].rate)):null,suites:{}};
     for(const s of SUITE_ORDER){const v=ks.map(k=>cats[k].suites?.[s]?.rate);ov.suites[s]={rate:all&&v.every(fin)?mean(v):null};}
     return {id:r.id,kind:'pro',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:polKey(r.head),polLabel:r.policyLabel,overall:ov,cats,
       cover:{done:Object.values(cats).filter(c=>fin(c.rate)).length,total:r.cells.length,unit:'扰动'},ref:r};
   });
-  return {kind:'pro',bench:b,track:t,title:'扰动鲁棒性榜',overall:true,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
+  return {kind:'pro',bench:b,track:t,proSeed:seed,title:seed===null?'扰动鲁棒性榜':`扰动鲁棒性榜 · seed${seed}（单种子）`,overall:true,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
     pols:sortPols(rows.map(r=>r.head)),rows,suites:SUITE_ORDER,
-    method:'每个扰动单独计分：训练种子 17 / 29 / 43 各 800 回合的等权均值。总分 = 4 类扰动（Object、Language、Swap、Task）的等权平均，只给 4 类都完整的行；默认按总分排名。',
-    note:'Environment 官方资产尚未齐全，所以总分只含 4 类，与官方 5 类 PRO 总分不同；原始与变体初态不作纯因果配对解释。',notes:[],seeds:t.trainingSeeds,taskCols:[],episodes:t.auditedValidEpisodes};
+    method:seed===null?'每个扰动单独计分：训练种子 17 / 29 / 43 各 800 回合的等权均值。总分 = 4 类扰动（Object、Language、Swap、Task）的等权平均，只给 4 类都完整的行；默认按总分排名。':`当前为训练 seed${seed} 的单种子开发比较，不是三种子均值。每类 800 回合（40 任务 × 20 个评估 seed），四类均完整才计算总分；缺失保持为空。`,
+    note:'Environment 官方资产尚未齐全，所以总分只含 4 类，与官方 5 类 PRO 总分不同；原始与变体初态不作纯因果配对解释。',notes:[],seeds:seed===null?t.trainingSeeds:[seed],taskCols:[],
+    completeCells:rows.reduce((n,r)=>n+Object.values(r.cats).filter(c=>fin(c.rate)).length,0),
+    episodes:seed===null?t.auditedValidEpisodes:rows.reduce((n,r)=>n+Object.values(r.cats).reduce((a,c)=>a+c.ep,0),0)};
 }
 function runBoard(b,t){
   const isLib=b.id==='libero',present=new Set(t.runs.flatMap(r=>(r.taskResults||[]).map(x=>x.taskId)));
@@ -300,6 +306,7 @@ function scopeLabel(bd){
   const cat=curCat(bd),c=bd.cats.find(x=>x.id===cat);
   if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all];
   const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):bd.kind==='pro'?'总分（4 类扰动均值）':'全部任务'];
+  if(bd.kind==='pro')parts.push(bd.proSeed===null?'三种子均值':`seed${bd.proSeed} · 单种子开发比较`);
   if(bd.kind==='pro'&&S.suite!=='all')parts.push(suiteName(S.suite));
   parts.push(S.pol==='all'?(bd.kind==='encoder'?`${bd.pols.length} 种动作策略等权`:'全部动作策略'):polName(S.pol));
   return parts;
@@ -327,6 +334,7 @@ function readRoute(){
     if(h.get('v'))S.view=h.get('v');if(h.get('t'))S.track=h.get('t');
     S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.grp=['peer','ours'].includes(h.get('g'))?h.get('g'):'all';S.q=h.get('q')||'';
     S.mode=h.get('mode')==='suite'?'suite':'policy';S.dir=h.get('dir')==='asc'?1:-1;
+    S.proSeed=['17','29','43'].includes(h.get('seed'))?h.get('seed'):'mean';
     S.gcat=h.get('gcat')||'all';S.gtask=h.get('gtask')||'';S.drawer=h.get('d')||'';
   }
   if(h.get('b'))S.bench=h.get('b');
@@ -339,6 +347,7 @@ function writeRoute(){
     h.set('b',S.bench);h.set('v',S.view);if(S.track)h.set('t',S.track);
     if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.grp!=='all')h.set('g',S.grp);if(S.q)h.set('q',S.q);
     if(S.mode==='suite')h.set('mode','suite');if(S.dir>0)h.set('dir','asc');
+    if(S.bench==='libero-pro'&&S.proSeed!=='mean')h.set('seed',S.proSeed);
     if(S.view==='about'){if(S.gcat!=='all')h.set('gcat',S.gcat);if(S.gtask)h.set('gtask',S.gtask);}
     if(S.drawer)h.set('d',S.drawer);
   }
