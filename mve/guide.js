@@ -155,7 +155,7 @@ document.addEventListener('input',e=>{if(e.target.id==='gq'){S.gq=e.target.value
 
 /* ---------- atlas ---------- */
 function atlasPage(){
-  return `<div class="wrap"><div class="page-h"><h1>Benchmark 图谱</h1><p>八个机器人操作 benchmark：各自测什么、规模多大、本站评测进行到哪一步。每个 benchmark 的颜色与图标在全站一致。</p></div>
+  return `<div class="wrap"><div class="page-h"><h1>Benchmark 图谱</h1><p>${['','一','两','三','四','五','六','七','八'][DATA.benchmarks.length]||DATA.benchmarks.length}个机器人操作 benchmark：各自测什么、规模多大、本站评测进行到哪一步。每个 benchmark 的颜色与图标在全站一致。</p></div>
     <div class="atlas">${DATA.benchmarks.map(b=>{const m=bmeta(b.id),g=GUIDES[b.id]||{},axes=(g.categories||m.axes||[]).map(a=>a.name);
       return `<article class="bcard" style="${bcVars(b.id)}"><div class="top-row">${tile(b.id,'l')}<h3>${esc(m.name||b.name)}<small>${esc(m.tagline||'')}</small></h3></div>
         <p class="q">${esc(m.question||b.description)}</p>${axes.length?`<div class="axes">${axes.slice(0,6).map(a=>`<span>${esc(a)}</span>`).join('')}</div>`:''}
@@ -183,9 +183,11 @@ function methodPage(){
 /* ---------- log ---------- */
 const LOG_TYPES={evaluation:'评估',protocol:'协议',correction:'勘误',release:'发布',queue:'队列',recovery:'恢复'};
 function logBench(e){const s=`${e.id} ${e.title}`.toLowerCase();if(s.includes('robotwin'))return 'robotwin2';if(/plus/.test(s))return 'libero-plus';if(/(^|[-_ ])pro([-_ ]|$)|PRO/.test(`${e.id} ${e.title}`))return 'libero-pro';if(e.type==='evaluation')return 'libero';return '';}
+// log entries of benchmarks the site no longer lists are hidden with them
+const logItems=()=>(DATA.experimentLog||[]).filter(e=>{const b=logBench(e);return !b||!!benchById(b);});
 function logList(){
   const q=S.logq.trim().toLowerCase();
-  const items=[...(DATA.experimentLog||[])].sort((a,b)=>(Date.parse(b.at)||0)-(Date.parse(a.at)||0))
+  const items=[...logItems()].sort((a,b)=>(Date.parse(b.at)||0)-(Date.parse(a.at)||0))
     .filter(e=>(S.logtype==='all'||e.type===S.logtype)&&(!q||`${e.title} ${e.summary} ${e.id}`.toLowerCase().includes(q)));
   let day='',out='';
   for(const e of items){const d=String(e.at||'').slice(0,10);if(d!==day){day=d;out+=`<div class="day">${esc(d||'时间未记录')}</div>`;}
@@ -195,8 +197,8 @@ function logList(){
   return out||'<div class="card empty"><h3>没有匹配的记录</h3></div>';
 }
 function logPage(){
-  const types=[...new Set((DATA.experimentLog||[]).map(e=>e.type).filter(Boolean))],commits=DATA.repository?.recentCommits||[];
-  return `<div class="wrap"><div class="page-h"><h1>实验日志</h1><p>训练、评估、审计与发布的可追溯记录 · ${num((DATA.experimentLog||[]).length)} 条 · 数据快照 ${esc(String(DATA.updatedAt||'').replace('T',' ').slice(0,16))} UTC</p></div>
+  const types=[...new Set(logItems().map(e=>e.type).filter(Boolean))],commits=DATA.repository?.recentCommits||[];
+  return `<div class="wrap"><div class="page-h"><h1>实验日志</h1><p>训练、评估、审计与发布的可追溯记录 · ${num(logItems().length)} 条 · 数据快照 ${esc(String(DATA.updatedAt||'').replace('T',' ').slice(0,16))} UTC</p></div>
     <div class="log"><section><div class="log-tools"><div class="seg">${[['all','全部']].concat(types.map(t=>[t,LOG_TYPES[t]||t])).map(([k,l])=>`<button data-logtype="${esc(k)}" aria-pressed="${S.logtype===k}">${esc(l)}</button>`).join('')}</div>
       <label class="search">${icon('search')}<span class="sr-only">搜索日志</span><input id="logq" type="search" value="${esc(S.logq)}" placeholder="搜索标题或内容…" autocomplete="off"></label></div><div id="log-list">${logList()}</div></section>
       <aside class="card commits"><h3>${icon('github')} GitHub 提交</h3><p class="muted" style="font-size:12.5px;margin:0">代码历史，与左侧实验记录分开列示。${DATA.repository?.isPrivate!==false?'仓库为私有。':''}</p>

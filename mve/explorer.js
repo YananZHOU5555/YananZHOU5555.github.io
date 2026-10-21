@@ -17,6 +17,8 @@ const dateDot=d=>d?String(d).slice(0,10).replaceAll('-','.'):'';
 const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',proSeed:'mean',drawer:'',
   gcat:'all',gq:'',gtask:'',gpage:0,logq:'',logtype:'all'};
 let DATA=null,CATALOG={encoders:{},benchmarks:{}};
+// 2026-10-22 (user): the site lists only the benchmarks with our own results; the others stay in data.json, hidden here.
+const SHOWN_BENCH=['libero','libero-pro','robotwin2'];
 const GUIDES={},BOARDS=new Map();
 
 /* ---------- identities ---------- */
@@ -121,7 +123,7 @@ async function loadAll(onProgress){
   const opt=u=>getJSON(u).catch(()=>null);
   const [d,c,g1,g2]=await Promise.all([getJSON('data/data.json',onProgress),opt('data/catalog.json'),opt('data/guide-core.json'),opt('data/guide-next.json')]);
   if(!d?.benchmarks?.length)throw new Error('数据中没有 benchmark');
-  DATA=d;if(c)CATALOG=c;for(const g of [g1,g2])if(g?.benchmarks)Object.assign(GUIDES,g.benchmarks);
+  DATA=d;{const shown=d.benchmarks.filter(b=>SHOWN_BENCH.includes(b.id));if(shown.length)DATA.benchmarks=shown;}if(c)CATALOG=c;for(const g of [g1,g2])if(g?.benchmarks)Object.assign(GUIDES,g.benchmarks);
   BOARDS.clear();
 }
 

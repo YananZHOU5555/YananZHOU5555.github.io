@@ -25,7 +25,7 @@ function benchBlurb(b){
   return `${ts.reduce((n,t)=>n+(t.runs?.length||0),0)} 条诊断 · ${b.taskCount} 实例`;
 }
 function rail(){
-  return `<nav class="rail" aria-label="选择 benchmark">${DATA.benchmarks.map(b=>{const m=bmeta(b.id);
+  return `<nav class="rail" style="--n:${DATA.benchmarks.length}" aria-label="选择 benchmark">${DATA.benchmarks.map(b=>{const m=bmeta(b.id);
     return `<button class="chip-b ${isPlanned(b)?'planned':''}" style="${bcVars(b.id)}" data-bench="${esc(b.id)}" aria-current="${b.id===S.bench}">${tile(b.id)}<span><b>${esc(m.name||b.name)}</b><small>${esc(benchBlurb(b))}</small></span></button>`;}).join('')}</nav>`;
 }
 function heroStats(b){
@@ -289,6 +289,7 @@ function boardPage(){
 }
 function render(){
   if(!DATA)return;
+  if(!benchById(S.bench))S.bench=DATA.benchmarks[0].id;   // links to a benchmark the site no longer lists
   setAccent(S.page==='board'?S.bench:'libero');
   renderNav();
   const main=$('#main');
