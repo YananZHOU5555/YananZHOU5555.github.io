@@ -7,13 +7,14 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelect
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fin=Number.isFinite;
 const num=n=>Number(n||0).toLocaleString('en-US');
-const pc=(r,d=1)=>fin(r)?(100*r).toFixed(d):'—';
-const pcs=(r,d=1)=>fin(r)?`${(100*r).toFixed(d)}%`:'—';
+// percent with round-half-up on the decimal value (22.75 → 22.8; plain toFixed shows 22.7 because 0.2275 is stored as 0.22749…)
+const pc=(r,d=1)=>fin(r)?(Math.round(100*r*10**d+1e-6)/10**d).toFixed(d):'—';
+const pcs=(r,d=1)=>fin(r)?`${pc(r,d)}%`:'—';
 const safeUrl=u=>{if(!u)return '#';try{const x=new URL(u,location.href);return /^https?:$/.test(x.protocol)?x.href:'#';}catch{return '#';}};
 const dateDot=d=>d?String(d).slice(0,10).replaceAll('-','.'):'';
 
 /* ---------- state ---------- */
-const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',q:'',dir:-1,mode:'policy',drawer:'',
+const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',drawer:'',
   gcat:'all',gq:'',gtask:'',gpage:0,logq:'',logtype:'all'};
 let DATA=null,CATALOG={encoders:{},benchmarks:{}};
 const GUIDES={},BOARDS=new Map();
@@ -89,8 +90,8 @@ const POL_ALIAS={act_native_7:'act',dp_unet_native:'dp',dp_dit_native:'dp-dit',b
 const polKey=h=>{const k=String(h||'').toLowerCase();return POL_ALIAS[k]||k;};
 const polIdx=h=>POL.findIndex(p=>p[0]===polKey(h));
 const polName=h=>(POL.find(p=>p[0]===polKey(h))||[0,h||'—'])[1];
-function shape(i,x,y,r=4.6,extra=''){
-  const f=`style="fill:var(--s${(i%5)+1})" ${extra}`;
+function shape(i,x,y,r=4.6,extra='',fill=''){
+  const f=`style="fill:${fill||`var(--s${(i%5)+1})`}" ${extra}`;
   switch(i){
     case 1:return `<rect x="${x-r*.88}" y="${y-r*.88}" width="${r*1.76}" height="${r*1.76}" rx="1.3" ${f}/>`;
     case 2:return `<path d="M${x} ${y-r*1.12}L${x+r*1.08} ${y+r*.82}H${x-r*1.08}Z" ${f}/>`;
@@ -130,20 +131,19 @@ const B=()=>benchById(S.bench)||DATA.benchmarks[0];
 const bmeta=id=>CATALOG.benchmarks?.[id]||{};
 const trackById=(b,id)=>(b.tracks||[]).find(t=>t.id===id);
 const isPlanned=b=>b.status==='planned'||!(b.tracks||[]).length;
-const VIEW_META={rank:['榜单','trophy'],combos:['组合','combo'],mountain:['性能山','mountain'],matrix:['逐任务','matrix'],videos:['任务视频','video'],about:['关于','book']};
+const VIEW_META={rank:['榜单','trophy'],combos:['组合','combo'],matrix:['逐任务','matrix'],videos:['任务视频','video'],about:['关于','book']};
 function viewTracks(b,view){
   const ts=(b.tracks||[]);
   if(b.id==='libero'){
-    if(view==='rank'||view==='mountain')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
+    if(view==='rank')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
     if(view==='combos'||view==='matrix')return ts.filter(t=>t.combinations||t.runs?.length).sort((a,c)=>(c.combinations?1:0)-(a.combinations?1:0)).map(t=>t.id);
   }
-  if(view==='mountain')return ts.filter(t=>t.proRows||(t.runs||[]).filter(r=>fin(r.successRate)&&(r.episodes||0)>1).length>=3).map(t=>t.id);
-  if(view==='matrix')return ts.filter(t=>t.proRows||(t.runs||[]).length>1).map(t=>t.id);
+  if(view==='matrix')return ts.filter(t=>t.pairBoard||t.proRows||(t.runs||[]).length>1).map(t=>t.id);
   return ts.map(t=>t.id);
 }
 function views(b){
   const v=[];
-  if(!isPlanned(b)){v.push('rank');if(b.id==='libero')v.push('combos');if(viewTracks(b,'mountain').length)v.push('mountain');if(viewTracks(b,'matrix').length)v.push('matrix');}
+  if(!isPlanned(b)){v.push('rank');if(b.id==='libero')v.push('combos');if(viewTracks(b,'matrix').length)v.push('matrix');}
   if((b.tasks||[]).some(t=>taskVideos(b,t).length))v.push('videos');
   v.push('about');return v;
 }
@@ -174,7 +174,7 @@ function taskPoster(t){
 function getBoard(b,t,kind){
   if(!t)return null;
   const key=`${b.id}|${t.id}|${kind}`;if(BOARDS.has(key))return BOARDS.get(key);
-  const bd=kind==='encoder'&&t.encoderBoard?encoderBoard(b,t):t.proRows?proBoard(b,t):t.combinations?comboBoard(b,t):runBoard(b,t);
+  const bd=kind==='encoder'&&t.encoderBoard?encoderBoard(b,t):t.pairBoard?pairBoard(b,t):t.proRows?proBoard(b,t):t.combinations?comboBoard(b,t):runBoard(b,t);
   BOARDS.set(key,bd);return bd;
 }
 const suiteCats=b=>SUITE_ORDER.filter(s=>(b.tasks||[]).some(x=>x.suite===s)).map(s=>({id:s,label:suiteName(s),title:SUITES[s][1]}));
@@ -240,11 +240,38 @@ function runBoard(b,t){
     method:t.rankingNote||'',note:'',notes:t.notes||[],seeds:t.trainingSeeds,taskCols:cols,episodes:rows.reduce((n,r)=>n+(r.overall.ep||0),0)};
 }
 
+/* A board with two metrics per row (RoboTwin: Easy and Hard), our rows next to quoted reference rows.
+   Each row has a group; groups flagged `ours` are ours, `peer` groups share our protocol. */
+function pairBoard(b,t){
+  const pb=t.pairBoard,metrics=pb.metrics||[],groups=pb.groups||[],gmap=new Map(groups.map(g=>[g.id,g]));
+  const present=new Set(metrics.flatMap(m=>m.tasks||[]));
+  const rows=(pb.rows||[]).map(r=>{
+    const g=gmap.get(r.group)||{},cats={},tasks={};
+    for(const m of metrics)cats[m.id]={rate:fin(r.metrics?.[m.id])?r.metrics[m.id]:null};
+    for(const [tid,v] of Object.entries(r.tasks||{}))tasks[tid]={...v,rate:fin(v.easy)?v.easy:null};
+    return {id:r.id,kind:'pair',encoder:r.encoder||'',name:r.name,sub:r.sub||'',group:r.group,ours:!!g.ours,peer:!!(g.ours||g.peer),head:'',
+      overall:null,cats,tasks,official:r.official||null,cover:{done:metrics.filter(m=>fin(cats[m.id].rate)).length,total:metrics.length,unit:'指标'},ref:r};
+  });
+  return {kind:'pair',bench:b,track:t,title:t.label,overall:false,cats:metrics.map(m=>({id:m.id,label:m.label,title:m.title,tasks:m.tasks||[]})),catKind:'metric',
+    groups,pols:[],rows,source:pb.source||null,highlights:pb.highlights||{},
+    method:t.rankingNote||'',note:'',notes:t.notes||[],seeds:t.trainingSeeds,taskCols:taskCols(b,present),episodes:null};
+}
+// Group colors: ours = the benchmark accent; quoted groups take the categorical slots after it, then neutral gray.
+const GROUP_SLOTS=['var(--s1)','var(--gn)','var(--s3)','var(--s5)'];
+function groupColor(bd,gid){const gs=bd.groups||[],g=gs.find(x=>x.id===gid);if(!g)return 'var(--gn)';if(g.ours)return 'var(--acc)';return GROUP_SLOTS[gs.filter(x=>!x.ours).indexOf(g)%GROUP_SLOTS.length];}
+// The identity mark in front of a row name: group square, action-policy shape, or the encoder's own color.
+function rowMark(bd,r,cls=''){
+  if(bd.kind==='pair')return `<i class="sq ${cls}" style="--g:${groupColor(bd,r.group)}" aria-hidden="true"></i>`;
+  if(bd.kind!=='encoder'&&bd.pols.length>1&&polIdx(r.head)>=0)return `<svg class="sq-s ${cls}" viewBox="-6 -6 12 12" aria-hidden="true">${shape(polIdx(r.head),0,0,4.8)}</svg>`;
+  return `<i class="sq ${cls}" style="--g:${encColor(r.encoder)}" aria-hidden="true"></i>`;
+}
+
 /* ---------- scope, scores, ranks ---------- */
-function curCat(bd){if(bd.kind==='pro')return bd.cats.some(c=>c.id===S.cat)?S.cat:bd.cats[0]?.id;return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
+function curCat(bd){if(bd.kind==='pro'||bd.kind==='pair')return bd.cats.some(c=>c.id===S.cat)?S.cat:bd.cats[0]?.id;return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
 function rowScore(bd,r,cat=curCat(bd)){
   if(bd.kind==='encoder'&&S.pol!=='all'){const p=r.pols[S.pol];if(!p)return null;if(cat==='all')return p.rate;return bd.combos.get(p.combo)?.cats[cat]?.rate??null;}
   if(bd.kind==='pro'){const c=r.cats[cat];if(!c)return null;return S.suite==='all'?c.rate:(c.suites?.[S.suite]?.rate??null);}
+  if(bd.kind==='pair')return r.cats[cat]?.rate??null;
   return cat==='all'?(r.overall?.rate??null):(r.cats[cat]?.rate??null);
 }
 function rowStd(bd,r){
@@ -253,7 +280,8 @@ function rowStd(bd,r){
   if(bd.kind==='encoder'&&S.pol!=='all'){const c=bd.combos.get(r.pols[S.pol]?.combo);return cat==='all'?c?.overall.std:c?.cats[cat]?.std;}
   return null;
 }
-const inPool=(bd,r)=>bd.kind==='encoder'||S.pol==='all'||r.head===S.pol;
+const inPool=(bd,r)=>bd.kind==='pair'?S.grp==='all'||(S.grp==='peer'&&r.peer)||(S.grp==='ours'&&r.ours):bd.kind==='encoder'||S.pol==='all'||r.head===S.pol;
+const GRP_LABEL={all:'全部方法',peer:'同口径（我们 + 同口径基线）',ours:'只看我们'};
 function rankRows(bd){
   const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>({r,s:rowScore(bd,r)}));
   // single-episode diagnostics are marked 不排名 in the data: no ranks for them
@@ -262,11 +290,12 @@ function rankRows(bd){
 }
 function visibleRows(bd){
   const q=S.q.trim().toLowerCase();
-  return rankRows(bd).filter(x=>!q||`${x.r.encoder} ${x.r.name} ${polName(x.r.head)} ${x.r.label||''} ${x.r.polLabel||''}`.toLowerCase().includes(q))
+  return rankRows(bd).filter(x=>!q||`${x.r.encoder} ${x.r.name} ${x.r.head?polName(x.r.head):''} ${x.r.label||''} ${x.r.polLabel||''} ${x.r.sub||''}`.toLowerCase().includes(q))
     .sort((a,b)=>{if(fin(a.s)!==fin(b.s))return fin(a.s)?-1:1;if(fin(a.s)&&Math.abs(a.s-b.s)>1e-12)return S.dir<0?b.s-a.s:a.s-b.s;return a.r.name.localeCompare(b.r.name);});
 }
 function scopeLabel(bd){
   const cat=curCat(bd),c=bd.cats.find(x=>x.id===cat);
+  if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all];
   const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):'全部任务'];
   if(bd.kind==='pro'&&S.suite!=='all')parts.push(suiteName(S.suite));
   parts.push(S.pol==='all'?(bd.kind==='encoder'?`${bd.pols.length} 种动作策略等权`:'全部动作策略'):polName(S.pol));
@@ -274,7 +303,7 @@ function scopeLabel(bd){
 }
 
 /* ---------- routing ---------- */
-const OLD_VIEW={leaderboard:'combos',encoders:'rank',mountains:'mountain',pro:'rank',tasks:'videos',taskboard:'matrix',guide:'about'};
+const OLD_VIEW={leaderboard:'combos',encoders:'rank',mountains:'rank',pro:'rank',tasks:'videos',taskboard:'matrix',guide:'about'};
 function readRoute(){
   const raw=location.hash.slice(1);
   if(!raw.includes('=')){
@@ -293,18 +322,19 @@ function readRoute(){
   }else{
     S.page=['board','atlas','method','log'].includes(h.get('p'))?h.get('p'):'board';
     if(h.get('v'))S.view=h.get('v');if(h.get('t'))S.track=h.get('t');
-    S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.q=h.get('q')||'';
+    S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.grp=['peer','ours'].includes(h.get('g'))?h.get('g'):'all';S.q=h.get('q')||'';
     S.mode=h.get('mode')==='suite'?'suite':'policy';S.dir=h.get('dir')==='asc'?1:-1;
     S.gcat=h.get('gcat')||'all';S.gtask=h.get('gtask')||'';S.drawer=h.get('d')||'';
   }
   if(h.get('b'))S.bench=h.get('b');
+  if(S.view==='mountain')S.view='rank';   // old 性能山 links: the ranked dot plot of 榜单 replaced it
 }
 function writeRoute(){
   const h=new URLSearchParams();
   if(S.page!=='board')h.set('p',S.page);
   if(S.page==='board'){
     h.set('b',S.bench);h.set('v',S.view);if(S.track)h.set('t',S.track);
-    if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.q)h.set('q',S.q);
+    if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.grp!=='all')h.set('g',S.grp);if(S.q)h.set('q',S.q);
     if(S.mode==='suite')h.set('mode','suite');if(S.dir>0)h.set('dir','asc');
     if(S.view==='about'){if(S.gcat!=='all')h.set('gcat',S.gcat);if(S.gtask)h.set('gtask',S.gtask);}
     if(S.drawer)h.set('d',S.drawer);

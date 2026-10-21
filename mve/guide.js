@@ -60,8 +60,12 @@ function taskDrawer(b,t){
     ${t.instruction?`<p class="ins">原始指令 <code lang="en">${esc(t.instruction)}</code></p>`:''}
     <div class="d-sec" data-vhost="${esc(vid)}">${videoBlock(list,0,vid)}</div>`;
   const bd=taskBoard(b);
-  if(bd){const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>({r,v:r.tasks?.[t.id]})).filter(x=>x.v).sort((a,c)=>(fin(c.v.rate)?c.v.rate:-1)-(fin(a.v.rate)?a.v.rate:-1));
-    if(rows.length)h+=`<div class="d-sec"><h3>本任务成绩 <small>${esc(shortTrack(bd.track))}${S.pol!=='all'?' · '+esc(polName(S.pol)):''}</small></h3><div class="blist">${rows.slice(0,40).map(x=>bRow(`${encMark(x.r.encoder)}<span>${esc(x.r.name)}</span>${bd.kind!=='run'||bd.pols.length>1?polBadge(x.r.head):''}`,x.v.rate,fin(x.v.succ)?`${x.v.succ}/${x.v.ep}`:'覆盖未齐',`data-row="${esc(x.r.id)}"`)).join('')}</div>${rows.length>40?`<p class="muted" style="font-size:12px">仅列前 40 行。</p>`:''}</div>`;}
+  if(bd){const pm=bd.kind==='pair'?curCat(bd):null,other=pm?bd.cats.find(c=>c.id!==pm):null;
+    const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>{const v=r.tasks?.[t.id];return {r,v:v&&pm?{...v,rate:fin(v[pm])?v[pm]:null}:v};})
+      .filter(x=>x.v&&(!pm||fin(x.v.rate))).sort((a,c)=>(fin(c.v.rate)?c.v.rate:-1)-(fin(a.v.rate)?a.v.rate:-1));
+    const lab=x=>bd.kind==='pair'?`${rowMark(bd,x.r)}<span>${esc(x.r.name)}</span>`:`${encMark(x.r.encoder)}<span>${esc(x.r.name)}</span>${bd.kind!=='run'||bd.pols.length>1?polBadge(x.r.head):''}`;
+    const sub=x=>pm?(other&&fin(x.v[other.id])?`${other.label} ${pc(x.v[other.id],0)}%`:''):fin(x.v.succ)?`${x.v.succ}/${x.v.ep}`:'覆盖未齐';
+    if(rows.length)h+=`<div class="d-sec"><h3>本任务成绩 <small>${esc(shortTrack(bd.track))}${pm?' · '+esc(bd.cats.find(c=>c.id===pm)?.label||''):''}${S.pol!=='all'?' · '+esc(polName(S.pol)):''}</small></h3><div class="blist">${rows.slice(0,40).map(x=>bRow(lab(x),x.v.rate,sub(x),`data-row="${esc(x.r.id)}"`)).join('')}</div>${rows.length>40?`<p class="muted" style="font-size:12px">仅列前 40 行。</p>`:''}</div>`;}
   h+=g?`<div class="d-sec"><h3>任务说明</h3>${taskFacts(g)}</div>`:'';
   return h;
 }
@@ -93,7 +97,7 @@ function coverageText(b){
   const nat=b.tracks.find(t=>t.combinations),pro=b.tracks.find(t=>t.proRows);
   if(nat)return `Joint40 · ${nat.completeCombinations}/${nat.expectedCombinations} 个编码器 × 策略组合完整（三训练种子）`;
   if(pro)return `${pro.tasksPerTrack||40} 任务 × ${(pro.perturbations||[]).length} 类扰动 · ${pro.completedCells} 个完整扰动格`;
-  if(b.id==='robotwin2')return `${b.taskCount} 个任务已评估 · ${b.tracks.length} 个版本（Easy / Hard / 官方 DP 参照）`;
+  if(b.id==='robotwin2')return `${b.taskCount} 个任务已评估 · ${b.tracks.length} 个版本（${b.tracks.some(t=>t.pairBoard)?'主榜 Easy + Hard 对照官方榜 · ':''}Easy / Hard / 官方 DP 参照）`;
   return `${b.taskCount} 个实例 · ${b.tracks.reduce((n,t)=>n+t.runs.length,0)} 条单回合诊断`;
 }
 function aboutView(b){

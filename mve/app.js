@@ -1,5 +1,5 @@
 'use strict';
-/* MVE leaderboard v2 · shell, leaderboards, 性能山, 逐任务, detail drawer, events, boot.
+/* MVE leaderboard v2 · shell, ranked dot plots (榜单, which also replaced the old 性能山), 逐任务, drawer, events, boot.
    Every view reads the same normalized board (explorer.js), so a benchmark looks the same in all of them. */
 
 const heat=r=>fin(r)?(.07+.78*r).toFixed(3):0;
@@ -19,7 +19,9 @@ function benchBlurb(b){
   const ts=b.tracks||[];
   const nat=ts.find(t=>t.encoderBoard);if(nat)return `${nat.encoderBoard.rows.length} 编码器 · ${nat.expectedCombinations||nat.combinations?.length} 组合`;
   const pro=ts.find(t=>t.proRows);if(pro)return `${pro.proRows.length} 组合 · ${(pro.perturbations||[]).length} 类扰动`;
-  if(b.id==='robotwin2'){const g=new Set(ts.flatMap(t=>t.runs.map(r=>r.encoder)));return `${g.size} 组 · ${b.taskCount} 任务`;}
+  if(b.id==='robotwin2'){const pt=ts.find(t=>t.pairBoard);if(pt){const rs=pt.pairBoard.rows||[],ours=new Set((pt.pairBoard.groups||[]).filter(g=>g.ours).map(g=>g.id));
+    return `${rs.filter(r=>ours.has(r.group)).length} 组 · 对照官方 ${rs.filter(r=>!ours.has(r.group)).length} 个方法`;}
+    const g=new Set(ts.flatMap(t=>(t.runs||[]).map(r=>r.encoder)));return `${g.size} 组 · ${b.taskCount} 任务`;}
   return `${ts.reduce((n,t)=>n+(t.runs?.length||0),0)} 条诊断 · ${b.taskCount} 实例`;
 }
 function rail(){
@@ -27,13 +29,34 @@ function rail(){
     return `<button class="chip-b ${isPlanned(b)?'planned':''}" style="${bcVars(b.id)}" data-bench="${esc(b.id)}" aria-current="${b.id===S.bench}">${tile(b.id)}<span><b>${esc(m.name||b.name)}</b><small>${esc(benchBlurb(b))}</small></span></button>`;}).join('')}</nav>`;
 }
 function heroStats(b){
-  const ts=b.tracks||[],nat=ts.find(t=>t.encoderBoard),pro=ts.find(t=>t.proRows);
-  if(nat){const rows=nat.encoderBoard.rows;return [['视觉编码器',rows.length,`${rows.filter(r=>fin(r.successRate)).length} 个覆盖完整`],['策略组合',`${nat.completeCombinations}/${nat.expectedCombinations}`,'完整 / 计划'],['有效回合',num(nat.auditedValidEpisodes),'严格审计'],['训练种子',(nat.trainingSeeds||[]).join(' · '),'等权平均']];}
+  const ts=b.tracks||[],nat=ts.find(t=>t.encoderBoard),pro=ts.find(t=>t.proRows),pair=ts.find(t=>t.pairBoard);
+  if(nat){const rows=nat.encoderBoard.rows,top=rows.filter(r=>fin(r.successRate)).sort((a,c)=>c.successRate-a.successRate)[0];
+    return [['视觉编码器',rows.length,`${rows.filter(r=>fin(r.successRate)).length} 个覆盖完整`],['策略组合',`${nat.completeCombinations}/${nat.expectedCombinations}`,'完整 / 计划'],
+      ['有效回合',num(nat.auditedValidEpisodes),`严格审计 · 训练种子 ${(nat.trainingSeeds||[]).join(' / ')}`],
+      top?['跨策略平均第 1',pcs(top.successRate),encName(top.encoder,top.encoderLabel)]:['训练种子',(nat.trainingSeeds||[]).join(' · '),'等权平均']];}
   if(pro){const k=(pro.perturbations||[]).length;return [['编码器 × 策略',pro.proRows.length,`${k} 类扰动独立计分`],['完整扰动格',`${pro.completedCells}/${pro.proRows.length*k}`,'三种子齐全'],['有效回合',num(pro.auditedValidEpisodes),'严格审计'],['训练种子',(pro.trainingSeeds||[]).join(' · '),'等权平均']];}
-  if(b.id==='robotwin2'){const g=new Set(ts.flatMap(t=>t.runs.map(r=>r.encoder))),seeds=[...new Set(ts.flatMap(t=>t.trainingSeeds||[]))].sort();
-    const main=ts[0];return [['编码器组',g.size,'R0 官方 DP + 冻结编码器'],['协议任务',`${new Set(main.runs.flatMap(r=>(r.taskResults||[]).map(x=>x.taskId))).size} / 50`,`共评估 ${b.taskCount} 个任务`],['评估版本',ts.length,'Easy / Hard / 参照'],['训练种子',seeds.join(' · '),'序贯补种子']];}
+  if(pair)return pairStats(getBoard(b,pair,'auto'));
+  if(b.id==='robotwin2'){const g=new Set(ts.flatMap(t=>(t.runs||[]).map(r=>r.encoder))),seeds=[...new Set(ts.flatMap(t=>t.trainingSeeds||[]))].sort();
+    const main=ts[0];return [['编码器组',g.size,'R0 官方 DP + 冻结编码器'],['协议任务',`${new Set((main.runs||[]).flatMap(r=>(r.taskResults||[]).map(x=>x.taskId))).size} / 50`,`共评估 ${b.taskCount} 个任务`],['评估版本',ts.length,'Easy / Hard / 参照'],['训练种子',seeds.join(' · '),'序贯补种子']];}
   if(isPlanned(b))return [];
   const runs=ts.flatMap(t=>t.runs||[]);return [['扰动实例',b.taskCount,'已接入'],['诊断记录',runs.length,'单回合'],['有效回合',num(runs.reduce((n,r)=>n+(r.episodes||0),0)),'不排名'],['训练种子',[...new Set(ts.flatMap(t=>t.trainingSeeds||[]))].join(' · '),'']];
+}
+// Insight tiles for a two-metric board: the quoted board's size, our reproduction of its baseline, our best per metric.
+function pairStats(bd){
+  const R=bd.rows,src=bd.source||{},[c0,c1]=bd.cats,v=(r,c)=>c?r?.cats[c.id]?.rate:null,out=[];
+  if(src.methods)out.push(['官方榜',`${src.methods} 个方法`,`${src.tasks?`${src.tasks} 任务 · `:''}最新条目 ${dateDot(src.boardDate).slice(5)}`]);
+  const h=bd.highlights?.reproduction,a=h&&R.find(r=>r.id===h.ours),o=h&&R.find(r=>r.id===h.official);
+  if(a&&o&&fin(v(a,c0))&&fin(v(o,c0))){const d=100*Math.abs(v(a,c0)-v(o,c0));
+    out.push([`${a.name.split(' · ')[0]} 与官方 ${o.name}（${c0.label}）`,`${pc(v(a,c0))} / ${pc(v(o,c0))}`,
+      `${d<3?'复现对上':`相差 ${d.toFixed(1)} 个点`}${fin(v(a,c1))&&fin(v(o,c1))?`；${c1.label} ${pc(v(a,c1))} / ${pc(v(o,c1))}`:''}`]);}
+  for(const c of [c0,c1].filter(Boolean)){
+    const ours=R.filter(r=>r.ours&&fin(v(r,c))).sort((x,y)=>v(y,c)-v(x,c)),peers=R.filter(r=>r.peer&&fin(v(r,c))).sort((x,y)=>v(y,c)-v(x,c));
+    if(!ours.length)continue;
+    const best=ours[0],k=1+peers.filter(r=>v(r,c)>v(best,c)+1e-12).length,others=peers.filter(r=>!r.ours);
+    out.push([`我们最好的 ${c.label}`,pc(v(best,c)),c===c0?`${best.name}，同口径第 ${k}${k>1?`（${peers[0].name} ${pc(v(peers[0],c))} 第 1）`:''}`
+      :`${best.name}，同口径第 ${k}${others.length?`；${others.slice(0,2).map(r=>`${r.name} ${pc(v(r,c))}`).join('、')}`:''}`]);
+  }
+  return out.slice(0,4);
 }
 function hero(b){
   const m=bmeta(b.id),st=heroStats(b),src=m.projectUrl||b.sourceUrl;
@@ -41,7 +64,7 @@ function hero(b){
     <p class="q">${esc(m.question||b.description)}</p>
     <div class="meta">${statusPill(b)}${m.publicationDate?`<span>${esc(m.publicationLabel||'发布')} · ${dateDot(m.publicationDate)}</span>`:''}
     ${src?`<a href="${esc(safeUrl(src))}" target="_blank" rel="noopener">官方项目 ↗</a>`:''}${m.paperUrl?`<a href="${esc(safeUrl(m.paperUrl))}" target="_blank" rel="noopener">论文 ↗</a>`:''}${m.scale?`<span>${esc(m.scale)}</span>`:''}</div></div></div>
-    ${st.length?`<div class="stats">${st.map(s=>`<div class="stat"><span>${esc(s[0])}</span><b>${esc(s[1])}</b>${s[2]?`<small>${esc(s[2])}</small>`:''}</div>`).join('')}</div>`:''}</section>`;
+    </section>${st.length?`<div class="kpis">${st.map(s=>`<div class="kpi"><span>${esc(s[0])}</span><b>${esc(s[1])}</b>${s[2]?`<small>${esc(s[2])}</small>`:''}</div>`).join('')}</div>`:''}`;
 }
 function tabCount(b,v){
   if(v==='rank'){const t=currentTrackFor(b,'rank');const bd=t&&getBoard(b,t,b.id==='libero'?'encoder':'auto');return bd?bd.rows.length:'';}
@@ -57,8 +80,8 @@ function tabs(b,vs){
 }
 
 /* ---------- filters (one row above everything they scope) ---------- */
-const boardKind=(b,v)=>b.id==='libero'&&(v==='rank'||v==='mountain')?'encoder':'auto';
-function activeBoard(b=B(),v=S.view){if(!['rank','combos','mountain','matrix'].includes(v))return null;return getBoard(b,currentTrackFor(b,v),boardKind(b,v));}
+const boardKind=(b,v)=>b.id==='libero'&&v==='rank'?'encoder':'auto';
+function activeBoard(b=B(),v=S.view){if(!['rank','combos','matrix'].includes(v))return null;return getBoard(b,currentTrackFor(b,v),boardKind(b,v));}
 const TRACK_LABEL={'native-20x1':'原生 20×1 · 三训练种子（主榜）','p1-2ep':'历史 P1 · 每任务 2 回合','expanded-20x3':'历史扩展 · 20 seed × 3 回合',
   'pro-native-20x1':'原生 PRO · 四类扰动 · 三训练种子','pro-development':'历史 PRO 单例诊断','plus-development':'Plus 单例诊断'};
 function shortTrack(t){return TRACK_LABEL[t.id]||String(t.label||t.id).replace(/\s*·\s*不排名$/,'');}
@@ -70,20 +93,23 @@ function filters(b){
   const bd=activeBoard(b,v);if(!bd)return '';
   const ids=viewTracks(b,v),parts=[];
   if(ids.length>1)parts.push(`<div class="fgroup"><label for="track">版本</label><select id="track" class="sel">${ids.map(id=>{const t=trackById(b,id);return `<option value="${esc(id)}" ${id===bd.track.id?'selected':''}>${esc(shortTrack(t))}</option>`;}).join('')}</select></div>`);
-  if(bd.catKind!=='task'&&bd.cats.length){const opts=bd.kind==='pro'?bd.cats:[{id:'all',label:'全部任务'},...bd.cats];const cur=curCat(bd);
+  if(bd.kind==='pair'){const cur=curCat(bd),n=k=>bd.rows.filter(r=>k==='all'||(k==='peer'&&r.peer)||(k==='ours'&&r.ours)).length;
+    parts.push(`<div class="fgroup"><div class="seg">${bd.cats.map(c=>`<button data-cat="${esc(c.id)}" aria-pressed="${cur===c.id}" title="${esc(c.title||'')}">按 ${esc(c.label)} 排</button>`).join('')}</div></div>`);
+    if((bd.groups||[]).length>1)parts.push(`<div class="fgroup"><span class="flabel">显示</span><div class="seg">${[['all','全部'],['peer','同口径'],['ours','我们']].map(([k,l])=>`<button data-grp="${k}" aria-pressed="${S.grp===k}">${l}<span class="cnt">${n(k)}</span></button>`).join('')}</div></div>`);}
+  else if(bd.catKind!=='task'&&bd.cats.length){const opts=bd.kind==='pro'?bd.cats:[{id:'all',label:'全部任务'},...bd.cats];const cur=curCat(bd);
     parts.push(`<div class="fgroup"><span class="flabel">${bd.kind==='pro'?'扰动':'分类口径'}</span><div class="seg">${opts.map(c=>`<button data-cat="${esc(c.id)}" aria-pressed="${cur===c.id}" title="${esc(c.title||'')}">${esc(c.label)}</button>`).join('')}</div></div>`);}
   else if(bd.catKind==='task'&&curCat(bd)!=='all'){const c=bd.cats.find(x=>x.id===curCat(bd));
     parts.push(`<div class="fgroup"><span class="flabel">口径</span><div class="seg"><button data-cat="all" aria-pressed="false">全部任务</button><button aria-pressed="true">${esc(c.label)}</button></div></div>`);}
   if(bd.kind==='pro')parts.push(`<div class="fgroup"><span class="flabel">任务集</span><div class="seg">${[['all','全部'],...SUITE_ORDER.map(s=>[s,suiteName(s)])].map(([k,l])=>`<button data-suite="${k}" aria-pressed="${S.suite===k}">${esc(l)}</button>`).join('')}</div></div>`);
   if(bd.pols.length>1)parts.push(`<div class="fgroup"><span class="flabel">动作策略</span><div class="seg">${[['all','全部']].concat(bd.pols.map(p=>[p,polName(p)])).map(([k,l])=>`<button data-pol="${esc(k)}" aria-pressed="${S.pol===k}">${k!=='all'&&polIdx(k)>=0?`<svg width="9" height="9" viewBox="-6 -6 12 12" aria-hidden="true">${shape(polIdx(k),0,0,4.6)}</svg>`:''}${esc(l)}</button>`).join('')}</div></div>`);
   if(v==='rank'&&bd.kind==='encoder')parts.push(`<div class="fgroup"><span class="flabel">明细列</span><div class="seg"><button data-mode="policy" aria-pressed="${S.mode==='policy'}">按动作策略</button><button data-mode="suite" aria-pressed="${S.mode==='suite'}">按任务分类</button></div></div>`);
-  parts.push(searchBox(bd.kind==='encoder'?'搜索编码器…':'搜索编码器或策略…'));
+  parts.push(searchBox(bd.kind==='encoder'?'搜索编码器…':bd.kind==='pair'?'搜索方法或团队…':'搜索编码器或策略…'));
   return `<div class="filters">${parts.join('')}</div>`;
 }
 const searchBox=ph=>`<label class="search">${icon('search')}<span class="sr-only">搜索</span><input id="q" type="search" value="${esc(S.q)}" placeholder="${esc(ph)}" autocomplete="off"></label>`;
 function scopeBar(bd,shown){
   const total=bd.rows.filter(r=>inPool(bd,r)).length,done=rankRows(bd).filter(x=>x.rank!=null).length;
-  return `<div class="scopebar">${scopeLabel(bd).map(p=>`<b>${esc(p)}</b>`).join('<span class="sep"></span>')}<span class="sep"></span><span>${shown<total?`显示 ${shown} / `:''}${total} 行 · ${done} 行覆盖完整</span>${bd.seeds?.length?`<span class="sep"></span><span>训练种子 ${esc(bd.seeds.join(' / '))}</span>`:''}</div>`;
+  return `<div class="scopebar">${scopeLabel(bd).map(p=>`<b>${esc(p)}</b>`).join('<span class="sep"></span>')}<span class="sep"></span><span>${shown<total?`显示 ${shown} / `:''}${total} 行 · ${done} 行覆盖完整</span>${bd.seeds?.length&&bd.kind!=='pair'?`<span class="sep"></span><span>训练种子 ${esc(bd.seeds.join(' / '))}</span>`:''}</div>`;
 }
 
 /* ---------- leaderboard ---------- */
@@ -117,12 +143,6 @@ function detailValue(bd,r,col){
   if(bd.kind==='pro'&&S.suite!=='all')return {rate:c.suites?.[S.suite]?.rate??null};
   return c;
 }
-function podium(bd,top){
-  const all=rankRows(bd).filter(x=>x.rank!=null).sort((a,b)=>a.rank-b.rank);
-  return `<div class="podium">${top.map((x,i)=>{const next=all[i+1],gap=next&&fin(next.s)?(100*(x.s-next.s)).toFixed(1):null;
-    return `<button class="pod" data-row="${esc(x.r.id)}"><span class="pod-top">${rankBadge(x.rank)}${encMark(x.r.encoder)}<b>${esc(x.r.name)}</b></span>
-      <span class="pod-bottom"><span class="big">${pc(x.s)}<small>%</small></span><span class="side"><span>${bd.kind!=='encoder'?esc(polName(x.r.head)):esc(encMeta(x.r.encoder).family||'')}</span><span>${gap!==null?`领先下一名 ${gap} pt`:''}</span></span></span></button>`;}).join('')}</div>`;
-}
 function table(bd,rows){
   const cols=detailCols(bd),cur=curCat(bd),showPol=bd.kind!=='encoder'&&bd.pols.length>1,isTask=bd.catKind==='task'&&!(bd.kind==='encoder'&&S.mode==='policy');
   const scoreLabel=bd.kind==='pro'?`${bd.cats.find(c=>c.id===cur)?.label||''} 成功率`:cur==='all'?(bd.kind==='encoder'&&S.pol==='all'?'跨策略平均':'平均成功率'):`${bd.cats.find(c=>c.id===cur)?.label} 成功率`;
@@ -148,63 +168,84 @@ function notesBox(bd){
   const uniq=[...new Set(items)];if(!uniq.length)return '';
   return `<details class="note-box"><summary>${icon('info')}如何读这张榜 <span class="muted" style="font-weight:450">· ${esc(shortTrack(bd.track))}</span></summary><ul>${uniq.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></details>`;
 }
+/* ---------- 榜单: one ranked dot plot for every board ----------
+   Each row: rank · identity · a 0–100 track with the row's markers · numbers. Filled dot = the ranking score
+   (two-metric boards: filled = first metric, ring = second); component markers keep one shape per policy / category. */
+const PCT=v=>`${(100*Math.max(0,Math.min(1,v))).toFixed(2)}%`;
+function shortScore(bd){const c=bd.cats.find(x=>x.id===curCat(bd));if(bd.kind==='encoder'&&S.pol!=='all')return polName(S.pol);return c?c.label:'平均';}
+function rowSubShort(bd,r){
+  if(bd.kind==='pair')return r.sub;
+  if(bd.kind==='encoder')return encMeta(r.encoder).family||'';
+  if(bd.kind==='run')return bd.pols.length>1?polName(r.head):(encMeta(r.encoder).family||r.label||'');
+  return r.polLabel||polName(r.head);
+}
+function dotSpec(bd){
+  const cur=curCat(bd);
+  if(bd.kind==='pair'){
+    const cols=bd.cats.map(c=>({label:c.label,title:c.title,attr:`data-cat="${esc(c.id)}"`,on:cur===c.id,value:r=>r.cats[c.id]?.rate}));
+    return {cols,essential:cols.length,line:r=>groupColor(bd,r.group),
+      marks:r=>bd.cats.map((c,i)=>({v:r.cats[c.id]?.rate,cls:i?'ring':'dot',color:groupColor(bd,r.group),z:i?1:2}))};
+  }
+  const det=detailCols(bd),pol=det[0]?.type==='pol',many=det.length>6,main=pol?'var(--ink)':'var(--acc)';
+  const comp=r=>det.map((c,i)=>{const v=detailValue(bd,r,c).rate;
+    if(many)return {v,cls:'tiny',z:0};
+    if(pol)return {v,svg:shape(polIdx(c.id),0,0,4.6),z:1};
+    return {v,svg:shape(i,0,0,4.3,'',bd.kind==='pro'&&cur===c.id?'var(--acc)':'var(--faint)'),z:bd.kind==='pro'&&cur===c.id?3:1};});
+  const detCols=many?[]:det.map(c=>({label:c.label,title:c.title||c.label,attr:c.type==='pol'?`data-pol="${esc(c.id)}"`:`data-cat="${esc(c.id)}"`,
+    on:c.type==='pol'?S.pol===c.id:cur===c.id,value:r=>detailValue(bd,r,c).rate}));
+  if(bd.kind==='pro')return {cols:detCols,essential:detCols.length,line:()=>'var(--ink-2)',marks:comp};
+  const cols=[{label:shortScore(bd),title:scopeLabel(bd).join(' · '),attr:'data-sort',on:true,value:r=>rowScore(bd,r)},...detCols];
+  return {cols,essential:1,line:()=>'var(--ink-2)',marks:r=>[...comp(r),{v:rowScore(bd,r),cls:'dot',color:main,z:2}]};
+}
+function dotHead(bd,spec){
+  const who=bd.kind==='pair'?'方法':bd.kind==='encoder'||bd.pols.length<2?'视觉编码器':'编码器 · 动作策略';
+  return `<div class="dp-head" role="row"><span class="dp-rk" role="columnheader">#</span><span class="dp-id" role="columnheader">${who}</span>
+    <span class="dp-axis" role="columnheader" aria-label="成功率 0–100%">${[0,25,50,75,100].map(v=>`<i style="left:${v}%">${v}</i>`).join('')}</span>
+    ${spec.cols.map((c,i)=>`<button class="dp-n hb${c.on?' on':''}${i>=spec.essential?' x':''}" role="columnheader" ${c.attr} aria-pressed="${c.on}" title="${esc(c.title||'')}">${esc(c.label)}${c.on?`<span class="arr">${S.dir<0?'↓':'↑'}</span>`:''}</button>`).join('')}</div>`;
+}
+function dotRow(bd,spec,x){
+  const r=x.r,ms=spec.marks(r).filter(m=>fin(m.v)),vs=ms.map(m=>m.v),lo=Math.min(...vs),hi=Math.max(...vs),sub=rowSubShort(bd,r);
+  const line=vs.length>1&&hi-lo>.004?`<i class="dp-line" style="left:${PCT(lo)};width:${(100*(hi-lo)).toFixed(2)}%;--gl:${spec.line(r)}"></i>`:'';
+  const marks=ms.sort((a,c)=>(a.z||0)-(c.z||0)).map(m=>m.svg?`<svg class="dp-s" style="left:${PCT(m.v)}" viewBox="-6 -6 12 12">${m.svg}</svg>`
+    :`<i class="dp-m ${m.cls}" style="left:${PCT(m.v)}${m.color?`;--g:${m.color}`:''}"></i>`).join('');
+  const vals=spec.cols.map(c=>c.value(r));
+  const tip=[`${r.name}${sub?` · ${sub}`:''}`,...spec.cols.map((c,i)=>`${c.title||c.label}：${pcs(vals[i])}`),x.rank?`名次 ${x.rank}`:'覆盖未齐，不排名'].join('\n');
+  return `<div class="dp-row${r.ours?' ours':''}${fin(x.s)?'':' dim'}" role="row" tabindex="0" data-row="${esc(r.id)}" data-tip="${esc(tip)}" aria-label="${esc(tip.replaceAll('\n','，'))}">
+    <span class="dp-rk${x.rank&&x.rank<=3?' lead':''}" role="cell">${x.rank??'—'}</span><span class="dp-id" role="cell">${rowMark(bd,r)}<b>${esc(r.name)}</b>${sub?`<small>${esc(sub)}</small>`:''}</span>
+    <span class="dp-track" role="cell" aria-hidden="true">${line}${marks}</span>${spec.cols.map((c,i)=>`<span class="dp-n${c.on?' on':''}${i>=spec.essential?' x':''}" role="cell">${fin(vals[i])?pc(vals[i]):'—'}</span>`).join('')}</div>`;
+}
+function dotLegend(bd){
+  const k=[],mk=(cls,c)=>`<i class="lg-m ${cls}" style="--g:${c}"></i>`,sv=x=>`<svg class="lg-s" viewBox="-6 -6 12 12" aria-hidden="true">${x}</svg>`;
+  if(bd.kind==='pair'){
+    for(const g of bd.groups||[])k.push(`<span class="key"><i class="lg-sq" style="--g:${groupColor(bd,g.id)}"></i>${esc(g.label)}</span>`);
+    k.push(`<span class="key">${mk('dot','var(--ink-2)')}${esc(bd.cats[0]?.label||'')}${bd.cats[1]?`<span class="gap"></span>${mk('ring','var(--ink-2)')}${esc(bd.cats[1].label)}`:''}</span>`);
+  }else{
+    const det=detailCols(bd),pol=det[0]?.type==='pol',cur=curCat(bd);
+    if(bd.kind!=='pro')k.push(`<span class="key">${mk('dot',pol?'var(--ink)':'var(--acc)')}${esc(shortScore(bd)==='平均'&&bd.kind==='encoder'&&S.pol==='all'?'跨策略平均':shortScore(bd))}</span>`);
+    if(det.length>6)k.push(`<span class="key"><i class="lg-m tiny"></i>单个${bd.catKind==='task'?'任务':'分类'}</span>`);
+    else det.forEach((c,i)=>k.push(`<span class="key">${sv(pol?shape(polIdx(c.id),0,0,4.6):shape(i,0,0,4.3,'',bd.kind==='pro'&&cur===c.id?'var(--acc)':'var(--faint)'))}${esc(c.label)}</span>`));
+  }
+  k.push(`<span class="key muted">点击表头切换排序 · 点击行查看逐任务</span>`);
+  return `<div class="legend dp-legend">${k.join('')}</div>`;
+}
+function sourceLine(bd){
+  const s=bd.source;if(!s)return '';
+  return `<p class="src-line">${icon('info')}<span>${esc(s.label)}：最新条目 ${esc(dateDot(s.boardDate))}，${esc(dateDot(s.retrieved))} 取数。只在同样的任务上重新求均值，是引用不是复现。</span>${s.url?`<a class="link" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener">官方榜 ↗</a>`:''}${s.paperUrl?`<a class="link" href="${esc(safeUrl(s.paperUrl))}" target="_blank" rel="noopener">论文 ↗</a>`:''}</p>`;
+}
 function rankView(b){
   const bd=activeBoard(b,S.view);if(!bd)return emptyBox('当前没有可比较的结果');
-  const rows=visibleRows(bd),top=rankRows(bd).filter(x=>x.rank!=null).sort((a,c)=>a.rank-c.rank).slice(0,3);
-  const showPod=!bd.single&&!S.q&&S.dir<0&&top.length===3;
-  return `${scopeBar(bd,rows.length)}${showPod?podium(bd,top):''}<div class="board" role="region" aria-label="${esc(bd.title)}" tabindex="0">${table(bd,rows)}</div><div style="margin-top:10px">${heatLegend(bd)}</div>${notesBox(bd)}`;
+  const rows=visibleRows(bd);
+  if(bd.single)return `${scopeBar(bd,rows.length)}<div class="board" role="region" aria-label="${esc(bd.title)}" tabindex="0">${table(bd,rows)}</div><div style="margin-top:10px">${heatLegend(bd)}</div>${notesBox(bd)}`;
+  const spec=dotSpec(bd);
+  return `${scopeBar(bd,rows.length)}${dotLegend(bd)}<div class="dplot" role="table" aria-label="${esc(bd.title)}" style="--nc:${spec.cols.length};--ne:${spec.essential}">${dotHead(bd,spec)}${rows.map(x=>dotRow(bd,spec,x)).join('')||'<div class="empty">没有符合筛选的行。</div>'}</div>${sourceLine(bd)}${notesBox(bd)}`;
 }
 const emptyBox=(t,p='')=>`<div class="card empty">${icon('layersOff')}<h3>${esc(t)}</h3>${p?`<p>${esc(p)}</p>`:''}</div>`;
 
-/* ---------- 性能山 (sorted column chart; dots = per-policy or per-task components) ---------- */
-function mountainView(b){
-  const bd=activeBoard(b,'mountain');if(!bd)return emptyBox('当前版本没有可比较的结果');
-  const all=rankRows(bd),q=S.q.trim().toLowerCase(),done=all.filter(x=>fin(x.s)).sort((a,c)=>c.s-a.s||a.r.name.localeCompare(c.r.name)),pend=all.filter(x=>!fin(x.s));
-  if(!done.length)return emptyBox('当前口径下还没有完整结果','需要相同协议下完整的训练种子结果。');
-  const cat=curCat(bd);
-  let comps=null;
-  if(bd.kind==='encoder'&&S.pol==='all')comps={kind:'pol',keys:bd.pols,get:(r,k)=>{const p=r.pols[k];if(!p)return null;return cat==='all'?p.rate:bd.combos.get(p.combo)?.cats[cat]?.rate??null;},label:k=>polName(k)};
-  else if(bd.kind==='run'&&bd.catKind==='task'&&cat==='all')comps={kind:'task',keys:bd.cats.map(c=>c.id),get:(r,k)=>r.cats[k]?.rate??null,label:k=>bd.cats.find(c=>c.id===k)?.label||k};
-  const legend=comps?.kind==='pol'?`<div class="legend">${comps.keys.map(k=>`<span class="key"><svg viewBox="-6 -6 12 12" aria-hidden="true">${shape(polIdx(k),0,0,4.6)}</svg>${esc(polName(k))}</span>`).join('')}<span class="key"><svg viewBox="0 0 14 10" aria-hidden="true"><rect x="2" y="1" width="10" height="9" rx="2" style="fill:color-mix(in oklab,var(--ink) 9%,var(--surface))"/><path d="M2 1.5h10" style="stroke:var(--ink-2)" stroke-width="2"/></svg>跨策略平均</span></div>`
-    :comps?.kind==='task'?`<div class="legend"><span class="key"><svg viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.4" style="fill:var(--muted)"/></svg>单个任务</span><span class="key"><svg viewBox="0 0 14 10" aria-hidden="true"><rect x="2" y="1" width="10" height="9" rx="2" style="fill:color-mix(in oklab,var(--acc) 26%,var(--surface))"/><path d="M2 1.5h10" style="stroke:var(--acc)" stroke-width="2"/></svg>任务平均</span></div>`:'';
-  const ttl=bd.kind==='pro'?`${bd.cats.find(c=>c.id===cat)?.label} 扰动`:bd.title;
-  return `${scopeBar(bd,done.length)}<div class="card chart-card"><div class="chart-head"><div><h3>${esc(ttl)} · 按成功率排列</h3><p>柱高 = ${esc(scopeLabel(bd).join(' · '))} 的成功率；从左到右名次递减。${comps?.kind==='pol'?'彩色标记为各动作策略的三种子均值，柱为它们的等权平均。':comps?.kind==='task'?'灰点为单个任务的成功率。':''}悬停或聚焦查看数值，点击打开详情。</p></div>${legend}</div>
-    <div class="chart" id="mtn">${mountainSvg(bd,done,comps,q)}</div>
-    ${pend.length?`<div class="pending-list"><span>覆盖未齐，暂不上山：</span>${pend.map(x=>`<span class="pb" data-row="${esc(x.r.id)}" title="${esc(x.r.name)}">${esc(x.r.name)}${bd.kind!=='encoder'?' · '+esc(polName(x.r.head)):''}</span>`).join('')}</div>`:''}</div>${notesBox(bd)}`;
-}
-function mountainSvg(bd,rows,comps,q){
-  const n=rows.length,band=n>24?46:Math.max(46,Math.min(130,900/n)),L=50,R=16,T=30,Bm=132,ph=290,W=Math.round(L+R+band*n),H=T+ph+Bm;
-  const y=v=>T+(1-v)*ph,base=y(0),cw=Math.min(26,band*.5),out=[];
-  out.push(`<g class="grid">${[0,.2,.4,.6,.8,1].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end">${v*100}%</text>`).join('')}</g>`);
-  out.push(`<g class="axis"><line x1="${L}" x2="${W-R}" y1="${base}" y2="${base}"/></g>`);
-  rows.forEach((x,i)=>{
-    const r=x.r,cx=L+band*(i+.5),x0=cx-cw/2,x1=cx+cw/2,yt=y(x.s),h=base-yt,rad=Math.min(4,h);
-    const vals=comps?comps.keys.map(k=>({k,v:comps.get(r,k)})).filter(o=>fin(o.v)):[];
-    const topY=Math.min(yt,...vals.map(o=>y(o.v)));
-    const pol=bd.kind!=='encoder'?` · ${polName(r.head)}`:'';
-    const tip=[`${r.name}${pol}`,`${scopeLabel(bd)[0]}：${pcs(x.s)} · 名次 ${x.rank}`,...vals.slice(0,12).map(o=>`${comps.label(o.k)}：${pcs(o.v)}`)].join('\n');
-    const dim=q&&!`${r.encoder} ${r.name} ${polName(r.head)}`.toLowerCase().includes(q);
-    const label=`${r.name}${bd.kind==='pro'||bd.kind==='combo'?' · '+(r.polLabel||polName(r.head)):''}`;
-    const [mk,mc]=ENC[r.encoder]||[String(r.encoder).slice(0,3).toUpperCase(),'#6d7680'];
-    const k=vals.length,dx=k>1?Math.min(comps.kind==='pol'?7:4.2,(band*.7)/k):0;
-    out.push(`<g class="col" data-row="${esc(r.id)}" data-tip="${esc(tip)}" tabindex="0" role="button" aria-label="${esc(tip.replaceAll('\n','，'))}" ${dim?'opacity=".25"':''}>
-      <rect class="bg" x="${cx-band/2}" y="${T-14}" width="${band}" height="${ph+Bm+10}" rx="8"/>
-      ${h>.5?`<path class="colfill ${comps?.kind==='pol'?'neutral':''}" d="M${x0} ${base}V${yt+rad}Q${x0} ${yt} ${x0+rad} ${yt}H${x1-rad}Q${x1} ${yt} ${x1} ${yt+rad}V${base}Z"/>`:''}
-      <line class="cap ${comps?.kind==='pol'?'neutral':''}" x1="${x0}" x2="${x1}" y1="${yt}" y2="${yt}"/>
-      ${vals.map((o,j)=>comps.kind==='pol'?shape(polIdx(o.k),cx+(j-(k-1)/2)*dx,y(o.v),4.6,'class="dot"'):`<circle class="dot" cx="${cx+(j-(k-1)/2)*dx}" cy="${y(o.v)}" r="3.2" style="fill:var(--muted);fill-opacity:.75"/>`).join('')}
-      ${band>=30?`<text class="val" x="${cx}" y="${topY-9}" text-anchor="middle">${pc(x.s)}</text>`:''}
-      <text class="rkn" x="${cx}" y="${base+16}" text-anchor="middle">${String(x.rank).padStart(2,'0')}</text>
-      <rect x="${cx-15}" y="${base+23}" width="30" height="17" rx="5" style="fill:color-mix(in oklab,${mc} 15%,var(--surface));stroke:color-mix(in oklab,${mc} 35%,transparent)"/>
-      <text x="${cx}" y="${base+35}" text-anchor="middle" style="fill:${mc};font:650 9.5px var(--mono)">${esc(mk)}</text>
-      <text class="name" transform="translate(${cx+4} ${base+52}) rotate(-38)" text-anchor="end">${esc(label.length>24?label.slice(0,23)+'…':label)}</text></g>`);
-  });
-  const responsive=n<=24;
-  const padL=Math.max(0,Math.min(170,(rows[0]?.r.name.length||10)*6.2)-band*.5);
-  return `<svg viewBox="${-padL} 0 ${W+padL} ${H}" ${responsive?`width="${W+padL}" style="height:auto;max-width:100%"`:`width="${W+padL}" height="${H}"`} role="img" aria-label="性能山：${esc(bd.title)}，共 ${n} 个完整结果">${out.join('')}</svg>`;
-}
-
 /* ---------- 逐任务 matrix ---------- */
 function matrixSpec(bd){
+  if(bd.kind==='pair'){const tc=new Map(bd.taskCols.map(c=>[c.id,c]));
+    return {groups:bd.cats.map(m=>({id:m.id,label:`${m.label} · ${m.title}`,cols:m.tasks.filter(t=>tc.has(t)).map(t=>({...tc.get(t),id:`${m.id}|${t}`,task:t,metric:m.id,title:`${m.label} · ${tc.get(t).title}`}))})),
+      value:(r,col)=>{const v=r.tasks?.[col.task];return {rate:fin(v?.[col.metric])?v[col.metric]:null};},wide:true,click:true};}
   if(bd.kind==='pro')return {groups:bd.cats.map(c=>({id:c.id,label:`${c.label} 扰动`,cols:SUITE_ORDER.map(s=>({id:`${c.id}|${s}`,label:suiteName(s),title:`${c.label} 扰动 · ${suiteName(s)}`}))})),
     value:(r,col)=>{const [p,s]=col.id.split('|');const c=r.cats[p];return {rate:c?.suites?.[s]?.rate??null,succ:c?.suites?.[s]?.succ,ep:c?.suites?.[s]?.ep};},wide:true,click:false};
   const cols=bd.taskCols;
@@ -215,14 +256,14 @@ function matrixSpec(bd){
 function matrixView(b){
   const bd=activeBoard(b,'matrix');if(!bd)return emptyBox('当前版本没有逐任务结果');
   const rows=visibleRows(bd),spec=matrixSpec(bd),flat=spec.groups.flatMap(g=>g.cols.map((c,i)=>({...c,first:i===0})));
-  const head1=`<tr><th class="rowh" rowspan="2" style="text-align:left;font:600 11px var(--font);color:var(--muted)">名次 · 编码器${bd.kind!=='encoder'?' · 策略':''}</th>${spec.groups.map(g=>`<th class="g" colspan="${g.cols.length}">${esc(g.label)}</th>`).join('')}<th class="sum" rowspan="2">${esc(scopeLabel(bd)[0])}</th></tr>`;
-  const head2=`<tr>${flat.map(c=>`<th class="ch ${c.first?'first':''}" ${spec.click?`data-task="${esc(c.id)}"`:''} data-tip="${esc(c.title)}" ${spec.wide?'style="font:500 10.5px var(--font);white-space:normal;line-height:1.15;padding:2px 3px"':''}>${esc(spec.wide?c.label:c.label)}</th>`).join('')}</tr>`;
+  const head1=`<tr><th class="rowh" rowspan="2" style="text-align:left;font:600 11px var(--font);color:var(--muted)">名次 · ${bd.kind==='pair'?'方法':`编码器${bd.kind!=='encoder'?' · 策略':''}`}</th>${spec.groups.map(g=>`<th class="g" colspan="${g.cols.length}">${esc(g.label)}</th>`).join('')}<th class="sum" rowspan="2">${esc(scopeLabel(bd)[0])}</th></tr>`;
+  const head2=`<tr>${flat.map(c=>`<th class="ch ${c.first?'first':''}" ${spec.click?`data-task="${esc(c.task||c.id)}"`:''} data-tip="${esc(c.title)}" ${spec.wide?'style="font:500 10.5px var(--font);white-space:normal;line-height:1.15;padding:2px 3px"':''}>${esc(spec.wide?c.label:c.label)}</th>`).join('')}</tr>`;
   const body=rows.map(x=>{const r=x.r;
-    return `<tr><th class="rowh" scope="row" data-row="${esc(r.id)}" style="cursor:pointer;font-weight:400"><div class="enc">${rankBadge(x.rank)}${encMark(r.encoder)}<div class="enc-t"><b>${esc(r.name)}</b><small>${bd.kind!=='encoder'?esc(r.polLabel||polName(r.head)):esc(rowSub(bd,r))}</small></div></div></th>
+    return `<tr class="${r.ours?'ours':''}"><th class="rowh" scope="row" data-row="${esc(r.id)}" style="cursor:pointer;font-weight:400"><div class="enc"><span class="mx-rk">${x.rank??'—'}</span>${rowMark(bd,r)}<div class="enc-t"><b>${esc(r.name)}</b><small>${esc(rowSubShort(bd,r)||'')}</small></div></div></th>
       ${flat.map(c=>{const v=spec.value(r,c),tip=`${r.name}${bd.kind!=='encoder'?' · '+polName(r.head):''}\n${c.title}\n${bd.single?(fin(v.rate)?(v.rate>0?'成功':'未成功'):'—'):pcs(v.rate)}${fin(v.succ)&&fin(v.ep)?` · ${v.succ}/${v.ep} 回合`:''}`;
         const inner=bd.single?(fin(v.rate)?`<span class="${v.rate>0?'':'na'}" style="--v:${v.rate>0?.5:0}">${v.rate>0?'✓':'✕'}</span>`:'<span class="na">·</span>')
           :fin(v.rate)?`<span class="${hiText(v.rate)?'hi':''}" style="--v:${heat(v.rate)}">${Math.round(100*v.rate)}</span>`:'<span class="na">·</span>';
-        return `<td class="c ${c.first?'first':''}" ${spec.click?`data-task="${esc(c.id)}"`:''} data-tip="${esc(tip)}">${inner}</td>`;}).join('')}
+        return `<td class="c ${c.first?'first':''}" ${spec.click?`data-task="${esc(c.task||c.id)}"`:''} data-tip="${esc(tip)}">${inner}</td>`;}).join('')}
       <td class="sum">${pc(x.s)}</td></tr>`;}).join('');
   return `${scopeBar(bd,rows.length)}<div class="mx-wrap" role="region" aria-label="逐任务成功率" tabindex="0"><table class="mx ${spec.wide?'wide':''}"><thead>${head1}${head2}</thead><tbody>${body}</tbody></table></div>
     <div style="margin-top:10px">${heatLegend(bd)}</div>${notesBox(bd)}`;
@@ -232,7 +273,6 @@ function matrixView(b){
 function content(b){
   switch(S.view){
     case 'rank':case 'combos':return rankView(b);
-    case 'mountain':return mountainView(b);
     case 'matrix':return matrixView(b);
     case 'videos':return videosView(b);
     default:return aboutView(b);
@@ -240,7 +280,7 @@ function content(b){
 }
 function boardPage(){
   const b=B(),vs=views(b);if(!vs.includes(S.view))S.view=vs[0];
-  if(['rank','combos','mountain','matrix'].includes(S.view))currentTrack(b,S.view);
+  if(['rank','combos','matrix'].includes(S.view))currentTrack(b,S.view);
   return `<div class="wrap">${rail()}${hero(b)}${tabs(b,vs)}<div id="filters">${filters(b)}</div><div id="content">${content(b)}</div></div>`;
 }
 function render(){
@@ -263,7 +303,7 @@ window.addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setT
 /* ---------- drawer ---------- */
 function findRow(id){
   const b=B();
-  for(const v of ['rank','combos','mountain','matrix']){const bd=activeBoard(b,v);if(!bd)continue;const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};
+  for(const v of ['rank','combos','matrix']){const bd=activeBoard(b,v);if(!bd)continue;const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};
     if(bd.combos?.has(id)){const cb=getBoard(b,bd.track,'auto');return {bd:cb,r:cb.rows.find(x=>x.id===id)};}}
   for(const t of b.tracks||[]){const bd=getBoard(b,t,'auto');const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};}
   return null;
@@ -293,7 +333,23 @@ function taskHeat(bd,r){
     if(!v)return `<button class="na" data-task="${esc(c.id)}" data-tip="${esc(c.title)}\n未评估">${esc(c.label)}<small>—</small></button>`;
     const rate=v.rate;return `<button class="${fin(rate)?(hiText(rate)?'hi':''):'na'}" style="--v:${heat(rate)}" data-task="${esc(c.id)}" data-tip="${esc(`${c.title}\n${pcs(rate)}${fin(v.succ)?` · ${v.succ}/${v.ep} 回合`:''}`)}">${esc(c.label.length>8?c.label.slice(0,7)+'…':c.label)}<small>${fin(rate)?pc(rate,0)+'%':(v.ep?`${v.ep}/${v.exp||'—'}`:'—')}</small></button>`;}).join('')}</div>`).join('')}</div>`;
 }
+function pairDrawer(bd,r){
+  const g=(bd.groups||[]).find(x=>x.id===r.group),pool=bd.rows.filter(o=>inPool(bd,o));
+  const rk=c=>{const v=r.cats[c.id]?.rate;return fin(v)?1+pool.filter(o=>fin(o.cats[c.id]?.rate)&&o.cats[c.id].rate>v+1e-12).length:null;};
+  const N=c=>pool.filter(o=>fin(o.cats[c.id]?.rate)).length;
+  let h=`<div class="d-h"><i class="sq l" style="--g:${groupColor(bd,r.group)}" aria-hidden="true"></i><div><h2>${esc(r.name)}</h2><p>${esc([g?.label,r.sub].filter(Boolean).join(' · '))}</p></div></div>`;
+  h+=`<div class="d-pair">${bd.cats.map((c,i)=>`<div><span><i class="lg-m ${i?'ring':'dot'}" style="--g:${groupColor(bd,r.group)}"></i>${esc(c.label)}</span><b>${pcs(r.cats[c.id]?.rate)}</b><small>${esc(c.title||'')}${rk(c)?` · 第 ${rk(c)} / ${N(c)}`:''}</small></div>`).join('')}</div>`;
+  h+=`<div class="d-sec"><h3>逐任务 <small>${r.ours?'每个任务取已完成训练种子的均值':'官方榜逐任务表，单次评估'} · 点击任务看各方法对比</small></h3><table class="seed-t pt"><thead><tr><th>任务</th>${bd.cats.map(c=>`<th>${esc(c.label)}</th>`).join('')}</tr></thead><tbody>${bd.taskCols.map(c=>{const v=r.tasks[c.id]||{};
+    return `<tr data-task="${esc(c.id)}"><td>${esc(c.label)}</td>${bd.cats.map(m=>{const x=v[m.id],inM=(m.tasks||[]).includes(c.id),sd=v[`${m.id}Seeds`];
+      if(!inM)return `<td class="muted">${fin(x)?`${pc(x,0)}%`:'不测'}<small>不计入</small></td>`;
+      return `<td><span class="mini"><i style="width:${fin(x)?(100*x).toFixed(1):0}%;background:${groupColor(bd,r.group)}"></i></span>${fin(x)?`${pc(x,0)}%`:'—'}${r.ours&&sd?`<small>${sd} 种子</small>`:''}</td>`;}).join('')}</tr>`;}).join('')}</tbody></table></div>`;
+  if(r.official){const o=r.official,src=bd.source||{};
+    h+=`<div class="d-sec"><h3>官方榜 50 任务成绩 <small>${esc(src.label||'')}</small></h3><dl class="kv"><dt>官方名次</dt><dd>${o.rank} / ${src.methods||'—'}（按 Easy、Hard 平均排）</dd><dt>平均</dt><dd>${pcs(o.avg)}</dd><dt>Easy</dt><dd>${pcs(o.easy)}</dd><dt>Hard</dt><dd>${pcs(o.hard)}</dd><dt>赛道</dt><dd>${esc(o.track==='Single'?'Single · 每任务单独训练，与我们同口径':'Co-train · 50 任务共 2,500 条 demo 联合训练')}</dd><dt>上榜日期</dt><dd>${esc(dateDot(o.date))}</dd></dl>${src.url?`<p style="margin:10px 0 0"><a class="link" href="${esc(safeUrl(src.url))}" target="_blank" rel="noopener">查看官方榜 ↗</a></p>`:''}</div>`;}
+  if(bd.method)h+=`<div class="callout">${esc(bd.method)}</div>`;
+  return h;
+}
 function rowDrawer(bd,r){
+  if(bd.kind==='pair')return pairDrawer(bd,r);
   const s=rowScore(bd,r),x=rankRows(bd).find(o=>o.r.id===r.id),N=rankRows(bd).filter(o=>o.rank!=null).length;
   let h=encHead(r,bd.kind!=='encoder'?polBadge(r.head):'');
   h+=`<div class="d-big"><b>${bd.single?(fin(s)?(s>0?'成功':'未成功'):'—'):pcs(s)}</b><span>${esc(scopeLabel(bd).join(' · '))}${x?.rank?` · 名次 ${x.rank} / ${N}`:''}${fin(rowStd(bd,r))?` · 种子间 ± ${(100*rowStd(bd,r)).toFixed(1)}`:''}</span></div>${coverCell(r.cover)}`;
@@ -325,7 +381,7 @@ function rowDrawer(bd,r){
 /* ---------- events ---------- */
 function selectBench(id){
   if(!benchById(id))return;
-  const prevView=S.view;Object.assign(S,{page:'board',bench:id,track:'',cat:'all',suite:'all',pol:'all',q:'',dir:-1,drawer:'',gcat:'all',gq:'',gtask:'',gpage:0});
+  const prevView=S.view;Object.assign(S,{page:'board',bench:id,track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,drawer:'',gcat:'all',gq:'',gtask:'',gpage:0});
   const vs=views(B());S.view=vs.includes(prevView)?prevView:vs[0];render();
 }
 function setTheme(t){try{if(t==='auto')localStorage.removeItem('mve-theme');else localStorage.setItem('mve-theme',t);}catch{}
@@ -344,17 +400,18 @@ document.addEventListener('click',e=>{
   if((el=g('[data-vcat]'))){S.cat=el.dataset.vcat;renderBoardParts();return;}
   if((el=g('[data-pol]'))){const v=el.dataset.pol;S.pol=S.pol===v&&v!=='all'?'all':v;renderBoardParts();return;}
   if((el=g('[data-suite]'))){S.suite=el.dataset.suite;renderBoardParts();return;}
+  if((el=g('[data-grp]'))){S.grp=el.dataset.grp;renderBoardParts();return;}
   if((el=g('[data-mode]'))){S.mode=el.dataset.mode;renderBoardParts();return;}
   if((el=g('[data-row]'))){lastFocus=el;openDrawer('r:'+el.dataset.row);return;}
   if((el=g('[data-task]'))){lastFocus=el;openDrawer('t:'+el.dataset.task);return;}
 });
 function renderBoardParts(){$('#filters').innerHTML=filters(B());renderContent();}
-document.addEventListener('change',e=>{if(e.target.id==='track'){S.track=e.target.value;S.cat='all';S.suite='all';renderBoardParts();}});
+document.addEventListener('change',e=>{if(e.target.id==='track'){S.track=e.target.value;S.cat='all';S.suite='all';S.grp='all';renderBoardParts();}});
 let qTimer=0;
 document.addEventListener('input',e=>{if(e.target.id==='q'){S.q=e.target.value;clearTimeout(qTimer);qTimer=setTimeout(renderContent,120);}});
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&S.drawer){closeDrawer();return;}
-  if(e.key==='Enter'||e.key===' '){const el=e.target.closest('tr[data-row],g[data-row]');if(el){e.preventDefault();lastFocus=el;openDrawer('r:'+el.dataset.row);}}
+  if(e.key==='Enter'||e.key===' '){const el=e.target.closest('[data-row][tabindex]');if(el){e.preventDefault();lastFocus=el;openDrawer('r:'+el.dataset.row);}}
 });
 // tooltip
 const tip=()=>$('#tip');
