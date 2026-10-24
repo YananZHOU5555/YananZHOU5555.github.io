@@ -14,7 +14,7 @@ const safeUrl=u=>{if(!u)return '#';try{const x=new URL(u,location.href);return /
 const dateDot=d=>d?String(d).slice(0,10).replaceAll('-','.'):'';
 
 /* ---------- state ---------- */
-const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',proSeed:'mean',drawer:'',
+const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',proSeed:'mean',size:'all',capacitySort:'score',drawer:'',
   gcat:'all',gq:'',gtask:'',gpage:0,logq:'',logtype:'all'};
 let DATA=null,CATALOG={encoders:{},benchmarks:{}};
 // 2026-10-22 (user): the site lists only the benchmarks with our own results; the others stay in data.json, hidden here.
@@ -81,6 +81,13 @@ const ENC={resnet50_in1k_v2:['R50','#647267'],vitb16_in1k_v1:['ViT','#967843'],m
   c_radio_v3_b:['CR3','#8c74a3'],c_radio_v4_so400m:['CR4','#a177a0'],resnet18_in1k:['R18','#6b7f8c'],dp_resnet18_scratch:['R0','#8c8577']};
 const encMeta=id=>CATALOG.encoders?.[id]||{};
 const encMark=id=>{const [t,c]=ENC[id]||[String(id||'?').slice(0,3).toUpperCase(),'#6d7680'];return `<span class="mark" style="--e:${c}" aria-hidden="true">${esc(t)}</span>`;};
+// Count one loaded visual module, including frozen parameters; never the policy or text tower.
+const SIZE_TIERS=[['all','全部容量'],['small','小型 · <50M'],['base','中型 · 50–150M'],['large','大型 · ≥150M'],['unknown','待核验']];
+const capacityMeta=r=>(S.bench==='robotwin2'?encMeta(r.encoder).robotwinCapacity:encMeta(r.encoder).capacity)||{};
+const capacityTier=n=>!fin(n)||n<=0?'unknown':n<50e6?'small':n<150e6?'base':'large';
+const capacityLabel=r=>{const n=capacityMeta(r).parameters;return fin(n)?`${(n/1e6).toFixed(1)}M`:'待核验';};
+const capacityApplies=bd=>['libero','libero-pro','robotwin2'].includes(bd.bench.id);
+const sizePool=(bd,r)=>!capacityApplies(bd)||S.size==='all'||capacityTier(capacityMeta(r).parameters)===S.size;
 const encColor=id=>(ENC[id]||[0,'#6d7680'])[1];
 const NAME_FALLBACK={resnet18_in1k:'ResNet-18 IN-1K（R1）'};
 function encName(id,label){const m=encMeta(id);return m.shortName||m.name||NAME_FALLBACK[id]||label||id;}
@@ -133,11 +140,11 @@ const B=()=>benchById(S.bench)||DATA.benchmarks[0];
 const bmeta=id=>CATALOG.benchmarks?.[id]||{};
 const trackById=(b,id)=>(b.tracks||[]).find(t=>t.id===id);
 const isPlanned=b=>b.status==='planned'||!(b.tracks||[]).length;
-const VIEW_META={rank:['榜单','trophy'],combos:['组合','combo'],matrix:['逐任务','matrix'],videos:['任务视频','video'],about:['关于','book']};
+const VIEW_META={rank:['榜单','trophy'],combos:['组合','combo'],capacity:['容量与表现','scale'],matrix:['逐任务','matrix'],videos:['任务视频','video'],about:['关于','book']};
 function viewTracks(b,view){
   const ts=(b.tracks||[]);
   if(b.id==='libero'){
-    if(view==='rank')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
+    if(view==='rank'||view==='capacity')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
     if(view==='combos'||view==='matrix')return ts.filter(t=>t.combinations||t.runs?.length).sort((a,c)=>(c.combinations?1:0)-(a.combinations?1:0)).map(t=>t.id);
   }
   if(view==='matrix')return ts.filter(t=>t.pairBoard||t.proRows||(t.runs||[]).length>1).map(t=>t.id);
@@ -145,7 +152,7 @@ function viewTracks(b,view){
 }
 function views(b){
   const v=[];
-  if(!isPlanned(b)){v.push('rank');if(b.id==='libero')v.push('combos');if(viewTracks(b,'matrix').length)v.push('matrix');}
+  if(!isPlanned(b)){v.push('rank');if(b.id==='libero')v.push('combos');if(['libero','libero-pro','robotwin2'].includes(b.id))v.push('capacity');if(viewTracks(b,'matrix').length)v.push('matrix');}
   if((b.tasks||[]).some(t=>taskVideos(b,t).length))v.push('videos');
   v.push('about');return v;
 }
@@ -294,7 +301,7 @@ function rowStd(bd,r){
 const inPool=(bd,r)=>bd.kind==='pair'?S.grp==='all'||(S.grp==='peer'&&r.peer)||(S.grp==='ours'&&r.ours):bd.kind==='encoder'||S.pol==='all'||r.head===S.pol;
 const GRP_LABEL={all:'全部方法',peer:'同口径（我们 + 同口径基线）',ours:'只看我们'};
 function rankRows(bd){
-  const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>({r,s:rowScore(bd,r)}));
+  const rows=bd.rows.filter(r=>inPool(bd,r)&&sizePool(bd,r)).map(r=>({r,s:rowScore(bd,r)}));
   // single-episode diagnostics are marked 不排名 in the data: no ranks for them
   for(const x of rows)x.rank=!bd.single&&fin(x.s)?1+rows.filter(y=>fin(y.s)&&y.s>x.s+1e-12).length:null;
   return rows;
@@ -306,11 +313,12 @@ function visibleRows(bd){
 }
 function scopeLabel(bd){
   const cat=curCat(bd),c=bd.cats.find(x=>x.id===cat);
-  if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all];
+  if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all,...(S.size!=='all'?[SIZE_TIERS.find(x=>x[0]===S.size)?.[1]+' · 档内排名']:[])];
   const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):bd.kind==='pro'?'总分（4 类扰动均值）':'全部任务'];
   if(bd.kind==='pro')parts.push(bd.proSeed===null?'三种子均值':`seed${bd.proSeed} · 单种子开发比较`);
   if(bd.kind==='pro'&&S.suite!=='all')parts.push(suiteName(S.suite));
   parts.push(S.pol==='all'?(bd.kind==='encoder'?`${bd.pols.length} 种动作策略等权`:'全部动作策略'):polName(S.pol));
+  if(capacityApplies(bd)&&S.size!=='all')parts.push(SIZE_TIERS.find(x=>x[0]===S.size)?.[1]+' · 档内排名');
   return parts;
 }
 
@@ -337,6 +345,7 @@ function readRoute(){
     S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.grp=['peer','ours'].includes(h.get('g'))?h.get('g'):'all';S.q=h.get('q')||'';
     S.mode=h.get('mode')==='suite'?'suite':'policy';S.dir=h.get('dir')==='asc'?1:-1;
     S.proSeed=['17','29','43'].includes(h.get('seed'))?h.get('seed'):'mean';
+    S.size=SIZE_TIERS.some(x=>x[0]===h.get('size'))?h.get('size'):'all';S.capacitySort=h.get('order')==='params'?'params':'score';
     S.gcat=h.get('gcat')||'all';S.gtask=h.get('gtask')||'';S.drawer=h.get('d')||'';
   }
   if(h.get('b'))S.bench=h.get('b');
@@ -348,6 +357,7 @@ function writeRoute(){
   if(S.page==='board'){
     h.set('b',S.bench);h.set('v',S.view);if(S.track)h.set('t',S.track);
     if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.grp!=='all')h.set('g',S.grp);if(S.q)h.set('q',S.q);
+    if(S.size!=='all')h.set('size',S.size);if(S.view==='capacity'&&S.capacitySort==='params')h.set('order','params');
     if(S.mode==='suite')h.set('mode','suite');if(S.dir>0)h.set('dir','asc');
     if(S.bench==='libero-pro'&&S.proSeed!=='mean')h.set('seed',S.proSeed);
     if(S.view==='about'){if(S.gcat!=='all')h.set('gcat',S.gcat);if(S.gtask)h.set('gtask',S.gtask);}

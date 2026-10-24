@@ -83,8 +83,8 @@ function tabs(b,vs){
 }
 
 /* ---------- filters (one row above everything they scope) ---------- */
-const boardKind=(b,v)=>b.id==='libero'&&v==='rank'?'encoder':'auto';
-function activeBoard(b=B(),v=S.view){if(!['rank','combos','matrix'].includes(v))return null;return getBoard(b,currentTrackFor(b,v),boardKind(b,v));}
+const boardKind=(b,v)=>b.id==='libero'&&['rank','capacity'].includes(v)?'encoder':'auto';
+function activeBoard(b=B(),v=S.view){if(!['rank','combos','matrix','capacity'].includes(v))return null;return getBoard(b,currentTrackFor(b,v),boardKind(b,v));}
 const TRACK_LABEL={'native-20x1':'原生 20×1 · 三训练种子（主榜）','p1-2ep':'历史 P1 · 每任务 2 回合','expanded-20x3':'历史扩展 · 20 seed × 3 回合',
   'pro-native-20x1':'原生 PRO · 四类扰动 · 三训练种子','pro-development':'历史 PRO 单例诊断','plus-development':'Plus 单例诊断'};
 function shortTrack(t){return TRACK_LABEL[t.id]||String(t.label||t.id).replace(/\s*·\s*不排名$/,'');}
@@ -107,6 +107,7 @@ function filters(b){
   if(bd.kind==='pro')parts.push(`<div class="fgroup"><span class="flabel">任务集</span><div class="seg">${[['all','全部'],...SUITE_ORDER.map(s=>[s,suiteName(s)])].map(([k,l])=>`<button data-suite="${k}" aria-pressed="${S.suite===k}">${esc(l)}</button>`).join('')}</div></div>`);
   if(bd.pols.length>1)parts.push(`<div class="fgroup"><span class="flabel">动作策略</span><div class="seg">${[['all','全部']].concat(bd.pols.map(p=>[p,polName(p)])).map(([k,l])=>`<button data-pol="${esc(k)}" aria-pressed="${S.pol===k}">${k!=='all'&&polIdx(k)>=0?`<svg width="9" height="9" viewBox="-6 -6 12 12" aria-hidden="true">${shape(polIdx(k),0,0,4.6)}</svg>`:''}${esc(l)}</button>`).join('')}</div></div>`);
   if(v==='rank'&&bd.kind==='encoder')parts.push(`<div class="fgroup"><span class="flabel">明细列</span><div class="seg"><button data-mode="policy" aria-pressed="${S.mode==='policy'}">按动作策略</button><button data-mode="suite" aria-pressed="${S.mode==='suite'}">按任务分类</button></div></div>`);
+  if(capacityApplies(bd))parts.push(`<div class="fgroup"><span class="flabel">视觉参数</span><div class="seg">${SIZE_TIERS.map(([k,l])=>`<button data-size="${k}" aria-pressed="${S.size===k}">${l}</button>`).join('')}</div></div>`);
   parts.push(searchBox(bd.kind==='encoder'?'搜索编码器…':bd.kind==='pair'?'搜索方法或团队…':'搜索编码器或策略…'));
   return `<div class="filters">${parts.join('')}</div>`;
 }
@@ -214,7 +215,7 @@ function dotRow(bd,spec,x){
   const vals=spec.cols.map(c=>c.value(r));
   const tip=[`${r.name}${sub?` · ${sub}`:''}`,...spec.cols.map((c,i)=>`${c.title||c.label}：${pcs(vals[i])}`),x.rank?`名次 ${x.rank}`:'覆盖未齐，不排名'].join('\n');
   return `<div class="dp-row${r.ours?' ours':''}${fin(x.s)?'':' dim'}" role="row" tabindex="0" data-row="${esc(r.id)}" data-tip="${esc(tip)}" aria-label="${esc(tip.replaceAll('\n','，'))}">
-    <span class="dp-rk${x.rank&&x.rank<=3?' lead':''}" role="cell">${x.rank??'—'}</span><span class="dp-id" role="cell">${rowMark(bd,r)}<b>${esc(r.name)}</b>${sub?`<small>${esc(sub)}</small>`:''}</span>
+    <span class="dp-rk${x.rank&&x.rank<=3?' lead':''}" role="cell">${x.rank??'—'}</span><span class="dp-id" role="cell">${rowMark(bd,r)}<b>${esc(r.name)}</b>${sub?`<small>${esc(sub)}${capacityApplies(bd)?` · ${capacityLabel(r)}`:''}</small>`:capacityApplies(bd)?`<small>${capacityLabel(r)}</small>`:''}</span>
     <span class="dp-track" role="cell" aria-hidden="true">${line}${marks}</span>${spec.cols.map((c,i)=>`<span class="dp-n${c.on?' on':''}${i>=spec.essential?' x':''}" role="cell">${fin(vals[i])?pc(vals[i]):'—'}</span>`).join('')}</div>`;
 }
 function dotLegend(bd){
@@ -242,6 +243,27 @@ function rankView(b){
   if(bd.single)return `${scopeBar(bd,rows.length)}<div class="board" role="region" aria-label="${esc(bd.title)}" tabindex="0">${table(bd,rows)}</div><div style="margin-top:10px">${heatLegend(bd)}</div>${notesBox(bd)}`;
   const spec=dotSpec(bd);
   return `${scopeBar(bd,rows.length)}${dotLegend(bd)}<div class="dplot" role="table" aria-label="${esc(bd.title)}" style="--nc:${spec.cols.length};--ne:${spec.essential}">${dotHead(bd,spec)}${rows.map(x=>dotRow(bd,spec,x)).join('')||'<div class="empty">没有符合筛选的行。</div>'}</div>${sourceLine(bd)}${notesBox(bd)}`;
+}
+function capacityDetails(r){
+  const m=capacityMeta(r),known=fin(m.parameters);
+  return `<div class="d-sec"><h3>视觉容量 <small>单份模块 · 冻结权重也计数</small></h3><dl class="kv"><dt>参数量</dt><dd>${known?`${num(m.parameters)}（${capacityLabel(r)}）`:'待核验'}</dd><dt>容量档位</dt><dd>${esc(SIZE_TIERS.find(x=>x[0]===capacityTier(m.parameters))[1])}</dd><dt>输入 / 空间 tokens</dt><dd>${m.inputSize||'—'} px / ${m.nativeTokens||'—'}</dd><dt>策略读出 tokens</dt><dd>${m.readoutTokens||m.nativeTokens||'—'}</dd><dt>可训练视觉适配层</dt><dd>${fin(m.adapterParameters)?num(m.adapterParameters)+'（不计入视觉容量）':'尚未统一核验，不估算'}</dd><dt>证据类型</dt><dd>${esc(m.status||'待核验')}</dd><dt>计数口径</dt><dd>实际加载的视觉模块，不含文本塔、策略头和策略适配层；共享多相机时参数不重复计数。</dd><dt>模块说明</dt><dd>${esc(m.note||'暂无已核验记录')}</dd><dt>来源</dt><dd class="mono">${esc(m.evidence||'—')}${m.pointer?'<br>'+esc(m.pointer):''}</dd><dt>部署速度</dt><dd>尚未做统一硬件时延实测；参数量不等于延迟。</dd></dl></div>`;
+}
+function capacityView(b){
+  const bd=activeBoard(b,'capacity');if(!bd)return emptyBox('当前没有可比较的结果');
+  const rows=visibleRows(bd),points=rows.filter(x=>fin(x.s)&&fin(capacityMeta(x.r).parameters));
+  const xmax=Math.max(350,...points.map(x=>capacityMeta(x.r).parameters/1e6))*1.07;
+  const sx=n=>64+780*n/xmax,sy=n=>312-264*n;
+  const bands=[['small',0,50,'小型'],['base',50,150,'中型'],['large',150,xmax,'大型']];
+  const axes=[0,25,50,75,100].map(v=>`<line x1="64" x2="844" y1="${sy(v/100)}" y2="${sy(v/100)}"/><text x="51" y="${sy(v/100)+4}" text-anchor="end">${v}%</text>`).join('');
+  const ticks=[0,50,150,300,400].filter(v=>v<=xmax).map(v=>`<text x="${sx(v)}" y="336" text-anchor="middle">${v}M</text>`).join('');
+  const dots=points.map(x=>{const r=x.r,m=capacityMeta(r),label=`${r.name}${r.head?' · '+polName(r.head):''} · ${capacityLabel(r)} · ${pcs(x.s)}`;
+    return `<g class="cap-point" data-row="${esc(r.id)}" data-tip="${esc(label)}" tabindex="0" role="button" aria-label="${esc(label)}"><circle cx="${sx(m.parameters/1e6)}" cy="${sy(x.s)}" r="7" fill="${encColor(r.encoder)}"/><title>${esc(label)}</title></g>`;}).join('');
+  const ordered=S.capacitySort==='params'?[...rows].sort((a,c)=>(capacityMeta(a.r).parameters??Infinity)-(capacityMeta(c.r).parameters??Infinity)):rows;
+  const table=ordered.map(x=>{const r=x.r,m=capacityMeta(r),tier=capacityTier(m.parameters);return `<tr data-row="${esc(r.id)}" tabindex="0"><td>${rankBadge(x.rank)}</td><td><b>${esc(r.name)}</b>${r.head?`<small>${esc(r.polLabel||polName(r.head))}</small>`:''}</td><td><b>${capacityLabel(r)}</b><small>${esc(SIZE_TIERS.find(t=>t[0]===tier)[1].split(' · ')[0])}</small></td><td>${m.inputSize||'—'} / ${m.readoutTokens||m.nativeTokens||'—'}</td><td><b>${pcs(x.s)}</b></td></tr>`;}).join('');
+  return `${scopeBar(bd,rows.length)}<section class="cap-hero"><div><span class="cap-kicker">CAPACITY × ROBOT PERFORMANCE</span><h2>同一容量预算，谁更值得用？</h2><p>按当前 benchmark、动作策略和任务分类查看。分档只改变比较范围，分数和种子口径沿用原榜。</p></div><div class="cap-count"><b>${points.length}<small> / ${rows.length}</small></b><span>有分数与参数证据的组合</span></div></section>
+  <div class="cap-chart"><svg viewBox="0 0 900 374" role="img" aria-label="视觉参数量与机器人成功率散点图"><text x="16" y="22">成功率 ↑</text>${bands.map(([k,l,h,label])=>`<rect class="cap-band ${k}" x="${sx(l)}" y="34" width="${sx(h)-sx(l)}" height="278"/><text x="${sx((l+h)/2)}" y="27" text-anchor="middle">${label}</text>`).join('')}<g class="cap-axes">${axes}${ticks}</g>${dots}<text x="454" y="365" text-anchor="middle">单份视觉模块参数量 →</text></svg><p>每个点对应当前口径的一行；悬停或点击查看身份。未完成分数、未核验参数不画点。跨动作头的点只作描述，不据此宣称容量控制下的优越性。</p></div>
+  <div class="board"><table class="lb cap-table"><thead><tr><th>${S.size==='all'?'名次':'档内名次'}</th><th>编码器 / 策略</th><th><button class="th-btn" data-capacity-sort="params" aria-pressed="${S.capacitySort==='params'}">视觉参数 ${S.capacitySort==='params'?'↑':''}</button></th><th>输入 px / 读出 tokens</th><th><button class="th-btn" data-capacity-sort="score" aria-pressed="${S.capacitySort==='score'}">${esc(shortScore(bd))}成功率 ${S.capacitySort==='score'?'↓':''}</button></th></tr></thead><tbody>${table||'<tr><td colspan="5">当前没有符合筛选的行。</td></tr>'}</tbody></table></div>
+  <p class="cap-footnote">M = 百万参数。统计实际加载的视觉模块，包含冻结参数；不含文本塔、策略头与策略适配层。少数模块保留池化/分类头，详情逐一注明。LIBERO 使用 native tokens；RoboTwin 的空间特征另池化为16个读出 tokens。RoboTwin 的适配层容量与架构推导口径见详情；无视觉模块证据的官方方法留空。参数量不能代替统一硬件上的延迟、显存或 FLOPs；双相机共享权重也仍需两路计算。</p>${notesBox(bd)}`;
 }
 const emptyBox=(t,p='')=>`<div class="card empty">${icon('layersOff')}<h3>${esc(t)}</h3>${p?`<p>${esc(p)}</p>`:''}</div>`;
 
@@ -277,6 +299,7 @@ function matrixView(b){
 function content(b){
   switch(S.view){
     case 'rank':case 'combos':return rankView(b);
+    case 'capacity':return capacityView(b);
     case 'matrix':return matrixView(b);
     case 'videos':return videosView(b);
     default:return aboutView(b);
@@ -284,7 +307,7 @@ function content(b){
 }
 function boardPage(){
   const b=B(),vs=views(b);if(!vs.includes(S.view))S.view=vs[0];
-  if(['rank','combos','matrix'].includes(S.view))currentTrack(b,S.view);
+  if(['rank','combos','matrix','capacity'].includes(S.view))currentTrack(b,S.view);
   return `<div class="wrap">${rail()}${hero(b)}${tabs(b,vs)}<div id="filters">${filters(b)}</div><div id="content">${content(b)}</div></div>`;
 }
 function render(){
@@ -308,7 +331,7 @@ window.addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setT
 /* ---------- drawer ---------- */
 function findRow(id){
   const b=B();
-  for(const v of ['rank','combos','matrix']){const bd=activeBoard(b,v);if(!bd)continue;const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};
+  for(const v of ['rank','combos','matrix','capacity']){const bd=activeBoard(b,v);if(!bd)continue;const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};
     if(bd.combos?.has(id)){const cb=getBoard(b,bd.track,'auto');return {bd:cb,r:cb.rows.find(x=>x.id===id)};}}
   for(const t of b.tracks||[]){const bd=getBoard(b,t,'auto');const r=bd.rows.find(x=>x.id===id);if(r)return {bd,r};}
   return null;
@@ -354,9 +377,10 @@ function pairDrawer(bd,r){
   return h;
 }
 function rowDrawer(bd,r){
-  if(bd.kind==='pair')return pairDrawer(bd,r);
+  if(bd.kind==='pair')return pairDrawer(bd,r)+capacityDetails(r);
   const s=rowScore(bd,r),x=rankRows(bd).find(o=>o.r.id===r.id),N=rankRows(bd).filter(o=>o.rank!=null).length;
   let h=encHead(r,bd.kind!=='encoder'?polBadge(r.head):'');
+  if(capacityApplies(bd))h+=capacityDetails(r);
   h+=`<div class="d-big"><b>${bd.single?(fin(s)?(s>0?'成功':'未成功'):'—'):pcs(s)}</b><span>${esc(scopeLabel(bd).join(' · '))}${x?.rank?` · 名次 ${x.rank} / ${N}`:''}${fin(rowStd(bd,r))?` · 种子间 ± ${(100*rowStd(bd,r)).toFixed(1)}`:''}</span></div>${coverCell(r.cover)}`;
   if(bd.kind==='encoder'){
     h+=`<div class="d-sec"><h3>各动作策略 <small>三种子均值 · 点击查看该组合</small></h3><div class="blist">${bd.pols.map(k=>{const p=r.pols[k];return bRow(polBadge(k),p?.rate,p?`${p.done}/3 种子`:'无',p?.combo?`data-row="${esc(p.combo)}"`:'');}).join('')}</div></div>`;
@@ -386,7 +410,7 @@ function rowDrawer(bd,r){
 /* ---------- events ---------- */
 function selectBench(id){
   if(!benchById(id))return;
-  const prevView=S.view;Object.assign(S,{page:'board',bench:id,track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,drawer:'',gcat:'all',gq:'',gtask:'',gpage:0});
+  const prevView=S.view;Object.assign(S,{page:'board',bench:id,track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,size:'all',capacitySort:'score',drawer:'',gcat:'all',gq:'',gtask:'',gpage:0});
   const vs=views(B());S.view=vs.includes(prevView)?prevView:vs[0];render();
 }
 function setTheme(t){try{if(t==='auto')localStorage.removeItem('mve-theme');else localStorage.setItem('mve-theme',t);}catch{}
@@ -400,6 +424,8 @@ document.addEventListener('click',e=>{
   if((el=g('[data-bench]'))){selectBench(el.dataset.bench);return;}
   if((el=g('[data-go-bench]'))){selectBench(el.dataset.goBench);if(el.dataset.goView&&views(B()).includes(el.dataset.goView)){S.view=el.dataset.goView;render();}window.scrollTo(0,0);return;}
   if((el=g('[data-view]'))){S.view=el.dataset.view;S.drawer='';if(S.view==='videos'&&!SUITE_ORDER.includes(S.cat))S.cat='all';render();return;}
+  if((el=g('[data-size]'))){S.size=el.dataset.size;S.drawer='';renderBoardParts();return;}
+  if((el=g('[data-capacity-sort]'))){S.capacitySort=el.dataset.capacitySort;renderContent();return;}
   if((el=g('[data-sort]'))){S.dir=-S.dir;renderContent();return;}
   if((el=g('[data-cat]'))){const v=el.dataset.cat;if(S.cat===v&&v!=='all')S.dir=-S.dir;else{S.cat=v;S.dir=-1;}renderBoardParts();return;}
   if((el=g('[data-vcat]'))){S.cat=el.dataset.vcat;renderBoardParts();return;}

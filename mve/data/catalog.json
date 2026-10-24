@@ -11,7 +11,19 @@
       "publicationDate": "2022-06-28",
       "publicationLabel": "TorchVision 0.13 · V2 权重发布",
       "sourceUrl": "https://github.com/pytorch/vision/releases/tag/v0.13.0",
-      "focus": "ImageNet 类别监督学习的卷积表征，作为通用视觉基线。"
+      "focus": "ImageNet 类别监督学习的卷积表征，作为通用视觉基线。",
+      "capacity": {
+        "parameters": 23508032,
+        "inputSize": 224,
+        "nativeTokens": 49,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/0/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "11ad3fa62ca79e40addfd354a8ec4b7c75143b3038b8d2a807fbc68deab379ca"
+      }
     },
     "vitb16_in1k_v1": {
       "name": "ViT-B/16 · ImageNet-1K V1",
@@ -22,7 +34,19 @@
       "publicationDate": "2022-03-10",
       "publicationLabel": "TorchVision 0.12 · ViT 权重发布",
       "sourceUrl": "https://github.com/pytorch/vision/releases/tag/v0.12.0",
-      "focus": "ImageNet 类别监督学习的图像 patch 表征。"
+      "focus": "ImageNet 类别监督学习的图像 patch 表征。",
+      "capacity": {
+        "parameters": 86567656,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/16/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "已加载模块含未用于空间读出的 769,000 个分类头参数；纯骨干为 85,798,656。",
+        "weight_sha256": "c867db91d3e12c6cbadabb610d73c24a546bf82d8c03a9fea34f43a712ddb0e9"
+      }
     },
     "mae_b16": {
       "name": "MAE ViT-B/16",
@@ -33,7 +57,20 @@
       "publicationDate": "2021-11-11",
       "publicationLabel": "家族论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2111.06377",
-      "focus": "通过重建被遮挡的图像区域学习视觉结构。"
+      "focus": "通过重建被遮挡的图像区域学习视觉结构。",
+      "capacity": {
+        "parameters": 85798656,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/19/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "aec5f0b68e5f3193a00b07bc65a37440db549c15b36b8bea242606cc40c4bc5d",
+        "source_code_revision": "76fe35e87b1937168f1ec4b236e863451883eaf3"
+      }
     },
     "dinov2_b14_reg": {
       "name": "DINOv2 ViT-B/14 + registers",
@@ -44,7 +81,19 @@
       "publicationDate": "2023-10-26",
       "publicationLabel": "registers 版本权重发布",
       "sourceUrl": "https://github.com/facebookresearch/dinov2",
-      "focus": "自监督 patch 特征；额外 register tokens 缓解密集特征中的伪影。"
+      "focus": "自监督 patch 特征；额外 register tokens 缓解密集特征中的伪影。",
+      "capacity": {
+        "parameters": 86583552,
+        "inputSize": 224,
+        "nativeTokens": 256,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/20/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "a1d738ccfa7ae170945f210395d99dde8adb1805"
+      }
     },
     "dinov3_b16": {
       "name": "DINOv3 ViT-B/16",
@@ -55,7 +104,19 @@
       "publicationDate": "2025-08-14",
       "publicationLabel": "DINOv3 权重公开",
       "sourceUrl": "https://github.com/facebookresearch/dinov3",
-      "focus": "大规模自监督学习与蒸馏，兼顾全局语义和密集空间特征。"
+      "focus": "大规模自监督学习与蒸馏，兼顾全局语义和密集空间特征。",
+      "capacity": {
+        "parameters": 85660416,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/7/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "5931719e67bbdb9737e363e781fb0c67687896bc"
+      }
     },
     "dinov3_l16": {
       "name": "DINOv3 ViT-L/16",
@@ -66,7 +127,34 @@
       "publicationDate": "2025-08-14",
       "publicationLabel": "DINOv3 权重公开",
       "sourceUrl": "https://github.com/facebookresearch/dinov3",
-      "focus": "更大 ViT 容量的 DINOv3，提供全局语义与密集空间表征。"
+      "focus": "更大 ViT 容量的 DINOv3，提供全局语义与密集空间表征。",
+      "capacity": {
+        "parameters": 303129600,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/22/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51"
+      },
+      "robotwinCapacity": {
+        "parameters": 303129600,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "shared-loader-architecture",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/22/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。 RoboTwin 使用同一 FrozenEncoder 架构，空间读出另池化到16 tokens；这是架构复用核对，非新服务器实测。",
+        "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51",
+        "readoutTokens": 16,
+        "adapterParameters": 8391168,
+        "adapterEvidence": "robotwin/m7/mve_dp_encoder.py: LayerNorm(dim) + Linear(16*dim,512)"
+      }
     },
     "clip_b16": {
       "name": "CLIP ViT-B/16",
@@ -77,7 +165,19 @@
       "publicationDate": "2021-07",
       "publicationLabel": "ViT-B/16 权重发布",
       "sourceUrl": "https://github.com/openai/CLIP/blob/main/model-card.md",
-      "focus": "通过图像与自然语言对比学习获得语义视觉表征。"
+      "focus": "通过图像与自然语言对比学习获得语义视觉表征。",
+      "capacity": {
+        "parameters": 85799424,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/12/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "57c216476eefef5ab752ec549e440a49ae4ae5f3"
+      }
     },
     "siglip2_b16_224": {
       "name": "SigLIP 2 ViT-B/16 · 224px",
@@ -88,7 +188,19 @@
       "publicationDate": "2025-02-20",
       "publicationLabel": "SigLIP 2 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2502.14786",
-      "focus": "图文学习结合自蒸馏和掩码预测，增强语义、定位与密集特征。"
+      "focus": "图文学习结合自蒸馏和掩码预测，增强语义、定位与密集特征。",
+      "capacity": {
+        "parameters": 92884224,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/4/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "仅视觉塔；包含7,087,104个MAP池化头参数。该头在视觉前向中计算，但其pooler输出未被当前空间特征策略采用；去该头的patch路径为85,797,120参数。主列统一保持已加载视觉模块口径。",
+        "revision": "75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2"
+      }
     },
     "siglip2_so400m14_384": {
       "name": "SigLIP 2 SO400M/14 · 384px",
@@ -99,7 +211,19 @@
       "publicationDate": "2025-02-20",
       "publicationLabel": "SigLIP 2 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2502.14786",
-      "focus": "更大容量与输入分辨率的 SigLIP 2 图文视觉表征。"
+      "focus": "更大容量与输入分辨率的 SigLIP 2 图文视觉表征。",
+      "capacity": {
+        "parameters": 428225600,
+        "inputSize": 384,
+        "nativeTokens": 729,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/26/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "仅视觉塔；计数包含视觉 MAP 池化头。",
+        "revision": "e8e487298228002f3d8a82e0cd5c8ea9c567f57f"
+      }
     },
     "pe_core_b16_224": {
       "name": "PE Core ViT-B/16 · 224px",
@@ -110,7 +234,21 @@
       "publicationDate": "2025-04-17",
       "publicationLabel": "PE Core 模型发布",
       "sourceUrl": "https://github.com/facebookresearch/perception_models",
-      "focus": "图像与视频对比预训练，学习可用于多种感知任务的视觉语义。"
+      "focus": "图像与视频对比预训练，学习可用于多种感知任务的视觉语义。",
+      "capacity": {
+        "parameters": 93672960,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/17/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "已加载视觉模块计数；可能包含原模块的输出投影，不等于仅 Transformer 层参数。",
+        "revision": "a16450b46fef32363459920c2685a1b4ef13dcd9",
+        "weight_sha256": "0a5c220aa083488e0fc9221f766dced8a576b7074662d9b9da923da1e8844fce",
+        "source_code_revision": "3e352cca660658d4b5c90f42a7808b11469e4c66"
+      }
     },
     "pe_spatial_b16_512": {
       "name": "PE Spatial ViT-B/16 · 512px",
@@ -121,7 +259,21 @@
       "publicationDate": "2025-07-11",
       "publicationLabel": "PE Spatial B 模型发布",
       "sourceUrl": "https://github.com/facebookresearch/perception_models",
-      "focus": "从 PE Spatial G 蒸馏，侧重分割、跟踪等密集空间表征。"
+      "focus": "从 PE Spatial G 蒸馏，侧重分割、跟踪等密集空间表征。",
+      "capacity": {
+        "parameters": 86433792,
+        "inputSize": 512,
+        "nativeTokens": 1024,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/10/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "9ea59c16f2d31b1bac766e9b54d94e78bb03ee93",
+        "weight_sha256": "86217607f0bb28c0adb5ac3f9b0608ae22f6fb634bf1c16b2316847e8148a2a5",
+        "source_code_revision": "3e352cca660658d4b5c90f42a7808b11469e4c66"
+      }
     },
     "r3m_resnet50": {
       "name": "R3M ResNet-50",
@@ -132,7 +284,19 @@
       "publicationDate": "2022-03-23",
       "publicationLabel": "R3M 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2203.12601",
-      "focus": "从人类视频学习时间对比与视频语言对齐表征，面向机器人操作。"
+      "focus": "从人类视频学习时间对比与视频语言对齐表征，面向机器人操作。",
+      "capacity": {
+        "parameters": 23508032,
+        "inputSize": 224,
+        "nativeTokens": 49,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/14/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "d6cf6f71632907d12ede6987cdc5212bd385988135ed07f1bd59bf488831378b"
+      }
     },
     "vip": {
       "name": "VIP ResNet-50",
@@ -143,7 +307,19 @@
       "publicationDate": "2022-09-30",
       "publicationLabel": "VIP 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2210.00030",
-      "focus": "用目标条件价值学习组织视频表征，使嵌入距离反映任务进展。"
+      "focus": "用目标条件价值学习组织视频表征，使嵌入距离反映任务进展。",
+      "capacity": {
+        "parameters": 23508032,
+        "inputSize": 224,
+        "nativeTokens": 49,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/11/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "e84b1ff024a4e9d9925833cf71f866d1e8d888926c757136ab65ead75edc342b"
+      }
     },
     "vc1_b": {
       "name": "VC-1 ViT-B",
@@ -154,7 +330,20 @@
       "publicationDate": "2023-03-31",
       "publicationLabel": "VC-1 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2303.18240",
-      "focus": "在第一人称视频与 ImageNet 上用 MAE 预训练，服务具身控制。"
+      "focus": "在第一人称视频与 ImageNet 上用 MAE 预训练，服务具身控制。",
+      "capacity": {
+        "parameters": 85798656,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/8/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "664ed78923873e64da0827ffbd0ff023dda7e640c89800bfe4c76e11eaa6fa7d",
+        "source_code_revision": "76fe35e87b1937168f1ec4b236e863451883eaf3"
+      }
     },
     "vc1_l": {
       "name": "VC-1 ViT-L",
@@ -165,7 +354,20 @@
       "publicationDate": "2023-03-31",
       "publicationLabel": "VC-1 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2303.18240",
-      "focus": "更大容量的 VC-1，融合第一人称视频与图像的重建学习表征。"
+      "focus": "更大容量的 VC-1，融合第一人称视频与图像的重建学习表征。",
+      "capacity": {
+        "parameters": 303301632,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/18/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "weight_sha256": "877f1388abfcc6e1accd1d52bc4d057cb9726c0c16e8c8009011c2c34d3076f5",
+        "source_code_revision": "76fe35e87b1937168f1ec4b236e863451883eaf3"
+      }
     },
     "theia_b_cdiv": {
       "name": "Theia ViT-B/16 · CDIV",
@@ -176,7 +378,20 @@
       "publicationDate": "2024-07-29",
       "publicationLabel": "Theia 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2407.20179",
-      "focus": "将多种视觉基础模型的知识蒸馏到同一编码器，面向机器人学习。"
+      "focus": "将多种视觉基础模型的知识蒸馏到同一编码器，面向机器人学习。",
+      "capacity": {
+        "parameters": 85798656,
+        "inputSize": 224,
+        "nativeTokens": 196,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/13/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "实际加载的视觉模块参数；不是文件大小或全策略参数。",
+        "revision": "90eaf9cf0bf1c709d525862125e72ce12aed901c",
+        "weight_sha256": "b3bc8396ca75d79b3ba00e0e4251b7589e044741410f116c91befe34372fa645"
+      }
     },
     "eupe_vit_b": {
       "name": "EUPE ViT-B/16",
@@ -187,7 +402,38 @@
       "publicationDate": "2026-03-23",
       "publicationLabel": "EUPE 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2603.22387",
-      "focus": "先融合多领域教师，再蒸馏到紧凑 ViT，兼顾多类视觉任务。"
+      "focus": "先融合多领域教师，再蒸馏到紧凑 ViT，兼顾多类视觉任务。",
+      "capacity": {
+        "parameters": 85669632,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/6/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "加载审计已排除教师蒸馏 projectors。",
+        "revision": "ade64ea48af0362c41950f763ba612fca723691e",
+        "weight_sha256": "fcdb6b9e1c467962bb0a50b983d0fb4cec56674f32fc51d3359001677abc6922",
+        "source_code_revision": "f6cdf04d82b97009941a27e9bed3ca17ac7e0366"
+      },
+      "robotwinCapacity": {
+        "parameters": 85669632,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "shared-loader-architecture",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/6/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "加载审计已排除教师蒸馏 projectors。 RoboTwin 使用同一 FrozenEncoder 架构，空间读出另池化到16 tokens；这是架构复用核对，非新服务器实测。",
+        "revision": "ade64ea48af0362c41950f763ba612fca723691e",
+        "weight_sha256": "fcdb6b9e1c467962bb0a50b983d0fb4cec56674f32fc51d3359001677abc6922",
+        "source_code_revision": "f6cdf04d82b97009941a27e9bed3ca17ac7e0366",
+        "readoutTokens": 16,
+        "adapterParameters": 6293504,
+        "adapterEvidence": "robotwin/m7/mve_dp_encoder.py: LayerNorm(dim) + Linear(16*dim,512)"
+      }
     },
     "eupe_convnext_b": {
       "name": "EUPE ConvNeXt-B",
@@ -198,7 +444,38 @@
       "publicationDate": "2026-03-23",
       "publicationLabel": "EUPE 论文预印本",
       "sourceUrl": "https://arxiv.org/abs/2603.22387",
-      "focus": "采用 EUPE 多教师知识聚合与压缩流程的 ConvNeXt 表征。"
+      "focus": "采用 EUPE 多教师知识聚合与压缩流程的 ConvNeXt 表征。",
+      "capacity": {
+        "parameters": 87566464,
+        "inputSize": 256,
+        "nativeTokens": 64,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/21/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "加载审计已排除教师蒸馏 projectors。",
+        "revision": "f6a9b1c5e01a45db93bf625f551257186c3a6d2c",
+        "weight_sha256": "b0fc5487ee22aaf99ebd535b6eb542b2df083cc0ade58ab31351bf882955e467",
+        "source_code_revision": "f6cdf04d82b97009941a27e9bed3ca17ac7e0366"
+      },
+      "robotwinCapacity": {
+        "parameters": 87566464,
+        "inputSize": 256,
+        "nativeTokens": 64,
+        "status": "shared-loader-architecture",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/21/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "加载审计已排除教师蒸馏 projectors。 RoboTwin 使用同一 FrozenEncoder 架构，空间读出另池化到16 tokens；这是架构复用核对，非新服务器实测。",
+        "revision": "f6a9b1c5e01a45db93bf625f551257186c3a6d2c",
+        "weight_sha256": "b0fc5487ee22aaf99ebd535b6eb542b2df083cc0ade58ab31351bf882955e467",
+        "source_code_revision": "f6cdf04d82b97009941a27e9bed3ca17ac7e0366",
+        "readoutTokens": 16,
+        "adapterParameters": 8391168,
+        "adapterEvidence": "robotwin/m7/mve_dp_encoder.py: LayerNorm(dim) + Linear(16*dim,512)"
+      }
     },
     "c_radio_v3_b": {
       "name": "C-RADIO v3 ViT-B",
@@ -209,7 +486,20 @@
       "publicationDate": "2025-06-03",
       "publicationLabel": "C-RADIOv3 权重发布",
       "sourceUrl": "https://github.com/NVlabs/RADIO",
-      "focus": "蒸馏图文、空间与分割教师，在同一网络中整合多类视觉表征。"
+      "focus": "蒸馏图文、空间与分割教师，在同一网络中整合多类视觉表征。",
+      "capacity": {
+        "parameters": 98254848,
+        "inputSize": 256,
+        "nativeTokens": 256,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/25/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "官方 RADIO 视觉模块整体计数，包含其空间特征归一化等模块；不是仅按标准 ViT 结构估算。",
+        "revision": "44653a0482cf460bb4f12595fc3cc3dfecc403d1",
+        "weight_sha256": "27881c65f10ab2a16d4b2bda2d6f52ddc8410b0980837fc96914e72a7d190b9b"
+      }
     },
     "c_radio_v4_so400m": {
       "name": "C-RADIO v4 SO400M",
@@ -242,7 +532,21 @@
       "publicationDate": "2024-06-14",
       "publicationLabel": "Depth Anything V2 模型发布",
       "sourceUrl": "https://github.com/DepthAnything/Depth-Anything-V2",
-      "focus": "面向单目深度估计学习的视觉骨干，侧重场景几何。"
+      "focus": "面向单目深度估计学习的视觉骨干，侧重场景几何。",
+      "capacity": {
+        "parameters": 86580480,
+        "inputSize": 518,
+        "nativeTokens": 1369,
+        "status": "measured-loaded-module",
+        "scope": "one_loaded_visual_module",
+        "evidence": "app-next-inventory-MVE1-20260922T1456.json",
+        "pointer": "/caches/23/identity/encoder_identity",
+        "evidenceSha256": "202a3f8b28e79f6a12ba5516fceeba07792da84ef1813ff4097f6d1b5e6d9c43",
+        "note": "预训练视觉模块；不含深度预测头。",
+        "revision": "a4e71a6c2ce52fe50df0f212066b0d4a87be9b5e",
+        "weight_sha256": "0d2b7002e62d39d655571c371333340bd88f67ab95050c03591555aa05645328",
+        "source_code_revision": "a561b849ebae10a6f5ef49e26c83cbbcd36c71bf"
+      }
     },
     "dp_resnet18_scratch": {
       "name": "ResNet-18 · 官方 DP 从零训练",
@@ -254,6 +558,19 @@
       "publicationLabel": "从零训练；无预训练权重发布日期",
       "sourceUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
       "focus": "与 Diffusion Policy 一起端到端训练的视觉骨干；属于参照基线。"
+    },
+    "resnet18_in1k": {
+      "robotwinCapacity": {
+        "parameters": 11176512,
+        "inputSize": 224,
+        "nativeTokens": 49,
+        "readoutTokens": 16,
+        "adapterParameters": 4195840,
+        "status": "architecture-derived",
+        "scope": "one_loaded_visual_module",
+        "evidence": "robotwin/m7/mve_dp_encoder.py",
+        "note": "R1 的 TorchVision ResNet18 children()[:-2]，由0.23版结构在meta设备精确计数；未加载或重验服务器权重。"
+      }
     }
   },
   "benchmarks": {
@@ -525,5 +842,16 @@
       ],
       "caveat": "本站尚无接入成绩；自动判定协议与实机成功需分别核验，本文日期对应 3.0 版本。"
     }
+  },
+  "capacitySchema": {
+    "version": 1,
+    "verifiedAt": "2026-10-24",
+    "scope": "one loaded visual module; includes frozen parameters; excludes policy adapters/action heads/text tower",
+    "tierThresholds": [
+      50000000,
+      150000000
+    ],
+    "latencyMs": null,
+    "tiersArePresentationOnly": true
   }
 }
