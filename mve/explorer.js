@@ -14,8 +14,12 @@ const safeUrl=u=>{if(!u)return '#';try{const x=new URL(u,location.href);return /
 const dateDot=d=>d?String(d).slice(0,10).replaceAll('-','.'):'';
 
 /* ---------- state ---------- */
-const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'all',q:'',dir:-1,mode:'policy',proSeed:'mean',size:'all',capacitySort:'score',drawer:'',
+// grp: rows of a two-metric board; 2026-10-23 (user) it opens on our own encoders ('ours'), the quoted methods one click away
+// seed: 训练口径, 'mean' or one training seed; the same buttons on every board that has per-seed results (user, 2026-10-23)
+const S={page:'board',bench:'libero',view:'rank',track:'',cat:'all',suite:'all',pol:'all',grp:'ours',q:'',dir:-1,mode:'policy',seed:'mean',size:'all',capacitySort:'score',drawer:'',
   gcat:'all',gq:'',gtask:'',gpage:0,logq:'',logtype:'all'};
+// S.seed was S.proSeed while only LIBERO-PRO had the 训练口径 buttons: the old name keeps working (links, tests)
+Object.defineProperty(S,'proSeed',{get(){return S.seed;},set(v){S.seed=String(v);},enumerable:false});
 let DATA=null,CATALOG={encoders:{},benchmarks:{}};
 // 2026-10-22 (user): the site lists only the benchmarks with our own results; the others stay in data.json, hidden here.
 const SHOWN_BENCH=['libero','libero-pro','robotwin2'];
@@ -147,15 +151,21 @@ function viewTracks(b,view){
     if(view==='rank'||view==='capacity')return ts.filter(t=>t.encoderBoard).map(t=>t.id);
     if(view==='combos'||view==='matrix')return ts.filter(t=>t.combinations||t.runs?.length).sort((a,c)=>(c.combinations?1:0)-(a.combinations?1:0)).map(t=>t.id);
   }
+  if(view==='combos')return ts.filter(t=>t.proRows||t.combinations).map(t=>t.id);
   if(view==='matrix')return ts.filter(t=>t.pairBoard||t.proRows||(t.runs||[]).length>1).map(t=>t.id);
   return ts.map(t=>t.id);
 }
 function views(b){
   const v=[];
-  if(!isPlanned(b)){v.push('rank');if(b.id==='libero')v.push('combos');if(['libero','libero-pro','robotwin2'].includes(b.id))v.push('capacity');if(viewTracks(b,'matrix').length)v.push('matrix');}
+  if(!isPlanned(b)){v.push('rank');if(b.id==='libero'||(b.id==='libero-pro'&&viewTracks(b,'combos').length))v.push('combos');if(['libero','libero-pro','robotwin2'].includes(b.id))v.push('capacity');if(viewTracks(b,'matrix').length)v.push('matrix');}
   if((b.tasks||[]).some(t=>taskVideos(b,t).length))v.push('videos');
   v.push('about');return v;
 }
+// 训练口径: the training seeds a version can show one by one (LIBERO / PRO: per-seed rates in the data; RoboTwin: pairBoard.seeds)
+const trackSeeds=t=>t?.pairBoard?.seeds||((t?.proRows||t?.combinations)&&t.trainingSeeds)||[];
+function curSeed(t){const s=trackSeeds(t).map(String);return s.includes(S.seed)?Number(S.seed):null;}   // null = mean over seeds
+const benchHasSeed=(b,s)=>!!b&&(b.tracks||[]).some(t=>trackSeeds(t).map(String).includes(String(s)));
+function seedMeanLabel(t){const n=trackSeeds(t).length;return t?.pairBoard?.seedMeanLabel||`${'一二三四五六'[n-1]||n}种子均值`;}
 function currentTrack(b=B(),view=S.view){
   const ids=viewTracks(b,view);
   if(!ids.includes(S.track))S.track=ids[0]||'';
@@ -182,13 +192,27 @@ function taskPoster(t){
 /* ---------- boards: one shape for every benchmark ---------- */
 function getBoard(b,t,kind){
   if(!t)return null;
-  const key=`${b.id}|${t.id}|${kind}|${t.proRows?S.proSeed:''}`;if(BOARDS.has(key))return BOARDS.get(key);
-  const bd=kind==='encoder'&&t.encoderBoard?encoderBoard(b,t):t.pairBoard?pairBoard(b,t):t.proRows?proBoard(b,t):t.combinations?comboBoard(b,t):runBoard(b,t);
+  const key=`${b.id}|${t.id}|${kind}|${curSeed(t)??'mean'}`;if(BOARDS.has(key))return BOARDS.get(key);
+  const bd=kind==='encoder'&&t.encoderBoard?encoderBoard(b,t):kind==='proEncoder'&&t.proRows?proEncoderBoard(b,t):t.pairBoard?pairBoard(b,t):t.proRows?proBoard(b,t):t.combinations?comboBoard(b,t):runBoard(b,t);
   BOARDS.set(key,bd);return bd;
 }
 const suiteCats=b=>SUITE_ORDER.filter(s=>(b.tasks||[]).some(x=>x.suite===s)).map(s=>({id:s,label:suiteName(s),title:SUITES[s][1]}));
 const sortPols=ks=>[...new Set(ks)].filter(Boolean).sort((a,c)=>(polIdx(a)<0?99:polIdx(a))-(polIdx(c)<0?99:polIdx(c)));
 function comboBoard(b,t){
+  const sd=curSeed(t);
+  if(sd!==null){   // one training seed: its own rates from seedRates (combination, suite and task level); a seed counts when complete
+    const at=a=>{const z=(a||[]).find(q=>q.seed===sd);return z&&z.complete&&fin(z.successRate)?z:null;};
+    const rows=t.combinations.map(c=>{
+      const z=at(c.seedRates),cats={},tasks={};
+      for(const s of c.suiteResults||[]){const q=at(s.seedRates);cats[s.suite]={rate:q?q.successRate:null,succ:q?.successes,ep:q?.episodes||0,done:q?1:0,total:1};}
+      for(const x of c.taskResults||[]){const q=at(x.seedRates);tasks[x.taskId]={rate:q?q.successRate:null,succ:q?.successes,ep:q?.episodes||0,seeds:x.seedRates||[]};}
+      return {id:c.id,kind:'combo',encoder:c.encoder,name:encName(c.encoder,c.encoderLabel),head:polKey(c.head),family:c.policyFamily,
+        overall:{rate:z?z.successRate:null,succ:z?.successes,ep:z?.episodes||0},cats,tasks,cover:{done:z?1:0,total:1,unit:'种子'},ref:c};
+    });
+    return {kind:'combo',bench:b,track:t,seed:sd,title:'编码器 × 动作策略',overall:true,cats:suiteCats(b),catKind:'suite',pols:sortPols(rows.map(r=>r.head)),rows,
+      method:`当前为训练 seed${sd} 的单种子结果（每个组合 800 回合），不是三种子均值。`,note:t.rankingNote,notes:[t.comparisonNote,...(t.notes||[])].filter(Boolean),
+      seeds:[sd],taskCols:taskCols(b),episodes:rows.reduce((n,r)=>n+(fin(r.overall.rate)?r.overall.ep:0),0)};
+  }
   const rows=t.combinations.map(c=>{
     const done=c.status==='complete'&&fin(c.successRate),cats={},tasks={};
     for(const s of c.suiteResults||[])cats[s.suite]={rate:s.status==='complete'&&fin(s.successRate)?s.successRate:null,std:s.successRateStd,succ:s.successes,ep:s.episodes,exp:s.expectedEpisodes,done:s.completedSeeds?.length||0,total:3};
@@ -198,25 +222,34 @@ function comboBoard(b,t){
       overall:{rate:done?c.successRate:null,std:c.successRateStd,succ:c.successes,ep:c.episodes,exp:c.expectedEpisodes},cats,tasks,
       cover:{done:c.completedSeeds?.length||0,total:(c.trainingSeeds||t.trainingSeeds||[17,29,43]).length,unit:'种子'},ref:c};
   });
-  return {kind:'combo',bench:b,track:t,title:'编码器 × 动作策略',overall:true,cats:suiteCats(b),catKind:'suite',pols:sortPols(rows.map(r=>r.head)),rows,
+  return {kind:'combo',bench:b,track:t,seed:null,title:'编码器 × 动作策略',overall:true,cats:suiteCats(b),catKind:'suite',pols:sortPols(rows.map(r=>r.head)),rows,
     method:'每行汇总训练种子 17 / 29 / 43：三个种子等权平均，± 为种子间标准差。',note:t.rankingNote,notes:[t.comparisonNote,...(t.notes||[])].filter(Boolean),
     seeds:t.trainingSeeds,taskCols:taskCols(b),episodes:t.auditedValidEpisodes};
 }
 function encoderBoard(b,t){
-  const eb=t.encoderBoard,combos=comboBoard(b,t),cmap=new Map(combos.rows.map(r=>[r.id,r]));
+  const eb=t.encoderBoard,combos=comboBoard(b,t),cmap=new Map(combos.rows.map(r=>[r.id,r])),sd=combos.seed,mean=v=>v.reduce((n,x)=>n+x,0)/v.length;
   const rows=eb.rows.map(r=>{
     const cats={},pols={};
+    if(sd!==null){   // one training seed: the same policy set as the published board, each combination at that seed
+      for(const p of r.policies||[]){const c=p.combinationId&&cmap.get(p.combinationId);
+        pols[polKey(p.head)]={rate:c?c.overall.rate:null,done:c&&fin(c.overall.rate)?1:0,total:1,combo:p.combinationId,label:p.label};}
+      const exp=(r.expectedPolicies||eb.policyHeads).map(polKey),v=exp.map(k=>pols[k]?.rate);
+      for(const s of suiteCats(b)){const x=exp.map(k=>cmap.get(pols[k]?.combo)?.cats[s.id]?.rate);cats[s.id]={rate:x.length&&x.every(fin)?mean(x):null,done:x.filter(fin).length,total:exp.length};}
+      return {id:r.id,kind:'encoder',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:'',overall:{rate:v.length&&v.every(fin)?mean(v):null},cats,pols,
+        cover:{done:v.filter(fin).length,total:exp.length,unit:'策略'},ref:r};
+    }
     for(const s of r.suiteResults||[])cats[s.suite]={rate:fin(s.successRate)?s.successRate:null,done:s.completedPolicies?.length||0,total:s.expectedPolicies?.length||0};
     for(const p of r.policies||[])pols[polKey(p.head)]={rate:fin(p.successRate)?p.successRate:null,done:p.completedSeeds?.length||0,total:3,combo:p.combinationId,label:p.label};
     return {id:r.id,kind:'encoder',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:'',overall:{rate:fin(r.successRate)?r.successRate:null},cats,pols,
       cover:{done:r.completedPolicies?.length||0,total:r.expectedPolicies?.length||eb.policyHeads.length,unit:'策略'},ref:r};
   });
-  return {kind:'encoder',bench:b,track:t,title:'视觉编码器综合榜',overall:true,cats:suiteCats(b),catKind:'suite',pols:sortPols(eb.policyHeads.map(polKey)),rows,combos:cmap,
-    method:eb.method,note:t.rankingNote,notes:[eb.missingNote,eb.revisionNote,t.comparisonNote,...(t.notes||[])].filter(Boolean),
-    seeds:t.trainingSeeds,taskCols:taskCols(b),episodes:t.auditedValidEpisodes};
+  return {kind:'encoder',bench:b,track:t,seed:sd,title:'视觉编码器综合榜',overall:true,cats:suiteCats(b),catKind:'suite',pols:sortPols(eb.policyHeads.map(polKey)),rows,combos:cmap,
+    method:sd===null?eb.method:`当前为训练 seed${sd} 的单种子结果：每个组合取 seed${sd}，再对全部动作策略等权平均（策略集合与三种子均值相同）；不是三种子均值。`,
+    note:t.rankingNote,notes:[eb.missingNote,eb.revisionNote,t.comparisonNote,...(t.notes||[])].filter(Boolean),
+    seeds:sd===null?t.trainingSeeds:[sd],taskCols:taskCols(b),episodes:sd===null?t.auditedValidEpisodes:combos.episodes};
 }
 function proBoard(b,t){
-  const seed=['17','29','43'].includes(S.proSeed)?Number(S.proSeed):null;
+  const seed=curSeed(t);
   const perts=t.perturbations||(t.proRows[0]?.cells||[]).map(c=>({id:c.track,label:c.label}));
   const rows=t.proRows.map(r=>{
     const cats={};
@@ -232,12 +265,32 @@ function proBoard(b,t){
     return {id:r.id,kind:'pro',encoder:r.encoder,name:encName(r.encoder,r.encoderLabel),head:polKey(r.head),polLabel:r.policyLabel,overall:ov,cats,
       cover:{done:Object.values(cats).filter(c=>fin(c.rate)).length,total:r.cells.length,unit:'扰动'},ref:r};
   });
-  return {kind:'pro',bench:b,track:t,proSeed:seed,title:seed===null?'扰动鲁棒性榜':`扰动鲁棒性榜 · seed${seed}（单种子）`,overall:true,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
+  return {kind:'pro',bench:b,track:t,seed,proSeed:seed,title:seed===null?'扰动鲁棒性榜':`扰动鲁棒性榜 · seed${seed}（单种子）`,overall:true,cats:perts.map(p=>({id:p.id,label:p.label,title:`${p.label} 扰动`})),catKind:'perturbation',
     pols:sortPols(rows.map(r=>r.head)),rows,suites:SUITE_ORDER,
     method:seed===null?'每个扰动单独计分：训练种子 17 / 29 / 43 各 800 回合的等权均值。总分 = 4 类扰动（Object、Language、Swap、Task）的等权平均，只给 4 类都完整的行；默认按总分排名。':`当前为训练 seed${seed} 的单种子开发比较，不是三种子均值。每类 800 回合（40 任务 × 20 个评估 seed），四类均完整才计算总分；缺失保持为空。`,
     note:'Environment 官方资产尚未齐全，所以总分只含 4 类，与官方 5 类 PRO 总分不同；原始与变体初态不作纯因果配对解释。',notes:[],seeds:seed===null?t.trainingSeeds:[seed],taskCols:[],
     completeCells:rows.reduce((n,r)=>n+Object.values(r.cats).filter(c=>fin(c.rate)).length,0),
     episodes:seed===null?t.auditedValidEpisodes:rows.reduce((n,r)=>n+Object.values(r.cats).reduce((a,c)=>a+c.ep,0),0)};
+}
+/* LIBERO-PRO by encoder (user, 2026-10-23: the default ranking is the encoder mean, as on LIBERO). An encoder's score is the
+   equal-weight mean of its action policies' 总分; only encoders with every policy complete are ranked, the others stay gray. */
+function proEncoderBoard(b,t){
+  const cb=getBoard(b,t,'auto'),pols=cb.pols,byEnc=new Map(),mean=v=>v.reduce((n,x)=>n+x,0)/v.length;
+  for(const r of cb.rows){if(!byEnc.has(r.encoder))byEnc.set(r.encoder,[]);byEnc.get(r.encoder).push(r);}
+  const agg=(rs,get)=>{if(rs.length<pols.length)return null;const v=rs.map(get);return v.every(fin)?mean(v):null;};
+  const rows=[...byEnc].map(([enc,rs])=>{
+    const ph=new Map(rs.map(r=>[r.head,r])),full=pols.map(p=>ph.get(p)).filter(Boolean),pmap={},cats={},ov={rate:agg(full,r=>r.overall.rate),suites:{}};
+    for(const r of full)pmap[r.head]={rate:r.overall.rate,combo:r.id,label:r.polLabel,done:r.cover.done,total:r.cover.total};
+    for(const s of SUITE_ORDER)ov.suites[s]={rate:agg(full,r=>r.overall.suites?.[s]?.rate)};
+    for(const c of cb.cats){const suites={};for(const s of SUITE_ORDER)suites[s]={rate:agg(full,r=>r.cats[c.id]?.suites?.[s]?.rate)};
+      cats[c.id]={rate:agg(full,r=>r.cats[c.id]?.rate),suites,done:full.filter(r=>fin(r.cats[c.id]?.rate)).length,total:pols.length};}
+    return {id:`enc:${enc}`,kind:'encoder',encoder:enc,name:rs[0].name,head:'',overall:ov,cats,pols:pmap,
+      cover:{done:full.filter(r=>fin(r.overall.rate)).length,total:pols.length,unit:'策略'},ref:{encoder:enc}};
+  });
+  return {kind:'encoder',pro:true,bench:b,track:t,seed:cb.seed,proSeed:cb.seed,title:'视觉编码器综合榜 · 扰动鲁棒性',overall:true,cats:cb.cats,catKind:'perturbation',pols,rows,
+    combos:new Map(cb.rows.map(r=>[r.id,r])),comboBoard:cb,suites:SUITE_ORDER,
+    method:`编码器分数 = ${pols.length} 种动作策略各自总分的等权平均（总分 = ${cb.cats.length} 类扰动均值；${cb.proSeed===null?'训练种子 17 / 29 / 43 三种子均值':`训练 seed${cb.proSeed} 单种子`}）。只给 ${pols.length} 种策略都完整的编码器排名；策略不全的编码器灰显、不排名。选“动作策略”可看单一策略下的名次，“组合”页是编码器 × 策略的明细榜。`,
+    note:cb.note,notes:[],seeds:cb.seeds,taskCols:[],completeCells:cb.completeCells,episodes:cb.episodes};
 }
 function runBoard(b,t){
   const isLib=b.id==='libero',present=new Set(t.runs.flatMap(r=>(r.taskResults||[]).map(x=>x.taskId)));
@@ -263,16 +316,25 @@ function runBoard(b,t){
 function pairBoard(b,t){
   const pb=t.pairBoard,metrics=pb.metrics||[],groups=pb.groups||[],gmap=new Map(groups.map(g=>[g.id,g]));
   const present=new Set(metrics.flatMap(m=>m.tasks||[]));
+  // 2026-10-23 (user): ranked by default on 总分 = the mean of the two metrics (as the 4-perturbation 总分 of LIBERO-PRO;
+  // the official RoboTwin board also ranks by the mean of Easy and Hard). Presentation only, never stored in the data.
+  const total=metrics.length===2?{id:'total',label:'总分',title:`${metrics[0].label} 与 ${metrics[1].label} 的平均`,tasks:[],derived:true}:null;
+  // 训练口径: our rows carry per-seed results; the quoted rows are single official evaluations and do not change with the seed
+  const sd=curSeed(t);
   const rows=(pb.rows||[]).map(r=>{
-    const g=gmap.get(r.group)||{},cats={},tasks={};
-    for(const m of metrics)cats[m.id]={rate:fin(r.metrics?.[m.id])?r.metrics[m.id]:null};
-    for(const [tid,v] of Object.entries(r.tasks||{}))tasks[tid]={...v,rate:fin(v.easy)?v.easy:null};
+    const g=gmap.get(r.group)||{},cats={},tasks={},src=sd!==null&&r.seeds?(r.seeds[sd]||{metrics:{},tasks:{}}):r;
+    for(const m of metrics)cats[m.id]={rate:fin(src.metrics?.[m.id])?src.metrics[m.id]:null};
+    if(total){const [x,y]=metrics.map(m=>cats[m.id].rate);cats.total={rate:fin(x)&&fin(y)?(x+y)/2:null};}
+    for(const [tid,v] of Object.entries(src.tasks||{}))tasks[tid]={...v,rate:fin(v.easy)?v.easy:null};
     return {id:r.id,kind:'pair',encoder:r.encoder||'',name:r.name,sub:r.sub||'',group:r.group,ours:!!g.ours,peer:!!(g.ours||g.peer),head:'',
       overall:null,cats,tasks,official:r.official||null,cover:{done:metrics.filter(m=>fin(cats[m.id].rate)).length,total:metrics.length,unit:'指标'},ref:r};
   });
-  return {kind:'pair',bench:b,track:t,title:t.label,overall:false,cats:metrics.map(m=>({id:m.id,label:m.label,title:m.title,tasks:m.tasks||[]})),catKind:'metric',
+  // a seed whose second metric is incomplete (Hard seeds 1-4 cover 3 of 8 tasks) has no 总分: rank on the first metric then
+  const hasTotal=!!total&&rows.some(r=>r.ours&&fin(r.cats.total?.rate)),cats=[...(total?[total]:[]),...metrics.map(m=>({id:m.id,label:m.label,title:m.title,tasks:m.tasks||[]}))];
+  const seedNote=sd!==null&&total&&!hasTotal?`训练 seed${sd} 没有完整的 ${metrics[1].label}（${(metrics[1].tasks||[]).length} 任务）结果，所以没有${total.label}，按 ${metrics[0].label} 排。`:'';
+  return {kind:'pair',bench:b,track:t,seed:sd,title:t.label,overall:false,cats,defaultCat:hasTotal||!total?cats[0]?.id:metrics[0]?.id,seedNote,catKind:'metric',
     groups,pols:[],rows,source:pb.source||null,highlights:pb.highlights||{},
-    method:t.rankingNote||'',note:'',notes:t.notes||[],seeds:t.trainingSeeds,taskCols:taskCols(b,present),episodes:null};
+    method:t.rankingNote||'',note:seedNote,notes:t.notes||[],seeds:sd===null?t.trainingSeeds:[sd],taskCols:taskCols(b,present),episodes:null};
 }
 // Group colors: ours = the benchmark accent; quoted groups take the categorical slots after it, then neutral gray.
 const GROUP_SLOTS=['var(--s1)','var(--gn)','var(--s3)','var(--s5)'];
@@ -285,8 +347,11 @@ function rowMark(bd,r,cls=''){
 }
 
 /* ---------- scope, scores, ranks ---------- */
-function curCat(bd){if(bd.kind==='pair')return bd.cats.some(c=>c.id===S.cat)?S.cat:bd.cats[0]?.id;return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
+function curCat(bd){if(bd.kind==='pair')return bd.cats.some(c=>c.id===S.cat)?S.cat:(bd.defaultCat||bd.cats[0]?.id);return bd.cats.some(c=>c.id===S.cat)?S.cat:'all';}
 function rowScore(bd,r,cat=curCat(bd)){
+  if(bd.kind==='encoder'&&bd.pro){
+    if(S.pol!=='all'){const c=bd.combos.get(r.pols[S.pol]?.combo);return c?rowScore(bd.comboBoard,c,cat):null;}
+    const c=cat==='all'?r.overall:r.cats[cat];if(!c)return null;return S.suite==='all'?c.rate:(c.suites?.[S.suite]?.rate??null);}
   if(bd.kind==='encoder'&&S.pol!=='all'){const p=r.pols[S.pol];if(!p)return null;if(cat==='all')return p.rate;return bd.combos.get(p.combo)?.cats[cat]?.rate??null;}
   if(bd.kind==='pro'){const c=cat==='all'?r.overall:r.cats[cat];if(!c)return null;return S.suite==='all'?c.rate:(c.suites?.[S.suite]?.rate??null);}
   if(bd.kind==='pair')return r.cats[cat]?.rate??null;
@@ -313,10 +378,12 @@ function visibleRows(bd){
 }
 function scopeLabel(bd){
   const cat=curCat(bd),c=bd.cats.find(x=>x.id===cat);
-  if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all,...(S.size!=='all'?[SIZE_TIERS.find(x=>x[0]===S.size)?.[1]+' · 档内排名']:[])];
-  const parts=[c?(bd.kind==='pro'?`${c.label} 扰动`:c.label):bd.kind==='pro'?'总分（4 类扰动均值）':'全部任务'];
-  if(bd.kind==='pro')parts.push(bd.proSeed===null?'三种子均值':`seed${bd.proSeed} · 单种子开发比较`);
-  if(bd.kind==='pro'&&S.suite!=='all')parts.push(suiteName(S.suite));
+  const seedLbl=trackSeeds(bd.track).length?(bd.seed==null?seedMeanLabel(bd.track):`seed${bd.seed} · 单种子`):'';
+  if(bd.kind==='pair')return [`按 ${c?.label||''} 排序`,GRP_LABEL[S.grp]||GRP_LABEL.all,seedLbl,...(S.size!=='all'?[SIZE_TIERS.find(x=>x[0]===S.size)?.[1]+' · 档内排名']:[])].filter(Boolean);
+  const pro=bd.kind==='pro'||bd.pro;
+  const parts=[c?(pro?`${c.label} 扰动`:c.label):pro?`总分（${bd.cats.length} 类扰动均值）`:'全部任务'];
+  if(seedLbl)parts.push(seedLbl);
+  if(pro&&S.suite!=='all')parts.push(suiteName(S.suite));
   parts.push(S.pol==='all'?(bd.kind==='encoder'?`${bd.pols.length} 种动作策略等权`:'全部动作策略'):polName(S.pol));
   if(capacityApplies(bd)&&S.size!=='all')parts.push(SIZE_TIERS.find(x=>x[0]===S.size)?.[1]+' · 档内排名');
   return parts;
@@ -342,24 +409,25 @@ function readRoute(){
   }else{
     S.page=['board','atlas','method','log'].includes(h.get('p'))?h.get('p'):'board';
     if(h.get('v'))S.view=h.get('v');if(h.get('t'))S.track=h.get('t');
-    S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.grp=['peer','ours'].includes(h.get('g'))?h.get('g'):'all';S.q=h.get('q')||'';
+    S.cat=h.get('cat')||'all';S.suite=h.get('suite')||'all';S.pol=h.get('pol')||'all';S.grp=['all','peer','ours'].includes(h.get('g'))?h.get('g'):'ours';S.q=h.get('q')||'';
     S.mode=h.get('mode')==='suite'?'suite':'policy';S.dir=h.get('dir')==='asc'?1:-1;
-    S.proSeed=['17','29','43'].includes(h.get('seed'))?h.get('seed'):'mean';
+    S.seed=/^\d{1,3}$/.test(h.get('seed')||'')?h.get('seed'):'mean';
     S.size=SIZE_TIERS.some(x=>x[0]===h.get('size'))?h.get('size'):'all';S.capacitySort=h.get('order')==='params'?'params':'score';
     S.gcat=h.get('gcat')||'all';S.gtask=h.get('gtask')||'';S.drawer=h.get('d')||'';
   }
   if(h.get('b'))S.bench=h.get('b');
   if(S.view==='mountain')S.view='rank';   // old 性能山 links: the ranked dot plot of 榜单 replaced it
+  if(DATA&&S.seed!=='mean'&&!benchHasSeed(benchById(S.bench),S.seed))S.seed='mean';   // a seed this benchmark does not have
 }
 function writeRoute(){
   const h=new URLSearchParams();
   if(S.page!=='board')h.set('p',S.page);
   if(S.page==='board'){
     h.set('b',S.bench);h.set('v',S.view);if(S.track)h.set('t',S.track);
-    if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.grp!=='all')h.set('g',S.grp);if(S.q)h.set('q',S.q);
+    if(S.cat!=='all')h.set('cat',S.cat);if(S.suite!=='all')h.set('suite',S.suite);if(S.pol!=='all')h.set('pol',S.pol);if(S.grp!=='ours')h.set('g',S.grp);if(S.q)h.set('q',S.q);
     if(S.size!=='all')h.set('size',S.size);if(S.view==='capacity'&&S.capacitySort==='params')h.set('order','params');
     if(S.mode==='suite')h.set('mode','suite');if(S.dir>0)h.set('dir','asc');
-    if(S.bench==='libero-pro'&&S.proSeed!=='mean')h.set('seed',S.proSeed);
+    if(S.seed!=='mean')h.set('seed',S.seed);
     if(S.view==='about'){if(S.gcat!=='all')h.set('gcat',S.gcat);if(S.gtask)h.set('gtask',S.gtask);}
     if(S.drawer)h.set('d',S.drawer);
   }

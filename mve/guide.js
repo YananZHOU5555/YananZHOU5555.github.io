@@ -50,7 +50,7 @@ function taskFacts(t){
 }
 function taskBoard(b){
   const bd=activeBoard(b,['rank','combos','mountain','matrix'].includes(S.view)?S.view:'rank');
-  if(!bd)return null;if(bd.kind==='encoder')return getBoard(b,bd.track,'auto');if(bd.kind==='pro')return null;return bd;
+  if(!bd)return null;if(bd.kind==='encoder'){const cb=getBoard(b,bd.track,'auto');return cb.kind==='pro'?null:cb;}if(bd.kind==='pro')return null;return bd;
 }
 function taskDrawer(b,t){
   const g=guideTaskMap(b.id).get(t.id),title=g?.title||t.instruction||shortTask(t),list=taskClipList(b,t,g),vid=`task-${t.id}`;CLIPS[vid]=list;
@@ -60,7 +60,8 @@ function taskDrawer(b,t){
     ${t.instruction?`<p class="ins">原始指令 <code lang="en">${esc(t.instruction)}</code></p>`:''}
     <div class="d-sec" data-vhost="${esc(vid)}">${videoBlock(list,0,vid)}</div>`;
   const bd=taskBoard(b);
-  if(bd){const pm=bd.kind==='pair'?curCat(bd):null,other=pm?bd.cats.find(c=>c.id!==pm):null;
+  // per task there is no 总分 (some tasks have no Hard): a two-metric board lists the task by its first real metric then
+  if(bd){const real=bd.cats.filter(c=>!c.derived),cc=bd.kind==='pair'?curCat(bd):null,pm=cc&&bd.cats.find(c=>c.id===cc)?.derived?real[0]?.id:cc,other=pm?real.find(c=>c.id!==pm):null;
     const rows=bd.rows.filter(r=>inPool(bd,r)).map(r=>{const v=r.tasks?.[t.id];return {r,v:v&&pm?{...v,rate:fin(v[pm])?v[pm]:null}:v};})
       .filter(x=>x.v&&(!pm||fin(x.v.rate))).sort((a,c)=>(fin(c.v.rate)?c.v.rate:-1)-(fin(a.v.rate)?a.v.rate:-1));
     const lab=x=>bd.kind==='pair'?`${rowMark(bd,x.r)}<span>${esc(x.r.name)}</span>`:`${encMark(x.r.encoder)}<span>${esc(x.r.name)}</span>${bd.kind!=='run'||bd.pols.length>1?polBadge(x.r.head):''}`;
