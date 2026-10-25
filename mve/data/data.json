@@ -1,12 +1,8 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-25T04:09:55.097194+00:00",
-  "generatedAt": "2026-10-25T04:09:55.097194+00:00",
-  "evidenceAsOf": {
-    "base": "2026-09-20T23:51:14+00:00",
-    "expanded": "2026-09-21T00:52:56.226087+00:00",
-    "native20x1": "2026-10-24T05:26:02.860439+00:00"
-  },
+  "updatedAt": "2026-10-25T10:13:30.674873+00:00",
+  "generatedAt": "2026-10-25T10:13:30.674873+00:00",
+  "evidenceAsOf": "2026-10-25T10:08:56.369447+00:00",
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
     "baseCompleteRuns": 42,
@@ -369610,7 +369606,7 @@
           "stage": "development",
           "ranked": false,
           "developmentOnly": true,
-          "rankingNote": "单训练种子开发结果：每任务20个独立评估初态，共800回合。尚无三种子均值，也不参与正式榜排名。未蒸馏EUPE的同数值路径对照正在接续；历史cached基线不可用来归因蒸馏收益。",
+          "rankingNote": "独立开发比较：每模型仅策略 seed17，每任务20个独立初态，共800回合。DP学生与未蒸馏初始化使用匹配数值路径；ACT A/S为同一新冻结family的在线对照。不同动作头不作蒸馏因果比较，无三种子均值，不参与正式榜排名。",
           "trainingSeeds": [
             17
           ],
@@ -369638,11 +369634,12 @@
           ],
           "episodesPerTask": 20,
           "targetEpisodesPerRun": 800,
-          "observedAt": "2026-10-25T04:04:23.088594+00:00",
+          "observedAt": "2026-10-25T10:08:56.369447+00:00",
           "notes": [
-            "教师：EUPE-ConvNeXt-B、C-RADIO v3、SigLIP2等权patch蒸馏，学生EUPE-ViT-B初始化。",
-            "10k学生固定末步EMA；下游DP-DiT固定20k/fullbatch32/无累积/final EMA。",
-            "工程门的2个技术smoke回合不计分。Goal 7.0%仍明显偏弱；提升归因等待匹配对照。"
+            "DP旧学生40.50%，匹配未蒸馏初始化38.50%；差值+2.00pp，任务配对bootstrap95%区间[-2.125,6.625]pp，尚不能确认稳定收益。两者Goal均7.00%。",
+            "新ACT对照：A原EUPE-ViT-B 55.50%，S原SigLIP2-B 58.875%；S−A +3.375pp，区间[-3.25,10.00]pp。四suite完整展示，不用历史cached结果归因。",
+            "所有策略20k/fullbatch32/无累积，DP固定final EMA、ACT固定final RAW；技术smoke不计分。A每相机256tokens、S196tokens，计算成本不同。",
+            "B/C因工程启动失败暂无闭环结果，保留null；这不是科学阴性，也不触发F或后续种子晋级。"
           ],
           "runs": [
             {
@@ -369991,8 +369988,1276 @@
                   "status": "complete"
                 }
               ]
+            },
+            {
+              "id": "initctl_dpdit_eupevit_b32_s17_20261025",
+              "encoder": "mve_eupevit_initialization_fp32online_control_v1",
+              "encoderLabel": "EUPE ViT-B · 未蒸馏",
+              "head": "dp_dit_native",
+              "label": "DP-DiT 同路径初始化对照",
+              "trainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "successes": 308,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.385,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_dp_dit_init_control_online_v1_20261025",
+              "checkpointSha256": "f5fb406e19943c68fd106cf8bd64fa8d7272ff30b4f4aba87665abc5f5cea8e7",
+              "encoderCheckpointSha256": "a720a5a1a70e8ea246c12ca1994fc03b99c9e8f51ec62f94e28f2fcb40219d34",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "policySteps": 20000,
+              "distillationSteps": 0,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 97,
+                  "episodes": 200,
+                  "successRate": 0.485
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 142,
+                  "episodes": 200,
+                  "successRate": 0.71
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 14,
+                  "episodes": 200,
+                  "successRate": 0.07
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 55,
+                  "episodes": 200,
+                  "successRate": 0.275
+                }
+              ]
+            },
+            {
+              "id": "cfact_A_b32_s17_20261025",
+              "encoder": "control_A_eupevit_original_v1",
+              "encoderLabel": "EUPE ViT-B · 原始",
+              "head": "act_native_7",
+              "label": "ACT A · 新鲜在线对照",
+              "trainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "successes": 444,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.555,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_act_control_fusion_v1_20261025",
+              "checkpointSha256": "564b35e878522ec3c707efcd7201edd3f7a03be6700883679e487f630f6876ac",
+              "encoderCheckpointSha256": "fcdb6b9e1c467962bb0a50b983d0fb4cec56674f32fc51d3359001677abc6922",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "policySteps": 20000,
+              "distillationSteps": 0,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 10,
+                  "auditedSuccesses": 10,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 150,
+                  "episodes": 200,
+                  "successRate": 0.75
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 180,
+                  "episodes": 200,
+                  "successRate": 0.9
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 47,
+                  "episodes": 200,
+                  "successRate": 0.235
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 67,
+                  "episodes": 200,
+                  "successRate": 0.335
+                }
+              ]
+            },
+            {
+              "id": "cfact_S_b32_s17_20261025",
+              "encoder": "control_S_siglip2_original_v1",
+              "encoderLabel": "SigLIP2-B · 原始",
+              "head": "act_native_7",
+              "label": "ACT S · 强单教师对照",
+              "trainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "successes": 471,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.58875,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_act_control_fusion_v1_20261025",
+              "checkpointSha256": "3bbc110357d731612a34a0da18d38609e438e9ba76f6e209f447698844a880e2",
+              "encoderCheckpointSha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b",
+              "encoderParameters": 92884224,
+              "nativeTokensPerCamera": 196,
+              "policySteps": 20000,
+              "distillationSteps": 0,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 10,
+                  "auditedSuccesses": 10,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 158,
+                  "episodes": 200,
+                  "successRate": 0.79
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 178,
+                  "episodes": 200,
+                  "successRate": 0.89
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 82,
+                  "episodes": 200,
+                  "successRate": 0.41
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 53,
+                  "episodes": 200,
+                  "successRate": 0.265
+                }
+              ]
             }
-          ]
+          ],
+          "pendingResults": {
+            "B": null,
+            "C": null,
+            "F": null
+          },
+          "scientificNegativeResult": null,
+          "comparisons": {
+            "student_v1_minus_init": {
+              "overall": {
+                "delta_pp": 2.0,
+                "paired_task_bootstrap_95ci_pp": [
+                  -2.125,
+                  6.625
+                ],
+                "left_only_success": 87,
+                "right_only_success": 71,
+                "episode_mcnemar_exact_descriptive_p": 0.23263498900407617,
+                "episodes": 800,
+                "tasks": 40,
+                "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+              },
+              "suites": {
+                "libero_spatial": {
+                  "delta_pp": -3.5000000000000004,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -9.000000000000002,
+                    2.0
+                  ],
+                  "left_only_success": 18,
+                  "right_only_success": 25,
+                  "episode_mcnemar_exact_descriptive_p": 0.3603776529357674,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_object": {
+                  "delta_pp": 4.5,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -7.5,
+                    18.5
+                  ],
+                  "left_only_success": 28,
+                  "right_only_success": 19,
+                  "episode_mcnemar_exact_descriptive_p": 0.24296021728332562,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_goal": {
+                  "delta_pp": 0.0,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -3.5000000000000004,
+                    3.0
+                  ],
+                  "left_only_success": 5,
+                  "right_only_success": 5,
+                  "episode_mcnemar_exact_descriptive_p": 1.0,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_10": {
+                  "delta_pp": 7.000000000000001,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -1.0000000000000004,
+                    14.500000000000002
+                  ],
+                  "left_only_success": 36,
+                  "right_only_success": 22,
+                  "episode_mcnemar_exact_descriptive_p": 0.08694889972991099,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                }
+              }
+            },
+            "ACT_S_minus_A": {
+              "overall": {
+                "delta_pp": 3.3749999999999996,
+                "paired_task_bootstrap_95ci_pp": [
+                  -3.2499999999999996,
+                  10.0
+                ],
+                "left_only_success": 121,
+                "right_only_success": 94,
+                "episode_mcnemar_exact_descriptive_p": 0.07595348720301777,
+                "episodes": 800,
+                "tasks": 40,
+                "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+              },
+              "suites": {
+                "libero_spatial": {
+                  "delta_pp": 3.9999999999999996,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -9.5,
+                    17.0
+                  ],
+                  "left_only_success": 34,
+                  "right_only_success": 26,
+                  "episode_mcnemar_exact_descriptive_p": 0.36629400670329104,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_object": {
+                  "delta_pp": -0.9999999999999999,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -8.0,
+                    6.5
+                  ],
+                  "left_only_success": 10,
+                  "right_only_success": 12,
+                  "episode_mcnemar_exact_descriptive_p": 0.8318119049072266,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_goal": {
+                  "delta_pp": 17.5,
+                  "paired_task_bootstrap_95ci_pp": [
+                    5.500000000000001,
+                    30.5
+                  ],
+                  "left_only_success": 51,
+                  "right_only_success": 16,
+                  "episode_mcnemar_exact_descriptive_p": 2.1689238760717064e-05,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                },
+                "libero_10": {
+                  "delta_pp": -6.999999999999999,
+                  "paired_task_bootstrap_95ci_pp": [
+                    -20.5,
+                    6.999999999999999
+                  ],
+                  "left_only_success": 26,
+                  "right_only_success": 40,
+                  "episode_mcnemar_exact_descriptive_p": 0.1088569644097161,
+                  "episodes": 200,
+                  "tasks": 10,
+                  "limit": "One policy seed; task-cluster CI. Episode McNemar is descriptive, not independent-episode significance."
+                }
+              }
+            }
+          }
         }
       ],
       "coverage": {
@@ -409664,7 +410929,7 @@
     {
       "id": "distill-development.json",
       "label": "独立蒸馏开发结果 · 不计入正式榜",
-      "sha256": "e3200d8685efb6de186072b7c6343bc12bde960f4e4e7dbb3280cbf8ab5c8a23"
+      "sha256": "a6417e3908f431878a8ec94ecc7b7fd8204eec6f3832e04573a7929f38c7a10d"
     },
     {
       "id": "robotwin-results-20261025T0554Z.json",
@@ -411240,6 +412505,15 @@
       "summary": "主榜默认只列我们 5 组，按总分（Easy 与 Hard 的平均）排名，官方榜 26 个方法可切换到“同口径”或“全部”对照；新增“训练口径”按钮（种子均值 / 单个训练种子），与 LIBERO、LIBERO-PRO 的切换方式一致，原先按种子分的 3 个版本并入其中。我们 5 组：EUPE-ViT-B Easy 54.4% / Hard 1.6%，EUPE-ConvNeXt-B Easy 52.6% / Hard 2.6%，R1 · ResNet-18 IN-1K Easy 47.6% / Hard 1.6%，DINOv3-L/16 Easy 36.9% / Hard 5.3%，R0 · 官方 DP 复现 Easy 33.1% / Hard 0.0%。EUPE 两组的 Easy 与 3 个 Hard 任务都补到 5 个训练种子；每次评估 100 回合，含回合报错或 OIDN 报错的评估作废重跑。",
       "evidenceLabel": "robotwin-results-20261025T0554Z.json",
       "evidenceSha256": "353d27ffac2d4bfc5ee863ffa083b07b7fc5adc2bfb13cfb13ffd79240832806",
+      "commitUrl": null
+    },
+    {
+      "id": "heartbeat-development-controls-20261025T1001",
+      "at": "2026-10-25T10:13:30.674873+00:00",
+      "type": "evaluation",
+      "title": "开发对照补齐：DP初始化 + ACT A/S 共2400回合",
+      "summary": "严格审计新增3×800有效、0无效：DP初始化38.50%；ACT A55.50%、S58.875%。旧学生相对匹配初始化+2pp，95%任务配对区间跨0，Goal未提升。正式榜/三种子均值未变；B/C仍null，不视为科学阴性。",
+      "evidenceLabel": "heartbeat-results-20261025T1001.json",
       "commitUrl": null
     }
   ],
