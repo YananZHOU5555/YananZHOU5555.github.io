@@ -303,7 +303,7 @@ const GRP_LABEL={all:'全部方法',peer:'同口径（我们 + 同口径基线�
 function rankRows(bd){
   const rows=bd.rows.filter(r=>inPool(bd,r)&&sizePool(bd,r)).map(r=>({r,s:rowScore(bd,r)}));
   // single-episode diagnostics are marked 不排名 in the data: no ranks for them
-  for(const x of rows)x.rank=!bd.single&&fin(x.s)?1+rows.filter(y=>fin(y.s)&&y.s>x.s+1e-12).length:null;
+  for(const x of rows)x.rank=!bd.single&&!bd.track?.developmentOnly&&fin(x.s)?1+rows.filter(y=>fin(y.s)&&y.s>x.s+1e-12).length:null;
   return rows;
 }
 function visibleRows(bd){
