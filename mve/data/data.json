@@ -1,8 +1,8 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-28T04:34:41.962874+00:00",
-  "generatedAt": "2026-10-28T04:34:41.962874+00:00",
-  "evidenceAsOf": "2026-10-28T04:34:41.962874+00:00",
+  "updatedAt": "2026-10-28T05:20:36.083373+00:00",
+  "generatedAt": "2026-10-28T05:20:36.083373+00:00",
+  "evidenceAsOf": "2026-10-28T05:20:36.083373+00:00",
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
     "baseCompleteRuns": 42,
@@ -369636,8 +369636,9 @@
           ],
           "episodesPerTask": 20,
           "targetEpisodesPerRun": 800,
-          "observedAt": "2026-10-27T22:45:02.624437+00:00",
+          "observedAt": "2026-10-28T05:20:36.083373+00:00",
           "notes": [
+            "C4三策略种子64.5/49/51.75%，均值55.0833%±8.2702pp；相对固定WiSE−6.4167pp、相对单教师S−7.4167pp。Spatial72.8333/Object82.5/Goal32.6667/Long32.3333%。原子、控制轨迹及模型身份严格审计2400回合0invalid，不隐藏阴性。C4−WiSE配对policy/task95%CI[−12.2083,−0.7490]pp；仅3个policy种子、一个表示种子。",
             "C4三个ACT策略均已完成最终20k并严格核checkpoint身份，现自动各800回合；缺失的C4闭环均值保持null。新匹配单教师S的PRO Task三种子26/15/37成功，78/2400=3.25%；WiSE同项116/2400=4.8333%，只是单扰动描述比较，不能解释为整体或稳定优势。",
             "C4最终20k EMA已完成并核SHA归档，三策略种子17/29/43的ACT均已实训，随后各800回合；不按首种子正负筛掉后两种子。C4闭环均值尚缺失，不能用loss声称胜过WiSE61.5%或最强单教师62.5%。C4新增表示20k、父80k总100k，独立预算。",
             "固定WiSE0.5三策略种子71.75/50.875/61.875%，均值61.5%；原EUPE A三种子55.5/56.25/54.625%，均值55.4583%。WiSE比初始化A均值+6.0417pp、比未插值B1+2.5833pp，仍比最强单教师SigLIP2 S低1pp。",
@@ -379182,10 +379183,1168 @@
               "dataScope": "same multi-source B1 parent80k; fixed alpha0.5, no extra representation updates",
               "finalGeneralEncoder": false,
               "interpolationOptimizerSteps": 0
+            },
+            {
+              "id": "cfact_gC4_C_b32_s17_20261028",
+              "encoder": "control_C4_general_siglip_eupevit_20k_ema_v1",
+              "encoderLabel": "通用C4 · W50锚＋SigLIP语义",
+              "head": "act_native_7",
+              "label": "ACT 通用C4 · policy seed17",
+              "trainingSeed": 17,
+              "representationTrainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "diagnosticOnly": false,
+              "formalStudentBoardEligible": false,
+              "deploymentVisualEncoders": 1,
+              "successes": 516,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.645,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_act_general_C4_v1_20261028",
+              "checkpointSha256": "915e2e21cb599fca88c8cfa5fa84d9333195ff8c14244289b933cd875df69544",
+              "encoderCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "policySteps": 20000,
+              "distillationSteps": 20000,
+              "representationAdaptationSteps": 0,
+              "representationTotalSteps": 100000,
+              "extraFusionPretrainingSteps": 0,
+              "fusionPretrainingArms": 0,
+              "privateReaderDeployed": false,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 175,
+                  "episodes": 200,
+                  "successRate": 0.875
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 154,
+                  "episodes": 200,
+                  "successRate": 0.77
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 114,
+                  "episodes": 200,
+                  "successRate": 0.57
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 73,
+                  "episodes": 200,
+                  "successRate": 0.365
+                }
+              ],
+              "dataScope": "same frozen65536image11source training sample;no PRO/RoboTwin data",
+              "finalGeneralEncoder": false,
+              "representationParentSteps": 80000
+            },
+            {
+              "id": "cfact_gC4_C_b32_s29_20261028",
+              "encoder": "control_C4_general_siglip_eupevit_20k_ema_v1",
+              "encoderLabel": "通用C4 · W50锚＋SigLIP语义",
+              "head": "act_native_7",
+              "label": "ACT 通用C4 · policy seed29",
+              "trainingSeed": 29,
+              "representationTrainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "diagnosticOnly": false,
+              "formalStudentBoardEligible": false,
+              "deploymentVisualEncoders": 1,
+              "successes": 392,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.49,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_act_general_C4_v1_20261028",
+              "checkpointSha256": "07e7bf062ed83d1f9d5254c49e40fb9a05d3e299b868396c535efe080cdb99f5",
+              "encoderCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "policySteps": 20000,
+              "distillationSteps": 20000,
+              "representationAdaptationSteps": 0,
+              "representationTotalSteps": 100000,
+              "extraFusionPretrainingSteps": 0,
+              "fusionPretrainingArms": 0,
+              "privateReaderDeployed": false,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 13,
+                  "auditedSuccesses": 13,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 16,
+                  "auditedSuccesses": 16,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 14,
+                  "auditedSuccesses": 14,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 15,
+                  "auditedSuccesses": 15,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 127,
+                  "episodes": 200,
+                  "successRate": 0.635
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 172,
+                  "episodes": 200,
+                  "successRate": 0.86
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 34,
+                  "episodes": 200,
+                  "successRate": 0.17
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 59,
+                  "episodes": 200,
+                  "successRate": 0.295
+                }
+              ],
+              "dataScope": "same frozen65536image11source training sample;no PRO/RoboTwin data",
+              "finalGeneralEncoder": false,
+              "representationParentSteps": 80000
+            },
+            {
+              "id": "cfact_gC4_C_b32_s43_20261028",
+              "encoder": "control_C4_general_siglip_eupevit_20k_ema_v1",
+              "encoderLabel": "通用C4 · W50锚＋SigLIP语义",
+              "head": "act_native_7",
+              "label": "ACT 通用C4 · policy seed43",
+              "trainingSeed": 43,
+              "representationTrainingSeed": 17,
+              "status": "complete",
+              "rankingEligible": false,
+              "rank": null,
+              "developmentOnly": true,
+              "diagnosticOnly": false,
+              "formalStudentBoardEligible": false,
+              "deploymentVisualEncoders": 1,
+              "successes": 414,
+              "episodes": 800,
+              "expectedEpisodes": 800,
+              "successRate": 0.5175,
+              "invalidEpisodes": 0,
+              "completeGroups": 20,
+              "policyFamily": "native_act_general_C4_v1_20261028",
+              "checkpointSha256": "1b5a830b427053d8a022230a201e436dd6a8c691238ee67d439a973f595eafc4",
+              "encoderCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "policySteps": 20000,
+              "distillationSteps": 20000,
+              "representationAdaptationSteps": 0,
+              "representationTotalSteps": 100000,
+              "extraFusionPretrainingSteps": 0,
+              "fusionPretrainingArms": 0,
+              "privateReaderDeployed": false,
+              "threeSeedSuccessRate": null,
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "successes": 8,
+                  "auditedSuccesses": 8,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "successes": 11,
+                  "auditedSuccesses": 11,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "successes": 3,
+                  "auditedSuccesses": 3,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "successes": 12,
+                  "auditedSuccesses": 12,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "successes": 19,
+                  "auditedSuccesses": 19,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "successes": 18,
+                  "auditedSuccesses": 18,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "successes": 2,
+                  "auditedSuccesses": 2,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "successes": 0,
+                  "auditedSuccesses": 0,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "successes": 20,
+                  "auditedSuccesses": 20,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "successes": 5,
+                  "auditedSuccesses": 5,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "successes": 4,
+                  "auditedSuccesses": 4,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "successes": 10,
+                  "auditedSuccesses": 10,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "successes": 17,
+                  "auditedSuccesses": 17,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "successes": 1,
+                  "auditedSuccesses": 1,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "successes": 6,
+                  "auditedSuccesses": 6,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "successes": 7,
+                  "auditedSuccesses": 7,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "successes": 9,
+                  "auditedSuccesses": 9,
+                  "episodes": 20,
+                  "expectedEpisodes": 20,
+                  "status": "complete"
+                }
+              ],
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "successes": 135,
+                  "episodes": 200,
+                  "successRate": 0.675
+                },
+                {
+                  "suite": "libero_object",
+                  "successes": 169,
+                  "episodes": 200,
+                  "successRate": 0.845
+                },
+                {
+                  "suite": "libero_goal",
+                  "successes": 48,
+                  "episodes": 200,
+                  "successRate": 0.24
+                },
+                {
+                  "suite": "libero_10",
+                  "successes": 62,
+                  "episodes": 200,
+                  "successRate": 0.31
+                }
+              ],
+              "dataScope": "same frozen65536image11source training sample;no PRO/RoboTwin data",
+              "finalGeneralEncoder": false,
+              "representationParentSteps": 80000
             }
           ],
           "pendingResults": {
-            "C4_three_policy_mean": null
+            "C5_three_policy_mean": null
           },
           "scientificNegativeResult": null,
           "comparisons": {
@@ -380622,12 +381781,8 @@
             "limitation": "Three independently trained policy seeds per fixed representation;representation seed not replicated. Paired policy/task bootstrap20000 draws RNG20261027;wide3seed uncertainty. C2 improves mean over B but has not beaten strongestS. No new C3 closed-loop results."
           },
           "activeExperiment": {
-            "id": "C4_general_siglip_fixed_spatial_W50_anchor_v1",
-            "status": "three_ACT_policies_final20000_complete_800_evaluation_running",
-            "representationCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
-            "newRepresentationSteps": 20000,
-            "parentRepresentationSteps": 80000,
-            "totalRepresentationSteps": 100000,
+            "id": "C5_siglip_relational_anchor_v1",
+            "status": "preparing",
             "policySeeds": [
               17,
               29,
@@ -380636,12 +381791,7 @@
             "policySteps": 20000,
             "episodesPerPolicy": 800,
             "closedLoopSuccessRate": null,
-            "threeSeedMean": null,
-            "policySeedsCompletedTraining": [
-              17,
-              29,
-              43
-            ]
+            "threeSeedMean": null
           },
           "C3Seed17Comparison": {
             "against": "original SigLIP2 S, matched policy seed17",
@@ -380691,12 +381841,8 @@
           "AThreePolicySeedSuccessRate": 0.5545833333333333,
           "W50ThreePolicySeedSuccessRate": 0.615,
           "nextExperiment": {
-            "id": "C4_general_siglip_fixed_spatial_W50_anchor_v1",
-            "status": "three_ACT_policies_final20000_complete_800_evaluation_running",
-            "representationCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
-            "newRepresentationSteps": 20000,
-            "parentRepresentationSteps": 80000,
-            "totalRepresentationSteps": 100000,
+            "id": "C5_siglip_relational_anchor_v1",
+            "status": "preparing",
             "policySeeds": [
               17,
               29,
@@ -380705,13 +381851,30 @@
             "policySteps": 20000,
             "episodesPerPolicy": 800,
             "closedLoopSuccessRate": null,
-            "threeSeedMean": null,
-            "policySeedsCompletedTraining": [
-              17,
-              29,
-              43
-            ]
-          }
+            "threeSeedMean": null
+          },
+          "C4ThreePolicySeedSuccessRate": 0.5508333333333333,
+          "C4Comparisons": {
+            "C-W50": {
+              "mean_delta_pp": -6.416666666666682,
+              "paired_policy_seed_task_95ci_pp": [
+                -12.208333333333336,
+                -0.748958333333424
+              ],
+              "mean_above_reference": false,
+              "CI_lower_above_zero": false
+            },
+            "C-S": {
+              "mean_delta_pp": -7.416666666666671,
+              "paired_policy_seed_task_95ci_pp": [
+                -18.333333333333332,
+                5.125
+              ],
+              "mean_above_reference": false,
+              "CI_lower_above_zero": false
+            }
+          },
+          "C4ThreePolicySeedStatus": "complete_below_W50_and_S"
         },
         {
           "id": "distill-validation-20x1",
@@ -394507,15 +395670,1986 @@
                   "status": "complete"
                 }
               ]
+            },
+            {
+              "id": "distill-validation-C4",
+              "encoder": "control_C4_general_siglip_eupevit_20k_ema_v1",
+              "encoderLabel": "通用C4 · WiSE初始化＋语义蒸馏",
+              "head": "act_native_7",
+              "policyFamily": "native_act_general_C4_v1_20261028",
+              "sourceFamiliesBySeed": {
+                "17": "native_act_general_C4_v1_20261028",
+                "29": "native_act_general_C4_v1_20261028",
+                "43": "native_act_general_C4_v1_20261028"
+              },
+              "representationTrainingSeed": 17,
+              "encoderCheckpointSha256": "4bbac7620b7fdd2cefe6054b4d299ebdcd21367e78617db77db8c15919300de7",
+              "encoderParameters": 85669632,
+              "nativeTokensPerCamera": 256,
+              "trainingSeeds": [
+                17,
+                29,
+                43
+              ],
+              "availableSeeds": [
+                17,
+                29,
+                43
+              ],
+              "runIds": [
+                "cfact_gC4_C_b32_s17_20261028",
+                "cfact_gC4_C_b32_s29_20261028",
+                "cfact_gC4_C_b32_s43_20261028"
+              ],
+              "rankingEligible": false,
+              "rank": null,
+              "episodes": 2400,
+              "expectedEpisodes": 2400,
+              "successes": 1322,
+              "successRate": 0.5508333333333333,
+              "successRateStd": 0.08270177345942067,
+              "completedSeeds": [
+                17,
+                29,
+                43
+              ],
+              "seedRates": [
+                {
+                  "seed": 17,
+                  "runId": "cfact_gC4_C_b32_s17_20261028",
+                  "episodes": 800,
+                  "successes": 516,
+                  "successRate": 0.645,
+                  "complete": true,
+                  "policyFamily": "native_act_general_C4_v1_20261028"
+                },
+                {
+                  "seed": 29,
+                  "runId": "cfact_gC4_C_b32_s29_20261028",
+                  "episodes": 800,
+                  "successes": 392,
+                  "successRate": 0.49,
+                  "complete": true,
+                  "policyFamily": "native_act_general_C4_v1_20261028"
+                },
+                {
+                  "seed": 43,
+                  "runId": "cfact_gC4_C_b32_s43_20261028",
+                  "episodes": 800,
+                  "successes": 414,
+                  "successRate": 0.5175,
+                  "complete": true,
+                  "policyFamily": "native_act_general_C4_v1_20261028"
+                }
+              ],
+              "status": "complete",
+              "suiteResults": [
+                {
+                  "suite": "libero_spatial",
+                  "episodes": 600,
+                  "expectedEpisodes": 600,
+                  "successes": 437,
+                  "successRate": 0.7283333333333334,
+                  "successRateStd": 0.12858201014657272,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 200,
+                      "successes": 175,
+                      "successRate": 0.875,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 200,
+                      "successes": 127,
+                      "successRate": 0.635,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 200,
+                      "successes": 135,
+                      "successRate": 0.675,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "suite": "libero_object",
+                  "episodes": 600,
+                  "expectedEpisodes": 600,
+                  "successes": 495,
+                  "successRate": 0.825,
+                  "successRateStd": 0.04821825380496476,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 200,
+                      "successes": 154,
+                      "successRate": 0.77,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 200,
+                      "successes": 172,
+                      "successRate": 0.86,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 200,
+                      "successes": 169,
+                      "successRate": 0.845,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "suite": "libero_goal",
+                  "episodes": 600,
+                  "expectedEpisodes": 600,
+                  "successes": 196,
+                  "successRate": 0.32666666666666666,
+                  "successRateStd": 0.2136195996001615,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 200,
+                      "successes": 114,
+                      "successRate": 0.57,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 200,
+                      "successes": 34,
+                      "successRate": 0.17,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 200,
+                      "successes": 48,
+                      "successRate": 0.24,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "suite": "libero_10",
+                  "episodes": 600,
+                  "expectedEpisodes": 600,
+                  "successes": 194,
+                  "successRate": 0.3233333333333333,
+                  "successRateStd": 0.03685557397915997,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 200,
+                      "successes": 73,
+                      "successRate": 0.365,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 200,
+                      "successes": 59,
+                      "successRate": 0.295,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 200,
+                      "successes": 62,
+                      "successRate": 0.31,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                }
+              ],
+              "taskResults": [
+                {
+                  "taskId": "libero-00",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 48,
+                  "successRate": 0.8,
+                  "successRateStd": 0.34641016151377546,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 8,
+                      "successRate": 0.4,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-01",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 35,
+                  "successRate": 0.5833333333333334,
+                  "successRateStd": 0.05773502691896256,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 13,
+                      "successRate": 0.65,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-02",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 59,
+                  "successRate": 0.9833333333333333,
+                  "successRateStd": 0.028867513459481315,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-03",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 52,
+                  "successRate": 0.8666666666666667,
+                  "successRateStd": 0.028867513459481315,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-04",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 35,
+                  "successRate": 0.5833333333333334,
+                  "successRateStd": 0.41932485418030413,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 16,
+                      "successRate": 0.8,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-05",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 46,
+                  "successRate": 0.7666666666666667,
+                  "successRateStd": 0.1527525231651947,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 16,
+                      "successRate": 0.8,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-06",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 53,
+                  "successRate": 0.8833333333333333,
+                  "successRateStd": 0.16072751268321595,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 14,
+                      "successRate": 0.7,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-07",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 32,
+                  "successRate": 0.5333333333333333,
+                  "successRateStd": 0.40414518843273806,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-08",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 53,
+                  "successRate": 0.8833333333333333,
+                  "successRateStd": 0.028867513459481315,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-09",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 24,
+                  "successRate": 0.4,
+                  "successRateStd": 0.35000000000000003,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 16,
+                      "successRate": 0.8,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 3,
+                      "successRate": 0.15,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-10",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 60,
+                  "successRate": 1.0,
+                  "successRateStd": 0.0,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-11",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 6,
+                  "successRate": 0.1,
+                  "successRateStd": 0.1,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-12",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 54,
+                  "successRate": 0.9,
+                  "successRateStd": 0.1322875655532295,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 15,
+                      "successRate": 0.75,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-13",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 39,
+                  "successRate": 0.65,
+                  "successRateStd": 0.5196152422706631,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-14",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 58,
+                  "successRate": 0.9666666666666667,
+                  "successRateStd": 0.05773502691896256,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-15",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 43,
+                  "successRate": 0.7166666666666667,
+                  "successRateStd": 0.24664414311581237,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-16",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 59,
+                  "successRate": 0.9833333333333333,
+                  "successRateStd": 0.028867513459481315,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-17",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 60,
+                  "successRate": 1.0,
+                  "successRateStd": 0.0,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-18",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 60,
+                  "successRate": 1.0,
+                  "successRateStd": 0.0,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-19",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 56,
+                  "successRate": 0.9333333333333333,
+                  "successRateStd": 0.05773502691896256,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-20",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 19,
+                  "successRate": 0.31666666666666665,
+                  "successRateStd": 0.27537852736430507,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-21",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 15,
+                  "successRate": 0.25,
+                  "successRateStd": 0.35000000000000003,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 13,
+                      "successRate": 0.65,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-22",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 23,
+                  "successRate": 0.3833333333333333,
+                  "successRateStd": 0.18929694486000911,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-23",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 6,
+                  "successRate": 0.09999999999999999,
+                  "successRateStd": 0.17320508075688773,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-24",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 9,
+                  "successRate": 0.15,
+                  "successRateStd": 0.13228756555322954,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-25",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 29,
+                  "successRate": 0.48333333333333334,
+                  "successRateStd": 0.10408329997330662,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 8,
+                      "successRate": 0.4,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-26",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 5,
+                  "successRate": 0.08333333333333333,
+                  "successRateStd": 0.14433756729740643,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-27",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 45,
+                  "successRate": 0.75,
+                  "successRateStd": 0.4330127018922193,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 20,
+                      "successRate": 1.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-28",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 28,
+                  "successRate": 0.4666666666666667,
+                  "successRateStd": 0.42524502740576914,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 18,
+                      "successRate": 0.9,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-29",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 17,
+                  "successRate": 0.2833333333333333,
+                  "successRateStd": 0.30138568866708537,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 12,
+                      "successRate": 0.6,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 5,
+                      "successRate": 0.25,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-30",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 7,
+                  "successRate": 0.11666666666666667,
+                  "successRateStd": 0.07637626158259733,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 4,
+                      "successRate": 0.2,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-31",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 4,
+                  "successRate": 0.06666666666666667,
+                  "successRateStd": 0.02886751345948129,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 2,
+                      "successRate": 0.1,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-32",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 32,
+                  "successRate": 0.5333333333333333,
+                  "successRateStd": 0.2254624876411447,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 11,
+                      "successRate": 0.55,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 15,
+                      "successRate": 0.75,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-33",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 38,
+                  "successRate": 0.6333333333333333,
+                  "successRateStd": 0.27537852736430507,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 19,
+                      "successRate": 0.95,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 10,
+                      "successRate": 0.5,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-34",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 3,
+                  "successRate": 0.05,
+                  "successRateStd": 0.0,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-35",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 50,
+                  "successRate": 0.8333333333333334,
+                  "successRateStd": 0.02886751345948125,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 16,
+                      "successRate": 0.8,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 17,
+                      "successRate": 0.85,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-36",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 7,
+                  "successRate": 0.11666666666666667,
+                  "successRateStd": 0.16072751268321592,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-37",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 30,
+                  "successRate": 0.5,
+                  "successRateStd": 0.22912878474779202,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 15,
+                      "successRate": 0.75,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-38",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 7,
+                  "successRate": 0.11666666666666665,
+                  "successRateStd": 0.202072594216369,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 0,
+                      "successRate": 0.0,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 7,
+                      "successRate": 0.35,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "taskId": "libero-39",
+                  "episodes": 60,
+                  "expectedEpisodes": 60,
+                  "successes": 16,
+                  "successRate": 0.26666666666666666,
+                  "successRateStd": 0.20207259421636903,
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
+                  "seedRates": [
+                    {
+                      "seed": 17,
+                      "runId": "cfact_gC4_C_b32_s17_20261028",
+                      "episodes": 20,
+                      "successes": 1,
+                      "successRate": 0.05,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 29,
+                      "runId": "cfact_gC4_C_b32_s29_20261028",
+                      "episodes": 20,
+                      "successes": 6,
+                      "successRate": 0.3,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    },
+                    {
+                      "seed": 43,
+                      "runId": "cfact_gC4_C_b32_s43_20261028",
+                      "episodes": 20,
+                      "successes": 9,
+                      "successRate": 0.45,
+                      "complete": true,
+                      "policyFamily": "native_act_general_C4_v1_20261028"
+                    }
+                  ],
+                  "status": "complete"
+                }
+              ]
             }
           ],
-          "observedAt": "2026-10-27T22:45:02.624437+00:00",
-          "auditedValidEpisodes": 16800,
+          "observedAt": "2026-10-28T05:20:36.083373+00:00",
+          "auditedValidEpisodes": 19200,
           "targetEpisodesPerRun": 800,
           "episodesPerTask": 20,
           "rankingNote": "每行按policy种子17/29/43等权平均；总体、分类和任务分别要求三种子完整。同一行共用冻结视觉权重，不代表三次独立蒸馏。开发比较，正式排名保持独立。",
           "comparisonNote": "每个模型按自身冻结family审计。S17及B17沿旧来源；后续种子沿新namespace，ACT/data/train/evaluate核心字节一致，模型来源按seed保留。所有单种子数据亦在蒸馏开发明细中复用，未新增或重复计算回合。",
           "notes": [
+            "C4完整三policy均值55.0833%，低于WiSE61.5%和单教师S62.5%；完整阴性结果保留。",
+            "C4新增表示20k+父80k总100k，65,536帧11来源；C3为单域20k诊断，不能混为组件因果比较。",
             "WiSE61.5%，原EUPE A55.4583%，B158.9167%，最强单教师S62.5%；WiSE尚未稳定超过S。",
             "WiSE为固定alpha0.5、外部多来源B1末步80k与原EUPE插值，无新增表示优化更新；C3为LIBERO单域20k诊断，不能作数据/预算匹配的因果比较。",
             "±为三个策略种子之间的样本标准差，不是置信区间；本视图复用原子回合，不重复计数。"
@@ -435279,12 +438413,12 @@
     {
       "id": "distill-development.json",
       "label": "独立蒸馏开发结果 · 不计入正式榜",
-      "sha256": "bc9f934e79c2f77010bdc2b9f93b08df4a583779bb3c7d699ea3002407c5f413"
+      "sha256": "4a3494fcbc23dd5ae4e475058f3c98bc30985392a0102fabd0c02de7f6f7cb4b"
     },
     {
       "id": "distill-validation.json",
       "label": "蒸馏验证 · 三策略种子等权均值",
-      "sha256": "d4a74dc8ace7a7d7fccde10d7bdf4023587a324d1480a0174613a20da2bef336"
+      "sha256": "78b18a3a1f85b31979080ffc7b48331c46ed755cd97945bed046db5ed0fae817"
     },
     {
       "id": "robotwin-results-20261027T2347Z.json",
@@ -437012,6 +440146,15 @@
       "title": "匹配单教师S：PRO Task三种子3.25%；C4三策略已转800闭环",
       "summary": "新增2400严格有效回合、0invalid；S Task=26/15/37成功（各800），均值3.25%。与WiSE同项4.8333%单独比较，其他扰动未齐保持null；C4三个ACT最终20k模型已核身份并自动评测，尚无完整C4闭环分数。",
       "evidenceLabel": "C4-fullspeed-20261028/S-PRO-Task-strict.json",
+      "commitUrl": null
+    },
+    {
+      "id": "C4-complete-three-seeds-negative-20261028",
+      "at": "2026-10-28T05:20:36.083373+00:00",
+      "type": "evaluation",
+      "title": "C4三种子55.08%，低于WiSE61.50%和单教师62.50%",
+      "summary": "新增2400严格有效回合；C4=64.50/49.00/51.75%，完整三种子均值55.0833%±8.2702pp。三个配对种子都低于WiSE；Spatial/Goal分别较WiSE−12.6667/−12.5pp，失败结果完整保留。下一C5检验去掉固定空间对应和学习预测头的图像关系监督，尚无C5闭环成绩。",
+      "evidenceLabel": "C4-fullspeed-20261028/C4-base-three-strict.json",
       "commitUrl": null
     }
   ],
