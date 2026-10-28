@@ -430247,7 +430247,7 @@
       "name": "RoboTwin 2.0",
       "status": "evaluated",
       "sourceUrl": "https://github.com/RoboTwin-Platform/RoboTwin",
-      "description": "MVE 冻结编码器对比（M6 协议 v1）：冻结视觉编码器 → 逐 token LayerNorm → 线性 512 → 官方 DP（U-Net）动作头；aloha-agilex 头部相机，demo_clean 50 回合训练 600 epoch，每任务 100 回合评估。Easy 为 demo_clean 场景，Hard 为 demo_randomized 随机化场景（训练只用 clean 数据）。R0 为官方 DP（ResNet-18 从零端到端训练）。主榜另有一行 π0.5 视觉塔（冻结）+ 官方 ACT 动作头，口径见主榜说明。数据截至 2026-10-27 23:47 UTC。",
+      "description": "MVE 冻结编码器对比（M6 协议 v1）：冻结视觉编码器 → 逐 token LayerNorm → 线性 512 → 官方 DP（U-Net）动作头；aloha-agilex 头部相机，demo_clean 50 回合训练 600 epoch，每任务 100 回合评估。Easy 为 demo_clean 场景，Hard 为 demo_randomized 随机化场景（训练只用 clean 数据）。R0 为官方 DP（ResNet-18 从零端到端训练）。主榜另有一行 π0.5 视觉塔（冻结）+ 官方 ACT 动作头，口径见主榜说明。数据截至 2026-10-28 06:38 UTC。",
       "taskCount": 50,
       "taskCountLabel": "已评估任务（RoboTwin 共 50 个）",
       "tasks": [
@@ -431173,7 +431173,7 @@
           ],
           "episodesPerTask": 100,
           "targetEpisodesPerTask": 300,
-          "rankingNote": "默认按总分排名（Easy 与 Hard 的平均，黑点；用户 2026-10-23 要求，与官方榜同样按 Easy、Hard 平均排）。实心点为 Easy（demo_clean，10 个协议任务等权平均），空心圈为 Hard（demo_randomized，8 个任务等权平均；blocks_ranking_rgb、place_object_scale 的 Easy 五组都 ≤10%，不测 Hard）。我们的 5 组：每个任务取已完成训练种子的均值。Easy 计划每任务 3 个训练种子；Hard 只在 adjust_bottle、click_bell、open_laptop 上补训练种子 1、2，其余 5 个任务种子 0 的 Hard 五组都是 0%，只测种子 0。EUPE-ViT-B 与 EUPE-ConvNeXt-B 两组另补了训练种子 3、4（共 5 个，用户 2026-10-22 要求，用来分开这两组；Hard 同样只在上述 3 个任务上补），目前 20/20 个“组 × 任务”的 Easy 已收齐 5 个种子。“训练口径”可切换到单个训练种子：某个种子只有覆盖全部 10 个 Easy 任务 / 全部 8 个 Hard 任务时才给出该指标的均值；Hard 的种子 1–4 只测了 3 个任务，所以这些种子没有 Hard 均值和总分，按 Easy 排。官方榜方法是单次评估，不随种子变化。官方榜数字取自 RoboTwin 2.0 官方榜的逐任务表（每任务 100 次，单次评估），只在同样的任务上重新求均值，是引用不是复现；它们的 50 任务总分见详情。Single 为 RoboTwin 2.0 论文基线，与我们同口径（每任务 50 条 demo_clean 单独训练）；Co-train 用 50 个任务共 2,500 条 demo 联合训练、多为大规模预训练模型，口径不同，只作参照。我们 5 组 Easy 从高到低：EUPE-ViT-B 54.4%，EUPE-ConvNeXt-B 52.6%，R1 · ResNet-18 IN-1K 47.6%，DINOv3-L/16 36.9%，R0 · 官方 DP 复现 33.1%。“我们 · ACT + 冻结视觉塔”一行（用户 2026-10-27 要求）：把 π0.5（lerobot/pi05_base，revision 22c30e5b）的 SigLIP 视觉塔（So400m/14，224 输入，256 个 token）冻结，替换官方 ACT 的 ResNet-18 骨干；其余照 RoboTwin 自带的官方 ACT（kl 10、chunk 50、batch 16、6000 epoch、3 路相机、评测时 temporal aggregation），每任务 50 条 demo_clean 单独训练，与官方 Single 同口径；只有训练种子 0，每任务 100 回合。PI0.5 视觉塔 · 冻结 + ACT：Easy 54.4% / Hard 还在测（8 个任务测完后补上，这之前没有总分）；官方 ACT（ResNet-18 端到端训练）在同样任务上 Easy 48.4% / Hard 3.6%。",
+          "rankingNote": "默认按总分排名（Easy 与 Hard 的平均，黑点；用户 2026-10-23 要求，与官方榜同样按 Easy、Hard 平均排）。实心点为 Easy（demo_clean，10 个协议任务等权平均），空心圈为 Hard（demo_randomized，8 个任务等权平均；blocks_ranking_rgb、place_object_scale 的 Easy 五组都 ≤10%，不测 Hard）。我们的 5 组：每个任务取已完成训练种子的均值。Easy 计划每任务 3 个训练种子；Hard 只在 adjust_bottle、click_bell、open_laptop 上补训练种子 1、2，其余 5 个任务种子 0 的 Hard 五组都是 0%，只测种子 0。EUPE-ViT-B 与 EUPE-ConvNeXt-B 两组另补了训练种子 3、4（共 5 个，用户 2026-10-22 要求，用来分开这两组；Hard 同样只在上述 3 个任务上补），目前 20/20 个“组 × 任务”的 Easy 已收齐 5 个种子。“训练口径”可切换到单个训练种子：某个种子只有覆盖全部 10 个 Easy 任务 / 全部 8 个 Hard 任务时才给出该指标的均值；Hard 的种子 1–4 只测了 3 个任务，所以这些种子没有 Hard 均值和总分，按 Easy 排。官方榜方法是单次评估，不随种子变化。官方榜数字取自 RoboTwin 2.0 官方榜的逐任务表（每任务 100 次，单次评估），只在同样的任务上重新求均值，是引用不是复现；它们的 50 任务总分见详情。Single 为 RoboTwin 2.0 论文基线，与我们同口径（每任务 50 条 demo_clean 单独训练）；Co-train 用 50 个任务共 2,500 条 demo 联合训练、多为大规模预训练模型，口径不同，只作参照。我们 5 组 Easy 从高到低：EUPE-ViT-B 54.4%，EUPE-ConvNeXt-B 52.6%，R1 · ResNet-18 IN-1K 47.6%，DINOv3-L/16 36.9%，R0 · 官方 DP 复现 33.1%。“我们 · ACT + 冻结视觉塔”一行（用户 2026-10-27 要求）：把 π0.5（lerobot/pi05_base，revision 22c30e5b）的 SigLIP 视觉塔（So400m/14，224 输入，256 个 token）冻结，替换官方 ACT 的 ResNet-18 骨干；其余照 RoboTwin 自带的官方 ACT（kl 10、chunk 50、batch 16、6000 epoch、3 路相机、评测时 temporal aggregation），每任务 50 条 demo_clean 单独训练，与官方 Single 同口径；只有训练种子 0，每任务 100 回合。PI0.5 视觉塔 · 冻结 + ACT：Easy 54.4% / Hard 9.1%；官方 ACT（ResNet-18 端到端训练）在同样任务上 Easy 48.4% / Hard 3.6%。",
           "pairBoard": {
             "metrics": [
               {
@@ -432526,20 +432526,20 @@
                 "sub": "冻结 π0.5（lerobot/pi05_base）的 SigLIP 视觉塔 + 官方 ACT 动作头 · 训练种子 0",
                 "metrics": {
                   "easy": 0.544,
-                  "hard": null
+                  "hard": 0.09125
                 },
                 "tasks": {
                   "robotwin2-adjust_bottle": {
                     "easy": 1.0,
-                    "hard": null,
+                    "hard": 0.61,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-beat_block_hammer": {
                     "easy": 0.64,
-                    "hard": null,
+                    "hard": 0.0,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-handover_block": {
                     "easy": 0.0,
@@ -432549,15 +432549,15 @@
                   },
                   "robotwin2-place_empty_cup": {
                     "easy": 0.93,
-                    "hard": null,
+                    "hard": 0.0,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-click_bell": {
                     "easy": 0.78,
-                    "hard": null,
+                    "hard": 0.0,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-blocks_ranking_rgb": {
                     "easy": 0.05,
@@ -432567,21 +432567,21 @@
                   },
                   "robotwin2-stack_blocks_two": {
                     "easy": 0.35,
-                    "hard": null,
+                    "hard": 0.02,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-open_laptop": {
                     "easy": 0.72,
-                    "hard": null,
+                    "hard": 0.09,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-lift_pot": {
                     "easy": 0.89,
-                    "hard": null,
+                    "hard": 0.01,
                     "easySeeds": 1,
-                    "hardSeeds": 0
+                    "hardSeeds": 1
                   },
                   "robotwin2-place_object_scale": {
                     "easy": 0.08,
@@ -432594,16 +432594,16 @@
                   "0": {
                     "metrics": {
                       "easy": 0.544,
-                      "hard": null
+                      "hard": 0.09125
                     },
                     "tasks": {
                       "robotwin2-adjust_bottle": {
                         "easy": 1.0,
-                        "hard": null
+                        "hard": 0.61
                       },
                       "robotwin2-beat_block_hammer": {
                         "easy": 0.64,
-                        "hard": null
+                        "hard": 0.0
                       },
                       "robotwin2-handover_block": {
                         "easy": 0.0,
@@ -432611,11 +432611,11 @@
                       },
                       "robotwin2-place_empty_cup": {
                         "easy": 0.93,
-                        "hard": null
+                        "hard": 0.0
                       },
                       "robotwin2-click_bell": {
                         "easy": 0.78,
-                        "hard": null
+                        "hard": 0.0
                       },
                       "robotwin2-blocks_ranking_rgb": {
                         "easy": 0.05,
@@ -432623,15 +432623,15 @@
                       },
                       "robotwin2-stack_blocks_two": {
                         "easy": 0.35,
-                        "hard": null
+                        "hard": 0.02
                       },
                       "robotwin2-open_laptop": {
                         "easy": 0.72,
-                        "hard": null
+                        "hard": 0.09
                       },
                       "robotwin2-lift_pot": {
                         "easy": 0.89,
-                        "hard": null
+                        "hard": 0.01
                       },
                       "robotwin2-place_object_scale": {
                         "easy": 0.08,
@@ -438555,16 +438555,6 @@
       "sha256": "78b18a3a1f85b31979080ffc7b48331c46ed755cd97945bed046db5ed0fae817"
     },
     {
-      "id": "robotwin-results-20261027T2347Z.json",
-      "label": "RoboTwin 2.0 结果（MVE 服务器：M6 编码器对比 + 官方 DP + π0.5 视觉塔接 ACT）",
-      "sha256": "d03de69ef4364b578d6baa85b45c6e2054f930c04ce7a5a0165518847c0290a8"
-    },
-    {
-      "id": "official_leaderboard_2026-10-19.json",
-      "label": "RoboTwin 2.0 官方榜快照（XPolicyLab，最新条目 2026-10-19；本站只在同样的任务上重新求均值）",
-      "sha256": "09bad50bc6a9c3a9974760a72af74d4a9e0113b3800cd6de4721781d975a7c4e"
-    },
-    {
       "id": "W50-PRO-strict.json",
       "label": "PRO 严格审计 · Object",
       "sha256": "f1ce9e1f77db8de230a3b3f27d97f7135106819d9f019a18dd43309e76c51d43"
@@ -438593,6 +438583,16 @@
       "id": "S-PRO-Language-strict.json",
       "label": "PRO 严格审计 · Language",
       "sha256": "c1bfb1fd4454addeb0a204c754e07cc959be4c5d20b8d8d322acdc2ce7d7dad2"
+    },
+    {
+      "id": "robotwin-results-20261028T0638Z.json",
+      "label": "RoboTwin 2.0 结果（MVE 服务器：M6 编码器对比 + 官方 DP + π0.5 视觉塔接 ACT）",
+      "sha256": "a4af65cd1d772d1f80ad7ba86e2d11976439e462f21f2d1e4ca437e68afc5fb9"
+    },
+    {
+      "id": "official_leaderboard_2026-10-19.json",
+      "label": "RoboTwin 2.0 官方榜快照（XPolicyLab，最新条目 2026-10-19；本站只在同样的任务上重新求均值）",
+      "sha256": "09bad50bc6a9c3a9974760a72af74d4a9e0113b3800cd6de4721781d975a7c4e"
     }
   ],
   "experimentLog": [
@@ -440312,6 +440312,16 @@
       "title": "C4退化诊断：预测头主导loss下降，骨干监督存在冲突",
       "summary": "C4三policy均值55.0833%，WiSE61.5%，S62.5%。固定172图两因素诊断中，约95%的教师loss降幅归到部署丢弃的预测头；80留出观测×3固定WiSE策略替换C4特征后首动作误差+11.43%。全骨干两8图批次监督梯度余弦−0.579/−0.541。支持目标与控制效用错配，尚未独立证明空间对应的因果作用；C5无闭环分数，最终同样诊断和三policy闭环已接，不用loss宣称胜出。",
       "evidenceLabel": "C4-cause-20261028/C4-diagnosis.json",
+      "commitUrl": null
+    },
+    {
+      "id": "robotwin-m6-web-20261028T0638Z",
+      "at": "2026-10-28T06:38:47.833867+00:00",
+      "type": "evaluation",
+      "title": "RoboTwin 2.0 主榜：加入 π0.5 视觉塔（冻结）+ ACT",
+      "summary": "用户 2026-10-27 要求测 π0.5 预训练的 SigLIP 视觉塔冻结接 ACT，2026-10-28 要求补齐后放进主榜。视觉塔取自 lerobot/pi05_base（437 个张量与原文件逐个相同），冻结后替换官方 ACT 的 ResNet-18 骨干，其余照官方 ACT；10 个协议任务各用 50 条 demo_clean 单独训练（训练种子 0），Easy 与 Hard 各 100 回合。PI0.5 视觉塔 · 冻结 + ACT：Easy 54.4% / Hard 9.1%；官方 ACT 在同样任务上 Easy 48.4% / Hard 3.6%。我们 5 组不变：EUPE-ViT-B Easy 54.4% / Hard 1.6%，EUPE-ConvNeXt-B Easy 52.6% / Hard 2.6%，R1 · ResNet-18 IN-1K Easy 47.6% / Hard 1.6%，DINOv3-L/16 Easy 36.9% / Hard 5.3%，R0 · 官方 DP 复现 Easy 33.1% / Hard 0.0%。",
+      "evidenceLabel": "robotwin-results-20261028T0638Z.json",
+      "evidenceSha256": "a4af65cd1d772d1f80ad7ba86e2d11976439e462f21f2d1e4ca437e68afc5fb9",
       "commitUrl": null
     }
   ],
