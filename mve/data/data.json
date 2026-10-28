@@ -1,8 +1,8 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-28T05:20:36.083373+00:00",
-  "generatedAt": "2026-10-28T05:20:36.083373+00:00",
-  "evidenceAsOf": "2026-10-28T05:20:36.083373+00:00",
+  "updatedAt": "2026-10-28T06:04:58.840728+00:00",
+  "generatedAt": "2026-10-28T06:04:58.840728+00:00",
+  "evidenceAsOf": "2026-10-28T06:04:58.840728+00:00",
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
     "baseCompleteRuns": 42,
@@ -429801,39 +429801,173 @@
                 {
                   "track": "lan",
                   "label": "Language",
-                  "models": [],
-                  "completedSeeds": [],
+                  "models": [
+                    {
+                      "trainingSeed": 17,
+                      "successes": 322,
+                      "episodes": 800,
+                      "successRate": 0.4025,
+                      "checkpointSha256": "3bbc110357d731612a34a0da18d38609e438e9ba76f6e209f447698844a880e2",
+                      "adapterSha256": "d6ce0601d5430155e72fb28d8aa294df8c11e928a722c2842a87028b7a5503f5",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "S-PRO-Language-strict.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "c1bfb1fd4454addeb0a204c754e07cc959be4c5d20b8d8d322acdc2ce7d7dad2"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 85,
+                          "successRate": 0.425
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 154,
+                          "successRate": 0.77
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 20,
+                          "successRate": 0.1
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 63,
+                          "successRate": 0.315
+                        }
+                      ],
+                      "evaluationScienceSha256": "c9efed984d52160c7c1429774137e34076a65b20961f19c49e69a2201427fd37",
+                      "baseSourceFamily": "native_act_control_fusion_v1_20261025"
+                    },
+                    {
+                      "trainingSeed": 29,
+                      "successes": 146,
+                      "episodes": 800,
+                      "successRate": 0.1825,
+                      "checkpointSha256": "8be11eb2ee2eaac7848f4d96d613f5aca9839049f9b2a9a2347781028ce0e9f7",
+                      "adapterSha256": "77e67f2aea96aee4147f02f28fc4f82e6076fc6b23e07c163344f5f2847481ca",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "S-PRO-Language-strict.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "c1bfb1fd4454addeb0a204c754e07cc959be4c5d20b8d8d322acdc2ce7d7dad2"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 56,
+                          "successRate": 0.28
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 52,
+                          "successRate": 0.26
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 20,
+                          "successRate": 0.1
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 18,
+                          "successRate": 0.09
+                        }
+                      ],
+                      "evaluationScienceSha256": "c9efed984d52160c7c1429774137e34076a65b20961f19c49e69a2201427fd37",
+                      "baseSourceFamily": "native_act_multispace_v1_20261026"
+                    },
+                    {
+                      "trainingSeed": 43,
+                      "successes": 165,
+                      "episodes": 800,
+                      "successRate": 0.20625,
+                      "checkpointSha256": "99244686f8cd96d0cb82aef30fbd9b956ee1caecfe023ef1bf9b9c2fb6c72153",
+                      "adapterSha256": "77e67f2aea96aee4147f02f28fc4f82e6076fc6b23e07c163344f5f2847481ca",
+                      "manifestSha256": "3fa9ecc28935e3e12985da9de3cdb37ba466d94b2ac3290a8fc42c4462eec6fd",
+                      "upstreamIdentitySha256": "17fa984ff246883ecb345debcb27dc5cdadf952206d357ba0a27be6eb100a967",
+                      "auditEvidence": {
+                        "id": "S-PRO-Language-strict.json",
+                        "label": "PRO 严格审计 · Language",
+                        "sha256": "c1bfb1fd4454addeb0a204c754e07cc959be4c5d20b8d8d322acdc2ce7d7dad2"
+                      },
+                      "suiteResults": [
+                        {
+                          "suite": "libero_spatial",
+                          "episodes": 200,
+                          "successes": 58,
+                          "successRate": 0.29
+                        },
+                        {
+                          "suite": "libero_object",
+                          "episodes": 200,
+                          "successes": 70,
+                          "successRate": 0.35
+                        },
+                        {
+                          "suite": "libero_goal",
+                          "episodes": 200,
+                          "successes": 24,
+                          "successRate": 0.12
+                        },
+                        {
+                          "suite": "libero_10",
+                          "episodes": 200,
+                          "successes": 13,
+                          "successRate": 0.065
+                        }
+                      ],
+                      "evaluationScienceSha256": "c9efed984d52160c7c1429774137e34076a65b20961f19c49e69a2201427fd37",
+                      "baseSourceFamily": "native_act_multispace_v1_20261026"
+                    }
+                  ],
+                  "completedSeeds": [
+                    17,
+                    29,
+                    43
+                  ],
                   "expectedEpisodes": 2400,
-                  "episodes": 0,
-                  "successes": null,
-                  "successRate": null,
+                  "episodes": 2400,
+                  "successes": 633,
+                  "successRate": 0.26375,
                   "suiteResults": [
                     {
                       "suite": "libero_spatial",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
+                      "episodes": 600,
+                      "successes": 199,
+                      "successRate": 0.33166666666666667
                     },
                     {
                       "suite": "libero_object",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
+                      "episodes": 600,
+                      "successes": 276,
+                      "successRate": 0.46
                     },
                     {
                       "suite": "libero_goal",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
+                      "episodes": 600,
+                      "successes": 64,
+                      "successRate": 0.10666666666666667
                     },
                     {
                       "suite": "libero_10",
-                      "episodes": 0,
-                      "successes": null,
-                      "successRate": null
+                      "episodes": 600,
+                      "successes": 94,
+                      "successRate": 0.15666666666666668
                     }
                   ],
-                  "status": "pending"
+                  "status": "complete"
                 },
                 {
                   "track": "swap",
@@ -430064,8 +430198,8 @@
               "label": "Task"
             }
           ],
-          "completedCells": 185,
-          "auditedValidEpisodes": 451200
+          "completedCells": 186,
+          "auditedValidEpisodes": 453600
         },
         {
           "id": "pro-development",
@@ -438454,6 +438588,11 @@
       "id": "S-PRO-Task-strict.json",
       "label": "PRO 严格审计 · Task",
       "sha256": "a210c61b2faf3a49d41737d0e17ae6cd211573542850a4a55cf6c567500898c5"
+    },
+    {
+      "id": "S-PRO-Language-strict.json",
+      "label": "PRO 严格审计 · Language",
+      "sha256": "c1bfb1fd4454addeb0a204c754e07cc959be4c5d20b8d8d322acdc2ce7d7dad2"
     }
   ],
   "experimentLog": [
@@ -440155,6 +440294,24 @@
       "title": "C4三种子55.08%，低于WiSE61.50%和单教师62.50%",
       "summary": "新增2400严格有效回合；C4=64.50/49.00/51.75%，完整三种子均值55.0833%±8.2702pp。三个配对种子都低于WiSE；Spatial/Goal分别较WiSE−12.6667/−12.5pp，失败结果完整保留。下一C5检验去掉固定空间对应和学习预测头的图像关系监督，尚无C5闭环成绩。",
       "evidenceLabel": "C4-fullspeed-20261028/C4-base-three-strict.json",
+      "commitUrl": null
+    },
+    {
+      "id": "matched-S-Language-three-seeds-20261028",
+      "at": "2026-10-28T06:04:58.840728+00:00",
+      "type": "evaluation",
+      "title": "匹配单教师S：PRO Language三种子26.375%",
+      "summary": "新增2400严格有效回合、0invalid。S Language=322/146/165成功，各800；等权26.375%，固定WiSE同项28.4583%，仅单扰动描述比较。其他未齐格保持null。",
+      "evidenceLabel": "C4-fullspeed-20261028/S-PRO-Language-strict.json",
+      "commitUrl": null
+    },
+    {
+      "id": "C4-mechanism-diagnosis-20261028",
+      "at": "2026-10-28T06:04:58.840728+00:00",
+      "type": "evaluation",
+      "title": "C4退化诊断：预测头主导loss下降，骨干监督存在冲突",
+      "summary": "C4三policy均值55.0833%，WiSE61.5%，S62.5%。固定172图两因素诊断中，约95%的教师loss降幅归到部署丢弃的预测头；80留出观测×3固定WiSE策略替换C4特征后首动作误差+11.43%。全骨干两8图批次监督梯度余弦−0.579/−0.541。支持目标与控制效用错配，尚未独立证明空间对应的因果作用；C5无闭环分数，最终同样诊断和三policy闭环已接，不用loss宣称胜出。",
+      "evidenceLabel": "C4-cause-20261028/C4-diagnosis.json",
       "commitUrl": null
     }
   ],
