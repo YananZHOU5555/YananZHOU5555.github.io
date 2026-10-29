@@ -1,8 +1,8 @@
 {
   "schema": "mve.dashboard.v1",
-  "updatedAt": "2026-10-29T05:20:22.228724+00:00",
-  "generatedAt": "2026-10-29T05:20:22.228724+00:00",
-  "evidenceAsOf": "2026-10-29T05:20:22.228724+00:00",
+  "updatedAt": "2026-10-29T12:02:20.227670+00:00",
+  "generatedAt": "2026-10-29T12:02:20.227670+00:00",
+  "evidenceAsOf": "2026-10-29T12:02:20.227670+00:00",
   "title": "Meta Visual Encoder · Experiment Observatory",
   "overview": {
     "baseCompleteRuns": 42,
@@ -369636,8 +369636,9 @@
           ],
           "episodesPerTask": 20,
           "targetEpisodesPerRun": 800,
-          "observedAt": "2026-10-29T04:29:01.478065+00:00",
+          "observedAt": "2026-10-29T12:02:20.227670+00:00",
           "notes": [
+            "C7四组固定20k EMA已完成并通过完整权重CPU加载与原生RGB前向检查；ACT初始化身份校验错误导致原后继被跳过，已用独立r1加载版本恢复四卡ACT（主C17/29/43＋G17）。蒸馏权重未改、未重训，尚无新的800回合科学结果或三均值；失败/跳过不能作为科学完成，诊断不再阻塞ACT。",
             "C6 PRO三policy严格齐全，Object/Language/Swap/Task=22.625/27.6667/3.375/2.3333%，均未超过全表对应最强；base64.5417%的正均值不代表扰动泛化优势。C7四组以局部/时序/固定控制校准作可证伪比较；数据轨迹分离，暂无C7闭环分数。",
             "C6三policy均值64.5417%±5.16196pp；Spatial/Object/Goal/Long=88.8333/85.8333/52.3333/31.1667%。比S+2.0417pp但policy/task区间跨0，不声称稳定SOTA；C6 PRO继续，原子独立于base统计。",
             "C5/R50 PRO四类三policy齐全并严格审计；C5 Object/Language/Swap/Task=26.375/36/4.125/3.2917%，R50=26.0417/28.4167/6.8333/3.2917%。C5语言优点不能代替base或全类别胜出。C6只改变骨干训练范围，闭环结果缺失保持null。",
@@ -385261,7 +385262,7 @@
           },
           "activeExperiment": {
             "id": "C7_control_calibrated_relations_v1",
-            "status": "paired_data_prepared_four_teacher_caches_and_finite_successors_admitted",
+            "status": "C7_representation_complete_ACT_recovered_r1",
             "policySeeds": [
               17,
               29,
@@ -385271,8 +385272,8 @@
             "episodesPerPolicy": 800,
             "closedLoopSuccessRate": null,
             "threeSeedMean": null,
-            "representationComplete": false,
-            "representationCheckpointSha256": null,
+            "representationComplete": true,
+            "representationCheckpointSha256": "84e77788496e334c6871811ddbd486c35eea2d71b9b55b7467cf909c7339c946",
             "policySeedsCompletedTraining": [],
             "policySeedsCompletedEvaluation": [],
             "clearDeltaGoalMet": null,
@@ -385282,7 +385283,20 @@
               "T_local_temporal",
               "C_control_calibrated"
             ],
-            "deployedVisualParameters": 85669632
+            "deployedVisualParameters": 85669632,
+            "representationCheckpointsByArm": {
+              "C7G": "11e41924f3410aec3e4d59c523de1e632ea47b3959dcfbef962670ba8c6cfef0",
+              "C7L": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+              "C7T": "92601c2c839ba41bdc1ad0601271f294b8c41e1d6977289d97d22385859a9214",
+              "C7C": "84e77788496e334c6871811ddbd486c35eea2d71b9b55b7467cf909c7339c946"
+            },
+            "nativeTokensPerCamera": 256,
+            "policyFamily": "native_act_general_C7C_r1_v1_20261029",
+            "policyExecutionRecovery": {
+              "initializationIdentityCorrected": true,
+              "diagnosticsDoNotGateACT": true,
+              "trainingWeightsAndProtocolUnchanged": true
+            }
           },
           "C3Seed17Comparison": {
             "against": "original SigLIP2 S, matched policy seed17",
@@ -385333,7 +385347,7 @@
           "W50ThreePolicySeedSuccessRate": 0.615,
           "nextExperiment": {
             "id": "C7_control_calibrated_relations_v1",
-            "status": "paired_data_prepared_four_teacher_caches_and_finite_successors_admitted",
+            "status": "C7_representation_complete_ACT_recovered_r1",
             "policySeeds": [
               17,
               29,
@@ -385343,8 +385357,8 @@
             "episodesPerPolicy": 800,
             "closedLoopSuccessRate": null,
             "threeSeedMean": null,
-            "representationComplete": false,
-            "representationCheckpointSha256": null,
+            "representationComplete": true,
+            "representationCheckpointSha256": "84e77788496e334c6871811ddbd486c35eea2d71b9b55b7467cf909c7339c946",
             "policySeedsCompletedTraining": [],
             "policySeedsCompletedEvaluation": [],
             "clearDeltaGoalMet": null,
@@ -385354,7 +385368,20 @@
               "T_local_temporal",
               "C_control_calibrated"
             ],
-            "deployedVisualParameters": 85669632
+            "deployedVisualParameters": 85669632,
+            "representationCheckpointsByArm": {
+              "C7G": "11e41924f3410aec3e4d59c523de1e632ea47b3959dcfbef962670ba8c6cfef0",
+              "C7L": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+              "C7T": "92601c2c839ba41bdc1ad0601271f294b8c41e1d6977289d97d22385859a9214",
+              "C7C": "84e77788496e334c6871811ddbd486c35eea2d71b9b55b7467cf909c7339c946"
+            },
+            "nativeTokensPerCamera": 256,
+            "policyFamily": "native_act_general_C7C_r1_v1_20261029",
+            "policyExecutionRecovery": {
+              "initializationIdentityCorrected": true,
+              "diagnosticsDoNotGateACT": true,
+              "trainingWeightsAndProtocolUnchanged": true
+            }
           },
           "C4ThreePolicySeedSuccessRate": 0.5508333333333333,
           "C4Comparisons": {
@@ -451499,7 +451526,7 @@
     {
       "id": "distill-development.json",
       "label": "独立蒸馏开发结果 · 不计入正式榜",
-      "sha256": "3a7ed022d79682641d25f0edccbd3a83d58e29d7db63c442c4733e18a1cc153e"
+      "sha256": "502172f95e9d25d9a75c7ff1e318a41e55d1d7cab8aff3c10eee41a3bd175a72"
     },
     {
       "id": "distill-validation.json",
@@ -453438,6 +453465,15 @@
       "title": "C6 PRO三种子完整；C7接局部与时序机制验证",
       "summary": "新增9600严格有效回合0invalid；48工程canary另计。C6 Object/Language/Swap/Task=22.625/27.6667/3.375/2.3333%，对全表最高差距−16.2083/−24.5833/−3.4583/−2.875pp；跨动作头按系统结果解释，S仅LIBERO匹配强对照。C7使用四个冻结教师与同一C6初始化，逐级比较全局、局部、局部加时序、再加训练折控制校准；所有组固定20k EMA，ACT三policy种子各20k RAW及800回合无首seed筛选，主方案PRO已预接。仅用现有四worker，无新增监督或购买。",
       "evidenceLabel": "C7-design-20261029/C6-PRO-complete/publication-inputs.json",
+      "commitUrl": null
+    },
+    {
+      "id": "C7-models-complete-ACT-recovery-r1-20261029",
+      "at": "2026-10-29T12:02:20.227670+00:00",
+      "type": "progress",
+      "title": "C7四组蒸馏完成；修复加载校验并恢复四卡ACT",
+      "summary": "四份固定末步EMA均通过完整权重加载、256原生token前向和来源核验，并完成仅新增模型SHA备份。旧加载器误用WiSE初始化约束，诊断失败后原ACT后继被跳过，造成约4.5小时空档；该错误已修复。现有四worker运行主C策略17/29/43与G17；20k RAW、完整batch32、800回合及后续三种子/PRO定义保持，未新增科学评测分数，不以模型完成或队列结束冒充闭环增益。",
+      "evidenceLabel": "heartbeat-20261029-1139/summary.json",
       "commitUrl": null
     }
   ],
