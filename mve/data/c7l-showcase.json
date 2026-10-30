@@ -1,0 +1,267 @@
+{
+  "schema": "mve.C7L.replay_showcase.v1",
+  "title": "C7-L · 同场景动作回放",
+  "selection": "four suite first task and first official init;policy seeds17/29/43/29 fixed before rendering;not selected by success",
+  "videoKind": "recorded_action_trace_replay_reconstruction",
+  "newScoredEpisodes": 0,
+  "formalResultsUnchanged": true,
+  "cases": [
+    {
+      "id": "t00-s17-i00",
+      "title": "把盘子与小碗之间的黑碗放到盘子上",
+      "category": "Spatial · 空间辨认",
+      "shortTitle": "辨认相对位置",
+      "taskIndex": 0,
+      "taskName": "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+      "suite": "libero_spatial",
+      "language": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+      "trainingSeed": 17,
+      "initIndex": 0,
+      "clips": [
+        {
+          "model": "C7L",
+          "success": true,
+          "steps": 80,
+          "durationSeconds": 4.1,
+          "video": "t00-s17-i00-C7L.mp4",
+          "poster": "t00-s17-i00-C7L.jpg",
+          "videoSha256": "774f21a5954e2c5153c45070cf774e4c22b17862c8e2516d0bb5a0acde49c83d",
+          "posterSha256": "1c077384dbfa038a972c8ce79057eca310997a6ddde6893120f699aab0e7012a",
+          "sourceAtomSha256": "6b03b8ae75cbb206c621a06aaa641f6a2ad289253233205cadde3a926151e003",
+          "sourceTraceSha256": "117d29d8895a01587a7dbd35dd2667b2b5bd92b9b3206006a9612557404a0d53",
+          "checkpointSha256": "8bcd9a76e1beee677c6eb2b693b270cf2ffb32ad826f83c1cca1ab74f807be27",
+          "encoderCheckpointSha256": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 80,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t00-s17-i00-C7L.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t00-s17-i00-C7L.jpg"
+        },
+        {
+          "model": "S",
+          "success": true,
+          "steps": 87,
+          "durationSeconds": 4.5,
+          "video": "t00-s17-i00-S.mp4",
+          "poster": "t00-s17-i00-S.jpg",
+          "videoSha256": "8ea00ffc49f0d3cf7fd5519f26b074156477c8b7d1479a23f718697db81f6c59",
+          "posterSha256": "ad9838b1621f54b553b0d721d432e55c343d2f109d470a5b81730475986226cb",
+          "sourceAtomSha256": "6468d2bffff649dd61e44b240fc5738faeeaf57042a5ecb9f3bea4ceb0864abe",
+          "sourceTraceSha256": "5ea51f6b725b5cf6c3cdfc9d3dc303b143fd9d316b20766da510854952a14883",
+          "checkpointSha256": "3bbc110357d731612a34a0da18d38609e438e9ba76f6e209f447698844a880e2",
+          "encoderCheckpointSha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 87,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t00-s17-i00-S.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t00-s17-i00-S.jpg"
+        }
+      ]
+    },
+    {
+      "id": "t10-s29-i00",
+      "title": "拿起字母汤罐，放入篮子",
+      "category": "Object · 物体选择",
+      "shortTitle": "识别并抓取目标",
+      "taskIndex": 10,
+      "taskName": "pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+      "suite": "libero_object",
+      "language": "pick up the alphabet soup and place it in the basket",
+      "trainingSeed": 29,
+      "initIndex": 0,
+      "clips": [
+        {
+          "model": "C7L",
+          "success": true,
+          "steps": 141,
+          "durationSeconds": 7.2,
+          "video": "t10-s29-i00-C7L.mp4",
+          "poster": "t10-s29-i00-C7L.jpg",
+          "videoSha256": "aebbe139f4525710f13a16c7a898df8685e9799530b9b8b037038cbc5b264c95",
+          "posterSha256": "04d05e6ff39286f91c331db78c0374631ae033ed6dd1ef5ac3b61a80ec296719",
+          "sourceAtomSha256": "c63ff02bbba12457c94112fb4e4917bc9c0ef7a42248a88a574108cec154db9f",
+          "sourceTraceSha256": "adda3cef3def85695a6ab3c964c526940f2230eb4f1e54070855e6914d1b4b18",
+          "checkpointSha256": "c5f3c0984c0e24362d7aff7e51c4c0438cc44d11511300f6484be4a44e3164dc",
+          "encoderCheckpointSha256": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 141,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t10-s29-i00-C7L.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t10-s29-i00-C7L.jpg"
+        },
+        {
+          "model": "S",
+          "success": true,
+          "steps": 134,
+          "durationSeconds": 6.8,
+          "video": "t10-s29-i00-S.mp4",
+          "poster": "t10-s29-i00-S.jpg",
+          "videoSha256": "077f2fe62f5f6524af2ce3c6ee4a13d4c2b383fdf66bb073a3508aa13851c33f",
+          "posterSha256": "ff06acec2c1f49d1e3159b24ca655ffff1d592ae1519e20bdf8ec65f61a32c74",
+          "sourceAtomSha256": "de5989ab000eba5b7366bf7bfe3bda576fd7b31fecd9621180da96597b949357",
+          "sourceTraceSha256": "80367af420fd7f77a36673457d6a78738a93d3a8a18099202b1469541f30714b",
+          "checkpointSha256": "8be11eb2ee2eaac7848f4d96d613f5aca9839049f9b2a9a2347781028ce0e9f7",
+          "encoderCheckpointSha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 134,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t10-s29-i00-S.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t10-s29-i00-S.jpg"
+        }
+      ]
+    },
+    {
+      "id": "t20-s43-i00",
+      "title": "打开柜子的中间抽屉",
+      "category": "Goal · 目标执行",
+      "shortTitle": "打开指定抽屉",
+      "taskIndex": 20,
+      "taskName": "open_the_middle_drawer_of_the_cabinet",
+      "suite": "libero_goal",
+      "language": "open the middle drawer of the cabinet",
+      "trainingSeed": 43,
+      "initIndex": 0,
+      "clips": [
+        {
+          "model": "C7L",
+          "success": true,
+          "steps": 115,
+          "durationSeconds": 5.9,
+          "video": "t20-s43-i00-C7L.mp4",
+          "poster": "t20-s43-i00-C7L.jpg",
+          "videoSha256": "91988951f7f33a76dfc1e79cefb68dffafa3a4adb5f7a1708699ec1c03845849",
+          "posterSha256": "598a4afc2261c3a8c6fe1d97dcc90e5b20a8b57fc3783ecbb196b3e31e54bd7e",
+          "sourceAtomSha256": "fbf7ca33298b43302f2a86fc877c5ac154f9b92969cb2c7a3ccf33cbcbc4e7e8",
+          "sourceTraceSha256": "6440d36d21049653351308f80f6a03f89f49ab5a0adbf1db14d2b192ed626b35",
+          "checkpointSha256": "70004059901520062d29a434642cee8afb97dae26b8eb75955fe5521ec21ac02",
+          "encoderCheckpointSha256": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 115,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t20-s43-i00-C7L.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t20-s43-i00-C7L.jpg"
+        },
+        {
+          "model": "S",
+          "success": false,
+          "steps": 300,
+          "durationSeconds": 15.1,
+          "video": "t20-s43-i00-S.mp4",
+          "poster": "t20-s43-i00-S.jpg",
+          "videoSha256": "eefebf6be8104835d66a92d9c4a78feabeeb69fc2cdf1098655811b260743763",
+          "posterSha256": "8fa2923c01c171d17adeb3bb34508b441e9dda74accf1d46884636a013e368f4",
+          "sourceAtomSha256": "684b3510d4508a9bb6f01a66ee22d78d21a6761a0d8a10a04492763e7ecfa41b",
+          "sourceTraceSha256": "10725acfca6b359159bc7a5f0829baec0c47c2e7618f912f6d332ebd02902e82",
+          "checkpointSha256": "99244686f8cd96d0cb82aef30fbd9b956ee1caecfe023ef1bf9b9c2fb6c72153",
+          "encoderCheckpointSha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": null,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t20-s43-i00-S.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t20-s43-i00-S.jpg"
+        }
+      ]
+    },
+    {
+      "id": "t30-s29-i00",
+      "title": "把字母汤罐和番茄酱都放进篮子",
+      "category": "Long · 长程组合",
+      "shortTitle": "连续完成两个放置",
+      "taskIndex": 30,
+      "taskName": "LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+      "suite": "libero_10",
+      "language": "put both the alphabet soup and the tomato sauce in the basket",
+      "trainingSeed": 29,
+      "initIndex": 0,
+      "clips": [
+        {
+          "model": "C7L",
+          "success": false,
+          "steps": 520,
+          "durationSeconds": 26.1,
+          "video": "t30-s29-i00-C7L.mp4",
+          "poster": "t30-s29-i00-C7L.jpg",
+          "videoSha256": "7ff421ff2f40012243238b5dc7c19d9675176f43930b6bb2885cad5530602a7e",
+          "posterSha256": "1ac34a1f143f725cebbfb1e78e5c05a1f7f47dba112e33105860496d044e7ba4",
+          "sourceAtomSha256": "fafe2a4de0f127d271198cf61a950d721cf5f740a305717d8f96dfc72e0599cc",
+          "sourceTraceSha256": "2817277c2783fc0095ea979400480544e78d51a10b47606bd552f5b826b748b2",
+          "checkpointSha256": "c5f3c0984c0e24362d7aff7e51c4c0438cc44d11511300f6484be4a44e3164dc",
+          "encoderCheckpointSha256": "6ab8afeff590b408f43ed90c2eddb11f38ebe596b21f1284d6bb6b9dc3b52e2e",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": null,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t30-s29-i00-C7L.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t30-s29-i00-C7L.jpg"
+        },
+        {
+          "model": "S",
+          "success": true,
+          "steps": 305,
+          "durationSeconds": 15.4,
+          "video": "t30-s29-i00-S.mp4",
+          "poster": "t30-s29-i00-S.jpg",
+          "videoSha256": "4a5ecbe19dd79ce70af3eb9bec3546e30690cef07eace6a7634a6629cc6a9db6",
+          "posterSha256": "2c7074468acf14d7c363a8845fcf47013fc39fe9f3e5acb82123473d5493b7ac",
+          "sourceAtomSha256": "a43053e23a99c47a11d1d8a8f661028d287548b73052576c4079bcb7fff689e9",
+          "sourceTraceSha256": "85d81c16460a69e893abeaff1aa728c3131f40c94c4e99e74e34ccff164bf5e9",
+          "checkpointSha256": "8be11eb2ee2eaac7848f4d96d613f5aca9839049f9b2a9a2347781028ce0e9f7",
+          "encoderCheckpointSha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b",
+          "proprioMaxAbsError": 0.0,
+          "firstSuccessStep": 305,
+          "videoUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t30-s29-i00-S.mp4",
+          "posterUrl": "https://huggingface.co/B111ue/mve-research-archive/resolve/4e326d7663963fcc9151b2a609f7e41289f59bc3/showcases/c7l-20261030/t30-s29-i00-S.jpg"
+        }
+      ]
+    }
+  ],
+  "sourceReplayScriptSha256": "40387e41ff891288ade17682ab81a641da2a2a3883383d9e7df7b57c464aa27a",
+  "seeds": [
+    {
+      "seed": 17,
+      "successRate": 0.75,
+      "successes": 600
+    },
+    {
+      "seed": 29,
+      "successRate": 0.57,
+      "successes": 456
+    },
+    {
+      "seed": 43,
+      "successRate": 0.62,
+      "successes": 496
+    }
+  ],
+  "suites": [
+    {
+      "id": "libero_spatial",
+      "label": "Spatial · 空间辨认",
+      "C7L": 0.8333333333333334,
+      "S": 0.8183333333333334
+    },
+    {
+      "id": "libero_object",
+      "label": "Object · 物体选择",
+      "C7L": 0.8833333333333333,
+      "S": 0.89
+    },
+    {
+      "id": "libero_goal",
+      "label": "Goal · 目标执行",
+      "C7L": 0.49833333333333335,
+      "S": 0.5283333333333333
+    },
+    {
+      "id": "libero_10",
+      "label": "Long · 长程组合",
+      "C7L": 0.37166666666666665,
+      "S": 0.2633333333333333
+    }
+  ],
+  "overall": {
+    "C7L": 0.6466666666666666,
+    "standardDeviation": 0.09291573243177571,
+    "S": 0.625,
+    "valid": 2400,
+    "policySeeds": [
+      17,
+      29,
+      43
+    ]
+  },
+  "mediaRevision": "4e326d7663963fcc9151b2a609f7e41289f59bc3",
+  "publishedMediaShaVerified": true
+}
