@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>P4 解冻层数测评图</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* layout: one reading column; each figure is a full-width band with a one-line finding above it */
+:root{
+  --bg:#f7f8fa; --panel:#ffffff; --fg:#14181f; --muted:#5b6472; --line:#dfe3ea;
+  --accent:#0b6e8f; --gold:#ffb300;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#6250d6; --s5:#e87ba4; --s0:#14181f;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --num:"JetBrains Mono","Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1318; --panel:#171c23; --fg:#eef1f5; --muted:#9aa4b2; --line:#2a313b;
+  --accent:#5cc4e0; --gold:#ffc933;
+  --s1:#5a9bea; --s2:#f08355; --s3:#3fc793; --s4:#9085e9; --s5:#ee93b6; --s0:#eef1f5; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0f1318; --panel:#171c23; --fg:#eef1f5; --muted:#9aa4b2; --line:#2a313b;
+  --accent:#5cc4e0; --gold:#ffc933;
+  --s1:#5a9bea; --s2:#f08355; --s3:#3fc793; --s4:#9085e9; --s5:#ee93b6; --s0:#eef1f5; color-scheme:dark }
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:34px}
+h1{font-size:26px;font-weight:650;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:18px;font-weight:650;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:6px 0 0;max-width:70ch}
+.find{margin:4px 0 0;max-width:75ch}
+section{display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.scroll{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:14px}
+.enc{font-weight:650;font-size:14px;margin:0 0 6px}
+.enc small{font-weight:400;color:var(--muted)}
+table.hm{border-collapse:separate;border-spacing:3px;font-family:var(--num);font-size:12.5px;font-variant-numeric:tabular-nums;min-width:860px;width:100%}
+table.hm th{font-family:var(--sans);font-weight:500;font-size:11.5px;color:var(--muted);padding:2px 3px;line-height:1.25;vertical-align:bottom;text-align:center}
+table.hm td{text-align:center;padding:8px 2px;border-radius:5px;position:relative}
+table.hm td.lab,table.hm th.lab{font-family:var(--sans);text-align:left;color:var(--fg);font-size:12.5px;white-space:nowrap;padding:8px 8px 8px 2px;position:sticky;left:0;z-index:2;background:var(--panel);border-radius:0;min-width:64px;box-shadow:-4px 0 0 var(--panel),4px 0 0 var(--panel)}
+table.hm td.best{outline:3px solid var(--gold);outline-offset:-1px;font-weight:700}
+table.hm td.best::before{content:"★";position:absolute;top:-7px;right:-4px;color:var(--gold);font-size:14px;text-shadow:0 0 2px var(--panel),0 0 2px var(--panel)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:12.5px;color:var(--muted)}
+.ramp{display:inline-block;width:180px;height:12px;border-radius:3px;vertical-align:middle;margin:0 6px}
+.key{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:22px;height:0;border-top:3px solid}
+.btns{display:flex;flex-wrap:wrap;gap:6px}
+.btns button{font:inherit;font-size:13px;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.btns button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.btns button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.plot{width:100%;min-width:0}
+.note{font-size:13px;color:var(--muted);max-width:80ch;margin:0}
+.note li{margin:2px 0}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>解冻多少层最均衡：四个编码器 × 五档 × 14 种条件</h1>
+  <p class="sub">固定 CoRP 结构，只换视觉编码器和放开的层数（从输出端数 0 / 2 / 4 / 8 / 12 层）。LIBERO 28 个任务，40k 步，EMA 权重，每格 560 回合，一个种子。<span id="stamp"></span></p>
+</header>
+
+<section>
+  <h2>图 1　成功率热力表</h2>
+  <p class="find">每一列里，绿色是和最高档差 3 分以内（分不开），黄到红是落后越来越多。金框加星是该条件下五档里最高的一格。全冻一行几乎全红；后 8 层一行大多是绿，只在噪声上发红；全部放开一行在变暗、输入尺寸上发黄发红。</p>
+  <div class="legend"><span id="rampwrap"></span><span class="key"><span style="display:inline-block;width:16px;height:14px;border-radius:3px;outline:3px solid var(--gold);outline-offset:-1px"></span>★ 该条件下最高一档</span></div>
+  <div class="btns" id="hmbtn" role="group" aria-label="上色方式"><button type="button" id="hm-gap" data-m="gap" aria-pressed="true">按与最高档的差距上色</button><button type="button" id="hm-abs" data-m="abs" aria-pressed="false">按成功率上色</button></div>
+  <div id="heat" style="display:flex;flex-direction:column;gap:14px"></div>
+</section>
+
+<section>
+  <h2>图 2　后 8 层 减 全部放开</h2>
+  <p class="find">条往右：冻住前 4 层更好。条往左：全部放开更好。变暗、输入尺寸、相机视角多在右边，传感器噪声在左边，四个编码器方向一致，幅度不同。</p>
+  <div class="legend" id="lg2"></div>
+  <div class="panel"><div id="diff" class="plot" style="height:640px"></div></div>
+</section>
+
+<section>
+  <h2>图 3　三维曲面：放开层数 × 条件 × 成功率</h2>
+  <p class="find">可拖动旋转。条件按“后 8 层减全部放开”的四编码器平均值从大到小排列，所以曲面在 8 层处有一条山脊，靠近噪声一端才被 12 层超过。</p>
+  <div class="btns" id="encbtn" role="group" aria-label="选择编码器"></div>
+  <div class="panel"><div id="surf" class="plot" style="height:600px"></div></div>
+  <p class="note">条件是类别，没有天然顺序，曲面的起伏会随排列方式变化。这张图用来看整体形状，逐项结论以图 1 和图 2 的数字为准。</p>
+</section>
+
+<section>
+  <h2>图 4　无扰动成功率随训练步数的变化</h2>
+  <p class="find">每条线是一档放开层数，横轴是训练步数（5k、10k、20k、40k），每个点 1,400 回合。纵轴按失败率取对数：失败率每减半，线上升同样的高度，所以 90% 以上的差别和 50% 附近的差别一样看得清。放开得越多，线升得越快、平台越高；后 8 层和全部放开两条线几乎重合。还没测完的点不画。</p>
+  <div class="legend" id="lg5"></div>
+  <div class="grid2" id="steps"></div>
+</section>
+
+<section>
+  <h2>读图前要知道的</h2>
+  <ul class="note" id="notes"></ul>
+</section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<script>
+const D={"encoders": ["DINOv2-S", "DINOv3-B", "EUPE-ViT-B", "SigLIP 2-B"], "conds": [{"key": "none", "name": "无扰动", "short": "无扰动"}, {"key": "light:0.25", "name": "变暗 ×0.25", "short": "变暗"}, {"key": "lightcolor:1", "name": "暖光", "short": "暖光"}, {"key": "lightcolor:2", "name": "冷光", "short": "冷光"}, {"key": "blur:1.5", "name": "失焦 σ1.5", "short": "失焦"}, {"key": "noise:20", "name": "噪声 σ20", "short": "噪声"}, {"key": "res:0.75", "name": "输入尺寸 ×0.75", "short": "尺寸×0.75"}, {"key": "res:1.25", "name": "输入尺寸 ×1.25", "short": "尺寸×1.25"}, {"key": "camfov:0.8", "name": "视场放大（画面缩小）", "short": "相机远"}, {"key": "camfov:1.25", "name": "视场缩小（画面放大）", "short": "相机近"}, {"key": "cam_shift:2", "name": "相机平移 2 cm", "short": "平移2cm"}, {"key": "cam_yaw:6", "name": "相机偏转 6°", "short": "偏转6°"}, {"key": "block:0.2", "name": "遮挡带", "short": "遮挡带"}, {"key": "tabletex:1", "name": "换台面贴图", "short": "换台面"}], "cells": {"DINOv2-S": {"2": {"none": {"r": 87.5, "step": 40000}, "light:0.25": {"r": 68.75, "step": 40000}, "lightcolor:1": {"r": 72.14, "step": 40000}, "lightcolor:2": {"r": 81.43, "step": 40000}, "blur:1.5": {"r": 76.43, "step": 40000}, "noise:20": {"r": 17.86, "step": 40000}, "res:0.75": {"r": 40.0, "step": 40000}, "res:1.25": {"r": 59.46, "step": 40000}, "camfov:0.8": {"r": 51.79, "step": 40000}, "camfov:1.25": {"r": 50.89, "step": 40000}, "cam_shift:2": {"r": 69.11, "step": 40000}, "cam_yaw:6": {"r": 48.93, "step": 40000}, "block:0.2": {"r": 53.75, "step": 40000}, "tabletex:1": {"r": 48.21, "step": 40000}}, "8": {"none": {"r": 93.57, "step": 40000}, "light:0.25": {"r": 92.14, "step": 40000}, "lightcolor:1": {"r": 94.11, "step": 40000}, "lightcolor:2": {"r": 93.57, "step": 40000}, "blur:1.5": {"r": 91.07, "step": 40000}, "noise:20": {"r": 35.0, "step": 40000}, "res:0.75": {"r": 79.29, "step": 40000}, "res:1.25": {"r": 94.11, "step": 40000}, "camfov:0.8": {"r": 92.14, "step": 40000}, "camfov:1.25": {"r": 87.5, "step": 40000}, "cam_shift:2": {"r": 93.04, "step": 40000}, "cam_yaw:6": {"r": 86.96, "step": 40000}, "block:0.2": {"r": 69.46, "step": 40000}, "tabletex:1": {"r": 78.04, "step": 40000}}, "0": {"none": {"r": 66.07, "step": 40000}, "light:0.25": {"r": 37.5, "step": 40000}, "lightcolor:1": {"r": 34.64, "step": 40000}, "lightcolor:2": {"r": 49.82, "step": 40000}, "blur:1.5": {"r": 42.86, "step": 40000}, "noise:20": {"r": 2.5, "step": 40000}, "res:0.75": {"r": 12.32, "step": 40000}, "res:1.25": {"r": 29.11, "step": 40000}, "camfov:0.8": {"r": 18.04, "step": 40000}, "camfov:1.25": {"r": 22.68, "step": 40000}, "cam_shift:2": {"r": 46.61, "step": 40000}, "cam_yaw:6": {"r": 15.89, "step": 40000}, "block:0.2": {"r": 7.32, "step": 40000}, "tabletex:1": {"r": 14.46, "step": 40000}}, "4": {"none": {"r": 91.79, "step": 40000}, "light:0.25": {"r": 86.61, "step": 40000}, "lightcolor:1": {"r": 90.18, "step": 40000}, "lightcolor:2": {"r": 90.18, "step": 40000}, "blur:1.5": {"r": 89.29, "step": 40000}, "noise:20": {"r": 47.14, "step": 40000}, "res:0.75": {"r": 79.29, "step": 40000}, "res:1.25": {"r": 87.86, "step": 40000}, "camfov:0.8": {"r": 85.54, "step": 40000}, "camfov:1.25": {"r": 80.0, "step": 40000}, "cam_shift:2": {"r": 88.93, "step": 40000}, "cam_yaw:6": {"r": 78.39, "step": 40000}, "block:0.2": {"r": 69.82, "step": 40000}, "tabletex:1": {"r": 69.64, "step": 40000}}, "12": {"none": {"r": 93.39, "step": 40000}, "light:0.25": {"r": 61.96, "step": 40000}, "lightcolor:1": {"r": 93.04, "step": 40000}, "lightcolor:2": {"r": 92.5, "step": 40000}, "blur:1.5": {"r": 76.61, "step": 40000}, "noise:20": {"r": 74.11, "step": 40000}, "res:0.75": {"r": 70.71, "step": 40000}, "res:1.25": {"r": 79.82, "step": 40000}, "camfov:0.8": {"r": 85.18, "step": 40000}, "camfov:1.25": {"r": 86.43, "step": 40000}, "cam_shift:2": {"r": 93.04, "step": 40000}, "cam_yaw:6": {"r": 85.36, "step": 40000}, "block:0.2": {"r": 79.11, "step": 40000}, "tabletex:1": {"r": 76.61, "step": 40000}}}, "DINOv3-B": {"0": {"none": {"r": 53.57, "step": 40000}, "light:0.25": {"r": 35.36, "step": 40000}, "lightcolor:1": {"r": 40.36, "step": 40000}, "lightcolor:2": {"r": 42.32, "step": 40000}, "blur:1.5": {"r": 24.64, "step": 40000}, "noise:20": {"r": 1.07, "step": 40000}, "res:0.75": {"r": 10.18, "step": 40000}, "res:1.25": {"r": 17.5, "step": 40000}, "camfov:0.8": {"r": 14.46, "step": 40000}, "camfov:1.25": {"r": 16.43, "step": 40000}, "cam_shift:2": {"r": 33.93, "step": 40000}, "cam_yaw:6": {"r": 16.07, "step": 40000}, "block:0.2": {"r": 2.32, "step": 40000}, "tabletex:1": {"r": 3.39, "step": 40000}}, "2": {"none": {"r": 69.11, "step": 40000}, "light:0.25": {"r": 50.18, "step": 40000}, "lightcolor:1": {"r": 59.82, "step": 40000}, "lightcolor:2": {"r": 58.75, "step": 40000}, "blur:1.5": {"r": 44.64, "step": 40000}, "noise:20": {"r": 11.25, "step": 40000}, "res:0.75": {"r": 28.93, "step": 40000}, "res:1.25": {"r": 35.36, "step": 40000}, "camfov:0.8": {"r": 29.82, "step": 40000}, "camfov:1.25": {"r": 31.79, "step": 40000}, "cam_shift:2": {"r": 52.32, "step": 40000}, "cam_yaw:6": {"r": 30.18, "step": 40000}, "block:0.2": {"r": 10.0, "step": 40000}, "tabletex:1": {"r": 23.04, "step": 40000}}, "4": {"none": {"r": 80.89, "step": 40000}, "light:0.25": {"r": 68.57, "step": 40000}, "lightcolor:1": {"r": 73.21, "step": 40000}, "lightcolor:2": {"r": 68.21, "step": 40000}, "blur:1.5": {"r": 65.71, "step": 40000}, "noise:20": {"r": 10.71, "step": 40000}, "res:0.75": {"r": 33.21, "step": 40000}, "res:1.25": {"r": 49.11, "step": 40000}, "camfov:0.8": {"r": 38.39, "step": 40000}, "camfov:1.25": {"r": 36.25, "step": 40000}, "cam_shift:2": {"r": 59.46, "step": 40000}, "cam_yaw:6": {"r": 39.11, "step": 40000}, "block:0.2": {"r": 30.18, "step": 40000}, "tabletex:1": {"r": 41.07, "step": 40000}}, "8": {"none": {"r": 93.93, "step": 40000}, "light:0.25": {"r": 86.79, "step": 40000}, "lightcolor:1": {"r": 90.71, "step": 40000}, "lightcolor:2": {"r": 88.57, "step": 40000}, "blur:1.5": {"r": 86.07, "step": 40000}, "noise:20": {"r": 24.29, "step": 40000}, "res:0.75": {"r": 48.04, "step": 40000}, "res:1.25": {"r": 72.32, "step": 40000}, "camfov:0.8": {"r": 68.57, "step": 40000}, "camfov:1.25": {"r": 62.5, "step": 40000}, "cam_shift:2": {"r": 80.54, "step": 40000}, "cam_yaw:6": {"r": 61.07, "step": 40000}, "block:0.2": {"r": 25.18, "step": 40000}, "tabletex:1": {"r": 60.36, "step": 40000}}, "12": {"none": {"r": 93.04, "step": 40000}, "light:0.25": {"r": 80.89, "step": 40000}, "lightcolor:1": {"r": 92.5, "step": 40000}, "lightcolor:2": {"r": 91.43, "step": 40000}, "blur:1.5": {"r": 76.07, "step": 40000}, "noise:20": {"r": 46.79, "step": 40000}, "res:0.75": {"r": 37.86, "step": 40000}, "res:1.25": {"r": 59.82, "step": 40000}, "camfov:0.8": {"r": 66.25, "step": 40000}, "camfov:1.25": {"r": 56.07, "step": 40000}, "cam_shift:2": {"r": 74.64, "step": 40000}, "cam_yaw:6": {"r": 60.36, "step": 40000}, "block:0.2": {"r": 27.32, "step": 40000}, "tabletex:1": {"r": 69.11, "step": 40000}}}, "EUPE-ViT-B": {"0": {"none": {"r": 61.43, "step": 40000}, "light:0.25": {"r": 35.18, "step": 40000}, "lightcolor:1": {"r": 36.96, "step": 40000}, "lightcolor:2": {"r": 38.04, "step": 40000}, "blur:1.5": {"r": 26.96, "step": 40000}, "noise:20": {"r": 4.11, "step": 40000}, "res:0.75": {"r": 20.36, "step": 40000}, "res:1.25": {"r": 36.25, "step": 40000}, "camfov:0.8": {"r": 29.11, "step": 40000}, "camfov:1.25": {"r": 28.75, "step": 40000}, "cam_shift:2": {"r": 50.0, "step": 40000}, "cam_yaw:6": {"r": 26.79, "step": 40000}, "block:0.2": {"r": 4.82, "step": 40000}, "tabletex:1": {"r": 2.5, "step": 40000}}, "2": {"none": {"r": 71.07, "step": 40000}, "light:0.25": {"r": 42.86, "step": 40000}, "lightcolor:1": {"r": 57.14, "step": 40000}, "lightcolor:2": {"r": 64.46, "step": 40000}, "blur:1.5": {"r": 37.86, "step": 40000}, "noise:20": {"r": 5.89, "step": 40000}, "res:0.75": {"r": 17.68, "step": 40000}, "res:1.25": {"r": 44.64, "step": 40000}, "camfov:0.8": {"r": 24.29, "step": 40000}, "camfov:1.25": {"r": 22.5, "step": 40000}, "cam_shift:2": {"r": 51.43, "step": 40000}, "cam_yaw:6": {"r": 28.04, "step": 40000}, "block:0.2": {"r": 10.71, "step": 40000}, "tabletex:1": {"r": 34.11, "step": 40000}}, "4": {"none": {"r": 76.25, "step": 40000}, "light:0.25": {"r": 46.25, "step": 40000}, "lightcolor:1": {"r": 61.61, "step": 40000}, "lightcolor:2": {"r": 65.54, "step": 40000}, "blur:1.5": {"r": 43.75, "step": 40000}, "noise:20": {"r": 10.36, "step": 40000}, "res:0.75": {"r": 25.0, "step": 40000}, "res:1.25": {"r": 42.86, "step": 40000}, "camfov:0.8": {"r": 33.93, "step": 40000}, "camfov:1.25": {"r": 24.82, "step": 40000}, "cam_shift:2": {"r": 53.75, "step": 40000}, "cam_yaw:6": {"r": 27.68, "step": 40000}, "block:0.2": {"r": 26.79, "step": 40000}, "tabletex:1": {"r": 38.21, "step": 40000}}, "8": {"none": {"r": 86.43, "step": 40000}, "light:0.25": {"r": 62.14, "step": 40000}, "lightcolor:1": {"r": 79.29, "step": 40000}, "lightcolor:2": {"r": 83.57, "step": 40000}, "blur:1.5": {"r": 57.5, "step": 40000}, "noise:20": {"r": 19.11, "step": 40000}, "res:0.75": {"r": 25.54, "step": 40000}, "res:1.25": {"r": 52.5, "step": 40000}, "camfov:0.8": {"r": 44.29, "step": 40000}, "camfov:1.25": {"r": 31.96, "step": 40000}, "cam_shift:2": {"r": 61.43, "step": 40000}, "cam_yaw:6": {"r": 39.46, "step": 40000}, "block:0.2": {"r": 32.5, "step": 40000}, "tabletex:1": {"r": 56.79, "step": 40000}}, "12": {"none": {"r": 88.75, "step": 40000}, "light:0.25": {"r": 56.43, "step": 40000}, "lightcolor:1": {"r": 82.5, "step": 40000}, "lightcolor:2": {"r": 85.89, "step": 40000}, "blur:1.5": {"r": 44.46, "step": 40000}, "noise:20": {"r": 22.86, "step": 40000}, "res:0.75": {"r": 25.89, "step": 40000}, "res:1.25": {"r": 45.36, "step": 40000}, "camfov:0.8": {"r": 38.04, "step": 40000}, "camfov:1.25": {"r": 25.54, "step": 40000}, "cam_shift:2": {"r": 61.96, "step": 40000}, "cam_yaw:6": {"r": 45.36, "step": 40000}, "block:0.2": {"r": 17.86, "step": 40000}, "tabletex:1": {"r": 64.29, "step": 40000}}}, "SigLIP 2-B": {"0": {"none": {"r": 61.07, "step": 40000}, "light:0.25": {"r": 20.18, "step": 40000}, "lightcolor:1": {"r": 39.82, "step": 40000}, "lightcolor:2": {"r": 47.14, "step": 40000}, "blur:1.5": {"r": 8.75, "step": 40000}, "noise:20": {"r": 1.96, "step": 40000}, "res:0.75": {"r": 5.18, "step": 40000}, "res:1.25": {"r": 23.21, "step": 40000}, "camfov:0.8": {"r": 29.64, "step": 40000}, "camfov:1.25": {"r": 25.54, "step": 40000}, "cam_shift:2": {"r": 38.39, "step": 40000}, "cam_yaw:6": {"r": 23.39, "step": 40000}, "block:0.2": {"r": 31.07, "step": 40000}, "tabletex:1": {"r": 30.36, "step": 40000}}, "2": {"none": {"r": 79.11, "step": 40000}, "light:0.25": {"r": 28.93, "step": 40000}, "lightcolor:1": {"r": 55.18, "step": 40000}, "lightcolor:2": {"r": 69.64, "step": 40000}, "blur:1.5": {"r": 11.43, "step": 40000}, "noise:20": {"r": 1.79, "step": 40000}, "res:0.75": {"r": 9.82, "step": 40000}, "res:1.25": {"r": 27.32, "step": 40000}, "camfov:0.8": {"r": 33.75, "step": 40000}, "camfov:1.25": {"r": 35.89, "step": 40000}, "cam_shift:2": {"r": 55.89, "step": 40000}, "cam_yaw:6": {"r": 33.57, "step": 40000}, "block:0.2": {"r": 35.18, "step": 40000}, "tabletex:1": {"r": 52.32, "step": 40000}}, "4": {"none": {"r": 87.14, "step": 40000}, "light:0.25": {"r": 57.68, "step": 40000}, "lightcolor:1": {"r": 78.57, "step": 40000}, "lightcolor:2": {"r": 80.54, "step": 40000}, "blur:1.5": {"r": 30.36, "step": 40000}, "noise:20": {"r": 14.64, "step": 40000}, "res:0.75": {"r": 22.14, "step": 40000}, "res:1.25": {"r": 57.14, "step": 40000}, "camfov:0.8": {"r": 54.64, "step": 40000}, "camfov:1.25": {"r": 53.39, "step": 40000}, "cam_shift:2": {"r": 70.54, "step": 40000}, "cam_yaw:6": {"r": 60.0, "step": 40000}, "block:0.2": {"r": 41.25, "step": 40000}, "tabletex:1": {"r": 70.71, "step": 40000}}, "8": {"none": {"r": 93.75, "step": 40000}, "light:0.25": {"r": 87.86, "step": 40000}, "lightcolor:1": {"r": 93.39, "step": 40000}, "lightcolor:2": {"r": 93.04, "step": 40000}, "blur:1.5": {"r": 56.07, "step": 40000}, "noise:20": {"r": 38.39, "step": 40000}, "res:0.75": {"r": 63.04, "step": 40000}, "res:1.25": {"r": 77.5, "step": 40000}, "camfov:0.8": {"r": 82.14, "step": 40000}, "camfov:1.25": {"r": 71.25, "step": 40000}, "cam_shift:2": {"r": 90.18, "step": 40000}, "cam_yaw:6": {"r": 75.0, "step": 40000}, "block:0.2": {"r": 75.89, "step": 40000}, "tabletex:1": {"r": 83.39, "step": 40000}}, "12": {"none": {"r": 93.39, "step": 40000}, "light:0.25": {"r": 50.54, "step": 40000}, "lightcolor:1": {"r": 92.5, "step": 40000}, "lightcolor:2": {"r": 93.75, "step": 40000}, "blur:1.5": {"r": 78.93, "step": 40000}, "noise:20": {"r": 89.46, "step": 40000}, "res:0.75": {"r": 54.82, "step": 40000}, "res:1.25": {"r": 78.04, "step": 40000}, "camfov:0.8": {"r": 65.0, "step": 40000}, "camfov:1.25": {"r": 65.54, "step": 40000}, "cam_shift:2": {"r": 84.29, "step": 40000}, "cam_yaw:6": {"r": 63.39, "step": 40000}, "block:0.2": {"r": 81.79, "step": 40000}, "tabletex:1": {"r": 85.89, "step": 40000}}}}, "steps": {"DINOv2-S": {"0": {"5000": 37.14, "10000": 55.93, "20000": 62.36, "40000": 64.93}, "2": {"5000": 73.86, "10000": 79.86, "20000": 84.29, "40000": 86.29}, "4": {"5000": 84.29, "10000": 87.93, "20000": 89.86, "40000": 91.29}, "8": {"5000": 87.57, "10000": 91.36, "20000": 92.07, "40000": 93.21}, "12": {"5000": 85.64, "10000": 91.21, "20000": 92.79, "40000": 93.57}}, "DINOv3-B": {"0": {"40000": 53.36}, "2": {"40000": 70.71}, "4": {"40000": 79.79}, "8": {"40000": 93.36}, "12": {"40000": 92.43}}, "EUPE-ViT-B": {"0": {"20000": 56.79, "40000": 59.21}, "2": {"40000": 73.79}, "4": {"40000": 76.5}, "8": {"40000": 85.21}, "12": {"40000": 87.86}}, "SigLIP 2-B": {"0": {"40000": 59.21}, "2": {"40000": 79.0}, "4": {"40000": 86.0}, "8": {"40000": 93.5}, "12": {"40000": 92.21}}}, "mixed": {}, "notes": ["每个格子只有一个种子。相差 3 个百分点以内的两格不要当成有差别。", "每格 560 回合（28 个任务 × 20 个初始状态），只用回合数跑满的格子。", "三个 ViT-B 编码器全部是 40k 步。", "条件都是仿真里对相机画面或相机位姿的改动，还没有在真机上验证。"], "source": "all4_40k + d2_40k"};
+const LV=[0,2,4,8,12], LVN=['全冻','后 2 层','后 4 层','后 8 层','全部放开'];
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const stops=[[0,[122,16,34]],[30,[214,69,47]],[55,[245,160,60]],[72,[251,232,145]],[84,[170,217,120]],[92,[58,165,95]],[100,[4,74,52]]];
+const gstops=[[0,[4,90,60]],[3,[80,180,105]],[8,[251,232,145]],[20,[245,160,60]],[40,[214,69,47]],[100,[122,16,34]]];
+function col(v,S){S=S||stops;for(let i=1;i<S.length;i++){if(v<=S[i][0]){const a=S[i-1],b=S[i],t=(v-a[0])/(b[0]-a[0]);return a[1].map((x,k)=>Math.round(x+(b[1][k]-x)*t));}}return S[S.length-1][1];}
+const rgb=c=>'rgb('+c.join(',')+')';
+const ink=c=>(0.299*c[0]+0.587*c[1]+0.114*c[2])>150?'#14181f':'#ffffff';
+document.getElementById('stamp').textContent=' 数据：'+D.source+'。';
+const get=(e,l,c)=>{const x=D.cells[e]&&D.cells[e][l]&&D.cells[e][l][c];return x?x.r:null;};
+
+/* fig 1 */
+let hmMode='gap';
+function drawHeat(){let h='';
+for(const e of D.encoders){
+  h+='<div class="panel"><p class="enc">'+e+(D.mixed[e]?' <small>（'+D.mixed[e]+'）</small>':'')+'</p><div class="scroll"><table class="hm"><tr><th class="lab"></th>'+D.conds.map(c=>'<th>'+c.short+'</th>').join('')+'</tr>';
+  const mx=D.conds.map(c=>Math.max(...LV.map(l=>get(e,l,c.key)??-1)));
+  LV.forEach((l,i)=>{h+='<tr><td class="lab">'+LVN[i]+'</td>'+D.conds.map((c,j)=>{const v=get(e,l,c.key);if(v==null)return '<td style="color:var(--muted);font-family:var(--sans);font-size:10.5px;border:1px dashed var(--line)">40k<br>待测</td>';const k=hmMode==='gap'?col(mx[j]-v,gstops):col(v);return '<td class="'+(v===mx[j]?'best':'')+'" style="background:'+rgb(k)+';color:'+ink(k)+'">'+v.toFixed(1)+'</td>';}).join('')+'</tr>';});
+  h+='</table></div></div>';}
+document.getElementById('heat').innerHTML=h;
+  const S=hmMode==='gap'?gstops:stops,M=hmMode==='gap'?40:100;
+  document.getElementById('rampwrap').innerHTML=(hmMode==='gap'?'离该列最高档 0 分':'成功率 0%')+'<span class="ramp" style="background:linear-gradient(90deg,'+S.filter(x=>x[0]<=M).map(x=>rgb(x[1])+' '+(x[0]/M*100)+'%').join(',')+')"></span>'+(hmMode==='gap'?'差 40 分以上':'100%');}
+drawHeat();
+document.getElementById('hmbtn').addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;hmMode=t.dataset.m;[...t.parentNode.children].forEach(x=>x.setAttribute('aria-pressed',x===t));drawHeat();});
+
+/* shared ordering by mean(last8 - full) */
+const pert=D.conds.filter(c=>c.key!=='none');
+const dmean=c=>{let s=0,n=0;for(const e of D.encoders){const a=get(e,8,c.key),b=get(e,12,c.key);if(a!=null&&b!=null){s+=a-b;n++;}}return n?s/n:0;};
+const ordered=pert.slice().sort((a,b)=>dmean(b)-dmean(a));
+const encCol=['--s1','--s2','--s3','--s4'];
+const lineSpec=[['none','无扰动','--s0','solid',4],['light:0.25','变暗','--s1','solid',2.5],['noise:20','传感器噪声','--s2','dash',2.5],['blur:1.5','失焦','--s4','dot',2.5],['camfov:0.8','相机远','--s3','dashdot',2.5],['res:0.75','输入尺寸 ×0.75','--s5','longdash',2.5]];
+
+function base(){return {paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{family:css('--sans'),color:css('--fg'),size:12.5},margin:{l:48,r:14,t:10,b:44},showlegend:false};}
+const cfg={displayModeBar:false,responsive:true};
+
+function drawDiff(){
+  const ys=ordered.map(c=>c.name).reverse();
+  const tr=D.encoders.map((e,i)=>({type:'bar',orientation:'h',name:e,y:ys,x:ordered.map(c=>{const a=get(e,8,c.key),b=get(e,12,c.key);return a!=null&&b!=null?+(a-b).toFixed(1):null;}).reverse(),marker:{color:css(encCol[i])},hovertemplate:e+'<br>%{y}：%{x:+.1f} 个百分点<extra></extra>'}));
+  const L=base();L.barmode='group';L.bargap=.28;L.margin={l:112,r:20,t:10,b:48};
+  L.xaxis={title:{text:'后 8 层 − 全部放开（百分点）'},zeroline:true,zerolinecolor:css('--fg'),zerolinewidth:1.5,gridcolor:css('--line'),dtick:10,range:[-60,60],tickformat:'+d'};
+  L.yaxis={gridcolor:'rgba(0,0,0,0)',automargin:true};
+  Plotly.react('diff',tr,L,cfg);
+  document.getElementById('lg2').innerHTML=D.encoders.map((e,i)=>'<span class="key"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var('+encCol[i]+')"></span>'+e+'</span>').join('');
+}
+const ST=[5000,10000,20000,40000];
+const lvStyle=[['--muted','dot'],['--s5','dashdot'],['--s3','dash'],['--s1','solid'],['--s2','longdash']];
+const fy=v=>-Math.log10(100-v);
+function drawSteps(){
+  const host=document.getElementById('steps');
+  if(!host.children.length)host.innerHTML=D.encoders.map((e,i)=>'<div class="panel"><p class="enc">'+e+'</p><div id="st'+i+'" class="plot" style="height:440px"></div></div>').join('');
+  let lo=100,hi=0;for(const e of D.encoders)for(const l of LV)for(const t of ST){const v=((D.steps[e]||{})[l]||{})[t];if(v!=null){if(v<lo)lo=v;if(v>hi)hi=v;}}
+  const r0=fy(Math.max(0,lo-5)),r1=fy(Math.min(99,hi+1.2)),H=440-10-44,pp=H/(r1-r0);
+  const ticks=[20,30,40,50,60,70,80,85,90,92,94,95,96,97].filter(t=>fy(t)>=r0&&fy(t)<=r1);
+  D.encoders.forEach((e,i)=>{
+    const tr=[],ends=[];
+    LV.forEach((l,j)=>{const s=(D.steps[e]||{})[l]||{};const xs=ST.filter(t=>s[t]!=null);if(!xs.length)return;
+      tr.push({type:'scatter',mode:'lines+markers',name:LVN[j],x:xs.map(t=>ST.indexOf(t)),y:xs.map(t=>fy(s[t])),line:{color:css(lvStyle[j][0]),dash:lvStyle[j][1],width:l===8?4:2.5},marker:{size:l===8?10:7,color:css(lvStyle[j][0])},customdata:xs.map(t=>[t/1000,s[t]]),hovertemplate:LVN[j]+'<br>%{customdata[0]}k 步：%{customdata[1]:.1f}%<extra></extra>'});
+      const t=xs[xs.length-1];ends.push({v:s[t],x:ST.indexOf(t),c:css(lvStyle[j][0])});});
+    const ann=[];let prev=1e9;
+    ends.sort((p,q)=>q.v-p.v).forEach(o=>{const want=(fy(o.v)-r0)*pp,pos=Math.min(want,prev-15);prev=pos;
+      ann.push({x:o.x,y:fy(o.v),xref:'x',yref:'y',text:o.v.toFixed(1),showarrow:false,xanchor:'left',xshift:9,yshift:pos-want,font:{size:12.5,color:o.c}});});
+    const L=base();L.margin={l:56,r:52,t:10,b:44};L.annotations=ann;
+    L.xaxis={title:{text:'训练步数'},tickvals:[0,1,2,3],ticktext:['5k','10k','20k','40k'],range:[-.2,3.2],gridcolor:css('--line'),zeroline:false};
+    L.yaxis={title:{text:'成功率（按失败率取对数）'},range:[r0,r1],tickvals:ticks.map(fy),ticktext:ticks.map(t=>t+'%'),gridcolor:css('--line'),zeroline:false};
+    Plotly.react('st'+i,tr,L,cfg);});
+  document.getElementById('lg5').innerHTML=LVN.map((n,j)=>'<span class="key"><span class="sw" style="border-top-color:var('+lvStyle[j][0]+');border-top-style:'+(lvStyle[j][1]==='solid'?'solid':lvStyle[j][1]==='dot'?'dotted':'dashed')+'"></span>'+n+'</span>').join('');
+}
+let cur=0;
+function drawSurf(){
+  const e=D.encoders[cur];
+  const z=ordered.map(c=>LV.map(l=>get(e,l,c.key)));
+  const tr=[{type:'surface',x:LV,y:ordered.map((_,i)=>i),z:z,cmin:0,cmax:100,colorscale:stops.map(q=>[q[0]/100,rgb(q[1])]),colorbar:{title:{text:'成功率 %'},thickness:12,len:.6,tickfont:{color:css('--fg')}},contours:{x:{show:true,color:'rgba(20,24,31,.35)',width:1},y:{show:true,color:'rgba(20,24,31,.35)',width:1}},lighting:{ambient:.85,diffuse:.5,specular:.05},
+    customdata:ordered.map(c=>LV.map(()=>c.name)),hovertemplate:'%{customdata}<br>放开 %{x} 层：%{z:.1f}%<extra></extra>'}];
+  const ax=t=>({title:{text:t},gridcolor:css('--line'),color:css('--fg'),backgroundcolor:'rgba(0,0,0,0)',showbackground:false});
+  const L=base();L.margin={l:0,r:0,t:0,b:0};
+  L.scene={xaxis:Object.assign(ax('放开层数'),{tickvals:LV}),yaxis:Object.assign(ax(''),{tickvals:ordered.map((_,i)=>i),ticktext:ordered.map(c=>c.short),tickfont:{size:10.5}}),zaxis:Object.assign(ax('成功率'),{range:[0,100],dtick:20,ticksuffix:'%'}),camera:{eye:{x:-1.55,y:-1.6,z:.95}},aspectratio:{x:1,y:1.5,z:.8}};
+  Plotly.react('surf',tr,L,cfg);
+}
+(function(){const b=document.getElementById('encbtn');
+b.innerHTML=D.encoders.map((e,i)=>'<button type="button" id="enc'+i+'" aria-pressed="'+(i===0)+'">'+e+'</button>').join('');
+b.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;cur=+t.id.slice(3);[...b.children].forEach((x,i)=>x.setAttribute('aria-pressed',i===cur));drawSurf();});})();
+document.getElementById('notes').innerHTML=D.notes.map(n=>'<li>'+n+'</li>').join('');
+function all(){drawDiff();drawSteps();drawSurf();}
+all();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);
+new MutationObserver(all).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+
+</body>
+</html>
